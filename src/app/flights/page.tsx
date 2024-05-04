@@ -1,6 +1,6 @@
-import dynamic from 'next/dynamic'
-import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
+import Image from 'next/image'
 import React from 'react'
+import crossSvg from '@/assets/img/cross.svg'
 import {
   Carousel,
   CarouselContent,
@@ -8,14 +8,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { Card, CardContent } from '@components/ui/card'
-import Image from 'next/image'
-import crossSvg from '@/assets/img/cross.svg'
 import { cn } from '@/lib/utils'
+import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 
 export default function Flights() {
   return (
-    <div className="pb-10 mt-4">
+    <div className="mt-4 pb-10">
       <Header />
       <FlightsCarousel />
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus
@@ -29,7 +27,7 @@ export default function Flights() {
 const Header = () => {
   return (
     <>
-      <div className="absolute top-0 left-0 w-full z-0 rounded-b-[50px] bg-[#3F4ED6] h-64"></div>
+      <div className="absolute left-0 top-0 z-0 h-64 w-full rounded-b-[50px] bg-[#3F4ED6]"></div>
       <SearchBarWithTabs />
     </>
   )
@@ -59,25 +57,25 @@ const FlightsCarousel = () => {
   ]
 
   return (
-    <div className="bg-white rounded-full p-4 mt-20 w-full mx-auto max-w-[768px]">
+    <div className="mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4">
       <Carousel
         opts={{
           align: 'start',
         }}
-        className="max-w-[640px] mx-auto"
+        className="mx-auto max-w-[640px]"
       >
         <CarouselContent>
           {data.map((flight, index) => (
             <CarouselItem
               key={index}
-              className="md:basis-1/5 lg:basis-1/7 relative"
+              className="relative md:basis-1/5 lg:basis-1/7"
             >
-              <section className="text-center flex flex-col items-stretch px-4 h-10 relative">
+              <section className="relative flex h-10 flex-col items-stretch px-4 text-center">
                 <header className="text-[8px]">
                   {formatDate(flight.date)}
                 </header>
 
-                <main className="text-[#3F4ED6] text-xs flex justify-center font-semibold mt-auto">
+                <main className="mt-auto flex justify-center text-xs font-semibold text-[#3F4ED6]">
                   {flight.price ? (
                     currencyFormatter.format(Number(flight.price))
                   ) : (
@@ -88,7 +86,7 @@ const FlightsCarousel = () => {
 
               <div
                 className={cn(
-                  'absolute -top-4 -bottom-4 left-0 right-0 bg-brand-blue hidden z-20 h-36',
+                  'absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue',
                   {
                     /*todo: add styles for selected flight */
                     block: false,
