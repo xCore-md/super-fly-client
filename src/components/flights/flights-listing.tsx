@@ -12,7 +12,10 @@ interface IFlightsListingProps {
 }
 export const FlightsListing = (props: IFlightsListingProps) => {
   return Array.from({ length: props.length }).map((_, index) => (
-    <section className="mt-11 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4 shadow-md">
+    <section
+      key={index}
+      className="mt-11 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4 shadow-md"
+    >
       <div className="flex flex-col items-center justify-center">
         <Image src={flyOneSvg} alt="fly agency" width={112} />
         {/*<div className="mt-3 flex flex-col text-left text-[10px]">*/}

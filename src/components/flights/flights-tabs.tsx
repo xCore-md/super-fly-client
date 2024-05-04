@@ -1,12 +1,5 @@
-import Image from 'next/image'
 import React from 'react'
-import backpackSvg from '@/assets/img/backpack.svg'
-import flyOneSvg from '@/assets/img/fly-one.png'
-import seatSvg from '@/assets/img/seat.svg'
-import viberSvg from '@/assets/img/viber.png'
-import whatsappSvg from '@/assets/img/whatsapp.png'
 import { FlightsListing } from '@components/flights/flights-listing'
-import { Button } from '@components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
 export const FlightsTabs = () => {

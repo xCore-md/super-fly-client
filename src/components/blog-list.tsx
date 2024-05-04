@@ -1,7 +1,7 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import card1 from '@/assets/img/card1.jpg'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import Link from 'next/link'
 
 interface IBlogListItemProps {
   image: string
@@ -38,11 +38,11 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="grid grid-cols-4 gap-5 mt-6">
+      <div className="mt-6 grid grid-cols-4 gap-5">
         {Array.from({ length: 4 }).map((_, index) => (
           <a key={index} href="#">
-            <Card className=" rounded-t-[16px] pb-4 hover:shadow-lg transition-all overflow-hidden">
-              <CardHeader className="p-0 rounded-xl">
+            <Card className=" overflow-hidden rounded-t-[16px] pb-4 transition-all hover:shadow-lg">
+              <CardHeader className="rounded-xl p-0">
                 <Image src={card1} alt="card" />
               </CardHeader>
               <CardContent>
@@ -50,7 +50,7 @@ export const BlogList = (props: IBlogListProps) => {
                   Lorem ipsum dolor sit amet consectetur. Mattis pretium
                   pellentesque tincidunt quam.
                 </h3>
-                <p className="text-md font-light mt-4">
+                <p className="text-md mt-4 font-light">
                   Lorem ipsum dolor sit amet consectetur. Mattis pretium
                   pellentesque tincidunt quam.
                 </p>
@@ -72,7 +72,7 @@ export const BlogList = (props: IBlogListProps) => {
         {buttonTitle && (
           <Link
             href={buttonUrl}
-            className="text-white flex items-center justify-center bg-blue-700 font-light rounded-full px-8 h-11 shadow-md shadow-slate-400"
+            className="flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400"
           >
             <span>{buttonTitle.trim()}</span>
           </Link>
