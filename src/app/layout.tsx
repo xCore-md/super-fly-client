@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import '../styles/globals.css'
 import React from 'react'
+import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 
 const inter = Poppins({
@@ -23,10 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <div className="bg-[#F4F4F4]">
-          {/*todo: extract */}
-          <main className="container mx-auto px-0">{children}</main>
-        </div>
+        {/*todo: extract */}
+        <main className="container mx-auto px-0">{children}</main>
+        <Footer />
       </body>
     </html>
   )
