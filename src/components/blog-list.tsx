@@ -25,7 +25,6 @@ export const BlogList = (props: IBlogListProps) => {
     footerSubtitle,
     buttonTitle,
     buttonUrl = '#',
-    items,
   } = props
   return (
     <section className="mb-24">
