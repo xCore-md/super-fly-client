@@ -9,7 +9,7 @@ const Offers = dynamic(() => import('@components/offers'), {
 
 export default function Home() {
   return (
-    <div className="pb-10">
+    <div className="pb-10 mt-20">
       <Banner />
       <BlogList />
       <Offers />

@@ -22,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="container mt-20 mx-auto px-0">{children}</main>
+        <div className="bg-[#F4F4F4]">
+          {/*todo: extract */}
+          <main className="container mx-auto px-0">{children}</main>
+        </div>
       </body>
     </html>
   )

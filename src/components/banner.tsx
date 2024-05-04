@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import banner from '@/assets/img/banner.jpg'
 import { SearchBar } from './search-bar'
+import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 
 export const Banner = () => {
   return (
@@ -23,24 +24,8 @@ export const Banner = () => {
             aliquet.
           </p>
         </div>
-        <div className="flex flex-col items-center justify-center gap-4">
-          <div className="flex gap-2">
-            <Button
-              className="font-semibold rounded-xl p-4 h-[22px]"
-              variant="secondary"
-            >
-              Dus
-            </Button>
-            <Button
-              className="font-semibold rounded-xl p-4 h-[22px] text-white"
-              variant="ghost"
-            >
-              Întors
-            </Button>
-          </div>
 
-          <SearchBar />
-        </div>
+        <SearchBarWithTabs />
       </div>
     </section>
   )
