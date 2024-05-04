@@ -1,13 +1,44 @@
 import Image from 'next/image'
 import card1 from '@/assets/img/card1.jpg'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import Link from 'next/link'
 
-export const BlogList = () => {
+interface IBlogListItemProps {
+  image: string
+  title: string
+  subtitle?: string
+}
+
+interface IBlogListProps {
+  title: string
+  subtitle?: string
+  items?: IBlogListItemProps[]
+  footerSubtitle?: string
+  buttonTitle?: string
+  buttonUrl?: string
+}
+
+export const BlogList = (props: IBlogListProps) => {
+  const {
+    title,
+    subtitle,
+    footerSubtitle,
+    buttonTitle,
+    buttonUrl = '#',
+    items,
+  } = props
   return (
-    <section className="mb-44">
-      <h2 className="text-2xl font-medium mb-6">Cele mai bune oferte</h2>
-      <div className="grid grid-cols-4 gap-5">
+    <section className="mb-24">
+      <h2 className={`text-2xl font-medium ${subtitle ? 'mb-2' : 'mb-6'}`}>
+        {title}
+      </h2>
+      {subtitle && (
+        <span
+          className="mb-4 text-sm font-light"
+          dangerouslySetInnerHTML={{ __html: subtitle }}
+        />
+      )}
+      <div className="grid grid-cols-4 gap-5 mt-6">
         {Array.from({ length: 4 }).map((_, index) => (
           <a key={index} href="#">
             <Card className=" rounded-t-[16px] pb-4 hover:shadow-lg transition-all overflow-hidden">
@@ -28,15 +59,24 @@ export const BlogList = () => {
           </a>
         ))}
       </div>
-      <div className="flex items-center justify-between mt-8">
-        <p className="text-sm font-light">
-          Obțineți economii mari la zboruri și pachete de vacanță cu promoțiile
-          noastre exclusive. <br /> Răsfoiți cele mai recente oferte și
-          rezervați-vă astăzi următoarea călătorie!
-        </p>
-        <Button className="bg-blue-700 font-light rounded-full px-8 shadow-md shadow-slate-400">
-          Vezi Toate Ofertele
-        </Button>
+      <div
+        className={`flex items-center ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+      >
+        {footerSubtitle && (
+          <p className="text-sm font-light">
+            Obțineți economii mari la zboruri și pachete de vacanță cu
+            promoțiile noastre exclusive. <br /> Răsfoiți cele mai recente
+            oferte și rezervați-vă astăzi următoarea călătorie!
+          </p>
+        )}
+        {buttonTitle && (
+          <Link
+            href={buttonUrl}
+            className="text-white flex items-center justify-center bg-blue-700 font-light rounded-full px-8 h-11 shadow-md shadow-slate-400"
+          >
+            <span>{buttonTitle.trim()}</span>
+          </Link>
+        )}
       </div>
     </section>
   )
