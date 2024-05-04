@@ -16,7 +16,7 @@ export const Header = () => {
   console.log({ pathname })
 
   useEffect(() => {
-    if (pathname === '/about' || pathname === 'reservation') {
+    if (pathname === '/about' || pathname === '/reservation') {
       setIsSimpleHeader(true)
     } else {
       setIsSimpleHeader(false)
