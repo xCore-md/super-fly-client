@@ -55,6 +55,7 @@ const config = {
         brand: {
           blue: '#3F4ED6',
           gray: '#F4F4F4',
+          green: '#10D2A4',
         },
       },
       borderRadius: {

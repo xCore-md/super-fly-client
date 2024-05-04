@@ -35,7 +35,7 @@ export const FlightsCarousel = () => {
   ]
 
   return (
-    <div className="mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4">
+    <div className="mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4 shadow-md">
       <Carousel
         opts={{
           align: 'start',
