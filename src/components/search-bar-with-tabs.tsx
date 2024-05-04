@@ -6,13 +6,13 @@ export const SearchBarWithTabs = () => {
     <div className="relative flex flex-col items-center justify-center gap-4">
       <div className="flex gap-2">
         <Button
-          className="font-semibold rounded-xl p-4 h-[22px]"
+          className="h-[22px] rounded-xl p-4 font-semibold"
           variant="secondary"
         >
           Dus
         </Button>
         <Button
-          className="font-semibold rounded-xl p-4 h-[22px] text-white"
+          className="h-[22px] rounded-xl p-4 font-semibold text-white"
           variant="ghost"
         >
           Întors

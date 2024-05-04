@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import aboutBanner from '@/assets/img/about-banner.jpg'
+import aboutBanner from '@/assets/img/about-banner.png'
 import { WhyUs } from '@/components/why-us'
 
 export default function About() {
@@ -29,7 +29,7 @@ export default function About() {
         </div>
       </div>
 
-      <Image src={aboutBanner} alt="image" />
+      <Image className="rounded-[20px]" src={aboutBanner} alt="image" />
 
       <WhyUs />
       <hr className="  border-t-gray-200" />

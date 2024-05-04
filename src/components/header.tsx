@@ -13,8 +13,6 @@ export const Header = () => {
   const tel = '+(373) 60 456 654'
   const pathname = usePathname()
 
-  console.log({ pathname })
-
   useEffect(() => {
     if (pathname === '/about' || pathname === '/reservation') {
       setIsSimpleHeader(true)
