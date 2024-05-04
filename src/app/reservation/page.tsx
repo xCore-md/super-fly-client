@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import React from 'react'
-import img from '@/assets/img/img.png'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Button } from '@components/ui/button'
 import { Input } from '@components/ui/input'

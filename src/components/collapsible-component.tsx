@@ -1,13 +1,12 @@
 'use client'
 
-import React, { ReactElement, useState } from 'react'
-
 import Image from 'next/image'
+import React, { ReactElement, useState } from 'react'
 import { Collapsible } from '@radix-ui/react-collapsible'
-import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
-import { Button } from './ui/button'
-import plus from '@/assets/img/plus.svg'
 import minus from '@/assets/img/minus.svg'
+import plus from '@/assets/img/plus.svg'
+import { Button } from './ui/button'
+import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 
 interface ICollapsibleComponentProps {
   title: string
@@ -26,7 +25,7 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
     >
       <CollapsibleTrigger className="w-full">
         <div
-          className={`flex justify-between items-center rounded-full h-[63px] px-4 ${isOpen ? 'bg-blue-700' : 'bg-white border border-gray-200'}`}
+          className={`flex h-[63px] items-center justify-between rounded-full px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >
           <span
             className={`text-lg font-light ${isOpen ? 'text-white' : 'text-black'}`}
@@ -34,7 +33,7 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
             {title}
           </span>
           <Button
-            className={`rounded-full  h-[38px] w-[38px] p-0 ${isOpen ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
+            className={`h-[38px]  w-[38px] rounded-full p-0 ${isOpen ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
           >
             <Image
               src={isOpen ? minus : plus}
@@ -46,7 +45,7 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className={`rounded-b-[20px] bg-white px-5 pt-14 pb-4 -mt-10 ${isOpen ? 'shadow-lg shadow-slate-200' : ''}`}
+        className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-4 pt-14 ${isOpen ? 'shadow-lg shadow-slate-200' : ''}`}
       >
         {content}
       </CollapsibleContent>

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import why1 from '@/assets/img/why1.svg'
 import why2 from '@/assets/img/why2.svg'
 import why3 from '@/assets/img/why3.svg'
@@ -35,10 +34,10 @@ export const WhyUs = () => {
     },
   ]
   return (
-    <section className="mt-20 mb-36">
-      <div className="flex flex-col items-center mb-14">
-        <h3 className="text-2xl font-normal mb-2">Rezervați cu Noi</h3>
-        <p className="text-md font-light text-gray-700 text-center">
+    <section className="mb-36 mt-20">
+      <div className="mb-14 flex flex-col items-center">
+        <h3 className="mb-2 text-2xl font-normal">Rezervați cu Noi</h3>
+        <p className="text-md text-center font-light text-gray-700">
           Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
           pellentesque tincidunt quam
         </p>
@@ -47,11 +46,11 @@ export const WhyUs = () => {
         {items.map(({ image, title }) => (
           <div
             key={title}
-            className="flex items-start gap-6 p-6 border border-gray-200 rounded-lg bg-white"
+            className="flex items-start gap-6 rounded-lg border border-gray-200 bg-white p-6"
           >
             <Image src={image} alt="icon" />
             <div>
-              <h4 className="text-xl mb-3 font-medium ">{title}</h4>
+              <h4 className="mb-3 text-xl font-medium ">{title}</h4>
               <span className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet consectetur. Mattis pretium
                 pellentesque tincidunt quam. Lorem ipsum dolor sit amet
