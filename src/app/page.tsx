@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic'
 import { Banner } from '@/components/banner'
 import { BlogList } from '@/components/blog-list'
-import dynamic from 'next/dynamic'
 
 const Offers = dynamic(() => import('@components/offers'), {
   loading: () => <p>Loading...</p>,

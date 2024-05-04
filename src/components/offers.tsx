@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Card, CardContent, CardHeader } from './ui/card'
 import Image from 'next/image'
+import Link from 'next/link'
 import offers from '@/assets/img/offers.jpg'
 import CollapsibleComponent from './collapsible-component'
+import { Card, CardContent, CardHeader } from './ui/card'
 
 const Offers = () => {
   return (

@@ -5,9 +5,8 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -18,6 +17,7 @@ type CarouselProps = {
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: 'horizontal' | 'vertical'
+  // eslint-disable-next-line no-unused-vars
   setApi?: (api: CarouselApi) => void
 }
 
@@ -206,7 +206,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute  h-8 w-8 rounded-full bg-brand-blue text-white hover:bg-brand-blue hover:opacity-85 hover:text-white',
+        'absolute  h-8 w-8 rounded-full bg-brand-blue text-white hover:bg-brand-blue hover:text-white hover:opacity-85',
         orientation === 'horizontal'
           ? '-left-12 top-1/2 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -238,7 +238,7 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        'absolute h-8 w-8 rounded-full bg-brand-blue text-white hover:bg-brand-blue hover:opacity-85 hover:text-white',
+        'absolute h-8 w-8 rounded-full bg-brand-blue text-white hover:bg-brand-blue hover:text-white hover:opacity-85',
         orientation === 'horizontal'
           ? '-right-12 top-1/2 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',

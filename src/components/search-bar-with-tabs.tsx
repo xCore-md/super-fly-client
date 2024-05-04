@@ -1,5 +1,5 @@
-import { Button } from '@components/ui/button'
 import { SearchBar } from '@components/search-bar'
+import { Button } from '@components/ui/button'
 
 export const SearchBarWithTabs = () => {
   return (

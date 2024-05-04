@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-
 import Image from 'next/image'
+import { useState } from 'react'
 import { Collapsible } from '@radix-ui/react-collapsible'
-import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
-import { Button } from './ui/button'
-import plus from '@/assets/img/plus.svg'
-import minus from '@/assets/img/minus.svg'
 import flyOne from '@/assets/img/fly-one.png'
+import minus from '@/assets/img/minus.svg'
+import plus from '@/assets/img/plus.svg'
+import { Button } from './ui/button'
+import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 
 const CollapsibleComponent = () => {
   const [isOpen, setIsOpen] = useState(false)

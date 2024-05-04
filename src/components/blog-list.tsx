@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import Image from 'next/image'
 import card1 from '@/assets/img/card1.jpg'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 export const BlogList = () => {
   return (

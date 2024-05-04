@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import supportImgUrl from '@/assets/img/support.png'
 import logoWhite from '@/assets/img/logo-white.png'
+import supportImgUrl from '@/assets/img/support.png'
 
 export const Header = () => {
   const tel = '+(373) 60 456 654'
