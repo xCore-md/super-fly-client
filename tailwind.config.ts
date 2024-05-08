@@ -54,9 +54,15 @@ const config = {
         },
         brand: {
           blue: '#3F4ED6',
+          'light-blue': '#F0F2FF',
+          yellow: '#FFE959',
           gray: '#F4F4F4',
           green: '#10D2A4',
         },
+      },
+      fontSize: {
+        xxs: '0.625rem',
+        xxxs: '0.5rem',
       },
       borderRadius: {
         lg: 'var(--radius)',
