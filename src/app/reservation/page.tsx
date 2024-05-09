@@ -1,11 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import tenKgSvg from '@/assets/img/bags/10kg.svg'
+import twentyKgSvg from '@/assets/img/bags/20kg.svg'
+import thirtyKgSvg from '@/assets/img/bags/30kg.svg'
+import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
 import passportSvg from '@/assets/img/passport.svg'
 import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
+import { BagNumberInput } from '@components/form/bag-number-input'
 import { Button } from '@components/ui/button'
+import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Checkbox } from '@components/ui/checkbox'
 import { Input } from '@components/ui/input'
 import { Separator } from '@components/ui/separator'
@@ -26,7 +32,7 @@ export default function Reservation() {
           <Checkbox id="terms" />
           <label
             htmlFor="terms"
-            className="text-xxxs text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-sm text-xxxs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Sunt de acord cu{' '}
             <Link className="text-[#596AD9]" href="/">
@@ -79,30 +85,89 @@ const MainForm = () => {
         <Input type="text" placeholder="Data Eliberării*" />
         <Input type="text" placeholder="Data Expirării*" />
       </div>
-      <Button className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
+      <Button className="mt-8 flex h-11 items-center justify-center rounded-lg bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
         <span className="mr-2">Poza pașaport</span>
         <Image src={passportSvg} alt={'passport image'} />
       </Button>
 
-      <p className="text-xxs mt-5">
+      <p className="mt-5 text-xxs">
         <span className="text-gray-500">Document încărcat:</span>{' '}
         <span>file321455xx45522668adasda65ss.jpg</span>
       </p>
-      <p className="text-xxs mt-1 text-red-500">Șterge poza</p>
+      <p className="mt-1 text-xxs text-red-500">Șterge poza</p>
 
       <Separator className="my-8" />
 
-      <div className="my-8">image</div>
+      <BaggageSection />
     </ReservationCard>
+  )
+}
+
+const BaggageSection = () => {
+  const bags = [
+    {
+      id: 'obiect_personal',
+      size: '40 x 20 x 30 cm',
+      name: 'Obiect personal',
+      price: 'Inclus Gratuit',
+      imageUrl: eightKgSvg,
+      hideInput: true,
+    },
+    {
+      id: 'bagaj_de_mana',
+      size: '57 x 20 x 38 cm',
+      name: 'Bagaj de mana',
+      price: '10.99€',
+      imageUrl: tenKgSvg,
+    },
+    {
+      id: 'bagaj_de_cala',
+      size: '78 x 28 x 52 cm',
+      name: 'Bagaj de cala',
+      price: '20.99€',
+      imageUrl: twentyKgSvg,
+    },
+    {
+      id: 'bagaj_de_cala_mare',
+      size: '78 x 28 x 52 cm',
+      name: 'Bagaj de cala',
+      price: '30.99€',
+      imageUrl: thirtyKgSvg,
+    },
+  ]
+
+  return (
+    <section className="grid grid-cols-4 gap-6">
+      {bags.map((bag) => (
+        <div key={bag.id}>
+          <Card className="mb-4 flex flex-col justify-between rounded-xl text-center">
+            <CardHeader className="flex min-h-[169px] flex-1 flex-col items-center justify-end">
+              <Image
+                src={bag.imageUrl}
+                alt="bag"
+                className="mb-3 select-none "
+              />
+              <span className="text-xxs text-[#757575]">{bag.size}</span>
+            </CardHeader>
+            <CardContent className="mt-auto rounded-xl bg-brand-light-blue p-2">
+              <h6 className="text-xs font-medium">{bag.name}</h6>
+              <p className="mt-0.5 text-xxs text-green-600">{bag.price}</p>
+            </CardContent>
+          </Card>
+
+          {bag.hideInput ? null : <BagNumberInput id={bag.id} />}
+        </div>
+      ))}
+    </section>
   )
 }
 
 const OnlineCheckinSection = () => {
   return (
     <ReservationCard className="relative rounded-t-3xl">
-      <header className="bg-brand-light-blue absolute left-0 right-0 top-0 flex justify-between rounded-3xl px-4 py-3">
+      <header className="absolute left-0 right-0 top-0 flex justify-between rounded-3xl bg-brand-light-blue px-4 py-3">
         <h5 className="text-sm font-bold text-[#121C5E]">Check-in Online</h5>
-        <span className="bg-brand-yellow text-xxxs rounded-full px-3 py-2">
+        <span className="rounded-full bg-brand-yellow px-3 py-2 text-xxxs">
           Popular
         </span>
       </header>
@@ -110,7 +175,7 @@ const OnlineCheckinSection = () => {
       <main className="mt-6 flex justify-between">
         <div className="">
           <h6>Adaugă check-in-ul online!</h6>
-          <ul className="text-xxxs line-he font-medium leading-[8px] text-[#7E7E7E]">
+          <ul className="line-he text-xxxs font-medium leading-[8px] text-[#7E7E7E]">
             <li className="mt-2 flex items-center">
               <CheckMark />
               Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
@@ -134,9 +199,11 @@ const OnlineCheckinSection = () => {
     </ReservationCard>
   )
 }
+
 interface ICheckMarkProps {
   className?: string
 }
+
 const CheckMark = (props: ICheckMarkProps) => {
   return (
     <Image
@@ -153,6 +220,7 @@ interface IReservationCardProps {
   children: React.ReactNode
   className?: string
 }
+
 const ReservationCard = (props: IReservationCardProps) => {
   return (
     <div

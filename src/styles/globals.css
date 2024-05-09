@@ -75,6 +75,28 @@
   }
 }
 
+@layer utilities{
+
+  .btn-extended{
+    position: relative;
+  }
+
+  .btn-extended:after{
+    --btn-extended-size: -4px;
+
+    content: '';
+    position: absolute;
+    top: var(--btn-extended-size);
+    bottom: var(--btn-extended-size);
+    left: var(--btn-extended-size);
+    right: var(--btn-extended-size);
+    border-radius: var(--radius);
+    background: transparent;
+    cursor: pointer;
+    /*border: 1px solid red;*/
+  }
+}
+
 body,
 html {
   background: #fafafa;
