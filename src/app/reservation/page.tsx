@@ -10,6 +10,7 @@ import passportSvg from '@/assets/img/passport.svg'
 import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { BagNumberInput } from '@components/form/bag-number-input'
+import { ReservationSummary } from '@components/reservation/reservation-summary'
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Checkbox } from '@components/ui/checkbox'
@@ -49,8 +50,8 @@ export default function Reservation() {
           Rezervă acum
         </Button>
       </section>
-      <aside className="flex w-1/3">
-        {/*<Image src={img} alt={'img'} />*/}
+      <aside className="ml-20 flex w-1/3">
+        <ReservationSummary />
       </aside>
     </div>
   )

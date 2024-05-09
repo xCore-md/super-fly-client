@@ -14,7 +14,11 @@ export const Header = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname === '/about' || pathname === '/reservation') {
+    if (
+      pathname === '/about' ||
+      pathname === '/reservation' ||
+      pathname === '/manage-reservations'
+    ) {
       setIsSimpleHeader(true)
     } else {
       setIsSimpleHeader(false)
