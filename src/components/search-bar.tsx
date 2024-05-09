@@ -11,16 +11,19 @@ import { Label } from '@/components/ui/label'
 
 export const SearchBar = () => {
   return (
-    <div className="flex items-center h-[80px] pl-6 pr-2 rounded-full bg-white">
-      <div className="flex items-center justify-between gap-4 w-full">
+    <div className="flex h-[45px] w-[860px] items-center rounded-full bg-white pl-4 pr-1">
+      <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
           <Image src={departure} alt="image" width={22} height={17} />
-          <div className="grid max-w-sm items-center pt-2">
-            <Label className="text-gray-400 uppercase mb-1" htmlFor="departure">
+          <div className="grid max-w-sm items-center">
+            <Label
+              className="text-[8px] font-bold uppercase text-gray-400"
+              htmlFor="departure"
+            >
               ZBOR DIN
             </Label>
             <Input
-              className="bg-transparent border-0 text-black p-0 outline-none focus-visible:ring-offset-0 focus-visible:ring-0 h-8 text-sm font-semibold"
+              className="h-4 border-0 bg-transparent p-0 text-[10px] font-bold leading-3 text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Chisinau (MDA)"
@@ -33,12 +36,15 @@ export const SearchBar = () => {
 
         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
           <Image src={arrive} alt="image" width={22} height={17} />
-          <div className="grid max-w-sm items-center pt-2">
-            <Label className="text-gray-400 uppercase mb-1" htmlFor="departure">
+          <div className="grid max-w-sm items-center">
+            <Label
+              className="text-[8px] font-bold uppercase text-gray-400"
+              htmlFor="departure"
+            >
               ATERIZARE ÎN
             </Label>
             <Input
-              className="bg-transparent border-0 text-black p-0 outline-none focus-visible:ring-offset-0 focus-visible:ring-0 h-8 text-sm font-semibold"
+              className="h-4 border-0 bg-transparent p-0 text-[10px] font-bold leading-3 text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege destinația"
@@ -47,12 +53,15 @@ export const SearchBar = () => {
         </div>
 
         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
-          <div className="grid max-w-sm items-center pt-2">
-            <Label className="text-gray-400 uppercase mb-1" htmlFor="departure">
+          <div className="grid max-w-sm items-center">
+            <Label
+              className="text-[8px] font-bold uppercase text-gray-400"
+              htmlFor="departure"
+            >
               PLECARE
             </Label>
             <Input
-              className="bg-transparent border-0 text-black p-0 outline-none focus-visible:ring-offset-0 focus-visible:ring-0 h-8 text-sm font-semibold"
+              className="h-4 border-0 bg-transparent p-0 text-[10px] font-bold leading-3 text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege data"
@@ -64,12 +73,15 @@ export const SearchBar = () => {
         </div>
 
         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
-          <div className="grid max-w-sm items-center pt-2">
-            <Label className="text-gray-400 uppercase mb-1" htmlFor="departure">
+          <div className="grid max-w-sm items-center">
+            <Label
+              className="text-[8px] font-bold uppercase text-gray-400"
+              htmlFor="departure"
+            >
               RETUR
             </Label>
             <Input
-              className="bg-transparent border-0 text-black p-0 outline-none focus-visible:ring-offset-0 focus-visible:ring-0 h-8 text-sm font-semibold"
+              className="h-4 border-0 bg-transparent p-0 text-[10px] font-bold leading-3 text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege data"
@@ -82,12 +94,15 @@ export const SearchBar = () => {
 
         <div className="flex items-center gap-2">
           <Image src={human} alt="image" width={14} height={14} />
-          <div className="grid max-w-sm items-center pt-2 ml-1">
-            <Label className="text-gray-400 uppercase mb-1" htmlFor="departure">
+          <div className="ml-1 grid max-w-sm items-center">
+            <Label
+              className="text-[8px] font-bold uppercase text-gray-400"
+              htmlFor="departure"
+            >
               PASAGERI
             </Label>
             <Input
-              className="bg-transparent border-0 text-black p-0 outline-none focus-visible:ring-offset-0 focus-visible:ring-0 h-8 text-sm font-semibold"
+              className="h-4 border-0 bg-transparent p-0 text-[10px] font-bold leading-3 text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Passagers"
@@ -97,9 +112,9 @@ export const SearchBar = () => {
 
         <Button
           variant="link"
-          className="rounded-full w-[64px] h-[64px] bg-emerald-400 search-button-shadow"
+          className="search-button-shadow  h-[39px] w-[50px] rounded-full bg-emerald-400 p-0"
         >
-          <Image src={search} alt="image" width={20} height={20} />
+          <Image src={search} alt="image" width={12} height={12} />
         </Button>
       </div>
     </div>

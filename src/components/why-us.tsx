@@ -6,7 +6,7 @@ import why4 from '@/assets/img/why4.svg'
 import why5 from '@/assets/img/why5.svg'
 import why6 from '@/assets/img/why6.svg'
 
-export const WhyUs = () => {
+export const WhyUs = ({ title }) => {
   const items = [
     {
       image: why1,
@@ -34,9 +34,9 @@ export const WhyUs = () => {
     },
   ]
   return (
-    <section className="mb-36 mt-20">
+    <>
       <div className="mb-14 flex flex-col items-center">
-        <h3 className="mb-2 text-2xl font-normal">Rezervați cu Noi</h3>
+        <h3 className="mb-2 text-2xl font-normal">{title}</h3>
         <p className="text-md text-center font-light text-gray-700">
           Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
           pellentesque tincidunt quam
@@ -60,6 +60,6 @@ export const WhyUs = () => {
           </div>
         ))}
       </div>
-    </section>
+    </>
   )
 }

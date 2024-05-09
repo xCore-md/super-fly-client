@@ -25,7 +25,9 @@ export default function Home() {
         buttonTitle="Vezi Toate Ofertele"
       />
       <Offers />
-      <WhyUs />
+      <section className="mb-36 mt-20">
+        <WhyUs title="Rezervați cu Noi" />
+      </section>
       <BlogList
         title="Informație utilă"
         subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
