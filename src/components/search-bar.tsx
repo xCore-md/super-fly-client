@@ -23,7 +23,7 @@ export const SearchBar = () => {
               ZBOR DIN
             </Label>
             <Input
-              className="h-8 border-0 bg-transparent p-0 text-sm text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Chisinau (MDA)"
@@ -44,7 +44,7 @@ export const SearchBar = () => {
               ATERIZARE ÎN
             </Label>
             <Input
-              className="h-8 border-0 bg-transparent p-0 text-sm text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege destinația"
@@ -61,7 +61,7 @@ export const SearchBar = () => {
               PLECARE
             </Label>
             <Input
-              className="h-8 border-0 bg-transparent p-0 text-sm text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege data"
@@ -81,7 +81,7 @@ export const SearchBar = () => {
               RETUR
             </Label>
             <Input
-              className="h-8 border-0 bg-transparent p-0 text-sm text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Alege data"
@@ -102,7 +102,7 @@ export const SearchBar = () => {
               PASAGERI
             </Label>
             <Input
-              className="h-8 border-0 bg-transparent p-0 text-sm text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
               type="text"
               id="departure"
               placeholder="Passagers"

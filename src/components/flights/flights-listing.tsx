@@ -38,7 +38,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
 
             <span className="fly-line block h-[1px] w-full bg-blue-700" />
 
-            <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue text-gray-400">
+            <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue">
               Direct
             </div>
 
