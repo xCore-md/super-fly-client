@@ -73,10 +73,10 @@ export default function About() {
             <ul className="flex flex-col gap-6">
               <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
                 <div className="flex items-center gap-4">
-                  <div className="relative h-[69px] w-[230px]">
+                  <div className="relative h-[95px] w-[230px]">
                     <Image fill src={fourteen} alt="icon" />
                   </div>
-                  <p className="text-md ml-2 font-normal">
+                  <p className="text-md ml-2 font-normal text-gray-600">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Quisquam, animi voluptate quo sed vitae perferendis error
                     cum doloribus id? Omnis iste, ratione libero voluptatibus
@@ -86,10 +86,10 @@ export default function About() {
               </li>
               <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
                 <div className="flex items-center gap-4">
-                  <div className="relative h-[69px] w-[230px]">
+                  <div className="relative h-[73px] w-[230px]">
                     <Image fill src={thirteen} alt="icon" />
                   </div>
-                  <p className="text-md ml-2 font-normal">
+                  <p className="text-md ml-2 font-normal text-gray-600">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Quisquam, animi voluptate quo sed vitae perferendis error
                     cum doloribus id? Omnis iste, ratione libero voluptatibus
@@ -102,7 +102,7 @@ export default function About() {
                   <div className="relative h-[69px] w-[230px]">
                     <Image fill src={hundred} alt="icon" />
                   </div>
-                  <p className="text-md ml-2 font-normal">
+                  <p className="text-md ml-2 font-normal text-gray-600">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Quisquam, animi voluptate quo sed vitae perferendis error
                     cum doloribus id? Omnis iste, ratione libero voluptatibus
