@@ -64,7 +64,7 @@ export default function About() {
             <Image src={people} alt="image" />
             <Link
               href="#"
-              className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400"
+              className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600"
             >
               <span>Rezervă acum</span>
             </Link>
