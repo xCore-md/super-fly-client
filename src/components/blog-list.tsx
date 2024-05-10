@@ -16,6 +16,7 @@ interface IBlogListProps {
   footerSubtitle?: string
   buttonTitle?: string
   buttonUrl?: string
+  count?: number
 }
 
 export const BlogList = (props: IBlogListProps) => {
@@ -25,6 +26,7 @@ export const BlogList = (props: IBlogListProps) => {
     footerSubtitle,
     buttonTitle,
     buttonUrl = '#',
+    count = 4,
   } = props
   return (
     <section className="mb-24">
@@ -37,8 +39,8 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 grid grid-cols-4 gap-5">
-        {Array.from({ length: 4 }).map((_, index) => (
+      <div className="mt-6 grid grid-cols-4 gap-x-5 gap-y-12">
+        {Array.from({ length: count }).map((_, index) => (
           <a key={index} href="#">
             <Card className=" overflow-hidden rounded-t-[16px] pb-4 transition-all hover:shadow-lg">
               <CardHeader className="rounded-xl p-0">

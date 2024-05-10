@@ -1,11 +1,11 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import backpackSvg from '@/assets/img/backpack.svg'
 import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
-import { Button } from '@components/ui/button'
 
 interface IFlightsListingProps {
   length: number
@@ -14,7 +14,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   return Array.from({ length: props.length }).map((_, index) => (
     <section
       key={index}
-      className="mt-11 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4 shadow-md"
+      className="custom-shadow mb-11 mt-6 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4"
     >
       <div className="flex flex-col items-center justify-center">
         <Image src={flyOneSvg} alt="fly agency" width={112} />
@@ -80,9 +80,12 @@ export const FlightsListing = (props: IFlightsListingProps) => {
 
       <div className="flex flex-col items-center gap-3">
         <p className="text-base font-bold">€89.90</p>
-        <Button className="flex h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
+        <Link
+          href="/reservation"
+          className="flex h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400"
+        >
           Rezerva
-        </Button>
+        </Link>
         <div className="flex justify-between gap-5 text-[10px]">
           <div className="flex">
             <Image

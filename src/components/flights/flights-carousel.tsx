@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { useState } from 'react'
 import React from 'react'
 import crossSvg from '@/assets/img/cross.svg'
 import { cn } from '@/lib/utils'
@@ -8,9 +11,25 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from '@components/ui/carousel'
 
 export const FlightsCarousel = () => {
+  const [api, setApi] = React.useState<CarouselApi>()
+  const [selected, setSelected] = useState(3)
+
+  React.useEffect(() => {
+    if (!api) {
+      return
+    }
+
+    api.on('select', () => {
+      setSelected((api.selectedScrollSnap() + 1) as any)
+    })
+
+    console.log({ selected })
+  }, [api, selected])
+
   const data = [
     { price: 221.9, date: '2024-02-01T00:00:00Z' },
     { price: 222.9, date: '2024-02-02T00:00:00Z' },
@@ -35,8 +54,9 @@ export const FlightsCarousel = () => {
   ]
 
   return (
-    <div className="mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4 shadow-md">
+    <div className="custom-shadow mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4">
       <Carousel
+        setApi={setApi}
         opts={{
           align: 'start',
         }}
@@ -63,13 +83,7 @@ export const FlightsCarousel = () => {
               </section>
 
               <div
-                className={cn(
-                  'absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue',
-                  {
-                    /*todo: add styles for selected flight */
-                    block: false,
-                  }
-                )}
+                className={`absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue ${selected === index + 1 ? 'bg-red-500' : ''}`}
               />
             </CarouselItem>
           ))}

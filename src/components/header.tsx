@@ -16,6 +16,8 @@ export const Header = () => {
   useEffect(() => {
     if (
       pathname === '/about' ||
+      pathname === '/contacts' ||
+      pathname === '/blog' ||
       pathname === '/reservation' ||
       pathname === '/manage-reservations'
     ) {
@@ -39,19 +41,19 @@ export const Header = () => {
             className={`flex gap-9 text-xs  ${isSimpleHeader ? 'text-black' : 'text-white'}`}
           >
             <li>
-              <Link href="#">Acasa</Link>
+              <Link href="/">Acasa</Link>
             </li>
             <li>
               <Link href="/about">Despre noi</Link>
             </li>
             <li>
-              <Link href="#">Informatii utile</Link>
+              <Link href="/blog">Informatii utile</Link>
             </li>
             <li>
-              <Link href="#">Contacte</Link>
+              <Link href="/contacts">Contacte</Link>
             </li>
             <li>
-              <Link href="#">Gestionare rezervari</Link>
+              <Link href="/manage-reservations">Gestionare rezervari</Link>
             </li>
           </ul>
         </nav>

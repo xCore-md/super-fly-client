@@ -50,7 +50,7 @@ export const Footer = () => {
         { label: 'Rezervările mele', href: '#' },
         { label: 'Support Clienți', href: '#' },
         { label: 'Taxe pentru Bagaje', href: '#' },
-        { label: 'Informații utile', href: '#' },
+        { label: 'Informații utile', href: '/blog' },
         { label: 'Întrebări frecvente', href: '#' },
       ],
     },
