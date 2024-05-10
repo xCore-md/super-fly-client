@@ -30,7 +30,7 @@ export const SearchBar = () => {
               placeholder="Chisinau (MDA)"
             />
           </div>
-          <Button variant="link" className="h-22 w-22 p-0">
+          <Button variant="link" className="h-22 w-22 p-0 hover:bg-transparent">
             <Image src={refresh} alt="image" width={36} height={36} />
           </Button>
         </div>
@@ -68,7 +68,7 @@ export const SearchBar = () => {
               placeholder="Alege data"
             />
           </div>
-          <Button variant="link" className="h-22 w-22 p-0">
+          <Button variant="link" className="h-22 w-22 p-0 hover:bg-transparent">
             <Image src={calendar} alt="image" width={28} height={28} />
           </Button>
         </div>
@@ -88,7 +88,7 @@ export const SearchBar = () => {
               placeholder="Alege data"
             />
           </div>
-          <Button variant="link" className="h-22 w-22 p-0">
+          <Button variant="link" className="h-22 w-22 p-0 hover:bg-transparent">
             <Image src={calendar} alt="image" width={28} height={28} />
           </Button>
         </div>
@@ -113,7 +113,7 @@ export const SearchBar = () => {
 
         <Link
           href="/flights"
-          className=" search-button-shadow flex h-[56px] w-[62px] items-center justify-center rounded-full bg-emerald-400"
+          className=" search-button-shadow flex h-[56px] w-[62px] items-center justify-center rounded-full bg-emerald-400 hover:opacity-90"
         >
           <Image src={search} alt="image" width={20} height={20} />
         </Link>

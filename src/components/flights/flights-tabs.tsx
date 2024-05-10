@@ -1,4 +1,7 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
+import supportImgUrl from '@/assets/img/support.png'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
@@ -19,11 +22,28 @@ export const FlightsTabs = () => {
           <TabsContent value="rapid">Cel mai rapid</TabsContent>
         </Tabs>
       </div>
-      {/* <div className="t-1/2 absolute right-44">
-        <Button variant="link" className="h-22 w-22 p-0">
-          qweqw
-        </Button>
-      </div> */}
+      <div className="absolute right-24 top-1/2">
+        <Link
+          className="custom-shadow flex h-[64px] w-[178px] animate-pulse items-center justify-center rounded-full border border-gray-200"
+          href="tel:+(373) 60 456 654"
+        >
+          <span className="flex flex-col text-black">
+            <span className="text-right text-[8px] text-gray-600">
+              Contacteaza-ne
+            </span>
+            <span className="text-[10px] font-semibold text-brand-blue">
+              +(373) 60 456 654
+            </span>
+          </span>
+          <Image
+            className="ml-2"
+            src={supportImgUrl}
+            alt="support"
+            width={48}
+            height={48}
+          />
+        </Link>
+      </div>
     </div>
   )
 }

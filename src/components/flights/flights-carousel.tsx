@@ -10,24 +10,10 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from '@components/ui/carousel'
 
 export const FlightsCarousel = () => {
-  const [api, setApi] = React.useState<CarouselApi>()
   const [selected, setSelected] = useState(3)
-
-  React.useEffect(() => {
-    if (!api) {
-      return
-    }
-
-    api.on('select', () => {
-      setSelected((api.selectedScrollSnap() + 1) as any)
-    })
-
-    console.log({ selected })
-  }, [api, selected])
 
   const data = [
     { price: 221.9, date: '2024-02-01T00:00:00Z' },
@@ -53,9 +39,8 @@ export const FlightsCarousel = () => {
   ]
 
   return (
-    <div className="custom-shadow mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white p-4">
+    <div className="custom-shadow mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white">
       <Carousel
-        setApi={setApi}
         opts={{
           align: 'start',
         }}
@@ -65,25 +50,24 @@ export const FlightsCarousel = () => {
           {data.map((flight, index) => (
             <CarouselItem
               key={index}
-              className="relative md:basis-1/5 lg:basis-1/7"
+              onClick={() => setSelected(index)}
+              className={`relative flex cursor-pointer justify-center px-0 py-4 transition-colors md:basis-1/5 lg:basis-1/7 ${selected === index ? ' bg-brand-blue pb-2 text-white  [&_p]:text-white' : ''}`}
             >
-              <section className="relative flex h-10 flex-col items-stretch px-4 text-center">
-                <header className="text-[8px]">
-                  {formatDate(flight.date)}
-                </header>
+              <section className="relative flex h-10 flex-col items-center justify-center px-4 text-center">
+                <span className="text-[8px]">{formatDate(flight.date)}</span>
 
-                <main className="mt-auto flex justify-center text-xs font-semibold text-[#3F4ED6]">
+                <p className="mt-auto flex justify-center text-xs font-semibold text-[#3F4ED6]">
                   {flight.price ? (
                     currencyFormatter.format(Number(flight.price))
                   ) : (
                     <Image src={crossSvg} alt={'no flight available'} />
                   )}
-                </main>
+                </p>
               </section>
 
-              <div
-                className={`absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue ${selected === index + 1 ? 'bg-red-500' : ''}`}
-              />
+              {/* <div
+                className={`absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue `}
+              /> */}
             </CarouselItem>
           ))}
         </CarouselContent>
