@@ -41,7 +41,7 @@ export const BlogList = (props: IBlogListProps) => {
       )}
       <div className="mt-6 grid grid-cols-4 gap-x-5 gap-y-12">
         {Array.from({ length: count }).map((_, index) => (
-          <a key={index} href="#">
+          <Link key={index} href="/blog/1">
             <Card className=" overflow-hidden rounded-t-[16px] pb-4 transition-all hover:shadow-lg">
               <CardHeader className="rounded-xl p-0">
                 <Image src={card1} alt="card" />
@@ -57,7 +57,7 @@ export const BlogList = (props: IBlogListProps) => {
                 </p>
               </CardContent>
             </Card>
-          </a>
+          </Link>
         ))}
       </div>
       <div

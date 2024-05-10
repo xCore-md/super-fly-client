@@ -1,7 +1,6 @@
 import React from 'react'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
-import { Button } from '../ui/button'
 
 export const FlightsTabs = () => {
   return (

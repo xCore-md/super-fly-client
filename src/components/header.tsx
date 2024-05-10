@@ -18,6 +18,7 @@ export const Header = () => {
       pathname === '/about' ||
       pathname === '/contacts' ||
       pathname === '/blog' ||
+      pathname === '/blog/1' ||
       pathname === '/reservation' ||
       pathname === '/manage-reservations'
     ) {

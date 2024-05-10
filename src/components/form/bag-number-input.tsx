@@ -15,6 +15,8 @@ export const BagNumberInput = ({ id }: IBagNumberInputProps) => {
       setValue(newValue)
     }
   }
+  console.log(id)
+
   const isPlusDisabled = value === 99
   return (
     <div className="flex select-none items-center justify-center">

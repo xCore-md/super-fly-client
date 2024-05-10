@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useState } from 'react'
 import React from 'react'
 import crossSvg from '@/assets/img/cross.svg'
-import { cn } from '@/lib/utils'
 import {
   Carousel,
   CarouselContent,

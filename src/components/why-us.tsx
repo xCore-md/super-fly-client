@@ -6,7 +6,7 @@ import why4 from '@/assets/img/why4.svg'
 import why5 from '@/assets/img/why5.svg'
 import why6 from '@/assets/img/why6.svg'
 
-export const WhyUs = ({ title }) => {
+export const WhyUs = ({ title }: { title: string }) => {
   const items = [
     {
       image: why1,
