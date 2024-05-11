@@ -25,48 +25,56 @@ export const ReservationSummary = () => {
 
   return (
     <section className="flex flex-1 flex-col">
-      <SectionLightBlue>
-        <div>
-          <h6 className="text-xxs font-bold text-[#121C5E]">
-            Chisinau - Milano
-          </h6>
-          <p className="mt-1 text-xxxs text-[#9D9D9D]">
-            Dus - Întors - 1 Adult
-          </p>
-        </div>
-        <Button
-          className="rounded-full border-brand-blue bg-transparent text-[12px] text-brand-blue"
-          variant="outline"
-        >
-          Editează
-        </Button>
-      </SectionLightBlue>
-
-      <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
-        <h6>Nume și Prenume</h6>
-      </SectionLightBlue>
-      <div className="mx-4 mt-2 flex gap-5">
-        <Input
-          className="h-9 px-3 text-xxs"
-          type="text"
-          placeholder="Prenume"
-        />
-        <Input className="h-9 px-3 text-xxs" type="text" placeholder="Nume" />
-      </div>
-
-      <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
-        <h6>Bagaje</h6>
-      </SectionLightBlue>
-
-      <div>
-        <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
-          <h6>Servicii</h6>
-          <h6>€30</h6>
+      <div className="flex flex-col gap-7">
+        <SectionLightBlue>
+          <div>
+            <h6 className="text-xxs font-bold text-[#121C5E]">
+              Chisinau - Milano
+            </h6>
+            <p className="mt-1 text-xxxs text-[#9D9D9D]">
+              Dus - Întors - 1 Adult
+            </p>
+          </div>
+          <Button
+            className="rounded-full border-brand-blue bg-transparent text-[12px] text-brand-blue"
+            variant="outline"
+          >
+            Editează
+          </Button>
         </SectionLightBlue>
 
-        {flightData.map((flight) => (
-          <FlightInfo key={flight.route} {...flight} />
-        ))}
+        <div>
+          <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
+            <h6>Nume și Prenume</h6>
+          </SectionLightBlue>
+          <div className="mx-4 mt-2 flex gap-5">
+            <Input
+              className="h-9 px-3 text-xxs"
+              type="text"
+              placeholder="Prenume"
+            />
+            <Input
+              className="h-9 px-3 text-xxs"
+              type="text"
+              placeholder="Nume"
+            />
+          </div>
+        </div>
+
+        <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
+          <h6>Bagaje</h6>
+        </SectionLightBlue>
+
+        <div>
+          <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
+            <h6>Servicii</h6>
+            <h6>€30</h6>
+          </SectionLightBlue>
+
+          {flightData.map((flight) => (
+            <FlightInfo key={flight.route} {...flight} />
+          ))}
+        </div>
       </div>
 
       <div className="mt-11 rounded-full bg-brand-blue px-4 py-3 text-xxs text-white">
@@ -119,7 +127,7 @@ const SectionLightBlue = ({ children, className }: ISectionLightBlueProps) => {
   return (
     <div
       className={cn(
-        'mt-7 flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-sm',
+        'flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-sm',
         className
       )}
     >

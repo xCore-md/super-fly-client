@@ -8,6 +8,7 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   prefix: '',
   theme: {
     container: {

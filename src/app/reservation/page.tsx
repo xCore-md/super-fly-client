@@ -23,7 +23,7 @@ export default function Reservation() {
       <section className="flex w-2/3 flex-col">
         <h2 className="text-xs font-bold">Informații zbor:</h2>
 
-        <FlightsListing length={4} />
+        <FlightsListing length={4} withoutAction />
 
         <MainForm />
 
@@ -46,9 +46,12 @@ export default function Reservation() {
           </label>
         </div>
 
-        <Button className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400">
+        <Link
+          href="/confirm-reservation"
+          className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400"
+        >
           Rezervă acum
-        </Button>
+        </Link>
       </section>
       <aside className="ml-20 flex w-1/3">
         <ReservationSummary />

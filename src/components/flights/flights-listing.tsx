@@ -9,14 +9,18 @@ import whatsappSvg from '@/assets/img/whatsapp.png'
 
 interface IFlightsListingProps {
   length: number
+  margin?: string
+  withoutAction?: boolean
 }
 export const FlightsListing = (props: IFlightsListingProps) => {
   return Array.from({ length: props.length }).map((_, index) => (
     <section
       key={index}
-      className="custom-shadow mb-11 mt-6 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4"
+      className={`custom-shadow my-6 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4 ${props.margin}`}
     >
-      <div className="flex flex-col items-center justify-center">
+      <div
+        className={`flex flex-col items-center justify-center ${props.withoutAction && 'col-span-2'}`}
+      >
         <Image src={flyOneSvg} alt="fly agency" width={112} />
         {/*<div className="mt-3 flex flex-col text-left text-[10px]">*/}
         {/*  <p>Escala Bucuresti 3h 00m</p>*/}
@@ -78,38 +82,40 @@ export const FlightsListing = (props: IFlightsListingProps) => {
         </footer>
       </section>
 
-      <div className="flex flex-col items-center gap-3">
-        <p className="text-base font-bold">€89.90</p>
-        <Link
-          href="/reservation"
-          className="flex h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400"
-        >
-          Rezerva
-        </Link>
-        <div className="flex justify-between gap-5 text-[10px]">
-          <div className="flex">
-            <Image
-              className="object-contain"
-              width={16}
-              height={16}
-              src={whatsappSvg}
-              alt={'whatsapp'}
-            />
-            <p className="pl-1">Whatsapp</p>
-          </div>
+      {!props.withoutAction && (
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-base font-bold">€89.90</p>
+          <Link
+            href="/reservation"
+            className="flex h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400"
+          >
+            Rezerva
+          </Link>
+          <div className="flex justify-between gap-5 text-[10px]">
+            <div className="flex">
+              <Image
+                className="object-contain"
+                width={16}
+                height={16}
+                src={whatsappSvg}
+                alt={'whatsapp'}
+              />
+              <p className="pl-1">Whatsapp</p>
+            </div>
 
-          <div className="flex">
-            <Image
-              className="object-contain"
-              width={16}
-              height={16}
-              src={viberSvg}
-              alt={'viber'}
-            />
-            <p className="pl-1">Viber</p>
+            <div className="flex">
+              <Image
+                className="object-contain"
+                width={16}
+                height={16}
+                src={viberSvg}
+                alt={'viber'}
+              />
+              <p className="pl-1">Viber</p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   ))
 }
