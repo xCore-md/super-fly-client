@@ -1,9 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import backpackSvg from '@/assets/img/backpack.svg'
 import mastercard from '@/assets/img/mastercard.svg'
 import paynet from '@/assets/img/paynet.svg'
-import seatSvg from '@/assets/img/seat.svg'
 import visa from '@/assets/img/visa.svg'
 import { ReservationSummary } from '@/components/reservation/reservation-summary'
 
