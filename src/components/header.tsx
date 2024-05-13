@@ -66,7 +66,7 @@ export const Header = () => {
               href={tel}
               className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
             >
-              <span className="text-right text-[10px]">Contacteaza-ne</span>
+              <span className="text-right text-xs">Contacteaza-ne</span>
               <span className="text-base">{tel}</span>
             </a>
           </div>

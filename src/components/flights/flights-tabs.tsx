@@ -39,7 +39,7 @@ export const FlightsTabs = () => {
             <span className="text-right text-xxs text-gray-600">
               Contacteaza-ne
             </span>
-            <span className="text-[10px] font-semibold text-brand-blue">
+            <span className="text-xs font-semibold text-brand-blue">
               +(373) 60 456 654
             </span>
           </span>

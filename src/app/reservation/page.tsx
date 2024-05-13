@@ -196,7 +196,7 @@ const OnlineCheckinSection = () => {
             </li>
           </ul>
         </div>
-        <Button className="mt-8 flex h-auto max-w-32 items-center justify-center whitespace-normal rounded-full bg-brand-blue px-6 text-[10px] font-light text-white shadow-md shadow-slate-400 ">
+        <Button className="mt-8 flex h-auto max-w-32 items-center justify-center whitespace-normal rounded-full bg-brand-blue px-6 text-xs font-light text-white shadow-md shadow-slate-400 ">
           Adaugă €8.99 per pasager
         </Button>
       </main>

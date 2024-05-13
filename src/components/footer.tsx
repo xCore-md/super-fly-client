@@ -92,7 +92,7 @@ export const Footer = () => {
           <Link href="/">
             <Image src={logo} alt="log" width={82} height={16} />
           </Link>
-          <p className="col-span-4 text-[10px] text-gray-500">
+          <p className="col-span-4 text-xs text-gray-500">
             Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
             tincidunt quam. Lorem ipsum dolor sit amet consectetur. Mattis
             pretium pellentesque tincidunt quam

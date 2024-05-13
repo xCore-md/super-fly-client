@@ -59,8 +59,8 @@ const CollapsibleBlock = () => {
                 <div>
                   <span className="fly-line block h-[1px] w-full bg-blue-700" />
                   <div className="mt-2 flex justify-between">
-                    <span className="text-[10px] text-gray-600">MDA</span>
-                    <span className="text-[10px] text-gray-600">BGY</span>
+                    <span className="text-xs text-gray-600">MDA</span>
+                    <span className="text-xs text-gray-600">BGY</span>
                   </div>
                 </div>
               </div>
