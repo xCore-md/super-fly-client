@@ -36,7 +36,7 @@ export const FlightsTabs = () => {
           href="tel:+(373) 60 456 654"
         >
           <span className="flex flex-col text-black">
-            <span className="text-right text-[10px] text-gray-600">
+            <span className="text-right text-[8px] text-gray-600">
               Contacteaza-ne
             </span>
             <span className="text-[10px] font-semibold text-brand-blue">

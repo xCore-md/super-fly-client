@@ -72,7 +72,7 @@ export const FlightsCarousel = () => {
                 )}
               >
                 <span
-                  className={cn('text-[10px]', {
+                  className={cn('text-[8px]', {
                     'text-[#8B8B8B]': isDisabled(flight.price),
                   })}
                 >

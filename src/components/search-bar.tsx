@@ -141,7 +141,7 @@ export const SearchBar = () => {
 //           <Image src={departure} alt="image" width={22} height={17} />
 //           <div className="grid max-w-sm items-center">
 //             <Label
-//               className="text-[10px] font-bold uppercase text-gray-400"
+//               className="text-[8px] font-bold uppercase text-gray-400"
 //               htmlFor="departure"
 //             >
 //               ZBOR DIN
@@ -162,7 +162,7 @@ export const SearchBar = () => {
 //           <Image src={arrive} alt="image" width={22} height={17} />
 //           <div className="grid max-w-sm items-center">
 //             <Label
-//               className="text-[10px] font-bold uppercase text-gray-400"
+//               className="text-[8px] font-bold uppercase text-gray-400"
 //               htmlFor="departure"
 //             >
 //               ATERIZARE ÎN
@@ -179,7 +179,7 @@ export const SearchBar = () => {
 //         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
 //           <div className="grid max-w-sm items-center">
 //             <Label
-//               className="text-[10px] font-bold uppercase text-gray-400"
+//               className="text-[8px] font-bold uppercase text-gray-400"
 //               htmlFor="departure"
 //             >
 //               PLECARE
@@ -199,7 +199,7 @@ export const SearchBar = () => {
 //         <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
 //           <div className="grid max-w-sm items-center">
 //             <Label
-//               className="text-[10px] font-bold uppercase text-gray-400"
+//               className="text-[8px] font-bold uppercase text-gray-400"
 //               htmlFor="departure"
 //             >
 //               RETUR
@@ -220,7 +220,7 @@ export const SearchBar = () => {
 //           <Image src={human} alt="image" width={14} height={14} />
 //           <div className="ml-1 grid max-w-sm items-center">
 //             <Label
-//               className="text-[10px] font-bold uppercase text-gray-400"
+//               className="text-[8px] font-bold uppercase text-gray-400"
 //               htmlFor="departure"
 //             >
 //               PASAGERI
