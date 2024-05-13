@@ -62,8 +62,7 @@ const config = {
         },
       },
       fontSize: {
-        xxs: '0.625rem',
-        xxxs: '0.5rem',
+        xxs: '0.6875em',
       },
       borderRadius: {
         lg: 'var(--radius)',
