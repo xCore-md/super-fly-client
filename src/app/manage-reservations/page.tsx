@@ -10,17 +10,17 @@ export default function ManageReservations() {
           Gestionarea rezervărilor
         </h2>
 
-        <p className="mt-3 text-center text-base text-[#828282]">
+        <p className="mt-3 text-center text-lg text-[#828282]">
           Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
           tincidunt quam. Lorem ipsum dolor sit amet consectetur.
         </p>
 
-        <Label htmlFor="code" className="mb-1 mt-6 text-xs">
+        <Label htmlFor="code" className="mb-1 mt-6 text-sm">
           Codul de confirmare
         </Label>
         <Input id="code" type="text" placeholder="xxxxxx" className="" />
 
-        <Label htmlFor="email" className="mb-1 mt-5 text-xs">
+        <Label htmlFor="email" className="mb-1 mt-5 text-sm">
           Email-ul folosit la rezervare
         </Label>
         <Input id="email" type="text" placeholder="E-mail" className="" />
