@@ -28,15 +28,15 @@ export const ReservationSummary = () => {
       <div className="flex flex-col gap-7">
         <SectionLightBlue>
           <div>
-            <h6 className="text-xxs font-bold text-[#121C5E]">
+            <h6 className="text-xs font-bold text-[#121C5E]">
               Chisinau - Milano
             </h6>
-            <p className="mt-1 text-xxxs text-[#9D9D9D]">
+            <p className="mt-1 text-xxs text-[#9D9D9D]">
               Dus - Întors - 1 Adult
             </p>
           </div>
           <Button
-            className="rounded-full border-brand-blue bg-transparent text-[12px] text-brand-blue"
+            className="rounded-full border-brand-blue bg-transparent text-sm text-brand-blue"
             variant="outline"
           >
             Editează
@@ -44,29 +44,29 @@ export const ReservationSummary = () => {
         </SectionLightBlue>
 
         <div>
-          <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
+          <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
             <h6>Nume și Prenume</h6>
           </SectionLightBlue>
           <div className="mx-4 mt-2 flex gap-5">
             <Input
-              className="h-9 px-3 text-xxs"
+              className="h-9 px-3 text-xs"
               type="text"
               placeholder="Prenume"
             />
             <Input
-              className="h-9 px-3 text-xxs"
+              className="h-9 px-3 text-xs"
               type="text"
               placeholder="Nume"
             />
           </div>
         </div>
 
-        <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
+        <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
           <h6>Bagaje</h6>
         </SectionLightBlue>
 
         <div>
-          <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
+          <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
             <h6>Servicii</h6>
             <h6>€30</h6>
           </SectionLightBlue>
@@ -77,7 +77,7 @@ export const ReservationSummary = () => {
         </div>
       </div>
 
-      <div className="mt-11 rounded-full bg-brand-blue px-4 py-3 text-xxs text-white">
+      <div className="mt-11 rounded-full bg-brand-blue px-4 py-3 text-xs text-white">
         Total: <span className="font-bold">€466</span>
       </div>
 
@@ -93,7 +93,7 @@ export const ReservationSummary = () => {
         showRectangle
       />
 
-      <p className="mt-3 text-xxxs text-[#9D9D9D]">
+      <p className="mt-3 text-xxs text-[#9D9D9D]">
         <span className="font-bold">Economisești timp și bani:</span> Exemplu
         text, in care va fi indicat anuntul despre disponibilitatea pretului, si
         propunerea de a rezerva acum, pentru a nu pierde oferta la pret.
@@ -111,9 +111,9 @@ interface IFlightInfoProps {
 const FlightInfo = ({ route, passenger, fareType }: IFlightInfoProps) => {
   return (
     <div className="ml-4 border-l border-gray-200 pl-3">
-      <p className="mt-0 pt-2 text-xxxs text-[#9D9D9D]">{route}</p>
-      <p className="mt-1 text-xxxs font-bold text-[#171717]">{passenger}</p>
-      <p className="mt-1 text-xxxs text-[#9D9D9D]">{fareType}</p>
+      <p className="mt-0 pt-2 text-xxs text-[#9D9D9D]">{route}</p>
+      <p className="mt-1 text-xxs font-bold text-[#171717]">{passenger}</p>
+      <p className="mt-1 text-xxs text-[#9D9D9D]">{fareType}</p>
     </div>
   )
 }
@@ -127,7 +127,7 @@ const SectionLightBlue = ({ children, className }: ISectionLightBlueProps) => {
   return (
     <div
       className={cn(
-        'flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-sm',
+        'flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-base',
         className
       )}
     >

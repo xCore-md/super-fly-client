@@ -21,7 +21,7 @@ export default function Reservation() {
   return (
     <div className="mt-4 flex pb-10 pt-12">
       <section className="flex w-2/3 flex-col">
-        <h2 className="text-xs font-bold">Informații zbor:</h2>
+        <h2 className="text-sm font-bold">Informații zbor:</h2>
 
         <FlightsListing length={4} withoutAction />
 
@@ -94,11 +94,11 @@ const MainForm = () => {
         <Image src={passportSvg} alt={'passport image'} />
       </Button>
 
-      <p className="mt-5 text-xxs">
+      <p className="mt-5 text-xs">
         <span className="text-gray-500">Document încărcat:</span>{' '}
         <span>file321455xx45522668adasda65ss.jpg</span>
       </p>
-      <p className="mt-1 text-xxs text-red-500">Șterge poza</p>
+      <p className="mt-1 text-xs text-red-500">Șterge poza</p>
 
       <Separator className="my-8" />
 
@@ -151,11 +151,11 @@ const BaggageSection = () => {
                 alt="bag"
                 className="mb-3 select-none "
               />
-              <span className="text-xxs text-[#757575]">{bag.size}</span>
+              <span className="text-xs text-[#757575]">{bag.size}</span>
             </CardHeader>
             <CardContent className="mt-auto rounded-xl bg-brand-light-blue p-2">
-              <h6 className="text-xs font-medium">{bag.name}</h6>
-              <p className="mt-0.5 text-xxs text-green-600">{bag.price}</p>
+              <h6 className="text-sm font-medium">{bag.name}</h6>
+              <p className="mt-0.5 text-xs text-green-600">{bag.price}</p>
             </CardContent>
           </Card>
 
