@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import React from 'react'
 import crossSvg from '@/assets/img/cross.svg'
+import { cn } from '@/lib/utils'
 import {
   Carousel,
   CarouselContent,
@@ -38,8 +39,13 @@ export const FlightsCarousel = () => {
     { price: 220.9, date: '2024-01-31T00:00:00Z' },
   ]
 
+  const isDisabled = (price: number | undefined) => price === undefined
+  const isSeleted = (index: number) => selected === index
+
   return (
-    <div className="custom-shadow mx-auto mt-20 w-full max-w-[768px] rounded-full bg-white">
+    <div className="relative mx-auto mt-20 w-full max-w-[768px] ">
+      <div className="custom-shadow absolute bottom-0 left-0 right-0 top-4 rounded-full bg-white " />
+
       <Carousel
         opts={{
           align: 'start',
@@ -50,14 +56,31 @@ export const FlightsCarousel = () => {
           {data.map((flight, index) => (
             <CarouselItem
               key={index}
-              onClick={() => setSelected(index)}
-              className={`relative flex cursor-pointer justify-center px-0 py-4 transition-colors md:basis-1/5 lg:basis-1/7 ${selected === index ? ' bg-brand-blue pb-2 text-white  [&_p]:text-white' : ''}`}
+              onClick={() => !isDisabled(flight.price) && setSelected(index)}
+              className={cn(
+                `relative ml-4 flex cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out md:basis-1/5 lg:basis-1/7`
+              )}
             >
-              <section className="relative flex h-10 flex-col items-center justify-center px-4 text-center">
-                <span className="text-[8px]">{formatDate(flight.date)}</span>
+              <section
+                className={cn(
+                  'relative z-10 flex h-10 flex-col items-center justify-center px-4  text-center transition-all duration-200 ease-out',
+                  {
+                    '-translate-y-2 text-white [&_p]:text-white ':
+                      isSeleted(index),
+                    'cursor-not-allowed': isDisabled(flight.price),
+                  }
+                )}
+              >
+                <span
+                  className={cn('text-[8px]', {
+                    'text-[#8B8B8B]': isDisabled(flight.price),
+                  })}
+                >
+                  {formatDate(flight.date)}
+                </span>
 
                 <p className="mt-auto flex justify-center text-xs font-semibold text-[#3F4ED6]">
-                  {flight.price ? (
+                  {!isDisabled(flight.price) ? (
                     currencyFormatter.format(Number(flight.price))
                   ) : (
                     <Image src={crossSvg} alt={'no flight available'} />
@@ -65,14 +88,19 @@ export const FlightsCarousel = () => {
                 </p>
               </section>
 
-              {/* <div
-                className={`absolute -bottom-4 -top-4 left-0 right-0 z-20 hidden h-36 bg-brand-blue `}
-              /> */}
+              <div
+                className={cn(
+                  `absolute -bottom-0.5 -top-2 left-0 right-0 z-0 rounded-t-xl bg-transparent transition-all duration-200 ease-out`,
+                  {
+                    '-translate-y-0.5 bg-brand-blue': isSeleted(index),
+                  }
+                )}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="mt-2" />
+        <CarouselNext className="mt-2" />
       </Carousel>
     </div>
   )

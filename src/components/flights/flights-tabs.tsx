@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import supportImgUrl from '@/assets/img/support.png'
 import { FlightsListing } from '@components/flights/flights-listing'
+import { Button } from '@components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
 export const FlightsTabs = () => {
@@ -18,6 +19,13 @@ export const FlightsTabs = () => {
           </TabsList>
           <TabsContent className="relative" value="ieftin">
             <FlightsListing length={5} />
+
+            <Button
+              className="mt-8 rounded-full border-brand-blue bg-transparent text-[12px] text-brand-blue hover:bg-brand-blue hover:text-white"
+              variant="outline"
+            >
+              Vezi mai mult zboruri
+            </Button>
           </TabsContent>
           <TabsContent value="rapid">Cel mai rapid</TabsContent>
         </Tabs>
