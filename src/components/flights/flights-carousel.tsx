@@ -72,14 +72,14 @@ export const FlightsCarousel = () => {
                 )}
               >
                 <span
-                  className={cn('text-[8px]', {
+                  className={cn('text-xxs', {
                     'text-[#8B8B8B]': isDisabled(flight.price),
                   })}
                 >
                   {formatDate(flight.date)}
                 </span>
 
-                <p className="mt-auto flex justify-center text-xs font-semibold text-[#3F4ED6]">
+                <p className="mt-auto flex justify-center text-sm font-semibold text-[#3F4ED6]">
                   {!isDisabled(flight.price) ? (
                     currencyFormatter.format(Number(flight.price))
                   ) : (

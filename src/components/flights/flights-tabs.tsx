@@ -21,7 +21,7 @@ export const FlightsTabs = () => {
             <FlightsListing length={5} />
 
             <Button
-              className="mt-8 rounded-full border-brand-blue bg-transparent text-[12px] text-brand-blue hover:bg-brand-blue hover:text-white"
+              className="mt-8 rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white"
               variant="outline"
             >
               Vezi mai mult zboruri
@@ -36,7 +36,7 @@ export const FlightsTabs = () => {
           href="tel:+(373) 60 456 654"
         >
           <span className="flex flex-col text-black">
-            <span className="text-right text-[8px] text-gray-600">
+            <span className="text-right text-xxs text-gray-600">
               Contacteaza-ne
             </span>
             <span className="text-[10px] font-semibold text-brand-blue">
