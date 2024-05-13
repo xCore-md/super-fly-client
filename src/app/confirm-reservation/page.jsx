@@ -34,7 +34,7 @@ export default function ConfirmReservationPage() {
               {index === 0 && (
                 <div className="mb-10 flex justify-between">
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-[10px] text-gray-400">
                       Numele/Prenumele
                     </span>
                     <span className="text-[10px] font-medium text-gray-700">
@@ -42,7 +42,7 @@ export default function ConfirmReservationPage() {
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-[10px] text-gray-400">
                       Naționalitate
                     </span>
                     <span className="text-[10px] font-medium text-gray-700">
@@ -50,7 +50,7 @@ export default function ConfirmReservationPage() {
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-[10px] text-gray-400">
                       Numărul (carte de identitate/pașaport)
                     </span>
                     <span className="text-[10px] font-medium text-gray-700">
@@ -58,7 +58,7 @@ export default function ConfirmReservationPage() {
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-[10px] text-gray-400">
                       Expiră
                     </span>
                     <span className="text-[10px] font-medium text-gray-700">
@@ -113,7 +113,7 @@ export default function ConfirmReservationPage() {
               </div>
             </div>
           ))}
-          <div className="mt-4 rounded-lg bg-[#F0F2FF] p-4 text-[8px] text-gray-400">
+          <div className="mt-4 rounded-lg bg-[#F0F2FF] p-4 text-[10px] text-gray-400">
             <div className="flex">
               <svg
                 width="12"
@@ -149,14 +149,14 @@ export default function ConfirmReservationPage() {
             <h4 className="mb-6 text-lg">Selectați metoda de plată</h4>
             <div className="flex w-full gap-5">
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">Card bancar</span>
+                <span className="text-[10px] text-brand-blue">Card bancar</span>
                 <span className="flex gap-4">
                   <Image src={mastercard} width={31} height={24} alt="icon" />
                   <Image src={visa} width={50} height={28} alt="icon" />
                 </span>
               </div>
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">
+                <span className="text-[10px] text-brand-blue">
                   Plată electronică
                 </span>
                 <span>
@@ -164,7 +164,7 @@ export default function ConfirmReservationPage() {
                 </span>
               </div>
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">
+                <span className="text-[10px] text-brand-blue">
                   Achitare la oficiul nostru
                 </span>
               </div>
