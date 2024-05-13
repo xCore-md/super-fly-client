@@ -11,16 +11,16 @@ export default function ConfirmReservationPage() {
         <div className="w-2/3">
           <div className="mr-14 flex h-[63px] w-full items-center justify-between rounded-lg bg-brand-blue px-5 text-white">
             <div>
-              <span className="mr-2 text-[10px] font-medium">
+              <span className="mr-2 text-xs font-medium">
                 Confirmarea rezervării:
               </span>
-              <span className="text-sm">MPGP75</span>
+              <span className="text-base">MPGP75</span>
             </div>
-            <div className="text-[10px]">
+            <div className="text-xs">
               <span className="mr-2 font-medium">Statusul rezervării:</span>
               <span className="font-light">Se așteaptă plata</span>
             </div>
-            <div className="text-[10px]">
+            <div className="text-xs">
               <span className="mr-2 font-medium">Email:</span>
               <span className="font-light">client@mail.com</span>
             </div>
@@ -34,34 +34,32 @@ export default function ConfirmReservationPage() {
               {index === 0 && (
                 <div className="mb-10 flex justify-between">
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-xxs text-gray-400">
                       Numele/Prenumele
                     </span>
-                    <span className="text-[10px] font-medium text-gray-700">
+                    <span className="text-xs font-medium text-gray-700">
                       John Doe
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-xxs text-gray-400">
                       Naționalitate
                     </span>
-                    <span className="text-[10px] font-medium text-gray-700">
+                    <span className="text-xs font-medium text-gray-700">
                       MD
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
+                    <span className="mb-1 text-xxs text-gray-400">
                       Numărul (carte de identitate/pașaport)
                     </span>
-                    <span className="text-[10px] font-medium text-gray-700">
+                    <span className="text-xs font-medium text-gray-700">
                       AB4567894563
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[8px] text-gray-400">
-                      Expiră
-                    </span>
-                    <span className="text-[10px] font-medium text-gray-700">
+                    <span className="mb-1 text-xxs text-gray-400">Expiră</span>
+                    <span className="text-xs font-medium text-gray-700">
                       11/11/2030
                     </span>
                   </div>
@@ -73,47 +71,43 @@ export default function ConfirmReservationPage() {
                     <div className="text-2xl font-bold">
                       {index === 0 ? 'Chișinău' : 'Milano Bergamo'}
                     </div>
-                    <div className="text-[10px] text-gray-700">RMO</div>
+                    <div className="text-xs text-gray-700">RMO</div>
                     <div className="flex items-center justify-end gap-2">
-                      <span className="text-[10px] text-gray-700">
-                        Jo, 24 Ian
-                      </span>
+                      <span className="text-xs text-gray-700">Jo, 24 Ian</span>
                       <span className="text-xl font-normal">11:35</span>
                     </div>
                   </div>
                   <div className=" mt-2">
                     <div className="mb-1 flex items-center justify-center gap-2">
-                      <p className="text-[10px] text-gray-700">2 h 50 min</p>
+                      <p className="text-xs text-gray-700">2 h 50 min</p>
                     </div>
 
                     <span className="fly-line block h-[1px] w-full bg-blue-700" />
 
-                    <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue">
+                    <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
                       Direct
                     </div>
 
                     {/*<div className="mt-2 flex justify-between">*/}
-                    {/*  <span className="text-[10px] text-gray-600">MDA</span>*/}
-                    {/*  <span className="text-[10px] text-gray-600">BGY</span>*/}
+                    {/*  <span className="text-xs text-gray-600">MDA</span>*/}
+                    {/*  <span className="text-xs text-gray-600">BGY</span>*/}
                     {/*</div>*/}
                   </div>
                   <div className="ml-2 text-left">
                     <div className="text-2xl font-bold">
                       {index === 1 ? 'Chișinău' : 'Milano Bergamo'}
                     </div>
-                    <div className="text-[10px] text-gray-700">BGY</div>
+                    <div className="text-xs text-gray-700">BGY</div>
                     <div className="flex items-center justify-start gap-2">
                       <span className="text-xl font-normal">11:35</span>
-                      <span className="text-[10px] text-gray-700">
-                        Jo, 24 Ian
-                      </span>
+                      <span className="text-xs text-gray-700">Jo, 24 Ian</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           ))}
-          <div className="mt-4 rounded-lg bg-[#F0F2FF] p-4 text-[8px] text-gray-400">
+          <div className="mt-4 rounded-lg bg-[#F0F2FF] p-4 text-xxs text-gray-400">
             <div className="flex">
               <svg
                 width="12"
@@ -149,14 +143,14 @@ export default function ConfirmReservationPage() {
             <h4 className="mb-6 text-lg">Selectați metoda de plată</h4>
             <div className="flex w-full gap-5">
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">Card bancar</span>
+                <span className="text-xxs text-brand-blue">Card bancar</span>
                 <span className="flex gap-4">
                   <Image src={mastercard} width={31} height={24} alt="icon" />
                   <Image src={visa} width={50} height={28} alt="icon" />
                 </span>
               </div>
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">
+                <span className="text-xxs text-brand-blue">
                   Plată electronică
                 </span>
                 <span>
@@ -164,7 +158,7 @@ export default function ConfirmReservationPage() {
                 </span>
               </div>
               <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-[8px] text-brand-blue">
+                <span className="text-xxs text-brand-blue">
                   Achitare la oficiul nostru
                 </span>
               </div>
