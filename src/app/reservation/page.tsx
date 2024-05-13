@@ -33,7 +33,7 @@ export default function Reservation() {
           <Checkbox id="terms" />
           <label
             htmlFor="terms"
-            className="text-sm text-xxxs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-sm text-xxs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Sunt de acord cu{' '}
             <Link className="text-[#596AD9]" href="/">
@@ -171,7 +171,7 @@ const OnlineCheckinSection = () => {
     <ReservationCard className="relative rounded-t-3xl">
       <header className="absolute left-0 right-0 top-0 flex justify-between rounded-3xl bg-brand-light-blue px-4 py-3">
         <h5 className="text-sm font-bold text-[#121C5E]">Check-in Online</h5>
-        <span className="rounded-full bg-brand-yellow px-3 py-2 text-xxxs">
+        <span className="rounded-full bg-brand-yellow px-3 py-2 text-xxs">
           Popular
         </span>
       </header>
@@ -179,7 +179,7 @@ const OnlineCheckinSection = () => {
       <main className="mt-6 flex justify-between">
         <div className="">
           <h6>Adaugă check-in-ul online!</h6>
-          <ul className="line-he text-xxxs font-medium leading-[8px] text-[#7E7E7E]">
+          <ul className="line-he text-xxs font-medium leading-[8px] text-[#7E7E7E]">
             <li className="mt-2 flex items-center">
               <CheckMark />
               Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
