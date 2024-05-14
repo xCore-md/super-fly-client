@@ -6,6 +6,7 @@ import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
+import { cn } from '@/lib/utils'
 
 interface IFlightsListingProps {
   length: number
@@ -40,7 +41,17 @@ export const FlightsListing = (props: IFlightsListingProps) => {
               <p className="text-xs text-gray-700">2 h 50 min</p>
             </div>
 
-            <span className="fly-line block h-[1px] w-full bg-blue-700" />
+            <div className="fly-line block h-[1px] w-full bg-blue-700">
+              <FlyLineStopover className="left-1/2">
+                <p>Escala București 8h 00m</p>
+                <p>Preluarea si înregistrarea bagajului</p>
+              </FlyLineStopover>
+
+              <FlyLineStopover className="left-1/3">
+                <p>Escala Chisinau 3h 00m</p>
+                <p>Preluarea si înregistrarea bagajului</p>
+              </FlyLineStopover>
+            </div>
 
             <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
               Direct
@@ -118,4 +129,17 @@ export const FlightsListing = (props: IFlightsListingProps) => {
       )}
     </section>
   ))
+}
+interface IFlightInfoProps {
+  className: string
+  children: React.ReactNode
+}
+const FlyLineStopover = ({ className, children }: IFlightInfoProps) => {
+  return (
+    <div className={cn(`fly-line-stopover`, className)}>
+      <div className="fly-line-stopover-tooltip">
+        <div className="fly-line-stopover-tooltip-content">{children}</div>
+      </div>
+    </div>
+  )
 }
