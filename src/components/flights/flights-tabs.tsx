@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 export const FlightsTabs = () => {
   return (
     <div className="relative flex w-full justify-center">
-      <div className="mt-14 max-w-[861px]">
+      <div className="mt-14 w-full max-w-[861px]">
         <Tabs className=" text-center" defaultValue="ieftin">
           <TabsList className="custom-shadow rounded-full bg-white">
             <TabsTrigger value="ieftin">Cel mai ieftin</TabsTrigger>
@@ -21,7 +21,7 @@ export const FlightsTabs = () => {
             <FlightsListing length={5} />
 
             <Button
-              className="mt-8 rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white"
+              className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
               variant="outline"
             >
               Vezi mai mult zboruri

@@ -43,7 +43,7 @@ export const FlightsCarousel = () => {
   const isSeleted = (index: number) => selected === index
 
   return (
-    <div className="relative mx-auto mt-20 w-full max-w-[768px] ">
+    <div className="relative mx-auto mt-20 w-full max-w-[768px]">
       <div className="custom-shadow absolute bottom-0 left-0 right-0 top-4 rounded-full bg-white " />
 
       <Carousel
@@ -75,6 +75,7 @@ export const FlightsCarousel = () => {
                   className={cn('text-[10px]', {
                     'text-[#8B8B8B]': isDisabled(flight.price),
                   })}
+                  suppressHydrationWarning
                 >
                   {formatDate(flight.date)}
                 </span>

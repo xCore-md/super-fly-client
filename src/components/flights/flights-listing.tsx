@@ -17,19 +17,19 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   return Array.from({ length: props.length }).map((_, index) => (
     <section
       key={index}
-      className={`custom-shadow my-6 grid w-full grid-cols-5 gap-5 rounded-2xl bg-white p-4 ${props.margin}`}
+      className={`custom-shadow my-6 grid w-full grid-cols-2 rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
       <div
-        className={`flex flex-col items-center justify-center ${props.withoutAction && 'col-span-2'}`}
+        className={`flex flex-col items-start justify-center pb-3 lg:items-center lg:pb-0 ${props.withoutAction && 'col-span-2'} col-span-1 border-b lg:border-0`}
       >
-        <Image src={flyOneSvg} alt="fly agency" width={112} />
+        <Image src={flyOneSvg} alt="fly agency" className="w-12 lg:w-[112px]" />
         {/*<div className="mt-3 flex flex-col text-left text-xs">*/}
         {/*  <p>Escala Bucuresti 3h 00m</p>*/}
         {/*  <p>Escala Paris 7h 30m</p>*/}
         {/*</div>*/}
       </div>
 
-      <section className="col-span-3 flex flex-col justify-center">
+      <section className="col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0">
         <main className="grid grid-cols-4">
           <div className="mr-2 text-right">
             <div className="mb-2 text-xl font-normal">11:35</div>
@@ -68,8 +68,8 @@ export const FlightsListing = (props: IFlightsListingProps) => {
           </div>
         </main>
 
-        <footer className="mt-5 flex justify-center text-xs">
-          <div className="mr-5 flex items-center">
+        <footer className="mt-5 flex justify-evenly text-xs lg:justify-center">
+          <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
             <Image
               className="rounded-sm bg-brand-gray p-1"
               width={20}
@@ -78,9 +78,13 @@ export const FlightsListing = (props: IFlightsListingProps) => {
               alt={'backpack'}
             />
             <p className="ml-1">Bagajul de mînă inclus</p>
+
+            <p className="mt-3 w-full text-left">
+              Nr. zbor: <span className="font-bold">6F4577</span>
+            </p>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex min-w-32 items-center">
             <Image
               className="rounded-sm bg-brand-gray p-1"
               width={20}
@@ -94,15 +98,16 @@ export const FlightsListing = (props: IFlightsListingProps) => {
       </section>
 
       {!props.withoutAction && (
-        <div className="flex flex-col items-center gap-3">
-          <p className="text-base font-bold">€89.90</p>
+        <div className="col-span-1 flex flex-col items-end justify-center gap-3 border-b pb-1 lg:items-center lg:justify-normal lg:border-0 lg:pb-0">
+          <p className="text-base font-medium lg:font-bold">€89.90</p>
+
           <Link
             href="/reservation"
-            className="flex h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400"
+            className="hidden h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
           >
             Rezerva
           </Link>
-          <div className="flex justify-between gap-5 text-xs">
+          <div className="hidden justify-between gap-5 text-xs lg:flex">
             <div className="flex">
               <Image
                 className="object-contain"
@@ -127,6 +132,21 @@ export const FlightsListing = (props: IFlightsListingProps) => {
           </div>
         </div>
       )}
+
+      <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
+        <Link
+          href="tel:+(373) 60 456 654"
+          className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+        >
+          Sună acum
+        </Link>
+        <Link
+          href="/reservation"
+          className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+        >
+          Rezerva
+        </Link>
+      </footer>
     </section>
   ))
 }
