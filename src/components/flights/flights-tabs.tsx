@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 export const FlightsTabs = () => {
   return (
     <div className="relative flex w-full justify-center">
-      <div className="mt-14 w-full max-w-[861px]">
+      <div className="mt-6 w-full max-w-[861px] lg:mt-14">
         <Tabs className=" text-center" defaultValue="ieftin">
           <TabsList className="custom-shadow rounded-full bg-white">
             <TabsTrigger value="ieftin">Cel mai ieftin</TabsTrigger>

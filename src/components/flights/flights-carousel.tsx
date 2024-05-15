@@ -43,7 +43,7 @@ export const FlightsCarousel = () => {
   const isSeleted = (index: number) => selected === index
 
   return (
-    <div className="relative mx-auto mt-20 w-full max-w-[768px]">
+    <div className="relative mx-auto mt-20 w-full max-w-[768px] px-9 lg:px-0">
       <div className="custom-shadow absolute bottom-0 left-0 right-0 top-4 rounded-full bg-white " />
 
       <Carousel
@@ -58,7 +58,7 @@ export const FlightsCarousel = () => {
               key={index}
               onClick={() => !isDisabled(flight.price) && setSelected(index)}
               className={cn(
-                `relative ml-4 flex cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out md:basis-1/5 lg:basis-1/7`
+                `relative ml-4 flex basis-1/4 cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out lg:basis-1/7`
               )}
             >
               <section
@@ -100,8 +100,8 @@ export const FlightsCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="mt-2" />
-        <CarouselNext className="mt-2" />
+        <CarouselPrevious className="-left-7 mt-2 h-6 w-6 lg:-left-12 lg:h-8 lg:w-8" />
+        <CarouselNext className="-right-7 mt-2 h-6 w-6 lg:-right-12 lg:h-8 lg:w-8" />
       </Carousel>
     </div>
   )
