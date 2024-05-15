@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />
         {/*todo: extract */}
-        <main className="container mx-auto px-0">{children}</main>
+        <main className="container mx-auto p-5 lg:px-0">{children}</main>
         <Footer />
       </body>
     </html>

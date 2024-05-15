@@ -98,55 +98,57 @@ export const FlightsListing = (props: IFlightsListingProps) => {
       </section>
 
       {!props.withoutAction && (
-        <div className="col-span-1 flex flex-col items-end justify-center gap-3 border-b pb-1 lg:items-center lg:justify-normal lg:border-0 lg:pb-0">
-          <p className="text-base font-medium lg:font-bold">€89.90</p>
+        <>
+          <div className="col-span-1 flex flex-col items-end justify-center gap-3 border-b pb-1 lg:items-center lg:justify-normal lg:border-0 lg:pb-0">
+            <p className="text-base font-medium lg:font-bold">€89.90</p>
 
-          <Link
-            href="/reservation"
-            className="hidden h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
-          >
-            Rezerva
-          </Link>
-          <div className="hidden justify-between gap-5 text-xs lg:flex">
-            <div className="flex">
-              <Image
-                className="object-contain"
-                width={16}
-                height={16}
-                src={whatsappSvg}
-                alt={'whatsapp'}
-              />
-              <p className="pl-1">Whatsapp</p>
-            </div>
+            <Link
+              href="/reservation"
+              className="hidden h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+            >
+              Rezerva
+            </Link>
+            <div className="hidden justify-between gap-5 text-xs lg:flex">
+              <div className="flex">
+                <Image
+                  className="object-contain"
+                  width={16}
+                  height={16}
+                  src={whatsappSvg}
+                  alt={'whatsapp'}
+                />
+                <p className="pl-1">Whatsapp</p>
+              </div>
 
-            <div className="flex">
-              <Image
-                className="object-contain"
-                width={16}
-                height={16}
-                src={viberSvg}
-                alt={'viber'}
-              />
-              <p className="pl-1">Viber</p>
+              <div className="flex">
+                <Image
+                  className="object-contain"
+                  width={16}
+                  height={16}
+                  src={viberSvg}
+                  alt={'viber'}
+                />
+                <p className="pl-1">Viber</p>
+              </div>
             </div>
           </div>
-        </div>
-      )}
 
-      <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
-        <Link
-          href="tel:+(373) 60 456 654"
-          className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
-        >
-          Sună acum
-        </Link>
-        <Link
-          href="/reservation"
-          className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
-        >
-          Rezerva
-        </Link>
-      </footer>
+          <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
+            <Link
+              href="tel:+(373) 60 456 654"
+              className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+            >
+              Sună acum
+            </Link>
+            <Link
+              href="/reservation"
+              className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+            >
+              Rezerva
+            </Link>
+          </footer>
+        </>
+      )}
     </section>
   ))
 }

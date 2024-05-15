@@ -7,11 +7,8 @@ export default function Flights() {
   return (
     <div className="mt-4 pb-10">
       <Header />
-
-      <main className="p-5">
-        <FlightsCarousel />
-        <FlightsTabs />
-      </main>
+      <FlightsCarousel />
+      <FlightsTabs />
     </div>
   )
 }

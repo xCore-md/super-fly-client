@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React, { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
@@ -25,7 +26,7 @@ export const ReservationSummary = () => {
 
   return (
     <section className="flex flex-1 flex-col">
-      <div className="flex flex-col gap-7">
+      <div className="hidden flex-col gap-7 lg:flex">
         <SectionLightBlue>
           <div>
             <h6 className="text-xs font-bold text-[#121C5E]">
@@ -81,7 +82,7 @@ export const ReservationSummary = () => {
         Total: <span className="font-bold">€466</span>
       </div>
 
-      <p className="mt-9 text-lg font-bold">
+      <p className="mt-9 text-center text-lg font-bold lg:text-left">
         Prețul expiră în:
         <span className="ml-1 text-red-600">12m : 30s</span>
       </p>
@@ -98,6 +99,13 @@ export const ReservationSummary = () => {
         text, in care va fi indicat anuntul despre disponibilitatea pretului, si
         propunerea de a rezerva acum, pentru a nu pierde oferta la pret.
       </p>
+
+      <Link
+        href="/confirm-reservation"
+        className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400 lg:hidden"
+      >
+        Rezervă acum
+      </Link>
     </section>
   )
 }

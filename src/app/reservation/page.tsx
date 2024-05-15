@@ -15,15 +15,16 @@ import { Button } from '@components/ui/button'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Checkbox } from '@components/ui/checkbox'
 import { Input } from '@components/ui/input'
+import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 
 export default function Reservation() {
   return (
-    <div className="mt-4 flex pb-10 pt-12">
-      <section className="flex w-2/3 flex-col">
+    <div className="mt-4 flex flex-col pb-10 pt-12 lg:flex-row">
+      <section className="flex flex-col lg:w-2/3">
         <h2 className="text-sm font-bold">Informații zbor:</h2>
 
-        <FlightsListing length={4} withoutAction />
+        <FlightsListing length={3} withoutAction />
 
         <MainForm />
 
@@ -48,12 +49,12 @@ export default function Reservation() {
 
         <Link
           href="/confirm-reservation"
-          className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400"
+          className="mt-8 hidden h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
         >
           Rezervă acum
         </Link>
       </section>
-      <aside className="ml-20 flex w-1/3">
+      <aside className="flex lg:ml-20 lg:w-1/3">
         <ReservationSummary />
       </aside>
     </div>
@@ -63,33 +64,111 @@ export default function Reservation() {
 const MainForm = () => {
   return (
     <ReservationCard>
-      <div className="flex gap-5">
-        <Input type="text" placeholder="Prenume*" />
-        <Input type="text" placeholder="Nume*" />
-      </div>
-      <div className="mt-5 flex gap-5">
-        <Input type="text" placeholder="Codul tarii*" />
-        <Input type="text" placeholder="Numar de telefon*" />
-      </div>
-      <div className="mt-5 flex gap-5">
-        <Input type="text" placeholder="Adresa de email*" />
+      <div className="flex flex-col lg:flex-row lg:gap-5">
+        <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
+          Prenume
+        </Label>
+        <Input
+          id="reservation-form-first-name"
+          type="text"
+          placeholder="Prenume*"
+        />
+
+        <Label
+          htmlFor="reservation-form-last-name"
+          className="mb-1 ml-1 mt-3 lg:hidden"
+        >
+          Nume
+        </Label>
+        <Input
+          id="reservation-form-last-name"
+          type="text"
+          placeholder="Nume*"
+        />
       </div>
 
-      <div className="mt-7 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm">
+      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
+        <Label
+          htmlFor="reservation-form-country-code"
+          className="mb-1 ml-1 lg:hidden"
+        >
+          Codul tarii
+        </Label>
+        <Input
+          type="text"
+          placeholder="Codul tarii*"
+          id="reservation-form-country-code"
+        />
+
+        <Label
+          htmlFor="reservation-form-phone-number"
+          className="mb-1 ml-1 mt-3 lg:hidden"
+        >
+          Numar de telefon
+        </Label>
+        <Input
+          type="text"
+          placeholder="Numar de telefon*"
+          id="reservation-form-phone-number"
+        />
+      </div>
+
+      {/*todo: add phone and birth date */}
+
+      <div className="mt-3 flex flex-col lg:mt-5 lg:gap-5">
+        <Label htmlFor="reservation-form-email" className="mb-1 ml-1 lg:hidden">
+          Adresa de email
+        </Label>
+        <Input
+          type="text"
+          placeholder="Adresa de email*"
+          id="reservation-form-email"
+        />
+      </div>
+
+      <div className="mt-3 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm lg:mt-7">
         Adaugă datele pașaportului
       </div>
 
-      <div className="mt-5 flex gap-5">
-        <Input type="text" placeholder="Prenume*" />
-        <Input type="text" placeholder="Nume*" />
-        <Input type="text" placeholder="Data nașterii*" />
+      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
+        <Label htmlFor="prenume" className="mb-1 ml-1 lg:hidden">
+          Prenume
+        </Label>
+        <Input type="text" placeholder="Prenume*" id="prenume" />
+
+        <Label htmlFor="nume" className="mb-1 ml-1 mt-3 lg:hidden">
+          Nume
+        </Label>
+        <Input type="text" placeholder="Nume*" id="nume" />
+
+        <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
+          Data nașterii
+        </Label>
+        <Input type="text" placeholder="Data nașterii*" id="data-nasterii" />
       </div>
-      <div className="mt-5 flex gap-5">
-        <Input type="text" placeholder="Număr document*" />
-        <Input type="text" placeholder="Data Eliberării*" />
-        <Input type="text" placeholder="Data Expirării*" />
+
+      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
+        <Label htmlFor="numar-document" className="mb-1 ml-1 lg:hidden">
+          Număr document
+        </Label>
+        <Input type="text" placeholder="Număr document*" id="numar-document" />
+
+        <Label htmlFor="data-eliberarii" className="mb-1 ml-1 mt-3 lg:hidden">
+          Data Eliberării
+        </Label>
+        <Input
+          type="text"
+          placeholder="Data Eliberării*"
+          id="data-eliberarii"
+        />
+
+        <Label htmlFor="data-expirarii" className="mb-1 ml-1 mt-3 lg:hidden">
+          Data Expirării
+        </Label>
+        <Input type="text" placeholder="Data Expirării*" id="data-expirarii" />
       </div>
-      <Button className="mt-8 flex h-11 items-center justify-center rounded-lg bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
+
+      <Button className="mt-8 flex h-11 w-full items-center justify-center rounded-lg bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
         <span className="mr-2">Poza pașaport</span>
         <Image src={passportSvg} alt={'passport image'} />
       </Button>
@@ -106,9 +185,16 @@ const MainForm = () => {
     </ReservationCard>
   )
 }
-
+interface IBags {
+  id: string
+  size: string
+  name: string
+  price: string
+  imageUrl: string
+  hideInput?: boolean
+}
 const BaggageSection = () => {
-  const bags = [
+  const bags: IBags[] = [
     {
       id: 'obiect_personal',
       size: '40 x 20 x 30 cm',
@@ -141,34 +227,62 @@ const BaggageSection = () => {
   ]
 
   return (
-    <section className="grid grid-cols-4 gap-6">
+    <section className="grid gap-6 lg:grid-cols-4">
       {bags.map((bag) => (
         <div key={bag.id}>
-          <Card className="mb-4 flex flex-col justify-between rounded-xl text-center">
-            <CardHeader className="flex min-h-[169px] flex-1 flex-col items-center justify-end">
+          <Card className="mb-4 flex justify-between rounded-xl text-center lg:flex-col">
+            <CardHeader className="flex max-w-72 flex-1 flex-row items-center justify-between px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:p-6">
               <Image
                 src={bag.imageUrl}
                 alt="bag"
-                className="mb-3 select-none "
+                className="mb-3 mr-2 select-none lg:mr-0"
               />
-              <span className="text-xs text-[#757575]">{bag.size}</span>
+
+              <div className="text-left lg:text-center">
+                <span className="text-xs text-[#757575]">{bag.size}</span>
+                <div className="lg:hidden">
+                  <BagTypeAndPrice bag={bag} />
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="mt-auto rounded-xl bg-brand-light-blue p-2">
-              <h6 className="text-sm font-medium">{bag.name}</h6>
-              <p className="mt-0.5 text-xs text-green-600">{bag.price}</p>
+
+            {/*mobile*/}
+            <CardContent className="flex-2 flex w-28 items-center border-l-2 px-5 py-3 lg:hidden lg:p-6">
+              {bag.hideInput ? (
+                <p className="mt-0.5 text-xs text-green-600">{bag.price}</p>
+              ) : (
+                <BagNumberInput id={bag.id} />
+              )}
+            </CardContent>
+
+            {/*desktop*/}
+            <CardContent className="mt-auto hidden rounded-xl bg-brand-light-blue p-2 lg:block">
+              <BagTypeAndPrice bag={bag} />
             </CardContent>
           </Card>
 
-          {bag.hideInput ? null : <BagNumberInput id={bag.id} />}
+          <div className="hidden lg:block">
+            {bag.hideInput ? null : <BagNumberInput id={bag.id} />}
+          </div>
         </div>
       ))}
     </section>
   )
 }
 
+const BagTypeAndPrice = ({ bag }: { bag: IBags }) => {
+  return (
+    <>
+      <h6 className="text-sm font-medium">{bag.name}</h6>
+      <p className="mt-0.5 text-xs text-green-600">
+        {bag.hideInput ? '' : bag.price}
+      </p>
+    </>
+  )
+}
 const OnlineCheckinSection = () => {
   return (
-    <ReservationCard className="relative rounded-t-3xl">
+    <ReservationCard className="relative rounded-t-3xl pt-14">
       <header className="absolute left-0 right-0 top-0 flex justify-between rounded-3xl bg-brand-light-blue px-4 py-3">
         <h5 className="text-sm font-bold text-[#121C5E]">Check-in Online</h5>
         <span className="rounded-full bg-brand-yellow px-3 py-2 text-xxs">
@@ -176,27 +290,27 @@ const OnlineCheckinSection = () => {
         </span>
       </header>
 
-      <main className="mt-6 flex justify-between">
+      <main className="mt-6 flex flex-col justify-between lg:flex-row">
         <div className="">
           <h6>Adaugă check-in-ul online!</h6>
-          <ul className="line-he text-xxs font-medium leading-[8px] text-[#7E7E7E]">
-            <li className="mt-2 flex items-center">
-              <CheckMark />
+          <ul className="text-xxs font-medium text-[#7E7E7E]">
+            <li className="mt-3 flex items-center">
+              <CheckMark className="mt-1" />
               Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
               check-in-ul independent
             </li>
-            <li className="mt-1 flex items-center">
-              <CheckMark />
+            <li className="mt-2 flex items-center">
+              <CheckMark className="mt-1" />
               Economisești timp și bani: check-in-ul direct la aeroport poate
               genera cheltuieli suplimentare sau întârzieri
             </li>
-            <li className="mt-1 flex items-center">
-              <CheckMark />
+            <li className="mt-2 flex items-center">
+              <CheckMark className="mt-1" />
               Emitem cărțile de îmbarcare la timp
             </li>
           </ul>
         </div>
-        <Button className="mt-8 flex h-auto max-w-32 items-center justify-center whitespace-normal rounded-full bg-brand-blue px-6 text-xs font-light text-white shadow-md shadow-slate-400 ">
+        <Button className="mt-8 flex h-auto items-center justify-center whitespace-normal rounded-full bg-brand-blue px-6 text-xs font-light text-white shadow-md shadow-slate-400 lg:max-w-32 ">
           Adaugă €8.99 per pasager
         </Button>
       </main>
@@ -213,9 +327,9 @@ const CheckMark = (props: ICheckMarkProps) => {
     <Image
       src={checkMarkSvg}
       alt={'check mark'}
-      width={9}
-      height={9}
-      className={cn('mr-2', props.className)}
+      width={12}
+      height={12}
+      className={cn('mr-2 min-w-3 self-start', props.className)}
     />
   )
 }
@@ -229,7 +343,7 @@ const ReservationCard = (props: IReservationCardProps) => {
   return (
     <div
       className={cn(
-        'mt-14 rounded-2xl bg-white p-10 shadow-md',
+        'mt-14 rounded-2xl bg-white px-3 py-6 shadow-md lg:p-10',
         props.className
       )}
     >
