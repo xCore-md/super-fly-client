@@ -6,11 +6,11 @@ export default function ManageReservations() {
   return (
     <section className="mx-auto mb-24 mt-16 w-full max-w-[737px] rounded-2xl bg-white p-7 shadow-md">
       <div className="mx-auto flex max-w-[588px]  flex-col">
-        <h2 className="text-center text-2xl font-bold text-brand-blue">
+        <h2 className="text-center text-xl font-bold text-brand-blue lg:text-2xl">
           Gestionarea rezervărilor
         </h2>
 
-        <p className="mt-3 text-center text-lg text-[#828282]">
+        <p className="mt-3 text-center text-base text-[#828282] lg:text-lg">
           Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
           tincidunt quam. Lorem ipsum dolor sit amet consectetur.
         </p>
