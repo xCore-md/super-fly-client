@@ -14,6 +14,7 @@ import { ReservationSummary } from '@components/reservation/reservation-summary'
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Checkbox } from '@components/ui/checkbox'
+import { DatePicker } from '@components/ui/datepicker'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
@@ -144,7 +145,8 @@ const MainForm = () => {
         <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
           Data nașterii
         </Label>
-        <Input type="text" placeholder="Data nașterii*" id="data-nasterii" />
+        {/*<Input type="text" placeholder="Data nașterii*" id="data-nasterii" />*/}
+        <DatePicker />
       </div>
 
       <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
@@ -156,16 +158,18 @@ const MainForm = () => {
         <Label htmlFor="data-eliberarii" className="mb-1 ml-1 mt-3 lg:hidden">
           Data Eliberării
         </Label>
-        <Input
-          type="text"
-          placeholder="Data Eliberării*"
-          id="data-eliberarii"
-        />
+        <DatePicker />
+        {/*<Input*/}
+        {/*  type="text"*/}
+        {/*  placeholder="Data Eliberării*"*/}
+        {/*  id="data-eliberarii"*/}
+        {/*/>*/}
 
         <Label htmlFor="data-expirarii" className="mb-1 ml-1 mt-3 lg:hidden">
           Data Expirării
         </Label>
-        <Input type="text" placeholder="Data Expirării*" id="data-expirarii" />
+        {/*<Input type="text" placeholder="Data Expirării*" id="data-expirarii" />*/}
+        <DatePicker />
       </div>
 
       <Button className="mt-8 flex h-11 w-full items-center justify-center rounded-lg bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
