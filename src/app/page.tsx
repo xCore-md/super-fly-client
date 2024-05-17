@@ -19,14 +19,17 @@ export default function Home() {
       <Banner />
       <BlogList
         title="Cele mai bune oferte"
-        footerSubtitle="Obțineți economii mari la zboruri și pachete de vacanță cu
-            promoțiile noastre exclusive. <br /> Răsfoiți cele mai recente
-            oferte și rezervați-vă astăzi următoarea călătorie!"
+        footerSubtitle={
+          <span>
+            Începeți călătoria bilete de avion low cost de la Superfly. <br />{' '}
+            Alegeți destinația preferată și începeți să explorați lumea astăzi!
+          </span>
+        }
         buttonTitle="Vezi Toate Ofertele"
       />
       <Offers />
       <section className="mb-36 mt-20">
-        <WhyUs title="Rezervați cu Noi" />
+        <WhyUs title="Rezervați cu noi" />
       </section>
       <BlogList
         title="Informație utilă"

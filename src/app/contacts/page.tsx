@@ -21,9 +21,10 @@ export default function Contacts() {
             </h2>
 
             <p className="mt-3 text-center text-base font-light  text-[#828282]">
-              Lorem ipsum dolor sit amet consectetur. Mattis pretium
-              pellentesque tincidunt quam. Lorem ipsum dolor sit amet
-              consectetur.
+              Dacă ai întrebări despre rezervări, tarife, destinații sau orice
+              altceva legat de călătorii, nu ezita să ne contactezi! Suntem
+              disponibili pentru a oferi asistență personalizată și răspunsuri
+              la orice nelămurire ai.
             </p>
 
             <div className="col-span-2 mt-6 flex justify-center gap-4">

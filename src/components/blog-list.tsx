@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import React from 'react'
 import card1 from '@/assets/img/card1.jpg'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
@@ -13,7 +14,7 @@ interface IBlogListProps {
   title: string
   subtitle?: string
   items?: IBlogListItemProps[]
-  footerSubtitle?: string
+  footerSubtitle?: React.ReactNode
   buttonTitle?: string
   buttonUrl?: string
   count?: number
@@ -68,11 +69,7 @@ export const BlogList = (props: IBlogListProps) => {
         className={`flex items-center ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
       >
         {footerSubtitle && (
-          <p className="text-sm font-light">
-            Obțineți economii mari la zboruri și pachete de vacanță cu
-            promoțiile noastre exclusive. <br /> Răsfoiți cele mai recente
-            oferte și rezervați-vă astăzi următoarea călătorie!
-          </p>
+          <p className="text-sm font-light">{footerSubtitle}</p>
         )}
         {buttonTitle && (
           <Link

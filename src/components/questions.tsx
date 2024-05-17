@@ -4,46 +4,55 @@ import CollapsibleComponent from './collapsible-component'
 const Questions = () => {
   const items = [
     {
-      title: 'Cum pot rezerva un zbor?',
+      title: 'Cum pot să rezerv un bilet de avion pe acest website?',
+      text: 'Pentru a rezerva un bilet de avion, pur și simplu accesează pagina noastră de rezervări și introdu detaliile călătoriei tale, inclusiv destinația, datele călătoriei și numărul de pasageri. Apoi, selectează opțiunea dorită și finalizează plata pentru a confirma rezervarea.',
     },
     {
-      title: 'Pot să-mi schimb rezervarea de bilet?',
+      title: 'Ce opțiuni de plată sunt acceptate pentru biletele de avion?',
+      text: 'Acceptăm diverse metode de plată, inclusiv carduri de credit/debit și plăți online securizate. Detaliile despre opțiunile de plată disponibile vor fi afișate în timpul procesului de rezervare.',
     },
     {
-      title: 'Cum pot rezerva un bilet preventiv?',
+      title: 'Pot să modific sau să anulez o rezervare deja efectuată?',
+      text: 'Da, în majoritatea cazurilor, poți să modifici sau să anulezi o rezervare deja efectuată, în funcție de politica companiei aeriene și de condițiile tarifare aplicabile. Te rugăm să consulți secțiunea noastră de Politici și Termeni și Condiții pentru mai multe informații sau să ne contactezi pentru asistență.',
     },
     {
-      title: 'Cum anulez un bilet de zbor?',
+      title:
+        'Ce fac dacă întâmpin probleme sau întârzieri în timpul călătoriei mele?',
+      text: 'În cazul unor probleme sau întârzieri în timpul călătoriei tale, te rugăm să contactezi echipa noastră de suport clienți, disponibilă 24/7. Vom face tot posibilul pentru a te asista și a rezolva situația în cel mai eficient mod posibil.',
     },
     {
-      title: 'Cum restitui banii după anularea biletului de zbor?',
+      title:
+        'Care sunt beneficiile de a rezerva bilete de avion prin intermediul acestei agenții?',
+      text: 'Rezervând bilete de avion prin intermediul agenției noastre, beneficiezi de acces la tarife competitive, oferte exclusive și o gamă largă de opțiuni de zbor. În plus, oferim suport clienți dedicat și servicii personalizate pentru a-ți asigura o experiență de călătorie fără probleme.',
     },
   ]
   return (
-    <section className="flex pt-16 pb-20">
+    <section className="flex pb-20 pt-16">
       <div className="w-1/3">
-        <h3 className="text-xl font-medium mb-2">Întrebări frecvente</h3>
-        <p className="text-md text-gray-700 font-light mb-8">
+        <h3 className="mb-2 text-xl font-medium">Întrebări frecvente</h3>
+        <p className="text-md mb-8 font-light text-gray-700">
           Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
           pellentesque tincidunt quam
         </p>
-        <Link href="" className="text-blue-500 underline text-md">
-          Ai Nevoie de Ajutor?
-        </Link>
+        <span className="flex flex-col gap-2">
+          <span>Ai Nevoie de Ajutor?</span>
+          <Link
+            href="tel:+37360851555"
+            className="text-md text-blue-500 underline"
+          >
+            Suna: +37360 851 555
+          </Link>
+        </span>
       </div>
       <div className="w-2/3">
         <div className="flex flex-col gap-4">
-          {items.map(({ title }) => (
+          {items.map(({ title, text }) => (
             <CollapsibleComponent
               key={title}
               title={title}
               content={
-                <span className="text-md text-gray-500 px-2 py-3 block">
-                  Lorem ipsum dolor sit amet consectetur. Mattis pretium
-                  pellentesque tincidunt quam. Lorem ipsum dolor sit amet
-                  consectetur. Lorem ipsum dolor sit amet consectetur. Mattis
-                  pretium pellentesque tincidunt quam. Lorem ipsum dolor sit
-                  amet consectetur.
+                <span className="text-md block px-2 py-3 text-gray-500">
+                  {text}
                 </span>
               }
             />

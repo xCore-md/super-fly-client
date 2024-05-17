@@ -36,12 +36,20 @@ export const Footer = () => {
     {
       title: 'Companii Aeriene',
       items: [
-        { label: 'Qatar Airways', href: '#' },
-        { label: 'Philippine Airlines', href: '#' },
+        { label: 'Wizz Air', href: '#' },
+        { label: 'Blue Air', href: '#' },
+        { label: 'Ryan Air', href: '#' },
+        { label: 'Tarom', href: '#' },
+        { label: 'EasyJet', href: '#' },
+        { label: 'LOT', href: '#' },
+        { label: 'Lufthansa', href: '#' },
+        { label: 'Air France', href: '#' },
+        { label: 'Air Moldova', href: '#' },
         { label: 'Turkish Airlines', href: '#' },
-        { label: 'Lufthansa Airlines', href: '#' },
-        { label: 'Kenya Airways', href: '#' },
-        { label: 'Ethiopian Airlines', href: '#' },
+        { label: 'FlyOne', href: '#' },
+        { label: 'HiSky', href: '#' },
+        { label: 'Air Arabia', href: '#' },
+        { label: 'United Airlines', href: '#' },
       ],
     },
     {
@@ -57,9 +65,12 @@ export const Footer = () => {
     {
       title: 'Despre Noi',
       items: [
-        { label: 'Despre Noi', href: '#' },
-        { label: 'Recenzii', href: '#' },
+        { label: 'Întrebări frecvente', href: '#' },
+        { label: 'Rezervările mele', href: '#' },
+        { label: 'Support Clienți', href: '#' },
+        { label: 'Informații utile', href: '#' },
         { label: 'Contactează-ne', href: '#' },
+        { label: 'Despre Noi', href: '#' },
         { label: 'Politica de Confidențialitate', href: '#' },
         { label: 'Termeni și Condiții', href: '#' },
       ],
@@ -93,9 +104,12 @@ export const Footer = () => {
             <Image src={logo} alt="log" width={82} height={16} />
           </Link>
           <p className="col-span-4 text-xs text-gray-500">
-            Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
-            tincidunt quam. Lorem ipsum dolor sit amet consectetur. Mattis
-            pretium pellentesque tincidunt quam
+            Misiunea noastră este de a oferi clienților noștri o experiență de
+            călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
+            mândrim cu faptul că suntem o agentie de bilete avia de încredere,
+            care pune clienții pe primul loc. De aceea, vă oferim servicii de
+            calitate superioară, începând cu procesul de rezervare și până la
+            întoarcerea acasă.
           </p>
           <div className="col-span-2 flex justify-center gap-4">
             <Link href="/">
