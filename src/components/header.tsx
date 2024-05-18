@@ -30,7 +30,9 @@ export const Header = () => {
   }, [pathname])
 
   return (
-    <header className={`${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}>
+    <header
+      className={`max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
+    >
       <div
         className={`container relative z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
       >

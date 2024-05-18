@@ -77,7 +77,7 @@ export const Footer = () => {
     },
   ]
   return (
-    <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14">
+    <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14 max-[1440px]:px-5">
       <div className="container mx-auto px-0">
         <div className="grid grid-cols-5">
           {list.map(({ title, items }) => (
