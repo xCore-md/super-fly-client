@@ -8,13 +8,24 @@ import mastercard from '@/assets/img/mastercard.svg'
 import paynet from '@/assets/img/paynet.svg'
 import phone from '@/assets/img/phone.svg'
 import visa from '@/assets/img/visa.svg'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@components/ui/accordion'
+
+interface FooterList {
+  title: string
+  items: { label: string; href: string }[]
+}
 
 export const Footer = () => {
-  const list = [
+  const list: FooterList[] = [
     {
       title: 'Țările de Top',
       items: [
-        { title: 'Philippines', href: '#' },
+        { label: 'Philippines', href: '#' },
         { label: 'Italy', href: '#' },
         { label: 'United Kingdom', href: '#' },
         { label: 'Spain', href: '#' },
@@ -79,31 +90,15 @@ export const Footer = () => {
   return (
     <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14 max-[1440px]:px-5">
       <div className="container mx-auto px-0">
-        <div className="grid grid-cols-5">
-          {list.map(({ title, items }) => (
-            <div key={title}>
-              <h4 className="mb-5 text-lg font-medium text-blue-700">
-                {title}
-              </h4>
-              <ul key={title}>
-                {items.map(({ label, href }) => (
-                  <li
-                    key={label}
-                    className="mb-5 text-gray-500 transition-all hover:text-gray-900"
-                  >
-                    <a href={href}>{label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <FooterColumns list={list} />
+
         <hr className="my-8" />
-        <div className="mb-10 grid grid-cols-12 items-center">
+
+        <div className="mb-10 grid grid-cols-1 items-center justify-center justify-items-center gap-4 lg:grid-cols-12 lg:justify-items-start lg:gap-0">
           <Link href="/">
             <Image src={logo} alt="log" width={82} height={16} />
           </Link>
-          <p className="col-span-4 text-xs text-gray-500">
+          <p className="text-xs text-gray-500 lg:col-span-4">
             Misiunea noastră este de a oferi clienților noștri o experiență de
             călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
             mândrim cu faptul că suntem o agentie de bilete avia de încredere,
@@ -111,7 +106,8 @@ export const Footer = () => {
             calitate superioară, începând cu procesul de rezervare și până la
             întoarcerea acasă.
           </p>
-          <div className="col-span-2 flex justify-center gap-4">
+
+          <div className="flex justify-center gap-4 lg:col-span-2">
             <Link href="/">
               <Image src={fb} alt="social" width={32} height={32} />
             </Link>
@@ -119,7 +115,8 @@ export const Footer = () => {
               <Image src={insta} alt="social" width={32} height={32} />
             </Link>
           </div>
-          <div className="col-span-2 flex flex-col items-center">
+
+          <div className="flex flex-col items-center lg:col-span-2">
             <Link
               href="tel:+(373) 60 456 654"
               className="mb-2 flex items-center gap-1"
@@ -135,7 +132,8 @@ export const Footer = () => {
               <span className="text-xs">info@superfly.md</span>
             </Link>
           </div>
-          <div className="col-span-3 flex items-center justify-end gap-16">
+
+          <div className="flex items-center justify-end gap-5 lg:col-span-3 lg:gap-16">
             <Image src={mastercard} width={52} height={40} alt="icon" />
             <Image src={visa} width={78} height={44} alt="icon" />
             <Image src={paynet} width={73} height={38} alt="icon" />
@@ -150,5 +148,51 @@ export const Footer = () => {
         ></iframe>
       </div>
     </div>
+  )
+}
+
+const FooterColumns = ({ list }: { list: FooterList[] }) => {
+  return (
+    <>
+      <div className="hidden grid-cols-5 lg:grid">
+        {list.map(({ title, items }) => (
+          <div key={title}>
+            <h4 className="mb-5 text-lg font-medium text-blue-700">{title}</h4>
+            <ul key={title}>
+              {items.map(({ label, href }) => (
+                <li
+                  key={label}
+                  className="mb-5 text-gray-500 transition-all hover:text-gray-900"
+                >
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <Accordion type="single" collapsible className="w-full lg:hidden">
+        {list.map(({ title, items }) => (
+          <AccordionItem key={title} value={title} className="border-0">
+            <AccordionTrigger className="hover:no-underline active:no-underline">
+              <h4 className="text-lg font-medium text-blue-700">{title}</h4>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul key={title}>
+                {items.map(({ label, href }) => (
+                  <li
+                    key={label}
+                    className="mb-3 text-gray-500 transition-all hover:text-gray-900"
+                  >
+                    <a href={href}>{label}</a>
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </>
   )
 }
