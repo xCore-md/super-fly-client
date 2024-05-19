@@ -17,7 +17,7 @@ const Offers = () => {
               <h3 className="text-xl font-medium">Chisinau - Roma</h3>
             </CardHeader>
             <CardContent>
-              <p className="text-md pb-6 font-light">
+              <p className="pb-6 text-base font-light">
                 Este un oraș plin de istorie și cultură, cu obiective turistice
                 celebre, cum ar fi Colosseum, Vatican și Fontana di Trevi.
               </p>

@@ -30,7 +30,7 @@ const Questions = () => {
     <section className="flex pb-20 pt-16">
       <div className="w-1/3">
         <h3 className="mb-2 text-xl font-medium">Întrebări frecvente</h3>
-        <p className="text-md mb-8 font-light text-gray-700">
+        <p className="mb-8 text-base font-light text-gray-700">
           Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
           pellentesque tincidunt quam
         </p>
@@ -38,7 +38,7 @@ const Questions = () => {
           <span>Ai Nevoie de Ajutor?</span>
           <Link
             href="tel:+37360851555"
-            className="text-md text-blue-500 underline"
+            className="text-base text-blue-500 underline"
           >
             Suna: +37360 851 555
           </Link>
@@ -51,7 +51,7 @@ const Questions = () => {
               key={title}
               title={title}
               content={
-                <span className="text-md block px-2 py-3 text-gray-500">
+                <span className="block px-2 py-3 text-base text-gray-500">
                   {text}
                 </span>
               }

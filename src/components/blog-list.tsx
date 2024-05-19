@@ -40,7 +40,7 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 grid grid-cols-4 gap-x-5 gap-y-12">
+      <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-5 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
         {Array.from({ length: count }).map((_, index) => (
           <Link className="[&_img]:hover:scale-110" key={index} href="/blog/1">
             <Card className="overflow-hidden rounded-t-[16px] pb-4 transition-[.5s] hover:shadow-lg">
@@ -52,11 +52,11 @@ export const BlogList = (props: IBlogListProps) => {
                 />
               </CardHeader>
               <CardContent>
-                <h3 className="mt-4 text-xl">
+                <h3 className="mt-4 text-sm lg:text-xl">
                   Lorem ipsum dolor sit amet consectetur. Mattis pretium
                   pellentesque tincidunt quam.
                 </h3>
-                <p className="text-md mt-4 font-light">
+                <p className="mt-4 hidden text-base font-light lg:block">
                   Lorem ipsum dolor sit amet consectetur. Mattis pretium
                   pellentesque tincidunt quam.
                 </p>

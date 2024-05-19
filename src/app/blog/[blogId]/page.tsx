@@ -70,7 +70,7 @@ export default function SingleBlog() {
           />
           <div className="z-10 flex flex-col items-center justify-center text-white">
             <h4 className="mb-3 text-2xl">Nu rata ocazia</h4>
-            <span className="text-md mb-11 font-light">
+            <span className="mb-11 text-base font-light">
               Descoperă acum Oferte de Top, și rezervă rapid bilete la cel mai
               bun preț!
             </span>

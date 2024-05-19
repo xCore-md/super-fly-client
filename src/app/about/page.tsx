@@ -15,7 +15,7 @@ export default function About() {
       <div className="mb-8 mt-20 flex justify-center">
         <div className="mb-14 flex w-[1000px] flex-col  items-center">
           <h3 className="mb-6 text-2xl font-medium">Despre noi</h3>
-          <p className="text-md mb-6 text-center font-light text-gray-700">
+          <p className="mb-6 text-center text-base font-light text-gray-700">
             Superfly.md este o agenție de bilete avia care oferă bilete de avion
             și servicii de călătorie la prețuri avantajoase. Ne străduim să
             oferim clienților noștri cele mai bune oferte pentru călătorii în
@@ -27,7 +27,7 @@ export default function About() {
             noastră este formată din profesioniști cu experiență și pasionați de
             călătorii.
           </p>
-          <p className="text-md text-center font-light text-gray-700">
+          <p className="text-center text-base font-light text-gray-700">
             Superfly.md se mândrește cu faptul că oferă cele mai bune soluții și
             cele mai mici preturi pentru biletele de avion, astfel încât
             clienții pot călători fără grijă. În plus, agenția oferă și servicii
@@ -58,7 +58,7 @@ export default function About() {
       <div className="mt-[60px]">
         <div className="mb-14 flex flex-col items-center">
           <h3 className="mb-2 text-2xl font-normal">Succesele noastre</h3>
-          <p className="text-md text-center font-light text-gray-700">
+          <p className="text-center text-base font-light text-gray-700">
             Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
             pellentesque tincidunt quam
           </p>
@@ -69,7 +69,7 @@ export default function About() {
               <h3 className="mb-2 text-xl font-normal">
                 Descoperă Succesele Noastre
               </h3>
-              <p className="text-md text-justify font-normal text-gray-700">
+              <p className="text-justify text-base font-normal text-gray-700">
                 La Superfly, suntem mândri să împărtășim cu tine povestea
                 noastră de succes. De-a lungul anilor, am călătorit alături de
                 mii de clienți înspre destinații exotice, orașe vibrante și
@@ -97,7 +97,7 @@ export default function About() {
                     src={fourteen}
                     alt="icon"
                   />
-                  <p className="text-md ml-2 font-normal text-gray-600">
+                  <p className="ml-2 text-base font-normal text-gray-600">
                     Fiecare dintre cei peste 40 de mii de pasageri mulțumiți
                     este pentru noi o poveste de succes. De la călătoriile de
                     afaceri până la vacanțele în familie sau aventurile solo, am
@@ -119,7 +119,7 @@ export default function About() {
                     src={thirteen}
                     alt="icon"
                   />
-                  <p className="text-md ml-2 font-normal text-gray-600">
+                  <p className="ml-2 text-base font-normal text-gray-600">
                     Indiferent dacă călătorești pentru afaceri sau pentru
                     plăcere, căutăm mereu cele mai bune opțiuni de zbor pentru
                     nevoile tale. Cu parteneriate solide cu operatori aerieni de
@@ -146,7 +146,7 @@ export default function About() {
                     src={hundred}
                     alt="icon"
                   />
-                  <p className="text-md ml-2 font-normal text-gray-600">
+                  <p className="ml-2 text-base font-normal text-gray-600">
                     La Superfly, ne străduim să facem procesul de achiziție a
                     biletelor de avion cât mai ușor și mai convenabil pentru
                     clienții noștri. De aceea, suntem mândri să oferim o gamă

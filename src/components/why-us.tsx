@@ -43,7 +43,7 @@ export const WhyUs = ({ title }: { title: string }) => {
     <>
       <div className="mb-14 flex flex-col items-center">
         <h3 className="mb-2 text-2xl font-normal">{title}</h3>
-        <p className="text-md text-center font-light text-gray-700">
+        <p className="text-center text-base font-light text-gray-700">
           Oferim clienților noștri cele mai bune tarife pentru bilete de avion,
           <br />
           suport gratuit 24 de ore și o experiență simplă și convenabilă de
