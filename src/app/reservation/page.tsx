@@ -21,7 +21,7 @@ import { Separator } from '@components/ui/separator'
 
 export default function Reservation() {
   return (
-    <div className="mt-4 flex flex-col pb-10 pt-12 lg:flex-row">
+    <div className="mt-4 flex flex-col pb-10 pt-12 sm:px-10 lg:flex-row xl:px-0">
       <section className="flex flex-col lg:w-2/3">
         <h2 className="text-sm font-bold">Informații zbor:</h2>
 

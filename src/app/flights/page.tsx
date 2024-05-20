@@ -16,7 +16,7 @@ export default function Flights() {
 const Header = () => {
   return (
     <div className="p-4">
-      <div className="absolute left-0 top-0 z-0 h-72 w-full rounded-b-[50px] bg-[#3F4ED6]"></div>
+      <div className="absolute left-0 top-0 z-0 h-[calc(100vh-50px)] w-full rounded-b-[50px] bg-[#3F4ED6] lg:h-80"></div>
       <SearchBarWithTabs />
     </div>
   )

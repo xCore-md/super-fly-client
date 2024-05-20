@@ -22,7 +22,7 @@ export const Header = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (pathname !== '/') {
+    if (pathname !== '/' && pathname !== '/flights') {
       setIsSimpleHeader(true)
     } else {
       setIsSimpleHeader(false)

@@ -5,7 +5,7 @@ import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 export const Banner = () => {
   return (
     <section className="mb-32 max-[1440px]:px-5 max-[1024px]:px-0 lg:mb-56">
-      <div className="max[1024px]:h-[700px] absolute left-0 top-0 z-0 h-[650px] w-full rounded-b-[40px] bg-brand-blue max-[1024px]:h-full">
+      <div className="absolute left-0 top-0 z-0 h-full w-full rounded-b-[40px] bg-brand-blue lg:h-[650px]">
         <div className="relative h-full w-full">
           <Image
             fill

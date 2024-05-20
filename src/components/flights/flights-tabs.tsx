@@ -30,9 +30,9 @@ export const FlightsTabs = () => {
           <TabsContent value="rapid">Cel mai rapid</TabsContent>
         </Tabs>
       </div>
-      <div className="absolute right-24 top-1/2">
+      <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
         <Link
-          className="custom-shadow flex h-[64px] w-[178px] animate-pulse items-center justify-center rounded-full border border-gray-200"
+          className="custom-shadow flex h-[64px] w-fit animate-pulse items-center justify-center rounded-full border border-gray-200 px-2"
           href="tel:+(373) 60 456 654"
         >
           <span className="flex flex-col text-black">

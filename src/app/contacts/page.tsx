@@ -87,7 +87,7 @@ export default function Contacts() {
         </div>
 
         <div className="rounded-2xl bg-white p-12 shadow-md">
-          <ul className="flex justify-between">
+          <ul className="flex flex-col justify-between gap-6 lg:flex-row lg:gap-0">
             <li className="flex flex-col">
               <span className="mb-3 text-sm font-medium text-brand-blue">
                 Denumire societate
