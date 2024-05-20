@@ -78,7 +78,7 @@ export const ReservationSummary = () => {
         </div>
       </div>
 
-      <div className="mt-11 rounded-full bg-brand-blue px-4 py-3 text-xs text-white">
+      <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
         Total: <span className="font-bold">€466</span>
       </div>
 
