@@ -70,7 +70,9 @@ export const Header = () => {
           </div>
         </div>
 
-        <MobileMenu isSimpleHeader={isSimpleHeader} />
+        <div className="lg:hidden">
+          <MobileMenu isSimpleHeader={isSimpleHeader} />
+        </div>
       </div>
     </header>
   )
@@ -85,7 +87,7 @@ const NavList = ({
 }) => {
   return (
     <ul
-      className={`flex flex-col items-start gap-3 text-xs text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
+      className={`flex flex-col items-start gap-3 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
       {menu.map(({ title, href }) => (
         <li key={title}>
