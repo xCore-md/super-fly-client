@@ -4,10 +4,8 @@ import { useState } from 'react'
 import { Button } from '@components/ui/button'
 
 type actionType = 'minus' | 'plus'
-interface IBagNumberInputProps {
-  id: string
-}
-export const BagNumberInput = ({ id }: IBagNumberInputProps) => {
+
+export const BagNumberInput = () => {
   const [value, setValue] = useState(0)
   const onChange = (type: actionType) => () => {
     const newValue = type === 'plus' ? value + 1 : value - 1

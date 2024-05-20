@@ -255,7 +255,7 @@ const BaggageSection = () => {
               {bag.hideInput ? (
                 <p className="mt-0.5 text-xs text-green-600">{bag.price}</p>
               ) : (
-                <BagNumberInput id={bag.id} />
+                <BagNumberInput />
               )}
             </CardContent>
 
@@ -266,7 +266,7 @@ const BaggageSection = () => {
           </Card>
 
           <div className="hidden lg:block">
-            {bag.hideInput ? null : <BagNumberInput id={bag.id} />}
+            {bag.hideInput ? null : <BagNumberInput />}
           </div>
         </div>
       ))}
