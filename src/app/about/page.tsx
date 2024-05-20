@@ -12,10 +12,10 @@ export default function About() {
   return (
     <div className="mt-4 pb-20">
       <Header />
-      <div className="mb-8 mt-20 flex justify-center">
+      <div className="mb-8 mt-5 flex justify-center lg:mt-20">
         <div className="mb-14 flex w-[1000px] flex-col  items-center">
-          <h3 className="mb-6 text-2xl font-medium">Despre noi</h3>
-          <p className="mb-6 text-center text-base font-light text-gray-700">
+          <h3 className="mb-6 text-xl font-medium lg:text-2xl">Despre noi</h3>
+          <p className="mb-6 text-center text-sm font-light text-gray-700 lg:text-base">
             Superfly.md este o agenție de bilete avia care oferă bilete de avion
             și servicii de călătorie la prețuri avantajoase. Ne străduim să
             oferim clienților noștri cele mai bune oferte pentru călătorii în
@@ -27,7 +27,7 @@ export default function About() {
             noastră este formată din profesioniști cu experiență și pasionați de
             călătorii.
           </p>
-          <p className="text-center text-base font-light text-gray-700">
+          <p className="text-center text-sm font-light text-gray-700 lg:text-base">
             Superfly.md se mândrește cu faptul că oferă cele mai bune soluții și
             cele mai mici preturi pentru biletele de avion, astfel încât
             clienții pot călători fără grijă. În plus, agenția oferă și servicii
@@ -57,15 +57,18 @@ export default function About() {
 
       <div className="mt-[60px]">
         <div className="mb-14 flex flex-col items-center">
-          <h3 className="mb-2 text-2xl font-normal">Succesele noastre</h3>
-          <p className="text-center text-base font-light text-gray-700">
+          <h3 className="mb-2 text-xl font-normal lg:text-2xl">
+            Succesele noastre
+          </h3>
+          <p className="text-center text-sm font-light text-gray-700 lg:text-base">
+            {/*todo: content needed */}
             Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
             pellentesque tincidunt quam
           </p>
         </div>
-        <div className="flex gap-6">
-          <div className="w-1/3">
-            <div className="mb-4 rounded-lg border border-brand-gray bg-white px-6 pb-8 pt-6">
+        <div className="flex flex-col gap-6 lg:flex-row">
+          <div className="lg:w-1/3">
+            <div className="mb-4 hidden rounded-lg border border-brand-gray bg-white px-6 pb-8 pt-6 lg:block">
               <h3 className="mb-2 text-xl font-normal">
                 Descoperă Succesele Noastre
               </h3>
@@ -81,23 +84,23 @@ export default function About() {
             <Image src={people} alt="image" />
             <Link
               href="#"
-              className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600"
+              className="mt-6 hidden h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:flex"
             >
               <span>Rezervă acum</span>
             </Link>
           </div>
-          <div className="w-2/3">
-            <ul className="flex flex-col gap-6">
+          <div className="lg:w-2/3">
+            <ul className="flex flex-col gap-6 text-sm lg:text-base">
               <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center gap-4 lg:flex-row">
                   <Image
-                    className=" min-w-[89px]"
+                    className="min-w-[89px] max-w-24 lg:max-w-none"
                     width={230}
                     height={95}
                     src={fourteen}
                     alt="icon"
                   />
-                  <p className="ml-2 text-base font-normal text-gray-600">
+                  <p className="ml-2 font-normal text-gray-600">
                     Fiecare dintre cei peste 40 de mii de pasageri mulțumiți
                     este pentru noi o poveste de succes. De la călătoriile de
                     afaceri până la vacanțele în familie sau aventurile solo, am
@@ -111,15 +114,15 @@ export default function About() {
                 </div>
               </li>
               <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center gap-4 lg:flex-row">
                   <Image
-                    className=" min-w-[89px]"
+                    className="min-w-[89px] max-w-24 lg:max-w-none"
                     width={230}
                     height={73}
                     src={thirteen}
                     alt="icon"
                   />
-                  <p className="ml-2 text-base font-normal text-gray-600">
+                  <p className="ml-2 font-normal text-gray-600">
                     Indiferent dacă călătorești pentru afaceri sau pentru
                     plăcere, căutăm mereu cele mai bune opțiuni de zbor pentru
                     nevoile tale. Cu parteneriate solide cu operatori aerieni de
@@ -138,15 +141,15 @@ export default function About() {
                 </div>
               </li>
               <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex items-center gap-4">
+                <div className="flex flex-col items-center gap-4 lg:flex-row">
                   <Image
-                    className=" min-w-[89px]"
+                    className="min-w-[89px] max-w-24 lg:max-w-none"
                     width={230}
                     height={69}
                     src={hundred}
                     alt="icon"
                   />
-                  <p className="ml-2 text-base font-normal text-gray-600">
+                  <p className="ml-2 font-normal text-gray-600">
                     La Superfly, ne străduim să facem procesul de achiziție a
                     biletelor de avion cât mai ușor și mai convenabil pentru
                     clienții noștri. De aceea, suntem mândri să oferim o gamă
@@ -164,6 +167,12 @@ export default function About() {
               </li>
             </ul>
           </div>
+          <Link
+            href="#"
+            className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:hidden"
+          >
+            <span>Rezervă acum</span>
+          </Link>
         </div>
       </div>
     </div>
