@@ -44,9 +44,13 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll lg:grid lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
+      <div className="mt-6 flex snap-x gap-x-3 gap-y-5 overflow-x-scroll lg:grid lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
         {Array.from({ length: count }).map((_, index) => (
-          <Link className="[&_img]:hover:scale-110" key={index} href="/blog/1">
+          <Link
+            className="snap-center [&_img]:hover:scale-110"
+            key={index}
+            href="/blog/1"
+          >
             <Card className="overflow-hidden rounded-t-[16px] pb-4 transition-[.5s] hover:shadow-lg">
               <CardHeader className="max-h-[302px] overflow-hidden rounded-t-xl p-0">
                 <Image
