@@ -1,39 +1,54 @@
 import Image from 'next/image'
+import mastercardWhite from '@/assets/img/mastercard-white.svg'
 import mastercard from '@/assets/img/mastercard.svg'
+import paynetWhite from '@/assets/img/paynet-white.svg'
 import paynet from '@/assets/img/paynet.svg'
+import visaWhite from '@/assets/img/visa-white.svg'
 import visa from '@/assets/img/visa.svg'
 import { ReservationSummary } from '@/components/reservation/reservation-summary'
+import { FlyContent } from '../../components/flights/flights-listing'
 
 export default function ConfirmReservationPage() {
   return (
-    <section className="flex justify-center pb-20 pt-14">
-      <div className="flex max-w-[1152px] gap-20">
-        <div className="w-2/3">
-          <div className="mr-14 flex h-[63px] w-full items-center justify-between rounded-lg bg-brand-blue px-5 text-white">
+    <section className="flex justify-center pb-20 pt-5 lg:pt-14">
+      <div className="flex w-full flex-col gap-2 lg:max-w-[1152px] lg:flex-row lg:gap-20">
+        <div className="lg:w-2/3">
+          <div className="mr-14 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-blue px-5 py-2 text-white lg:h-[63px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-lg">
             <div>
-              <span className="mr-2 text-xs font-medium">
+              <span className="mr-2 text-xs lg:font-medium">
                 Confirmarea rezervării:
               </span>
-              <span className="text-base">MPGP75</span>
+              <span className="text-sm font-medium lg:text-base lg:font-light">
+                MPGP75
+              </span>
+            </div>
+            <div className="hidden text-xs lg:block">
+              <span className="mr-2 lg:font-medium">Statusul rezervării:</span>
+              <span className="font-medium lg:font-light">
+                Se așteaptă plata
+              </span>
             </div>
             <div className="text-xs">
-              <span className="mr-2 font-medium">Statusul rezervării:</span>
-              <span className="font-light">Se așteaptă plata</span>
+              <span className="mr-2 lg:font-medium">Email:</span>
+              <span className="font-medium lg:font-light">client@mail.com</span>
             </div>
+          </div>
+
+          <div className="mr-14 mt-3 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-green px-5 py-2 text-white lg:hidden lg:h-[63px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-lg">
             <div className="text-xs">
-              <span className="mr-2 font-medium">Email:</span>
-              <span className="font-light">client@mail.com</span>
+              <span className="mr-2">Statusul rezervării:</span>
+              <span className="font-medium">Se așteaptă plata</span>
             </div>
           </div>
 
           {Array.from({ length: 2 }).map((_, index) => (
             <div
               key={index}
-              className="custom-shadow mt-6 w-full gap-5 rounded-2xl bg-white px-10 py-7"
+              className="custom-shadow mt-6 w-full gap-5 rounded-2xl bg-white px-5 py-7 lg:px-10"
             >
               {index === 0 && (
-                <div className="mb-10 flex justify-between">
-                  <div className="flex flex-col">
+                <div className="mb-10 flex flex-wrap justify-between">
+                  <div className="flex w-3/4 flex-col">
                     <span className="mb-1 text-xxs text-gray-400">
                       Numele/Prenumele
                     </span>
@@ -41,7 +56,7 @@ export default function ConfirmReservationPage() {
                       John Doe
                     </span>
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex w-1/4 flex-col">
                     <span className="mb-1 text-xxs text-gray-400">
                       Naționalitate
                     </span>
@@ -49,7 +64,7 @@ export default function ConfirmReservationPage() {
                       MD
                     </span>
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex w-3/4 flex-col">
                     <span className="mb-1 text-xxs text-gray-400">
                       Numărul (carte de identitate/pașaport)
                     </span>
@@ -57,7 +72,7 @@ export default function ConfirmReservationPage() {
                       AB4567894563
                     </span>
                   </div>
-                  <div className="flex flex-col">
+                  <div className="flex w-1/5 flex-col">
                     <span className="mb-1 text-xxs text-gray-400">Expiră</span>
                     <span className="text-xs font-medium text-gray-700">
                       11/11/2030
@@ -65,7 +80,9 @@ export default function ConfirmReservationPage() {
                   </div>
                 </div>
               )}
-              <div className="col-span-3 flex flex-col justify-center">
+
+              {/*desktop*/}
+              <div className="col-span-3 hidden flex-col justify-center lg:flex">
                 <div className="grid grid-cols-3">
                   <div className="mr-2 text-right">
                     <div className="text-2xl font-bold">
@@ -105,9 +122,21 @@ export default function ConfirmReservationPage() {
                   </div>
                 </div>
               </div>
+
+              {/*todo: add date*/}
+              {/*Mobile*/}
+              <div className="lg:hidden">
+                <FlyContent
+                  withoutAction
+                  withoutActionFlightNumber
+                  withoutHeader
+                  withoutFooter
+                  pricePlacement="top"
+                />
+              </div>
             </div>
           ))}
-          <div className="mt-4 rounded-lg bg-[#F0F2FF] p-4 text-xxs text-gray-400">
+          <div className="custom-shadow mt-4 rounded-lg bg-white p-4 text-xxs text-gray-400 lg:bg-[#F0F2FF]">
             <div className="flex">
               <svg
                 width="12"
@@ -139,33 +168,77 @@ export default function ConfirmReservationPage() {
             </p>
           </div>
 
-          <div className="custom-shadow mt-4 rounded-xl bg-white px-7 py-9">
+          <div className="custom-shadow mt-4 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
             <h4 className="mb-6 text-lg">Selectați metoda de plată</h4>
             <div className="flex w-full gap-5">
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-xxs text-brand-blue">Card bancar</span>
-                <span className="flex gap-4">
-                  <Image src={mastercard} width={31} height={24} alt="icon" />
-                  <Image src={visa} width={50} height={28} alt="icon" />
+              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
+                <span className="hidden text-xxs text-brand-blue lg:inline">
+                  Card bancar
+                </span>
+                <span className="flex gap-1">
+                  <Image
+                    src={mastercard}
+                    width={31}
+                    height={24}
+                    alt="icon"
+                    className="hidden lg:block"
+                  />
+                  <Image
+                    src={mastercardWhite}
+                    width={31}
+                    height={24}
+                    alt="icon"
+                    className="block lg:hidden"
+                  />
+                  <Image
+                    src={visa}
+                    width={50}
+                    height={28}
+                    alt="icon"
+                    className="hidden lg:block"
+                  />
+                  <Image
+                    src={visaWhite}
+                    width={50}
+                    height={28}
+                    alt="icon"
+                    className="block lg:hidden"
+                  />
                 </span>
               </div>
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-xxs text-brand-blue">
+              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
+                <span className="hidden text-xxs text-brand-blue lg:inline">
                   Plată electronică
                 </span>
                 <span>
-                  <Image src={paynet} width={43} height={22} alt="icon" />
+                  <Image
+                    src={paynet}
+                    width={43}
+                    height={22}
+                    alt="icon"
+                    className="hidden lg:block"
+                  />
+                  <Image
+                    src={paynetWhite}
+                    width={43}
+                    height={22}
+                    alt="icon"
+                    className="block lg:hidden"
+                  />
                 </span>
               </div>
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-[#F0F2FF]">
-                <span className="text-xxs text-brand-blue">
+              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
+                <span className="hidden text-xxs text-brand-blue lg:block">
                   Achitare la oficiul nostru
+                </span>
+                <span className="block text-xxs text-white lg:hidden">
+                  Oficiul nostru
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <div className="w-1/3">
+        <div className="lg:w-1/3">
           <ReservationSummary />
         </div>
       </div>

@@ -13,6 +13,8 @@ interface IFlightsListingProps {
   margin?: string
   withoutAction?: boolean
   withoutActionFlightNumber?: boolean
+  withoutHeader?: boolean
+  withoutFooter?: boolean
   pricePlacement?: 'top' | 'bottom'
 }
 
@@ -32,18 +34,26 @@ export const FlyContent = (
 ) => {
   return (
     <>
-      <div
-        className={`flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2'} col-span-1 border-b lg:border-0`}
-      >
-        <Image src={flyOneSvg} alt="fly agency" className="w-12 lg:w-[112px]" />
-        {props.pricePlacement === 'top' && (
-          <p className="text-base font-medium lg:font-bold">€89.90</p>
-        )}
-        {/*<div className="mt-3 flex flex-col text-left text-xs">*/}
-        {/*  <p>Escala Bucuresti 3h 00m</p>*/}
-        {/*  <p>Escala Paris 7h 30m</p>*/}
-        {/*</div>*/}
-      </div>
+      {props.withoutHeader ? (
+        ''
+      ) : (
+        <div
+          className={`flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2'} col-span-1 border-b lg:border-0`}
+        >
+          <Image
+            src={flyOneSvg}
+            alt="fly agency"
+            className="w-12 lg:w-[112px]"
+          />
+          {props.pricePlacement === 'top' && (
+            <p className="text-base font-medium lg:font-bold">€89.90</p>
+          )}
+          {/*<div className="mt-3 flex flex-col text-left text-xs">*/}
+          {/*  <p>Escala Bucuresti 3h 00m</p>*/}
+          {/*  <p>Escala Paris 7h 30m</p>*/}
+          {/*</div>*/}
+        </div>
+      )}
 
       <section className="col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0">
         <main className="grid grid-cols-4">
@@ -86,37 +96,41 @@ export const FlyContent = (
           </div>
         </main>
 
-        <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
-          <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
-            <Image
-              className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
-              width={20}
-              height={20}
-              src={backpackSvg}
-              alt={'backpack'}
-            />
-            <p className="ml-1">Bagajul de mînă inclus</p>
+        {props.withoutFooter ? (
+          ''
+        ) : (
+          <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
+            <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
+              <Image
+                className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
+                width={20}
+                height={20}
+                src={backpackSvg}
+                alt={'backpack'}
+              />
+              <p className="ml-1">Bagajul de mînă inclus</p>
 
-            {props.withoutActionFlightNumber ? (
-              ''
-            ) : (
-              <p className="mt-3 w-full text-left">
-                Nr. zbor: <span className="font-bold">6F4577</span>
-              </p>
-            )}
-          </div>
+              {props.withoutActionFlightNumber ? (
+                ''
+              ) : (
+                <p className="mt-3 w-full text-left">
+                  Nr. zbor: <span className="font-bold">6F4577</span>
+                </p>
+              )}
+            </div>
 
-          <div className="flex min-w-32 items-center">
-            <Image
-              className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
-              width={20}
-              height={20}
-              src={seatSvg}
-              alt={'seat'}
-            />
-            <p className="ml-1">Locuri disponibile: 3</p>
-          </div>
-        </footer>
+            <div className="flex min-w-32 items-center">
+              <Image
+                className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
+                width={20}
+                height={20}
+                src={seatSvg}
+                alt={'seat'}
+              />
+              <p className="ml-1">Locuri disponibile: 3</p>
+            </div>
+          </footer>
+        )}
       </section>
 
       {!props.withoutAction && (
