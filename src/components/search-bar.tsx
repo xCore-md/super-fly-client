@@ -12,9 +12,9 @@ import { Label } from '@/components/ui/label'
 
 export const SearchBar = () => {
   return (
-    <div className="flex h-[68px] max-w-[1152px] items-center rounded-full bg-white pl-6 pr-2">
-      <div className="flex w-full items-center justify-between gap-4">
-        <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
+    <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
+      <div className="flex w-full flex-col items-center justify-between lg:flex-row lg:gap-4">
+        <div className="flex w-full items-center gap-4 rounded-t-3xl border-r-[1px] border-gray-300 bg-white pr-3 lg:w-auto lg:rounded-none lg:bg-transparent">
           <Image src={departure} alt="image" width={22} height={17} />
           <div className="grid max-w-sm items-center pt-2">
             <Label
@@ -35,7 +35,7 @@ export const SearchBar = () => {
           </Button>
         </div>
 
-        <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3">
+        <div className="flex w-full items-center gap-4 rounded-b-2xl border-r-[1px] border-gray-300 bg-white pr-3 lg:w-auto lg:rounded-none lg:bg-transparent">
           <Image src={arrive} alt="image" width={22} height={17} />
           <div className="grid max-w-sm items-center pt-2">
             <Label
