@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 import CollapsibleComponent from './collapsible-component'
 
 const Questions = () => {
@@ -27,24 +28,20 @@ const Questions = () => {
     },
   ]
   return (
-    <section className="flex pb-20 pt-16">
-      <div className="w-1/3">
-        <h3 className="mb-2 text-xl font-medium">Întrebări frecvente</h3>
-        <p className="mb-8 text-base font-light text-gray-700">
+    <section className="flex flex-col pb-10 pt-16 lg:flex-row lg:pb-20">
+      <div className="lg:w-1/3">
+        <h3 className="mb-2 text-lg font-medium lg:text-xl">
+          Întrebări frecvente
+        </h3>
+        <p className="mb-8 text-sm font-light text-gray-700 lg:text-base">
           Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
           pellentesque tincidunt quam
         </p>
-        <span className="flex flex-col gap-2">
-          <span>Ai Nevoie de Ajutor?</span>
-          <Link
-            href="tel:+37360851555"
-            className="text-base text-blue-500 underline"
-          >
-            Suna: +37360 851 555
-          </Link>
-        </span>
+
+        <DoYouNeedHelp className="hidden lg:flex" />
       </div>
-      <div className="w-2/3">
+
+      <div className="lg:w-2/3">
         <div className="flex flex-col gap-4">
           {items.map(({ title, text }) => (
             <CollapsibleComponent
@@ -59,8 +56,23 @@ const Questions = () => {
           ))}
         </div>
       </div>
+      <DoYouNeedHelp className="mt-9 text-center lg:hidden" />
     </section>
   )
 }
 
 export default Questions
+
+const DoYouNeedHelp = ({ className }: { className?: string }) => {
+  return (
+    <span className={cn('flex flex-col gap-2', className)}>
+      <span>Ai Nevoie de Ajutor?</span>
+      <Link
+        href="tel:+37360851555"
+        className="text-base text-blue-500 underline"
+      >
+        Suna: +37360 851 555
+      </Link>
+    </span>
+  )
+}

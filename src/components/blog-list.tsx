@@ -32,8 +32,10 @@ export const BlogList = (props: IBlogListProps) => {
     withDestinationsAndPrices,
   } = props
   return (
-    <section className="mb-24">
-      <h2 className={`text-2xl font-medium ${subtitle ? 'mb-2' : 'mb-6'}`}>
+    <section className="mb-14 lg:mb-24">
+      <h2
+        className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
+      >
         {title}
       </h2>
       {subtitle && (

@@ -23,23 +23,23 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
       onOpenChange={setIsOpen}
       className="rounded-full bg-white"
     >
-      <CollapsibleTrigger className="w-full">
+      <CollapsibleTrigger className="w-full text-left lg:text-center">
         <div
-          className={`flex h-[63px] items-center justify-between rounded-full px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
+          className={`flex h-10 items-center justify-between rounded-full px-1 pl-3 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >
           <span
-            className={`text-lg font-light ${isOpen ? 'text-white' : 'text-black'}`}
+            className={`text-xxs font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
           >
             {title}
           </span>
           <Button
-            className={`h-[38px]  w-[38px] rounded-full p-0 ${isOpen ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
+            className={`h-[28px] min-h-[28px] w-[28px] min-w-[28px] rounded-full p-0 lg:h-[38px] lg:w-[38px] ${isOpen ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
           >
             <Image
               src={isOpen ? minus : plus}
               alt="plus-icon"
               width={18}
-              height={38}
+              height={18}
             />
           </Button>
         </div>

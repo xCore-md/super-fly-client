@@ -42,8 +42,10 @@ export const WhyUs = ({ title }: { title: string }) => {
   return (
     <>
       <div className="mb-14 flex flex-col items-center">
-        <h3 className="mb-2 text-2xl font-normal">{title}</h3>
-        <p className="text-center text-base font-light text-gray-700">
+        <h3 className="mb-2 text-lg font-medium lg:text-2xl lg:font-normal">
+          {title}
+        </h3>
+        <p className="text-center text-sm font-light text-gray-700 lg:text-base">
           Oferim clienților noștri cele mai bune tarife pentru bilete de avion,
           <br />
           suport gratuit 24 de ore și o experiență simplă și convenabilă de
@@ -54,12 +56,16 @@ export const WhyUs = ({ title }: { title: string }) => {
         {items.map(({ image, title, text }) => (
           <div
             key={title}
-            className="flex items-start gap-6 rounded-lg border border-gray-200 bg-white p-6"
+            className="flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 lg:flex-row lg:items-start lg:gap-6 lg:p-6"
           >
-            <Image src={image} alt="icon" />
+            <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
             <div>
-              <h4 className="mb-3 text-xl font-medium ">{title}</h4>
-              <span className="text-sm text-gray-500">{text}</span>
+              <h4 className="text-center text-xxs font-medium lg:mb-3 lg:text-left lg:text-xl">
+                {title}
+              </h4>
+              <span className="hidden text-sm text-gray-500 lg:block">
+                {text}
+              </span>
             </div>
           </div>
         ))}

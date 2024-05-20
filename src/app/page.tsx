@@ -29,7 +29,7 @@ export default function Home() {
         withDestinationsAndPrices
       />
       <Offers />
-      <section className="mb-36 mt-20">
+      <section className="mb-14 mt-20 lg:mb-36">
         <WhyUs title="Rezervați cu noi" />
       </section>
       <BlogList
