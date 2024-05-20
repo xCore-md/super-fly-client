@@ -55,7 +55,7 @@ export const BlogList = (props: IBlogListProps) => {
                   alt="card"
                 />
               </CardHeader>
-              <CardContent>
+              <CardContent className={withDestinationsAndPrices ? '' : 'px-4'}>
                 {withDestinationsAndPrices ? (
                   <div className="-mb-6 min-w-28">
                     <p className="mt-3 text-base font-medium">Paris</p>
@@ -65,7 +65,7 @@ export const BlogList = (props: IBlogListProps) => {
                     </p>
                   </div>
                 ) : (
-                  <>
+                  <div className="min-w-44">
                     <h3 className="mt-4 text-sm lg:text-xl">
                       Lorem ipsum dolor sit amet consectetur. Mattis pretium
                       pellentesque tincidunt quam.
@@ -74,7 +74,7 @@ export const BlogList = (props: IBlogListProps) => {
                       Lorem ipsum dolor sit amet consectetur. Mattis pretium
                       pellentesque tincidunt quam.
                     </p>
-                  </>
+                  </div>
                 )}
               </CardContent>
             </Card>

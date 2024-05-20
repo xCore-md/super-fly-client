@@ -25,10 +25,10 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
     >
       <CollapsibleTrigger className="w-full text-left lg:text-center">
         <div
-          className={`flex h-10 items-center justify-between rounded-full px-1 pl-3 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
+          className={`flex items-center justify-between rounded-full p-6 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >
           <span
-            className={`text-xxs font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
+            className={`text-sm font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
           >
             {title}
           </span>

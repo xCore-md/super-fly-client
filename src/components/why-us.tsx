@@ -52,7 +52,7 @@ export const WhyUs = ({ title }: { title: string }) => {
           rezervare.
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-3">
         {items.map(({ image, title, text }) => (
           <div
             key={title}

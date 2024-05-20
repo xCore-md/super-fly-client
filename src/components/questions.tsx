@@ -48,7 +48,7 @@ const Questions = () => {
               key={title}
               title={title}
               content={
-                <span className="block px-2 py-3 text-base text-gray-500">
+                <span className="text-md block px-2 py-3 text-gray-500">
                   {text}
                 </span>
               }

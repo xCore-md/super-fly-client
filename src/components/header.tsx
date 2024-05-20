@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
@@ -22,15 +22,7 @@ export const Header = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (
-      pathname === '/about' ||
-      pathname === '/contacts' ||
-      pathname === '/blog' ||
-      pathname === '/confirm-reservation' ||
-      pathname === '/blog/1' ||
-      pathname === '/reservation' ||
-      pathname === '/manage-reservations'
-    ) {
+    if (pathname !== '/') {
       setIsSimpleHeader(true)
     } else {
       setIsSimpleHeader(false)
@@ -91,66 +83,22 @@ const NavList = ({
   isSimpleHeader: boolean
   closeMenu?: () => void
 }) => {
-  const router = useRouter()
   return (
     <ul
       className={`flex flex-col items-start gap-3 text-xs text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
-      <li>
-        <Link
-          href="/"
-          onClick={() => {
-            router.push('/')
-            closeMenu?.()
-          }}
-        >
-          Acasa
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/about"
-          onClick={() => {
-            router.push('/about')
-            closeMenu?.()
-          }}
-        >
-          Despre noi
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/blog"
-          onClick={() => {
-            router.push('/blog')
-            closeMenu?.()
-          }}
-        >
-          Informatii utile
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/contacts"
-          onClick={() => {
-            router.push('/contacts')
-            closeMenu?.()
-          }}
-        >
-          Contacte
-        </Link>
-      </li>
-      <li>
-        <Link
-          href="/manage-reservations"
-          onClick={() => {
-            router.push('/manage-reservations')
-            closeMenu?.()
-          }}
-        >
-          Gestionare rezervari
-        </Link>
-      </li>
+      {menu.map(({ title, href }) => (
+        <li key={title}>
+          <Link
+            href={href}
+            onClick={() => {
+              closeMenu?.()
+            }}
+          >
+            {title}
+          </Link>
+        </li>
+      ))}
     </ul>
   )
 }
@@ -194,3 +142,26 @@ const MobileMenu = ({ isSimpleHeader }: { isSimpleHeader: boolean }) => {
     </Sheet>
   )
 }
+
+const menu = [
+  {
+    title: 'Acasa',
+    href: '/',
+  },
+  {
+    title: 'Despre noi',
+    href: '/about',
+  },
+  {
+    title: 'Informatii utile',
+    href: '/blog',
+  },
+  {
+    title: 'Contacte',
+    href: '/contacts',
+  },
+  {
+    title: 'Gestionare rezervari',
+    href: '/manage-reservations',
+  },
+]
