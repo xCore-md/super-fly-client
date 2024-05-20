@@ -18,6 +18,7 @@ interface IBlogListProps {
   buttonTitle?: string
   buttonUrl?: string
   count?: number
+  withDestinationsAndPrices?: boolean
 }
 
 export const BlogList = (props: IBlogListProps) => {
@@ -28,6 +29,7 @@ export const BlogList = (props: IBlogListProps) => {
     buttonTitle,
     buttonUrl = '#',
     count = 4,
+    withDestinationsAndPrices,
   } = props
   return (
     <section className="mb-24">
@@ -40,7 +42,7 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 grid grid-cols-2 gap-x-3 gap-y-5 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
+      <div className="mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll lg:grid lg:grid-cols-4 lg:gap-x-5 lg:gap-y-12">
         {Array.from({ length: count }).map((_, index) => (
           <Link className="[&_img]:hover:scale-110" key={index} href="/blog/1">
             <Card className="overflow-hidden rounded-t-[16px] pb-4 transition-[.5s] hover:shadow-lg">
@@ -52,21 +54,33 @@ export const BlogList = (props: IBlogListProps) => {
                 />
               </CardHeader>
               <CardContent>
-                <h3 className="mt-4 text-sm lg:text-xl">
-                  Lorem ipsum dolor sit amet consectetur. Mattis pretium
-                  pellentesque tincidunt quam.
-                </h3>
-                <p className="mt-4 hidden text-base font-light lg:block">
-                  Lorem ipsum dolor sit amet consectetur. Mattis pretium
-                  pellentesque tincidunt quam.
-                </p>
+                {withDestinationsAndPrices ? (
+                  <div className="-mb-6 min-w-28">
+                    <p className="mt-3 text-base font-medium">Paris</p>
+                    <p className="text-xs font-medium text-[#888888]">Franța</p>
+                    <p className="mt-2 text-sm">
+                      De la <span className="font-medium">€120</span>
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="mt-4 text-sm lg:text-xl">
+                      Lorem ipsum dolor sit amet consectetur. Mattis pretium
+                      pellentesque tincidunt quam.
+                    </h3>
+                    <p className="mt-4 hidden text-base font-light lg:block">
+                      Lorem ipsum dolor sit amet consectetur. Mattis pretium
+                      pellentesque tincidunt quam.
+                    </p>
+                  </>
+                )}
               </CardContent>
             </Card>
           </Link>
         ))}
       </div>
       <div
-        className={`flex items-center ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+        className={`hidden items-center lg:flex ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>

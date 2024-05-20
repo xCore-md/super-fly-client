@@ -15,7 +15,7 @@ const Questions = dynamic(() => import('@components/questions'), {
 
 export default function Home() {
   return (
-    <div className="mt-28 pb-10 max-[1440px]:px-5">
+    <div className="mt-28 pb-10 lg:max-[1440px]:px-5">
       <Banner />
       <BlogList
         title="Cele mai bune oferte"
@@ -26,6 +26,7 @@ export default function Home() {
           </span>
         }
         buttonTitle="Vezi Toate Ofertele"
+        withDestinationsAndPrices
       />
       <Offers />
       <section className="mb-36 mt-20">

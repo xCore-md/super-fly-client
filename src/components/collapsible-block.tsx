@@ -6,6 +6,7 @@ import { Collapsible } from '@radix-ui/react-collapsible'
 import flyOne from '@/assets/img/fly-one.png'
 import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
+import { FlyContent } from '@components/flights/flights-listing'
 import { Button } from './ui/button'
 import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 
@@ -14,7 +15,7 @@ const CollapsibleBlock = () => {
 
   return (
     <div className="flex items-start gap-2">
-      <div className="w-4/5">
+      <div className="w-full lg:w-4/5">
         <Collapsible
           open={isOpen}
           onOpenChange={setIsOpen}
@@ -44,7 +45,8 @@ const CollapsibleBlock = () => {
           <CollapsibleContent
             className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-4 pt-14 ${isOpen ? 'shadow-lg shadow-slate-200' : ''}`}
           >
-            <div className="grid grid-cols-4">
+            {/*desktop todo: check if the variation on mobile and desktop is right*/}
+            <div className="hidden grid-cols-4 lg:grid">
               <div className="text-left">
                 <div className="mb-5 text-xl font-normal">15 Apr, 2023</div>
                 <div className="text-sm text-gray-700">Chișinău</div>
@@ -69,10 +71,19 @@ const CollapsibleBlock = () => {
                 <div className="text-sm text-gray-700">Milano</div>
               </div>
             </div>
+
+            {/*MOBILE */}
+            <div className="lg:hidden">
+              <FlyContent
+                withoutAction={false}
+                withoutActionFlightNumber={true}
+                pricePlacement="top"
+              />
+            </div>
           </CollapsibleContent>
         </Collapsible>
       </div>
-      <div className="w-1/5">
+      <div className="hidden lg:w-1/5">
         <Collapsible
           open={isOpen}
           onOpenChange={setIsOpen}
