@@ -43,7 +43,7 @@ export const FlightsCarousel = () => {
   const isSeleted = (index: number) => selected === index
 
   return (
-    <div className="relative mx-auto mt-20 w-full max-w-[1024px] px-9 lg:px-0">
+    <div className="relative mx-auto mt-28  w-full max-w-[1024px] px-9 lg:mt-20 lg:px-0">
       <div className="custom-shadow absolute bottom-0 left-0 right-0 top-4 rounded-full bg-white " />
 
       <Carousel
