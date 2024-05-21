@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
-import supportImgUrl from '@/assets/img/support.png'
 import {
   Sheet,
   SheetContent,
@@ -59,13 +58,6 @@ export const Header = () => {
                 <span className="text-xs font-medium lg:text-base">{tel}</span>
               </a>
             </div>
-            {/* <Image
-            className="ml-4 h-[35px] w-[35px] lg:h-[48px] lg:w-[48px]"
-            src={supportImgUrl}
-            alt="support"
-            width={48}
-            height={48}
-          /> */}
             <div className="pointer-events-none ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
               <iframe
                 src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"

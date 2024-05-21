@@ -1,6 +1,4 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import offers from '@/assets/img/offers.jpg'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
 
@@ -26,8 +24,6 @@ const Offers = () => {
               </Link>
             </CardContent>
           </Card>
-          {/* <Image src={offers} alt="image" /> */}
-
           <div className="pointer-events-none h-[280px] w-[430px] overflow-hidden rounded-2xl">
             <iframe
               width={530}
