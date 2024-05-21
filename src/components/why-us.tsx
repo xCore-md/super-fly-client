@@ -1,4 +1,8 @@
+'use client'
+
 import Image from 'next/image'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import why1 from '@/assets/img/why1.svg'
 import why2 from '@/assets/img/why2.svg'
 import why3 from '@/assets/img/why3.svg'
@@ -7,6 +11,12 @@ import why5 from '@/assets/img/why5.svg'
 import why6 from '@/assets/img/why6.svg'
 
 export const WhyUs = ({ title }: { title: string }) => {
+  gsap.registerPlugin(useGSAP)
+
+  useGSAP(() => {
+    gsap.fromTo('.banner-title', { y: -20, opacity: 0 }, { y: 0, opacity: 1 })
+  })
+
   const items = [
     {
       image: why1,
@@ -56,7 +66,7 @@ export const WhyUs = ({ title }: { title: string }) => {
         {items.map(({ image, title, text }) => (
           <div
             key={title}
-            className="flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 lg:flex-row lg:items-start lg:gap-6 lg:p-6"
+            className="flex animate-fade-up flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex-row lg:items-start lg:gap-6 lg:p-6"
           >
             <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
             <div>

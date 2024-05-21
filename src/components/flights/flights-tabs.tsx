@@ -32,7 +32,7 @@ export const FlightsTabs = () => {
       </div>
       <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
         <Link
-          className="custom-shadow flex h-[64px] w-fit animate-pulse items-center justify-center rounded-full border border-gray-200 px-2"
+          className="custom-shadow flex h-[64px] w-fit items-center justify-center rounded-full border border-gray-200 px-2"
           href="tel:+(373) 60 456 654"
         >
           <span className="flex flex-col text-black">
@@ -43,13 +43,16 @@ export const FlightsTabs = () => {
               +(373) 60 456 654
             </span>
           </span>
-          <Image
-            className="ml-2"
-            src={supportImgUrl}
-            alt="support"
-            width={48}
-            height={48}
-          />
+          <div className="relative">
+            <Image
+              className="ml-2"
+              src={supportImgUrl}
+              alt="support"
+              width={48}
+              height={48}
+            />
+            <span className=" absolute bottom-0 left-1 animate-bounce rounded-full bg-green-400 p-2"></span>
+          </div>
         </Link>
       </div>
     </div>

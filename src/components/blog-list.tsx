@@ -32,7 +32,7 @@ export const BlogList = (props: IBlogListProps) => {
     withDestinationsAndPrices,
   } = props
   return (
-    <section className="mb-14 lg:mb-24">
+    <section className="mb-14 animate-fade-up fill-mode-forwards lg:mb-24">
       <h2
         className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
       >

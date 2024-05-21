@@ -30,51 +30,63 @@ export const Header = () => {
   }, [pathname])
 
   return (
-    <header
-      className={`max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
+    <div
+      className={`sticky left-0 top-0 z-30 ${isSimpleHeader ? 'bg-white text-black shadow-md' : 'bg-brand-blue text-white'}`}
     >
-      <div
-        className={`container relative z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
+      <header
+        className={`  max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
       >
-        <Link className="w-[88px] lg:w-[152px]" href="/">
-          <Image src={isSimpleHeader ? logoBlue : logoWhite} alt="logo" />
-        </Link>
+        <div
+          className={`container  z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
+        >
+          <Link className="w-[88px] lg:w-[152px]" href="/">
+            <Image src={isSimpleHeader ? logoBlue : logoWhite} alt="logo" />
+          </Link>
 
-        <nav className="hidden pl-32 lg:block">
-          <NavList isSimpleHeader={isSimpleHeader} />
-        </nav>
+          <nav className="hidden pl-32 lg:block">
+            <NavList isSimpleHeader={isSimpleHeader} />
+          </nav>
 
-        <div className="flex items-center">
-          <div>
-            <a
-              href={tel}
-              className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
-            >
-              <span className="text-right text-xxs lg:text-sm">
-                Contacteaza-ne
-              </span>
-              <span className="text-xs font-medium lg:text-base">{tel}</span>
-            </a>
-          </div>
-          <Image
+          <div className="flex items-center">
+            <div>
+              <a
+                href={tel}
+                className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
+              >
+                <span className="text-right text-xxs lg:text-sm">
+                  Contacteaza-ne
+                </span>
+                <span className="text-xs font-medium lg:text-base">{tel}</span>
+              </a>
+            </div>
+            {/* <Image
             className="ml-4 h-[35px] w-[35px] lg:h-[48px] lg:w-[48px]"
             src={supportImgUrl}
             alt="support"
             width={48}
             height={48}
-          />
-          <div
-            className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
-          >
-            ro
+          /> */}
+            <div className="pointer-events-none ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
+              <iframe
+                src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
+                width="58"
+                height="58"
+                className=" -translate-x-2 -translate-y-2"
+              ></iframe>
+            </div>
+            <div
+              className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
+            >
+              ro
+            </div>
+          </div>
+
+          <div className="lg:hidden">
+            <MobileMenu isSimpleHeader={isSimpleHeader} />
           </div>
         </div>
-
-        <div className="lg:hidden">
-          <MobileMenu isSimpleHeader={isSimpleHeader} />
-        </div>
-      </div>
-    </header>
+      </header>
+    </div>
   )
 }
 

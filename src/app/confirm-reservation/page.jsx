@@ -47,8 +47,8 @@ export default function ConfirmReservationPage() {
               className="custom-shadow mt-6 w-full gap-5 rounded-2xl bg-white px-5 py-7 lg:px-10"
             >
               {index === 0 && (
-                <div className="mb-10 flex flex-wrap justify-between">
-                  <div className="flex w-3/4 flex-col">
+                <div className="mb-5 flex flex-wrap justify-between lg:mb-10">
+                  <div className="mb-4 flex flex-col max-[768px]:w-1/2">
                     <span className="mb-1 text-xxs text-gray-400">
                       Numele/Prenumele
                     </span>
@@ -56,7 +56,7 @@ export default function ConfirmReservationPage() {
                       John Doe
                     </span>
                   </div>
-                  <div className="flex w-1/4 flex-col">
+                  <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
                     <span className="mb-1 text-xxs text-gray-400">
                       Naționalitate
                     </span>
@@ -64,15 +64,15 @@ export default function ConfirmReservationPage() {
                       MD
                     </span>
                   </div>
-                  <div className="flex w-3/4 flex-col">
-                    <span className="mb-1 text-xxs text-gray-400">
+                  <div className="mb-4 flex flex-col max-[768px]:w-1/2">
+                    <span className="mb-1  text-xxs text-gray-400">
                       Numărul (carte de identitate/pașaport)
                     </span>
                     <span className="text-xs font-medium text-gray-700">
                       AB4567894563
                     </span>
                   </div>
-                  <div className="flex w-1/5 flex-col">
+                  <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
                     <span className="mb-1 text-xxs text-gray-400">Expiră</span>
                     <span className="text-xs font-medium text-gray-700">
                       11/11/2030
