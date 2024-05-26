@@ -2,13 +2,16 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { Collapsible } from '@radix-ui/react-collapsible'
 import flyOne from '@/assets/img/fly-one.png'
 import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
 import { FlyContent } from '@components/flights/flights-listing'
 import { Button } from './ui/button'
-import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 
 const CollapsibleBlock = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,9 +24,9 @@ const CollapsibleBlock = () => {
           onOpenChange={setIsOpen}
           className="rounded-full bg-white"
         >
-          <CollapsibleTrigger className="w-full">
+          <CollapsibleTrigger asChild className="w-full">
             <div
-              className={`flex h-[63px] items-center justify-between rounded-full px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
+              className={`relative z-10 flex h-[63px] items-center justify-between rounded-full px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
             >
               <span
                 className={`text-lg font-light ${isOpen ? 'text-white' : 'text-black'}`}

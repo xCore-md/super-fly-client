@@ -4,11 +4,7 @@ import { BlogList } from '@/components/blog-list'
 import { ItemsCarousel } from '@/components/items-carousel'
 import { WhyUs } from '@/components/why-us'
 import { offers } from '@/data/data'
-
-const Offers = dynamic(() => import('@components/offers'), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
-})
+import Offers from '@components/offers'
 
 const Questions = dynamic(() => import('@components/questions'), {
   loading: () => <p>Loading...</p>,
