@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import Link from 'next/link'
+import offers from '@/assets/img/offers.jpg'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
 
@@ -24,17 +26,8 @@ const Offers = () => {
               </Link>
             </CardContent>
           </Card>
-          <div className="pointer-events-none h-[280px] w-[430px] overflow-hidden rounded-2xl">
-            <iframe
-              width={530}
-              height={320}
-              className="scale-145 -translate-y-4"
-              src="https://www.youtube.com/embed/XoOaKs2ug_k?autoplay=1&mute=1&controls=0&si=1-uydeTh0s9Ynu1M&amp;clip=Ugkx1AV2pwbUY8vgXx7589tXaZhxG3S7FGgE&amp;clipt=EOzayAMYzK_MAw"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
+          <div className="h-[280px] w-full rounded-2xl">
+            <Image className="w-full object-cover" src={offers} alt="image" />
           </div>
         </div>
         <div className="w-full lg:w-4/6">
