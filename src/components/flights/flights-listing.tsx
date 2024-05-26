@@ -142,7 +142,7 @@ export const FlyContent = (
 
             <Link
               href="/reservation"
-              className="hidden h-11 w-28 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+              className="hidden h-11 w-36 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
             >
               Rezerva
             </Link>
@@ -180,7 +180,7 @@ export const FlyContent = (
             </Link>
             <Link
               href="/reservation"
-              className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
+              className="flex h-9 w-36 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
             >
               Rezerva
             </Link>
