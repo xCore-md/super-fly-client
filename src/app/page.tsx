@@ -1,15 +1,10 @@
-import dynamic from 'next/dynamic'
 import { Banner } from '@/components/banner'
 import { BlogList } from '@/components/blog-list'
 import { ItemsCarousel } from '@/components/items-carousel'
 import { WhyUs } from '@/components/why-us'
 import { offers } from '@/data/data'
 import Offers from '@components/offers'
-
-const Questions = dynamic(() => import('@components/questions'), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
-})
+import Questions from '@components/questions'
 
 export default function Home() {
   return (

@@ -23,7 +23,10 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
       onOpenChange={setIsOpen}
       className="rounded-full bg-white"
     >
-      <CollapsibleTrigger className="w-full text-left lg:text-center">
+      <CollapsibleTrigger
+        asChild
+        className="relative z-10 w-full text-left lg:text-center"
+      >
         <div
           className={`flex items-center justify-between rounded-full p-6 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >

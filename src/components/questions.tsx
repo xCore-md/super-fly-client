@@ -1,6 +1,13 @@
+'use client'
 import Link from 'next/link'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { cn } from '@/lib/utils'
 import CollapsibleComponent from './collapsible-component'
+
+gsap.registerPlugin(useGSAP)
+gsap.registerPlugin(ScrollTrigger)
 
 const Questions = () => {
   const items = [
@@ -27,9 +34,36 @@ const Questions = () => {
       text: 'Rezervând bilete de avion prin intermediul agenției noastre, beneficiezi de acces la tarife competitive, oferte exclusive și o gamă largă de opțiuni de zbor. În plus, oferim suport clienți dedicat și servicii personalizate pentru a-ți asigura o experiență de călătorie fără probleme.',
     },
   ]
+  useGSAP(() => {
+    gsap.fromTo(
+      '.animate-right-to-left-Questions',
+      { x: -150, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        delay: 0.4,
+        scrollTrigger: {
+          trigger: '.animate-right-to-left-Questions',
+        },
+      }
+    )
+
+    gsap.fromTo(
+      '.animate-left-to-right-Questions',
+      { x: 300, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        delay: 0.4,
+        scrollTrigger: {
+          trigger: '.animate-left-to-right-Questions',
+        },
+      }
+    )
+  })
   return (
     <section className="flex flex-col pb-10 pt-16 lg:flex-row lg:pb-20">
-      <div className="lg:w-1/3">
+      <div className="animate-right-to-left-Questions lg:w-1/3">
         <h3 className="mb-2 text-lg font-medium lg:text-xl">
           Întrebări frecvente
         </h3>
@@ -41,7 +75,7 @@ const Questions = () => {
         <DoYouNeedHelp className="hidden lg:flex" />
       </div>
 
-      <div className="lg:w-2/3">
+      <div className="animate-left-to-right-Questions lg:w-2/3">
         <div className="flex flex-col gap-4">
           {items.map(({ title, text }) => (
             <CollapsibleComponent
