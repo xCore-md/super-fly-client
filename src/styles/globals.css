@@ -169,3 +169,23 @@ html {
 .fly-line-stopover-tooltip-content {
   @apply w-44 rounded-sm border-2 border-[#FFE959] bg-white p-2 font-light;
 }
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:first-child {
+    margin-left: 0;
+  }
+  width: 300px !important;
+}
+.swiper-container {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .swiper-slide {
+    width: 190px !important;
+  }
+}
