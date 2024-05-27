@@ -1,16 +1,62 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import offers from '@/assets/img/offers.jpg'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
 
+gsap.registerPlugin(useGSAP)
+gsap.registerPlugin(ScrollTrigger)
+
 const Offers = () => {
+  const container = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        '.animate-right-to-left',
+        { x: -150, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: '.animate-right-to-left',
+          },
+        }
+      )
+
+      gsap.fromTo(
+        '.animate-left-to-right',
+        { x: 300, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          delay: 0.4,
+          scrollTrigger: {
+            trigger: '.animate-left-to-right',
+          },
+        }
+      )
+    },
+    { scope: container }
+  )
+
   return (
-    <section className="mt-24 lg:mt-44">
+    <section
+      className="animation-trigger mt-24 overflow-x-hidden lg:mt-44"
+      ref={container}
+    >
       <h2 className="mb-6 text-2xl font-medium">
         Cele mai populare destinatii
       </h2>
-      <div className="flex gap-6">
+
+      <div className="animate-right-to-left flex gap-6">
         <div className="hidden w-2/6 lg:block">
           <Card className="mb-4 rounded-xl">
             <CardHeader className="pb-2">
@@ -30,7 +76,8 @@ const Offers = () => {
             <Image className="w-full object-cover" src={offers} alt="image" />
           </div>
         </div>
-        <div className="w-full lg:w-4/6">
+
+        <div className="animate-left-to-right w-full lg:w-4/6">
           {Array.from({ length: 6 }).map((_, index) => (
             <div key={index}>
               <CollapsibleBlock />

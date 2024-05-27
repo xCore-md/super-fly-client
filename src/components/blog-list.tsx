@@ -1,7 +1,11 @@
+'use client'
+
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { useAnimationFadeIn } from '@/lib/hooks/useAnimationFadeIn'
+import { cn } from '@/lib/utils'
 
 interface IBlogListItemProps {
   img: StaticImageData
@@ -18,6 +22,7 @@ interface IBlogListProps {
   buttonUrl?: string
   count?: number
   withDestinationsAndPrices?: boolean
+  className?: string
 }
 
 export const BlogList = (props: IBlogListProps) => {
@@ -29,9 +34,18 @@ export const BlogList = (props: IBlogListProps) => {
     buttonUrl = '#',
     items,
     withDestinationsAndPrices,
+    className = '',
   } = props
+
+  useAnimationFadeIn('.gsap-animate')
+
   return (
-    <section className="mb-14 animate-fade-up fill-mode-forwards lg:mb-24">
+    <section
+      className={cn(
+        'gsap-animate mb-14 fill-mode-forwards lg:mb-24',
+        className
+      )}
+    >
       <h2
         className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
       >

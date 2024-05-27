@@ -1,21 +1,16 @@
 'use client'
 
 import Image from 'next/image'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
 import why1 from '@/assets/img/why1.svg'
 import why2 from '@/assets/img/why2.svg'
 import why3 from '@/assets/img/why3.svg'
 import why4 from '@/assets/img/why4.svg'
 import why5 from '@/assets/img/why5.svg'
 import why6 from '@/assets/img/why6.svg'
+import { useAnimationFadeIn } from '@/lib/hooks/useAnimationFadeIn'
 
 export const WhyUs = ({ title }: { title: string }) => {
-  gsap.registerPlugin(useGSAP)
-
-  useGSAP(() => {
-    gsap.fromTo('.banner-title', { y: -20, opacity: 0 }, { y: 0, opacity: 1 })
-  })
+  useAnimationFadeIn('.animation')
 
   const items = [
     {
@@ -62,11 +57,11 @@ export const WhyUs = ({ title }: { title: string }) => {
           rezervare.
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="animation grid grid-cols-3 gap-3">
         {items.map(({ image, title, text }) => (
           <div
             key={title}
-            className="flex animate-fade-up flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex-row lg:items-start lg:gap-6 lg:p-6"
+            className="flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex-row lg:items-start lg:gap-6 lg:p-6"
           >
             <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
             <div>
