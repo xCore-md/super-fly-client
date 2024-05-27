@@ -14,7 +14,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { Button } from 'antd'
 
 export const Header = () => {
   const [isSimpleHeader, setIsSimpleHeader] = useState(false)
