@@ -8,7 +8,7 @@ import Questions from '@components/questions'
 
 export default function Home() {
   return (
-    <div className="mt-28 pb-10 max-[1024px]:mt-10 lg:max-[1440px]:px-5">
+    <div className="mt-28 overflow-x-hidden pb-10 max-[1024px]:mt-10 lg:overflow-x-auto lg:max-[1440px]:px-5">
       <Banner />
       <ItemsCarousel
         buttonTitle="Vezi Toate Ofertele"

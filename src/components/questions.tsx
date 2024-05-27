@@ -35,29 +35,38 @@ const Questions = () => {
     },
   ]
   useGSAP(() => {
-    gsap.fromTo(
-      '.animate-right-to-left-Questions',
-      { x: -150, opacity: 0 },
+    const mm = gsap.matchMedia()
+    mm.add(
       {
-        x: 0,
-        opacity: 1,
-        delay: 0.4,
-        scrollTrigger: {
-          trigger: '.animate-right-to-left-Questions',
-        },
-      }
-    )
+        sm: '(max-width: 767px)',
+        md: '(min-width: 768px)',
+      },
+      (ctx) => {
+        gsap.fromTo(
+          '.animate-right-to-left-Questions',
+          { x: ctx.conditions?.sm ? -100 : -150, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            delay: 0.4,
+            scrollTrigger: {
+              trigger: '.animate-right-to-left-Questions',
+            },
+          }
+        )
 
-    gsap.fromTo(
-      '.animate-left-to-right-Questions',
-      { x: 300, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        delay: 0.4,
-        scrollTrigger: {
-          trigger: '.animate-left-to-right-Questions',
-        },
+        gsap.fromTo(
+          '.animate-left-to-right-Questions',
+          { x: ctx.conditions?.sm ? 150 : 300, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            delay: 0.4,
+            scrollTrigger: {
+              trigger: '.animate-left-to-right-Questions',
+            },
+          }
+        )
       }
     )
   })

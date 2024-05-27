@@ -18,29 +18,39 @@ const Offers = () => {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        '.animate-right-to-left',
-        { x: -150, opacity: 0 },
+      const mm = gsap.matchMedia()
+      mm.add(
         {
-          x: 0,
-          opacity: 1,
-          delay: 0.4,
-          scrollTrigger: {
-            trigger: '.animate-right-to-left',
-          },
-        }
-      )
+          sm: '(max-width: 767px)',
+          md: '(min-width: 768px)',
+        },
+        (ctx) => {
+          const { sm }: any = ctx.conditions
+          gsap.fromTo(
+            '.animate-right-to-left',
+            { x: sm ? -20 : -150, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              delay: 0.4,
+              scrollTrigger: {
+                trigger: '.animate-right-to-left',
+              },
+            }
+          )
 
-      gsap.fromTo(
-        '.animate-left-to-right',
-        { x: 300, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          delay: 0.4,
-          scrollTrigger: {
-            trigger: '.animate-left-to-right',
-          },
+          gsap.fromTo(
+            '.animate-left-to-right',
+            { x: sm ? 100 : 300, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              delay: 0.4,
+              scrollTrigger: {
+                trigger: '.animate-left-to-right',
+              },
+            }
+          )
         }
       )
     },
