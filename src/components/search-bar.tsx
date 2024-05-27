@@ -178,9 +178,18 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
               trigger={['click']}
             >
               <Button className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
-                <span>
-                  {Number(Object.values(passengers).reduce((a, b) => a + b)) ||
-                    ''}{' '}
+                <span className="flex">
+                  <span
+                    className={
+                      Object.values(passengers).reduce((a, b) => a + b) > 0
+                        ? 'flex w-4'
+                        : ''
+                    }
+                  >
+                    {Number(
+                      Object.values(passengers).reduce((a, b) => a + b)
+                    ) || ''}
+                  </span>{' '}
                   Passengers
                 </span>
               </Button>
@@ -243,7 +252,7 @@ const PopoverContent = ({
                 <span className="text-xs text-gray-500">{description}</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex select-none items-center gap-2">
               <Button
                 className="h-8 w-8 rounded-full bg-gray-200 text-black hover:bg-brand-blue hover:text-white"
                 onClick={() =>

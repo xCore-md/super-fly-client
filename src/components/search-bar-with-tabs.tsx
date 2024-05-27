@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { SearchBar } from '@components/search-bar'
 import { Button } from '@components/ui/button'

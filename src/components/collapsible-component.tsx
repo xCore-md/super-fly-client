@@ -31,7 +31,7 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
           className={`flex items-center justify-between rounded-full p-6 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >
           <span
-            className={`text-sm font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
+            className={`pr-4 text-sm font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
           >
             {title}
           </span>

@@ -103,10 +103,10 @@ const NavList = ({
 }) => {
   return (
     <ul
-      className={`flex flex-col items-start gap-3 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
+      className={`flex flex-col items-start gap-4 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
       {menu.map(({ title, href }) => (
-        <li key={title}>
+        <li key={title} className="">
           <Link
             href={href}
             onClick={() => {
@@ -130,6 +130,8 @@ const MobileMenu = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
+  const tel = '+(373) 60 456 654'
+
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="flex h-8 w-8 items-center justify-center">
@@ -153,7 +155,7 @@ const MobileMenu = ({
         <SheetHeader>
           <SheetTitle>
             <Link href="/">
-              <Image width={88} src={logoBlue} alt="logo" />
+              <Image width={110} src={logoBlue} alt="logo" />
             </Link>
           </SheetTitle>
           <SheetDescription>
@@ -163,6 +165,33 @@ const MobileMenu = ({
                 isSimpleHeader={isSimpleHeader}
                 closeMenu={closeMenu}
               />
+
+              <div className="absolute bottom-7 -ml-6 flex w-full items-center justify-center">
+                <div>
+                  <Link
+                    href={`tel:${tel}`}
+                    className={`flex flex-col text-black`}
+                  >
+                    <span className="text-right text-xxs lg:text-sm">
+                      Contacteaza-ne
+                    </span>
+                    <span className="text-xs font-medium lg:text-base">
+                      {tel}
+                    </span>
+                  </Link>
+                </div>
+                <div className="relative">
+                  <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
+                    <iframe
+                      src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
+                      width="58"
+                      height="58"
+                      className=" -translate-x-2 -translate-y-2"
+                    ></iframe>
+                  </div>
+                  <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
+                </div>
+              </div>
             </nav>
           </SheetDescription>
         </SheetHeader>
