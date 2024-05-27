@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { DatePicker, Popover } from 'antd'
 import arrive from '@/assets/img/arrive.svg'
 import calendar from '@/assets/img/calendar.svg'
@@ -19,7 +19,6 @@ import { Label } from '@/components/ui/label'
 export const SearchBar = ({ arrival }: { arrival: boolean }) => {
   const [openDeparture, setOpenDeparture] = useState(false)
   const [openArrival, setOpenArrival] = useState(false)
-  const [passengersCount, setPassengersCount] = useState(1)
   const [passengers, setPassengers] = useState({
     adults: 1,
     kids: 0,
@@ -211,7 +210,14 @@ interface IPopoverContent {
     kids: number
     infants: number
   }
-  updatePassengersCount: ({}) => void
+
+  updatePassengersCount: Dispatch<
+    SetStateAction<{
+      adults: number
+      kids: number
+      infants: number
+    }>
+  >
 }
 const PopoverContent = ({
   passengers,
