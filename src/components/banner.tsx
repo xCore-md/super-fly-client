@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import banner from '@/assets/img/banner.jpg'
+import plane from '@/assets/img/plane.png'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 
 export const Banner = () => {
@@ -30,9 +30,9 @@ export const Banner = () => {
         <div className="relative h-full w-full">
           <Image
             fill
-            className="banner-image h-full rounded-b-[50px] object-contain lg:object-cover"
-            src={banner}
-            alt="banner"
+            className="banner-image h-full rounded-b-[50px] object-contain"
+            src={plane}
+            alt="'plane"
           />
         </div>
       </div>

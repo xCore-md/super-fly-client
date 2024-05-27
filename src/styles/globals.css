@@ -191,6 +191,14 @@ html {
   overflow: hidden;
 }
 
+.ant-picker-cell-inner {
+  border-radius: 40px !important;
+
+  &::before {
+    border-radius: 40px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
