@@ -33,6 +33,7 @@ export const Banner = () => {
             className="banner-image h-full rounded-b-[50px] object-contain"
             src={plane}
             alt="'plane"
+            priority
           />
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { Popover } from 'antd'
 import why1 from '@/assets/img/why1.svg'
 import why2 from '@/assets/img/why2.svg'
 import why3 from '@/assets/img/why3.svg'
@@ -59,22 +60,53 @@ export const WhyUs = ({ title }: { title: string }) => {
       </div>
       <div className="animation grid grid-cols-3 gap-3">
         {items.map(({ image, title, text }) => (
-          <div
-            key={title}
-            className="flex flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex-row lg:items-start lg:gap-6 lg:p-6"
-          >
-            <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
-            <div>
-              <h4 className="text-center text-xxs font-medium lg:mb-3 lg:text-left lg:text-xl">
-                {title}
-              </h4>
-              <span className="hidden text-sm text-gray-500 lg:block">
-                {text}
-              </span>
-            </div>
-          </div>
+          <Component key={title} image={image} title={title} text={text} />
         ))}
       </div>
     </>
+  )
+}
+
+interface IComponentProps {
+  title: string
+  image: string
+  text: string
+}
+
+const Component = ({ title, image, text }: IComponentProps) => {
+  return (
+    <div>
+      <div
+        key={title}
+        className="hidden h-full flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex lg:flex-row lg:items-start lg:gap-6 lg:p-6"
+      >
+        <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
+        <div>
+          <h4 className="text-center text-xxs font-medium lg:mb-3 lg:text-left lg:text-xl">
+            {title}
+          </h4>
+          <span className="hidden text-sm text-gray-500 lg:block">{text}</span>
+        </div>
+      </div>
+
+      <Popover
+        className="lg:hidden"
+        trigger="click"
+        content={
+          <div className=" max-w-52">
+            <span className="text-sm text-gray-500">{text}</span>
+          </div>
+        }
+      >
+        <div className="flex h-full flex-col items-center justify-start gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards">
+          <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
+          <div>
+            <h4 className="text-center text-xxs font-medium lg:mb-3 lg:text-left lg:text-xl">
+              {title}
+            </h4>
+          </div>
+        </div>
+      </Popover>
+    </div>
   )
 }
