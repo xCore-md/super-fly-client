@@ -15,7 +15,14 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 
-export const Header = () => {
+interface IMenu {
+  title: string
+  href: string
+}
+interface IHeaderProps {
+  menu: IMenu[]
+}
+export const Header = ({ menu }: IHeaderProps) => {
   const [isSimpleHeader, setIsSimpleHeader] = useState(false)
   const tel = '+(373) 60 456 654'
   const pathname = usePathname()
@@ -43,7 +50,7 @@ export const Header = () => {
           </Link>
 
           <nav className="hidden pl-32 lg:block">
-            <NavList isSimpleHeader={isSimpleHeader} />
+            <NavList menu={menu} isSimpleHeader={isSimpleHeader} />
           </nav>
 
           <div className="flex items-center">
@@ -77,7 +84,7 @@ export const Header = () => {
           </div>
 
           <div className="lg:hidden">
-            <MobileMenu isSimpleHeader={isSimpleHeader} />
+            <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
           </div>
         </div>
       </header>
@@ -88,9 +95,11 @@ export const Header = () => {
 const NavList = ({
   isSimpleHeader,
   closeMenu,
+  menu,
 }: {
   isSimpleHeader: boolean
   closeMenu?: () => void
+  menu: IMenu[]
 }) => {
   return (
     <ul
@@ -112,7 +121,13 @@ const NavList = ({
   )
 }
 
-const MobileMenu = ({ isSimpleHeader }: { isSimpleHeader: boolean }) => {
+const MobileMenu = ({
+  isSimpleHeader,
+  menu,
+}: {
+  isSimpleHeader: boolean
+  menu: IMenu[]
+}) => {
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
   return (
@@ -143,7 +158,11 @@ const MobileMenu = ({ isSimpleHeader }: { isSimpleHeader: boolean }) => {
           </SheetTitle>
           <SheetDescription>
             <nav className="mt-5 text-sm text-black">
-              <NavList isSimpleHeader={isSimpleHeader} closeMenu={closeMenu} />
+              <NavList
+                menu={menu}
+                isSimpleHeader={isSimpleHeader}
+                closeMenu={closeMenu}
+              />
             </nav>
           </SheetDescription>
         </SheetHeader>
@@ -151,26 +170,3 @@ const MobileMenu = ({ isSimpleHeader }: { isSimpleHeader: boolean }) => {
     </Sheet>
   )
 }
-
-const menu = [
-  {
-    title: 'Acasa',
-    href: '/',
-  },
-  {
-    title: 'Despre noi',
-    href: '/about',
-  },
-  {
-    title: 'Informatii utile',
-    href: '/blog',
-  },
-  {
-    title: 'Contacte',
-    href: '/contacts',
-  },
-  {
-    title: 'Gestionare rezervari',
-    href: '/manage-reservations',
-  },
-]

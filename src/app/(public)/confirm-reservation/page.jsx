@@ -6,7 +6,7 @@ import paynet from '@/assets/img/paynet.svg'
 import visaWhite from '@/assets/img/visa-white.svg'
 import visa from '@/assets/img/visa.svg'
 import { ReservationSummary } from '@/components/reservation/reservation-summary'
-import { FlyContent } from '../../components/flights/flights-listing'
+import { FlyContent } from '../../../components/flights/flights-listing'
 
 export default function ConfirmReservationPage() {
   return (

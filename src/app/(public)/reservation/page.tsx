@@ -38,7 +38,7 @@ export default function Reservation() {
             className="text-sm text-xxs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Sunt de acord cu{' '}
-            <Link className="text-[#596AD9]" href="/">
+            <Link className="text-[#596AD9]" href="/public">
               Politica de confidentialitate
             </Link>
             și cu{' '}

@@ -6,7 +6,7 @@ import fourteen from '@/assets/img/fourteen.svg'
 import hundred from '@/assets/img/hundred.svg'
 import people from '@/assets/img/people.jpg'
 import thirteen from '@/assets/img/thirteen.svg'
-import { WhyUs } from '@/components/why-us'
+import { WhyUs } from '@components/why-us'
 
 export default function About() {
   return (
