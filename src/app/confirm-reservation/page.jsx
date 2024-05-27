@@ -128,7 +128,7 @@ export default function ConfirmReservationPage() {
               <div className="lg:hidden">
                 <FlyContent
                   withoutAction
-                  withoutActionFlightNumber
+                  withoutFlightNumber
                   withoutHeader
                   withoutFooter
                   pricePlacement="top"
