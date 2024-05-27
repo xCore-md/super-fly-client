@@ -189,6 +189,7 @@ const MainForm = () => {
     </ReservationCard>
   )
 }
+
 interface IBags {
   id: string
   size: string
@@ -197,6 +198,7 @@ interface IBags {
   imageUrl: string
   hideInput?: boolean
 }
+
 const BaggageSection = () => {
   const bags: IBags[] = [
     {
@@ -234,12 +236,13 @@ const BaggageSection = () => {
     <section className="grid gap-6 lg:grid-cols-4">
       {bags.map((bag) => (
         <div key={bag.id}>
-          <Card className="mb-4 flex justify-between rounded-xl text-center lg:flex-col">
+          <Card className="mb-4 flex h-[244px] justify-between rounded-xl text-center lg:flex-col">
             <CardHeader className="flex max-w-72 flex-1 flex-row items-center justify-between px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:p-6">
               <Image
                 src={bag.imageUrl}
                 alt="bag"
-                className="mb-3 mr-2 select-none lg:mr-0"
+                height={75}
+                className="mb-3 mr-2 h-[75px] select-none lg:mr-0"
               />
 
               <div className="text-left lg:text-center">
@@ -260,7 +263,7 @@ const BaggageSection = () => {
             </CardContent>
 
             {/*desktop*/}
-            <CardContent className="mt-auto hidden rounded-xl bg-brand-light-blue p-2 lg:block">
+            <CardContent className="mt-auto hidden min-h-14 rounded-xl bg-brand-light-blue p-2 lg:block">
               <BagTypeAndPrice bag={bag} />
             </CardContent>
           </Card>
@@ -278,8 +281,12 @@ const BagTypeAndPrice = ({ bag }: { bag: IBags }) => {
   return (
     <>
       <h6 className="text-sm font-medium">{bag.name}</h6>
-      <p className="mt-0.5 text-xs text-green-600">
-        {bag.hideInput ? '' : bag.price}
+      <p
+        className={cn('mt-0.5 text-xs text-green-600 lg:block', {
+          hidden: bag.hideInput,
+        })}
+      >
+        {bag.price}
       </p>
     </>
   )
