@@ -12,7 +12,7 @@ interface IFlightsListingProps {
   length: number
   margin?: string
   withoutAction?: boolean
-  withoutActionFlightNumber?: boolean
+  withoutFlightNumber?: boolean
   withoutHeader?: boolean
   withoutFooter?: boolean
   pricePlacement?: 'top' | 'bottom'
@@ -38,7 +38,7 @@ export const FlyContent = (
         ''
       ) : (
         <div
-          className={`flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2'} col-span-1 border-b lg:border-0`}
+          className={`flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1 border-b lg:border-0`}
         >
           <Image
             src={flyOneSvg}
@@ -55,7 +55,14 @@ export const FlyContent = (
         </div>
       )}
 
-      <section className="col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0">
+      <section
+        className={cn(
+          'col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0',
+          {
+            'lg:col-span-4': props.withoutAction,
+          }
+        )}
+      >
         <main className="grid grid-cols-4">
           <div className="mr-2 text-right">
             <div className="mb-2 text-xl font-normal">11:35</div>
@@ -110,16 +117,16 @@ export const FlyContent = (
               />
               <p className="ml-1">Bagajul de mînă inclus</p>
 
-              {props.withoutActionFlightNumber ? (
+              {props.withoutFlightNumber ? (
                 ''
               ) : (
-                <p className="mt-3 w-full text-left">
+                <p className="mt-3 w-full text-left lg:hidden">
                   Nr. zbor: <span className="font-bold">6F4577</span>
                 </p>
               )}
             </div>
 
-            <div className="flex min-w-32 items-center">
+            <div className="flex min-w-32 items-center justify-evenly">
               <Image
                 className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
                 width={20}
@@ -128,6 +135,13 @@ export const FlyContent = (
                 alt={'seat'}
               />
               <p className="ml-1">Locuri disponibile: 3</p>
+              {props.withoutFlightNumber ? (
+                ''
+              ) : (
+                <p className="ml-5 hidden text-left lg:inline">
+                  Nr. zbor: <span className="font-bold">6F4577</span>
+                </p>
+              )}
             </div>
           </footer>
         )}

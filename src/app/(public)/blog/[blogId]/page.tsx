@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import blogFooter from '@/assets/img/blog-footer.png'
 // import blogImage from '@/assets/img/blog-image.jpg'
-import { Button } from '@/components/ui/button'
 import { usefulInfo } from '@/data/data'
 import { getLastSegment } from '@/lib/utils'
+import { Button } from '@components/ui/button'
 
 interface IProps {
   title: string

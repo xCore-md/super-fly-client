@@ -28,10 +28,10 @@ export default function Contacts() {
             </p>
 
             <div className="col-span-2 mt-6 flex justify-center gap-4">
-              <Link href="/">
+              <Link href="/public">
                 <Image src={fb} alt="social" width={24} height={24} />
               </Link>
-              <Link href="/">
+              <Link href="/public">
                 <Image src={insta} alt="social" width={24} height={24} />
               </Link>
             </div>

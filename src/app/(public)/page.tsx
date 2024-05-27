@@ -1,10 +1,10 @@
-import { Banner } from '@/components/banner'
-import { BlogList } from '@/components/blog-list'
-import { ItemsCarousel } from '@/components/items-carousel'
-import { WhyUs } from '@/components/why-us'
 import { offers, usefulInfo } from '@/data/data'
+import { Banner } from '@components/banner'
+import { BlogList } from '@components/blog-list'
+import { ItemsCarousel } from '@components/items-carousel'
 import Offers from '@components/offers'
 import Questions from '@components/questions'
+import { WhyUs } from '@components/why-us'
 
 export default function Home() {
   return (

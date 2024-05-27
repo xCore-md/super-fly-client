@@ -79,7 +79,7 @@ const CollapsibleBlock = () => {
             <div className="lg:hidden">
               <FlyContent
                 withoutAction={false}
-                withoutActionFlightNumber={true}
+                withoutFlightNumber={true}
                 pricePlacement="top"
               />
             </div>
