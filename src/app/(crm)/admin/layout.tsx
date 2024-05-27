@@ -1,4 +1,5 @@
 import React from 'react'
+import { CrmHeader } from '@components/crm/crm-header'
 
 export default function CrmLayout({
   children, // will be a page or nested layout
@@ -7,6 +8,7 @@ export default function CrmLayout({
 }) {
   return (
     <>
+      <CrmHeader />
       <main className="container mx-auto p-5 lg:px-0">{children}</main>
     </>
   )
