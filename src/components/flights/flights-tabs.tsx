@@ -1,7 +1,4 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
-import supportImgUrl from '@/assets/img/support.png'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Button } from '@components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
