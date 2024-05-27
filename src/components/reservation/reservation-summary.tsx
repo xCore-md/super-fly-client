@@ -1,10 +1,19 @@
+'use client'
 import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { ReactNode, useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { Input } from '@components/ui/input'
 import { Progress } from '@components/ui/progress'
 
+const countdownInitial = 60 * 30
+
+const formatTime = (time: number) => {
+  const minutes = Math.floor(time / 60)
+  const seconds = time % 60
+  return `${minutes}m : ${seconds}s`
+}
 export const ReservationSummary = () => {
   const flightData = [
     {
@@ -23,6 +32,24 @@ export const ReservationSummary = () => {
       fareType: '1 x Economy Basic',
     },
   ]
+  const router = useRouter()
+  const [countDownProgress, setCountDownProgress] = useState(countdownInitial)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCountDownProgress((prev) => {
+        if (prev <= 0) {
+          router.push('/')
+          clearInterval(interval)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [router])
 
   return (
     <section className="flex flex-1 flex-col">
@@ -85,11 +112,13 @@ export const ReservationSummary = () => {
 
         <p className="mt-9 text-center text-lg font-bold lg:text-left">
           Prețul expiră în:
-          <span className="ml-1 text-red-600">12m : 30s</span>
+          <span className="ml-1 text-red-600">
+            {formatTime(countDownProgress)}
+          </span>
         </p>
 
         <Progress
-          value={23}
+          value={(countDownProgress / countdownInitial) * 100}
           progressClassName="bg-red-600 "
           className="mt-4 h-0.5 w-[100%] bg-[#E7E7E7]"
           showRectangle
