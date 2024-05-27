@@ -22,7 +22,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   return Array.from({ length: props.length }).map((_, index) => (
     <section
       key={index}
-      className={`custom-shadow my-6 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
+      className={`custom-shadow group my-6 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
       <FlyContent {...props} />
     </section>
@@ -142,32 +142,32 @@ export const FlyContent = (
 
             <Link
               href="/reservation"
-              className="hidden h-11 w-36 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+              className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
             >
               Rezerva
             </Link>
             <div className="hidden justify-between gap-5 text-xs lg:flex">
-              <div className="flex">
+              <Link href="/" className="flex">
                 <Image
-                  className="object-contain"
+                  className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-bounce"
                   width={16}
                   height={16}
                   src={whatsappSvg}
                   alt={'whatsapp'}
                 />
                 <p className="pl-1">Whatsapp</p>
-              </div>
+              </Link>
 
-              <div className="flex">
+              <Link href="/" className="flex">
                 <Image
-                  className="object-contain"
+                  className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-bounce"
                   width={16}
                   height={16}
                   src={viberSvg}
                   alt={'viber'}
                 />
                 <p className="pl-1">Viber</p>
-              </div>
+              </Link>
             </div>
           </div>
 
@@ -180,7 +180,7 @@ export const FlyContent = (
             </Link>
             <Link
               href="/reservation"
-              className="flex h-9 w-36 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
+              className="flex h-9 w-40 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
             >
               Rezerva
             </Link>
