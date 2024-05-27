@@ -37,9 +37,7 @@ export const CrmHeader = () => {
     <div
       className={`sticky left-0 top-0 z-30 shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
-      <header
-        className={`  max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
-      >
+      <header className={`max-[1440px]:px-5`}>
         <div
           className={`container  z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
