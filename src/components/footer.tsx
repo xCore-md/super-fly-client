@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import fb from '@/assets/img/fb.svg'
 import insta from '@/assets/img/insta.svg'
 import logo from '@/assets/img/logo-footer.png'
@@ -21,6 +24,8 @@ interface FooterList {
 }
 
 export const Footer = () => {
+  const pathname = usePathname()
+
   const list: FooterList[] = [
     {
       title: 'Țările de Top',
@@ -87,6 +92,8 @@ export const Footer = () => {
       ],
     },
   ]
+  if (pathname.includes('admin')) return null
+
   return (
     <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14 max-[1440px]:px-5">
       <div className="container mx-auto px-0">

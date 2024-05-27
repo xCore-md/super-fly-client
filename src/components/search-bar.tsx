@@ -33,15 +33,9 @@ export const SearchBar = () => {
             </div>
             <Button
               variant="link"
-              className="bottom-0 right-4 h-[30px] w-[30px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-4"
+              className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-4"
             >
-              <Image
-                src={refresh}
-                alt="image"
-                width={36}
-                height={36}
-                className="h-full w-full"
-              />
+              <Image src={refresh} alt="image" className="h-full w-full" />
             </Button>
           </div>
 
@@ -85,7 +79,7 @@ export const SearchBar = () => {
               className="h-22 w-22 p-0 hover:bg-transparent"
             >
               <Image
-                className="h-8 w-8"
+                className="w-7"
                 src={calendar}
                 alt="image"
                 width={28}
@@ -114,7 +108,7 @@ export const SearchBar = () => {
               className="h-22 w-22 p-0 hover:bg-transparent"
             >
               <Image
-                className="h-8 w-12"
+                className="w-7"
                 src={calendar}
                 alt="image"
                 width={28}
@@ -150,7 +144,7 @@ export const SearchBar = () => {
 
         <Link
           href="/flights"
-          className="search-button-shadow flex h-[56px] w-[62px] items-center justify-center rounded-full bg-emerald-400 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full"
+          className="search-button-shadow flex h-[56px] w-[66px] items-center justify-center rounded-full bg-emerald-400 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full"
         >
           <span className="mr-3  font-medium text-white min-[1024px]:hidden">
             Caută

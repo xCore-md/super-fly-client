@@ -30,7 +30,7 @@ export const FlightsTabs = () => {
           <TabsContent value="rapid">Cel mai rapid</TabsContent>
         </Tabs>
       </div>
-      <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
+      {/* <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
         <Link
           className="custom-shadow flex h-[64px] w-fit items-center justify-center rounded-full border border-gray-200 px-2"
           href="tel:+(373) 60 456 654"
@@ -54,7 +54,7 @@ export const FlightsTabs = () => {
             <span className=" absolute bottom-0 left-1 animate-bounce rounded-full bg-green-400 p-2"></span>
           </div>
         </Link>
-      </div>
+      </div> */}
     </div>
   )
 }

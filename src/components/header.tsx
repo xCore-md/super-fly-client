@@ -14,6 +14,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { Button } from 'antd'
 
 export const Header = () => {
   const [isSimpleHeader, setIsSimpleHeader] = useState(false)
@@ -48,23 +49,26 @@ export const Header = () => {
 
           <div className="flex items-center">
             <div>
-              <a
-                href={tel}
+              <Link
+                href={`tel:${tel}`}
                 className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
               >
                 <span className="text-right text-xxs lg:text-sm">
                   Contacteaza-ne
                 </span>
                 <span className="text-xs font-medium lg:text-base">{tel}</span>
-              </a>
+              </Link>
             </div>
-            <div className="pointer-events-none ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
-              <iframe
-                src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
-                width="58"
-                height="58"
-                className=" -translate-x-2 -translate-y-2"
-              ></iframe>
+            <div className="relative">
+              <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
+                <iframe
+                  src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
+                  width="58"
+                  height="58"
+                  className=" -translate-x-2 -translate-y-2"
+                ></iframe>
+              </div>
+              <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
             </div>
             <div
               className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
