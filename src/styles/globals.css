@@ -184,6 +184,13 @@ html {
   width: 100%;
 }
 
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;

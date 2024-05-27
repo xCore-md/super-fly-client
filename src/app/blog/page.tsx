@@ -1,4 +1,5 @@
 import { BlogList } from '@/components/blog-list'
+import { usefulInfo } from '@/data/data'
 
 export default function Blog() {
   return (
@@ -14,7 +15,7 @@ export default function Blog() {
           </p>
         </div>
       </div>
-      <BlogList title="" subtitle="" count={8} />
+      <BlogList title="" subtitle="" items={usefulInfo} />
     </section>
   )
 }

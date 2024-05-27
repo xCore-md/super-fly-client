@@ -1,20 +1,43 @@
-import Image from 'next/image'
-import blogBanner from '@/assets/img/blog-banner.jpg'
+'use client'
+
+import Image, { StaticImageData } from 'next/image'
+import { usePathname } from 'next/navigation'
+// import blogBanner from '@/assets/img/blog-banner.jpg'
+import { useEffect, useState } from 'react'
 import blogFooter from '@/assets/img/blog-footer.png'
-import blogImage from '@/assets/img/blog-image.jpg'
+// import blogImage from '@/assets/img/blog-image.jpg'
 import { Button } from '@/components/ui/button'
+import { usefulInfo } from '@/data/data'
+import { getLastSegment } from '@/lib/utils'
+
+interface IProps {
+  title: string
+  text: string
+  img: StaticImageData
+}
 
 export default function SingleBlog() {
+  const pathname = usePathname()
+  const [data, setData] = useState({} as IProps)
+
+  useEffect(() => {
+    if (pathname) {
+      setData(usefulInfo[getLastSegment(pathname)])
+    }
+  }, [pathname])
+
+  console.log({ data })
+
   return (
     <section>
-      <Header />
-      <div className="container mx-auto px-0 pb-36 pt-80 text-gray-600 lg:pt-[600px]">
+      <Header img={data.img} title={data.title} />
+      <div className="container mx-auto px-0 pb-36 pt-80 text-gray-600 lg:pt-[450px]">
         <div>
-          <p className="mb-6">
-            Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
-            tincidunt quam.
-          </p>
-          <p>
+          <p
+            className="mb-6"
+            dangerouslySetInnerHTML={{ __html: data.text }}
+          ></p>
+          {/* <p>
             Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
             tincidunt quam. Lorem ipsum dolor sit amet consectetur. Mattis
             pretium pellentesque tincidunt quam. Lorem ipsum dolor sit amet
@@ -22,9 +45,9 @@ export default function SingleBlog() {
             dolor sit amet consectetur. Mattis pretium pellentesque tincidunt
             quam. Lorem ipsum dolor sit amet consectetur. Mattis pretium
             pellentesque tincidunt quam.
-          </p>
+          </p> */}
         </div>
-        <div className="my-9 flex flex-col items-start gap-10 lg:flex-row">
+        {/* <div className="my-9 flex flex-col items-start gap-10 lg:flex-row">
           <Image src={blogImage} alt="image" />
           <div>
             <h4 className="mb-4">
@@ -55,12 +78,12 @@ export default function SingleBlog() {
               </li>
             </ul>
           </div>
-        </div>
-        <p className="mb-9">
+        </div> */}
+        {/* <p className="mb-9">
           Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
           tincidunt quam.
         </p>
-        <p>Lorem ipsum dolor.</p>
+        <p>Lorem ipsum dolor.</p> */}
 
         <div className="relative mt-16 flex h-full flex-col items-center justify-center px-6 py-8 lg:h-[254px] lg:px-0 lg:py-0">
           <Image
@@ -84,18 +107,17 @@ export default function SingleBlog() {
   )
 }
 
-const Header = () => {
+const Header = ({ img, title }: any) => {
   return (
     <div className="absolute left-0 top-[80px] z-0 block h-72 w-full rounded-b-[50px] ">
       <Image
-        className="absolute left-0 top-0 z-0 h-full w-full object-cover lg:h-auto"
-        src={blogBanner}
+        className="absolute left-0 top-0 z-0  w-full object-cover lg:h-[400px]"
+        src={img}
         alt="banner-image"
       />
       <div className="absolute z-10 flex h-full w-full items-center justify-center">
-        <p className="px-9 pt-0 text-center text-base text-white lg:pt-32 lg:text-3xl lg:leading-10">
-          Lorem ipsum dolor sit amet consectetur. Mattis <br /> pretium
-          pellentesque tincidunt quam.
+        <p className="px-9 pt-0 text-center text-base uppercase tracking-wider text-white lg:pt-32 lg:text-4xl lg:leading-10">
+          {title}
         </p>
       </div>
     </div>

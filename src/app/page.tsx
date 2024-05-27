@@ -3,7 +3,7 @@ import { Banner } from '@/components/banner'
 import { BlogList } from '@/components/blog-list'
 import { ItemsCarousel } from '@/components/items-carousel'
 import { WhyUs } from '@/components/why-us'
-import { offers } from '@/data/data'
+import { offers, usefulInfo } from '@/data/data'
 
 const Offers = dynamic(() => import('@components/offers'), {
   loading: () => <p>Loading...</p>,
@@ -39,6 +39,7 @@ export default function Home() {
         title="Informație utilă"
         subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
         buttonTitle="Vezi Toate"
+        items={usefulInfo}
       />
       <Questions />
     </div>
