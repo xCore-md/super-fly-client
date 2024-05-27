@@ -11,7 +11,7 @@ import { Button } from '@components/ui/button'
 
 export default function Contacts() {
   return (
-    <section className="mt-4 pb-20">
+    <section className="mt-4 animate-fade-up pb-20 fill-mode-forwards">
       <Header />
       <div className="mx-auto flex w-full max-w-[737px] flex-col gap-6">
         <div className="mt-16 rounded-2xl bg-white p-7 shadow-md">

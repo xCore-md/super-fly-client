@@ -163,7 +163,7 @@ export const FlyContent = (
             <div className="hidden justify-between gap-5 text-xs lg:flex">
               <Link href="/" className="flex">
                 <Image
-                  className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-bounce"
+                  className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-jump-in"
                   width={16}
                   height={16}
                   src={whatsappSvg}
@@ -174,7 +174,7 @@ export const FlyContent = (
 
               <Link href="/" className="flex">
                 <Image
-                  className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-bounce"
+                  className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-jump-in"
                   width={16}
                   height={16}
                   src={viberSvg}
