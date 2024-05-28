@@ -27,7 +27,7 @@ export const CrmHeader = () => {
 
   return (
     <div
-      className={`sticky left-0 top-0 z-30 shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
+      className={`crm-header sticky left-0 top-0  shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
       <header className={`max-[1440px]:px-5`}>
         <div
@@ -177,4 +177,5 @@ const menu: IMenu[] = [
   { title: 'Bilete', href: '/admin/tickets' },
   { title: 'Clienți', href: '/admin/clients' },
   { title: 'Lead-uri', href: '/admin/leaduri' },
+  { title: 'Kanban', href: '/admin/kanban' },
 ]

@@ -221,10 +221,15 @@ html {
     color: #fff !important;
   }
 }
+.crm-header {
+  z-index: 9999;
+}
+
 .statistic-picker.ant-picker-panel-container,
 .statistic-picker.ant-picker-panel-layout
   .statistic-picker.ant-picker-date-panel {
   width: 100% !important;
+  z-index: 100;
 }
 
 .statistic-picker.ant-picker-outlined {
