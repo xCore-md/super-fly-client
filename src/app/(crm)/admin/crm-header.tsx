@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
@@ -19,8 +20,10 @@ interface IMenu {
 }
 
 export const CrmHeader = () => {
+  const pathname = usePathname()
   const isSimpleHeader = true
-  const tel = '+(373) 60 456 654'
+
+  if (pathname.includes('login')) return null
 
   return (
     <div
@@ -41,7 +44,7 @@ export const CrmHeader = () => {
           <div className="flex items-center">
             <div>
               <Link
-                href={`tel:${tel}`}
+                href="#"
                 className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
               >
                 <p className="flex text-[#969696]">
