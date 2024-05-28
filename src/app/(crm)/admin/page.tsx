@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { Tabs, TabsProps, DatePicker, Badge } from 'antd'
+import { Tabs, TabsProps, DatePicker } from 'antd'
 import chart from '@/assets/img/crm/chart.svg'
 import crossDrag from '@/assets/img/crm/cross-drag.svg'
 import dollar from '@/assets/img/crm/dollar.svg'
@@ -121,7 +121,7 @@ export default function Admin() {
           <div className="flex w-full gap-8">
             <div className="w-full">
               <Tabs
-                className="w-full text-white"
+                className="home-tabs w-full text-white"
                 defaultActiveKey="1"
                 items={items}
               />

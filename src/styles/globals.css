@@ -191,7 +191,7 @@ html {
   overflow: hidden;
 }
 
-.ant-picker-cell-inner {
+.statistic-picker.ant-picker-cell-inner {
   border-radius: 40px !important;
 
   &::before {
@@ -199,19 +199,19 @@ html {
   }
 }
 
-.ant-tabs-tab-btn {
+.home-tabs .ant-tabs-tab-btn {
   color: #fff;
   padding-inline: 16px;
   font-size: 16px;
 }
 
-.ant-tabs-nav {
+.home-tabs .ant-tabs-nav {
   &::before {
     border: 1px dotted #fff !important;
   }
 }
 
-.ant-tabs-tab-active {
+.home-tabs .ant-tabs-tab-active {
   border-top: 1px dotted #fff !important;
   border-left: 1px dotted #fff !important;
   border-right: 1px dotted #fff !important;
