@@ -11,14 +11,21 @@ export default function CrmLayout({
   return (
     <div className="mt-8 pb-10 max-[1024px]:mt-10 lg:max-[1440px]:px-5">
       <SearchHeader />
-      {children}
+
+      <div className="relative">
+        <div className="mb-20 flex justify-center">
+          <SearchBar arrival={false} />
+        </div>
+
+        {children}
+      </div>
     </div>
   )
 }
 
 const SearchHeader = () => {
   return (
-    <section className="mb-28 max-[1440px]:px-5 max-[1024px]:px-0">
+    <section className="max-[1440px]:px-5 max-[1024px]:px-0">
       <div className="absolute left-0 top-0 z-0 h-full w-full bg-brand-blue lg:h-[322px]">
         <div className="relative h-full w-full">
           <Image
@@ -34,10 +41,6 @@ const SearchHeader = () => {
         <h4 className="banner-title mb-8 text-2xl font-light text-white">
           Căutare
         </h4>
-
-        <div className="flex justify-center">
-          <SearchBar arrival={false} />
-        </div>
       </div>
     </section>
   )
