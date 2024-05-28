@@ -1,5 +1,5 @@
 import React from 'react'
-import { CrmHeader } from '@components/crm/crm-header'
+import { CrmHeader } from '@/app/(crm)/admin/crm-header'
 
 export default function CrmLayout({
   children, // will be a page or nested layout

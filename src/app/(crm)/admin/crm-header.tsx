@@ -1,9 +1,7 @@
 'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
 import {
@@ -21,17 +19,8 @@ interface IMenu {
 }
 
 export const CrmHeader = () => {
-  const [isSimpleHeader, setIsSimpleHeader] = useState(false)
+  const isSimpleHeader = true
   const tel = '+(373) 60 456 654'
-  const pathname = usePathname()
-
-  useEffect(() => {
-    if (pathname !== '/' && pathname !== '/flights') {
-      setIsSimpleHeader(true)
-    } else {
-      setIsSimpleHeader(false)
-    }
-  }, [pathname])
 
   return (
     <div
@@ -41,7 +30,7 @@ export const CrmHeader = () => {
         <div
           className={`container  z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
-          <Link className="w-[88px] lg:w-[152px]" href="/public">
+          <Link className="w-[88px] lg:w-[152px]" href="/admin">
             <Image src={isSimpleHeader ? logoBlue : logoWhite} alt="logo" />
           </Link>
 
@@ -163,7 +152,7 @@ const MobileMenu = ({
       <SheetContent className="w-[90%] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>
-            <Link href="/public">
+            <Link href="/admin">
               <Image width={88} src={logoBlue} alt="logo" />
             </Link>
           </SheetTitle>
@@ -183,9 +172,9 @@ const MobileMenu = ({
 }
 
 const menu: IMenu[] = [
-  { title: 'Căutare', href: '/cautare' },
-  { title: 'Calendar', href: '/calendar' },
-  { title: 'Bilete', href: '/bilete' },
-  { title: 'Clienți', href: '/clienti' },
-  { title: 'Lead-uri', href: '/leaduri' },
+  { title: 'Căutare', href: '/admin/search' },
+  { title: 'Calendar', href: '/admin/calendar' },
+  { title: 'Bilete', href: '/admin/bilete' },
+  { title: 'Clienți', href: '/admin/clienti' },
+  { title: 'Lead-uri', href: '/admin/leaduri' },
 ]
