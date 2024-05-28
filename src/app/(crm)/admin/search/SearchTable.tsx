@@ -1,6 +1,6 @@
 import { Table, TableProps } from 'antd'
 
-interface DataType {
+interface IDataType {
   zbor: string
   aterizare: string
   tur: string
@@ -8,7 +8,7 @@ interface DataType {
   data: string
 }
 
-const columns: TableProps<DataType>['columns'] = [
+const columns: TableProps<IDataType>['columns'] = [
   {
     title: 'Zbor din',
     dataIndex: 'zbor',
@@ -30,15 +30,8 @@ const columns: TableProps<DataType>['columns'] = [
     dataIndex: 'data',
   },
 ]
-interface DataType {
-  zbor: string
-  aterizare: string
-  tur: string
-  retur: string
-  data: string
-}
 
-const data: DataType[] = [
+const data: IDataType[] = [
   {
     zbor: 'Aeroportul Internațional Chișinău',
     aterizare: 'Aeroportul Internațional Chișinău',
