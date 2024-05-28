@@ -1,11 +1,15 @@
 import React from 'react'
+import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Button } from '@components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
-export const FlightsTabs = () => {
+interface IFlightsTabsProps {
+  className?: string
+}
+export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
   return (
-    <div className="relative flex w-full justify-center">
+    <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
         <Tabs className=" text-center" defaultValue="ieftin">
           <TabsList className="custom-shadow rounded-full bg-white">
