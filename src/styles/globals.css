@@ -199,6 +199,43 @@ html {
   }
 }
 
+.ant-tabs-tab-btn {
+  color: #fff;
+  padding-inline: 16px;
+  font-size: 16px;
+}
+
+.ant-tabs-nav {
+  &::before {
+    border: 1px dotted #fff !important;
+  }
+}
+
+.ant-tabs-tab-active {
+  border-top: 1px dotted #fff !important;
+  border-left: 1px dotted #fff !important;
+  border-right: 1px dotted #fff !important;
+  border-radius: 10px;
+
+  .ant-tabs-tab-btn {
+    color: #fff !important;
+  }
+}
+.statistic-picker.ant-picker-panel-container,
+.statistic-picker.ant-picker-panel-layout
+  .statistic-picker.ant-picker-date-panel {
+  width: 100% !important;
+}
+
+.statistic-picker.ant-picker-outlined {
+  background: transparent !important;
+  border: transparent !important;
+}
+
+.statistic-picker .ant-picker-input {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
