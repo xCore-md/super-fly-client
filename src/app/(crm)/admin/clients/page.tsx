@@ -6,7 +6,7 @@ import { Input } from '@components/ui/input'
 export default function admin() {
   return (
     <div className="flex gap-6">
-      <aside className="min-w-[230px] rounded-lg bg-white p-6 shadow-lg">
+      <aside className="">
         <CategoryList />
       </aside>
 
@@ -33,7 +33,7 @@ const categories: Category[] = [
 
 const CategoryList: React.FC = () => {
   return (
-    <ul>
+    <ul className="min-w-[230px] rounded-lg bg-white p-6 shadow-lg">
       {categories.map((category, index) => (
         <li key={index} className="mb-4 flex items-center justify-between">
           <div className="flex items-center">
@@ -121,7 +121,7 @@ const listItems: ListItem[] = [
 ]
 const ListComponent: React.FC = () => {
   return (
-    <div className="rounded-lg bg-white p-6 shadow-lg">
+    <div className="-translate-y-[40px] rounded-lg bg-white p-6 shadow-lg">
       <h1 className="mb-4 text-xl font-bold">Toate</h1>
       <ul>
         {listItems.map((item, index) => (
