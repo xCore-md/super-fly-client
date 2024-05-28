@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@components/ui/button'
 import { Input } from '@components/ui/input'
 
-export default function admin() {
+export default function ClientsPage() {
   return (
     <div className="flex gap-6">
       <aside className="">
