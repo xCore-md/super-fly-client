@@ -4,7 +4,7 @@ import { Button, Input, Modal, Tabs } from 'antd'
 
 const PricesContent = () => {
   return (
-    <div className="max-w-[680px] space-y-4">
+    <div className="min-h-[800px] max-w-[680px] space-y-4">
       <div className="flex flex-col rounded-lg border p-4">
         <h2 className="text-lg font-bold">JOHN DOE</h2>
         <div className="mt-2 flex space-x-4">
@@ -72,7 +72,7 @@ const passengers: Passenger[] = [
 ]
 const PassengersContent = () => {
   return (
-    <div className="flex flex-col p-6">
+    <div className="flex min-h-[800px] flex-col">
       {passengers.map((passenger, index) => (
         <div key={passenger.id} className="mb-4 text-white">
           <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
@@ -119,6 +119,55 @@ const PassengersContent = () => {
   )
 }
 
+interface Baggage {
+  id: number
+  name: string
+  handBaggage: string
+  checkedBaggage: string
+}
+
+const baggageList: Baggage[] = [
+  {
+    id: 1,
+    name: 'John Doe',
+    handBaggage: 'Bagaj de mână, masa de 8KG',
+    checkedBaggage: 'Bagaj de cală, masa de 20KG',
+  },
+  {
+    id: 2,
+    name: 'John Doe 2',
+    handBaggage: 'Bagaj de mână, masa de 8KG',
+    checkedBaggage: 'Bagaj de cală, masa de 20KG',
+  },
+]
+
+const BaggageComponent = () => {
+  return (
+    <div className="min-h-[800px]">
+      {baggageList.map((baggage) => (
+        <div
+          key={baggage.id}
+          className="mb-4 flex justify-between rounded-lg border bg-white p-4 shadow-sm"
+        >
+          <div>
+            <h2 className="text-lg font-bold">{baggage.name}</h2>
+            <p className="text-gray-700">{baggage.handBaggage}</p>
+            <p className="text-gray-700">{baggage.checkedBaggage}</p>
+          </div>
+          {/*todo: change the red color*/}
+          <Button
+            type="primary"
+            danger
+            className="mt-4 rounded-full bg-[#F42D2D]"
+          >
+            Șterge bagajul
+          </Button>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const items = [
   {
     key: '1',
@@ -138,7 +187,7 @@ const items = [
   {
     key: '4',
     label: 'Bagaje',
-    children: 'Content of Bagaje Tab',
+    children: <BaggageComponent />,
   },
   {
     key: '5',
