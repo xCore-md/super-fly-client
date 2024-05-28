@@ -26,8 +26,6 @@ export default function SingleBlog() {
     }
   }, [pathname])
 
-  console.log({ data })
-
   return (
     <section>
       <Header img={data.img} title={data.title} />
