@@ -23,7 +23,7 @@ export default function Reservation() {
   return (
     <div className="mt-4 flex flex-col pb-10 pt-12 sm:px-10 lg:flex-row xl:px-0">
       <section className="flex flex-col lg:w-2/3">
-        <h2 className="text-sm font-bold">Informații zbor:</h2>
+        <h2 className="mb-4 text-sm font-bold">Informații zbor:</h2>
 
         <FlightsListing length={3} withoutAction />
 
@@ -233,21 +233,21 @@ const BaggageSection = () => {
   ]
 
   return (
-    <section className="grid gap-6 lg:grid-cols-4">
+    <section className="grid gap-2 lg:grid-cols-4 lg:gap-6">
       {bags.map((bag) => (
         <div key={bag.id}>
           <Card className="mb-4 flex h-[244px] justify-between rounded-xl text-center lg:flex-col">
-            <CardHeader className="flex max-w-72 flex-1 flex-row items-center justify-between px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:p-6">
+            <CardHeader className="flex max-w-72 flex-1 flex-col items-center justify-center px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1  lg:justify-end lg:p-6">
               <Image
                 src={bag.imageUrl}
                 alt="bag"
                 height={75}
-                className="mb-3 mr-2 h-[75px] select-none lg:mr-0"
+                className="mb-3 w-12 select-none lg:mr-0 lg:w-16"
               />
 
-              <div className="text-left lg:text-center">
+              <div className="w-full text-center lg:text-center">
                 <span className="text-xs text-[#757575]">{bag.size}</span>
-                <div className="lg:hidden">
+                <div className="w-full lg:hidden">
                   <BagTypeAndPrice bag={bag} />
                 </div>
               </div>
