@@ -174,7 +174,7 @@ const MobileMenu = ({
 const menu: IMenu[] = [
   { title: 'Căutare', href: '/admin/search' },
   { title: 'Calendar', href: '/admin/calendar' },
-  { title: 'Bilete', href: '/admin/bilete' },
-  { title: 'Clienți', href: '/admin/clienti' },
+  { title: 'Bilete', href: '/admin/tickets' },
+  { title: 'Clienți', href: '/admin/clients' },
   { title: 'Lead-uri', href: '/admin/leaduri' },
 ]
