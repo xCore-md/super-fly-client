@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
@@ -19,8 +20,10 @@ interface IMenu {
 }
 
 export const CrmHeader = () => {
+  const pathname = usePathname()
   const isSimpleHeader = true
-  const tel = '+(373) 60 456 654'
+
+  if (pathname.includes('login')) return null
 
   return (
     <div
@@ -41,7 +44,7 @@ export const CrmHeader = () => {
           <div className="flex items-center">
             <div>
               <Link
-                href={`tel:${tel}`}
+                href="#"
                 className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
               >
                 <p className="flex text-[#969696]">
@@ -72,14 +75,11 @@ export const CrmHeader = () => {
             </div>
             <div className="relative">
               <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
-                <iframe
-                  src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
-                  width="58"
-                  height="58"
-                  className=" -translate-x-2 -translate-y-2"
-                ></iframe>
+                <img
+                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                  alt="icon"
+                />
               </div>
-              <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
             </div>
           </div>
 
