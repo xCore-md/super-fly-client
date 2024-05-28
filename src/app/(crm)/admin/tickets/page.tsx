@@ -1,10 +1,13 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { Avatar, Badge, Table } from 'antd'
+import { TicketsInfoModal } from '@/app/(crm)/admin/tickets/tickets-info-modal'
 import flyOne from '@/assets/img/fly-one.png'
 
 export default function TicketsPage() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <div className="rounded-lg bg-white p-6 shadow-lg">
       <Table
@@ -12,7 +15,14 @@ export default function TicketsPage() {
         dataSource={flightData}
         columns={columns}
         rowKey="flightDate"
+        onRow={(record) => ({
+          onClick: () => {
+            console.log('record', record)
+            setShowModal(true)
+          },
+        })}
       />
+      <TicketsInfoModal setShowModal={setShowModal} showModal={showModal} />
     </div>
   )
 }
