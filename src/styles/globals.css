@@ -111,12 +111,6 @@ html {
   box-shadow: 0 0 7px 0 rgba(0 0 0 / 45%);
 }
 
-@media (max-width: 1024px) {
-  .search-button-shadow {
-    box-shadow: none;
-  }
-}
-
 .custom-shadow {
   box-shadow: 0 0 12px 0 rgba(0 0 0 / 10%);
 }
@@ -205,6 +199,14 @@ html {
   font-size: 16px;
 }
 
+.ant-picker-cell-inner,
+.ant-picker-cell-inner::before {
+  border-radius: 40px !important;
+  min-width: 26px !important;
+  height: 26px !important;
+  line-height: 26px !important;
+}
+
 .home-tabs .ant-tabs-nav {
   &::before {
     border: 1px dotted #fff !important;
@@ -244,5 +246,11 @@ html {
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .search-button-shadow {
+    box-shadow: none;
   }
 }

@@ -5,10 +5,14 @@ import Link from 'next/link'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { DatePicker, Popover } from 'antd'
 import arrive from '@/assets/img/arrive.svg'
+import calendarBlue from '@/assets/img/calendar-blue.svg'
 import calendar from '@/assets/img/calendar.svg'
 import departure from '@/assets/img/departure.svg'
+import humanBlue from '@/assets/img/human-blue.svg'
 import human from '@/assets/img/human.svg'
+import infantsBlue from '@/assets/img/infants-blue.svg'
 import infants from '@/assets/img/infants.svg'
+import kidsBlue from '@/assets/img/kids-blue.svg'
 import kids from '@/assets/img/kids.svg'
 import refresh from '@/assets/img/refresh.svg'
 import search from '@/assets/img/search.svg'
@@ -24,6 +28,8 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
     kids: 0,
     infants: 0,
   })
+
+  const [passengersPopOverStatus, setPassengersPopOverStatus] = useState(false)
 
   const handleDepartureClick = () => {
     setOpenDeparture(!openDeparture)
@@ -91,7 +97,9 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
         <div className="flex flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 lg:gap-4">
           <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:border-0  max-[1024px]:p-0">
             <div className="grid max-w-sm items-center pt-2">
-              <Label className=" text-xs uppercase text-gray-400">
+              <Label
+                className={` text-xs uppercase text-gray-400 ${openDeparture ? 'text-brand-blue' : ''}`}
+              >
                 PLECARE
               </Label>
 
@@ -99,6 +107,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
                 suffixIcon={null}
                 format={'DD.MM.YYYY'}
                 open={openDeparture}
+                allowClear={false}
                 placeholder="Alege data"
                 onChange={arrival ? handleArrivalClick : () => ({})}
                 onOpenChange={handleDepartureChange}
@@ -112,7 +121,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
             >
               <Image
                 className="w-7"
-                src={calendar}
+                src={openDeparture ? calendarBlue : calendar}
                 alt="image"
                 width={28}
                 height={28}
@@ -124,11 +133,16 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
             className={`flex items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 ${arrival ? '' : 'pointer-events-none opacity-50'}`}
           >
             <div className="grid max-w-sm items-center pt-2">
-              <Label className=" text-xs uppercase text-gray-400">RETUR</Label>
+              <Label
+                className={` text-xs uppercase text-gray-400 ${openArrival ? 'text-brand-blue' : ''}`}
+              >
+                RETUR
+              </Label>
               <DatePicker
                 suffixIcon={null}
                 format={'DD.MM.YYYY'}
                 open={openArrival}
+                allowClear={false}
                 placeholder="Alege data"
                 onOpenChange={handleArrivalChange}
                 className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
@@ -141,7 +155,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
             >
               <Image
                 className="w-7"
-                src={calendar}
+                src={openArrival ? calendarBlue : calendar}
                 alt="image"
                 width={28}
                 height={28}
@@ -153,14 +167,14 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
         <div className="flex items-center gap-2 max-[1024px]:mt-2 max-[1024px]:w-full max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:py-2 max-[1024px]:pl-6">
           <Image
             className="max-[1024px]:h-8 max-[1024px]:w-3"
-            src={human}
+            src={passengersPopOverStatus ? humanBlue : human}
             alt="image"
             width={14}
             height={14}
           />
           <div className="ml-1 flex w-full max-w-sm flex-col items-start justify-start pr-4 pt-2">
             <Label
-              className=" text-xs uppercase text-gray-400"
+              className={`text-xs uppercase text-gray-400 ${passengersPopOverStatus ? 'text-brand-blue' : ''}`}
               htmlFor="departure"
             >
               PASAGERI
@@ -176,6 +190,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
               }
               placement="bottom"
               trigger={['click']}
+              onOpenChange={(status) => setPassengersPopOverStatus(status)}
             >
               <Button className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
                 <span className="flex">
@@ -233,7 +248,10 @@ const PopoverContent = ({
   updatePassengersCount,
 }: IPopoverContent) => {
   const handleUpdatePassengersCount = (key: TPassengers, value: number) => {
-    if (value < 0) return
+    const currentCount = Object.values(passengers).reduce((a, b) => a + b)
+
+    if (value < 0 || (currentCount <= 1 && value === 0)) return
+
     updatePassengersCount({
       ...passengers,
       [key]: value,
@@ -243,12 +261,18 @@ const PopoverContent = ({
   return (
     <div className="w-full min-w-72 p-2">
       <div className="flex flex-col gap-y-6">
-        {PopoverData.map(({ title, img, description, key }) => (
-          <div className=" flex justify-between" key={key}>
-            <div className="flex gap-2">
-              <Image src={img} alt="image" className="h-8 w-6" />
+        {PopoverData.map(({ title, img, img2, description, key }) => (
+          <div className=" flex items-center justify-between" key={key}>
+            <div className="flex items-center gap-2">
+              <Image
+                src={
+                  passengers[key as keyof typeof passengers] > 0 ? img2 : img
+                }
+                alt="image"
+                className="h-8 w-6"
+              />
               <div className="flex flex-col">
-                <h4 className="text-base text-black">{title}</h4>
+                <h4 className="text-base font-semibold text-black">{title}</h4>
                 <span className="text-xs text-gray-500">{description}</span>
               </div>
             </div>
@@ -291,18 +315,21 @@ const PopoverData = [
     title: 'Adulți',
     description: 'Mai mult de 12 ani',
     img: human,
+    img2: humanBlue,
     key: 'adults',
   },
   {
     title: 'Copii',
     description: '2-12 ani',
     img: kids,
+    img2: kidsBlue,
     key: 'kids',
   },
   {
     title: 'Infanți',
     description: 'Pînă la 2 ani, fără loc',
     img: infants,
+    img2: infantsBlue,
     key: 'infants',
   },
 ]
