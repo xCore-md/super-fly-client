@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
 import { searchFields } from '@/lib/constants'
+import dayjs from 'dayjs'
 
 const mockOptions = [
   {
@@ -151,6 +152,12 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
     router.push('/flights')
   }
 
+  const today = dayjs().startOf('day')
+
+  const disabledDate = (current: dayjs.Dayjs) => {
+    return current && current < today
+  }
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
@@ -257,6 +264,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
                   open={openDeparture}
                   allowClear={false}
                   placeholder="Alege data"
+                  disabledDate={disabledDate}
                   onChange={(date) =>
                     formik.setFieldValue(
                       'date_from',
@@ -296,6 +304,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
                   format={'DD.MM.YYYY'}
                   open={openArrival}
                   allowClear={false}
+                  disabledDate={disabledDate}
                   onChange={(date) =>
                     formik.setFieldValue(
                       'return_to',
@@ -395,7 +404,7 @@ interface IPopoverContent {
     infants: number
   }
 
-  updatePassengersCount: (key: string, value: number) => void
+  updatePassengersCount: any
 }
 const PopoverContent = ({
   passengers,
