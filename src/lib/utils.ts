@@ -11,3 +11,12 @@ export function getLastSegment(url: any) {
   // Return the last segment
   return segments?.pop() // Handle trailing slash
 }
+
+export function convertToSearchQuery(params: Record<string, string>) {
+  const query = Object.keys(params)
+    .map(
+      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+    )
+    .join('&')
+  return `?${query}`
+}

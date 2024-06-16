@@ -12,7 +12,7 @@ export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
         <Tabs className=" text-center" defaultValue="ieftin">
-          <TabsList className="custom-shadow rounded-full bg-white">
+          <TabsList className="custom-shadow animate-fade rounded-full bg-white fill-mode-forwards">
             <TabsTrigger value="ieftin">Cel mai ieftin</TabsTrigger>
             <TabsTrigger className=" text-blue-400" value="rapid">
               Cel mai rapid

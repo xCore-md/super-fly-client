@@ -243,6 +243,26 @@ html {
   display: none !important;
 }
 
+.autocompleteSelect .ant-select-selector .ant-select-selection-search {
+  inset-inline-start: 0 !important;
+}
+
+.autocompleteSelect .ant-select-selector {
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+.autocompleteSelect .ant-select-arrow {
+  display: none;
+}
+
+.autocompleteSelectPopUp {
+  min-width: 280px !important;
+}
+
+.rc-virtual-list-scrollbar {
+  width: 2px !important;
+}
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;

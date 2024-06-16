@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import backpackSvg from '@/assets/img/backpack.svg'
 import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
@@ -19,13 +21,35 @@ interface IFlightsListingProps {
 }
 
 export const FlightsListing = (props: IFlightsListingProps) => {
+  const elementsRef = useRef<(HTMLDivElement | null)[]>([])
+  gsap.registerPlugin(useGSAP)
+
+  useGSAP(() => {
+    const elements = elementsRef.current.filter(
+      (el) => el !== null
+    ) as HTMLDivElement[]
+
+    if (elements.length > 0) {
+      gsap.fromTo(
+        elements,
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 1.5, stagger: 0.3, ease: 'easeOut' }
+      )
+    }
+  })
+
+  const setRef = (el: HTMLDivElement | null, index: number) => {
+    elementsRef.current[index] = el
+  }
+
   return Array.from({ length: props.length }).map((_, index) => (
-    <section
+    <div
       key={index}
-      className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
+      ref={(el) => setRef(el, index)}
+      className={`custom-shadow group my-3 grid w-full  grid-cols-2 items-center rounded-2xl bg-white p-4  lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
       <FlyContent {...props} />
-    </section>
+    </div>
   ))
 }
 
