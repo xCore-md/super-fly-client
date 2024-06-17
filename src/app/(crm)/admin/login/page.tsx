@@ -6,8 +6,7 @@ import plane from '@/assets/img/plane.png'
 export default function Login() {
   return (
     <section>
-      <div className="absolute left-0 top-0 z-0 h-80 w-full bg-brand-blue">
-        <Image className="h-full w-full object-cover" src={plane} alt="logo" />
+      <div className="absolute left-0 top-0 z-0 h-80 w-full">
         <div className="absolute left-0 top-0 flex h-full  w-full items-center justify-center ">
           <Image
             className="z-10 w-40"
@@ -42,7 +41,7 @@ export default function Login() {
           </div>
           <Checkbox>Memorează</Checkbox>
           <div className="mt-4 flex justify-center">
-            <Button className="custom-shadow h-11 w-40 rounded-full border-0 bg-black text-base font-normal text-white">
+            <Button className="custom-shadow h-11 w-40 rounded-full border-0 bg-black text-base font-normal text-white hover:bg-slate-900 hover:text-white">
               Conecteză-te
             </Button>
           </div>

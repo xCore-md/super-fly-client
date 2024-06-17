@@ -2,8 +2,10 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { DatePicker, Popover, Select } from 'antd'
+import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import arrive from '@/assets/img/arrive.svg'
 import calendarBlue from '@/assets/img/calendar-blue.svg'
@@ -22,59 +24,35 @@ import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
 import { searchFields } from '@/lib/constants'
-import dayjs from 'dayjs'
+import { convertToSearchQuery } from '@/lib/utils'
 
-const mockOptions = [
-  {
-    key: 1,
-    country: 'Republica Moldova',
-    city: 'Chisinau',
-    code: 'MDA',
-  },
-  {
-    key: 2,
-    country: 'Italia',
-    city: 'Roma',
-    code: 'ROM',
-  },
-  {
-    key: 3,
-    country: 'Spania',
-    city: 'Barcelona',
-    code: 'BCN',
-  },
-  {
-    key: 4,
-    country: 'United Kingdom',
-    city: 'Londra',
-    code: 'LON',
-  },
-  {
-    key: 5,
-    country: 'Germany',
-    city: 'Munchen',
-    code: 'MUC',
-  },
-  {
-    key: 6,
-    country: 'France',
-    city: 'Paris',
-    code: 'PAR',
-  },
-]
-
-export const SearchBar = ({ arrival }: { arrival: boolean }) => {
+export const SearchBar = ({
+  arrival,
+  setFlights,
+}: {
+  arrival: boolean
+  setFlights: any
+}) => {
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
   const [openArrival, setOpenArrival] = useState(false)
+  // const [focusItem, setFocusItem] = useState('')
   const [passengers, setPassengers] = useState({
     adults: 1,
-    kids: 0,
+    children: 0,
     infants: 0,
   })
 
   const router = useRouter()
+  const pathname = usePathname()
   const { setFlight } = useFlightContext()
+
+  const formik = useFormik({
+    initialValues: searchFields,
+    onSubmit: (values) => {
+      console.log({ values })
+    },
+  })
 
   const [passengersPopOverStatus, setPassengersPopOverStatus] = useState(false)
 
@@ -96,17 +74,52 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
 
   useEffect(() => setOptions(mockOptions), [])
 
-  const formik = useFormik({
-    initialValues: searchFields,
-    onSubmit: (values) => {
-      console.log({ values })
-    },
-  })
+  useEffect(() => {
+    if (pathname === '/') {
+      localStorage.removeItem('flight')
+      formik.resetForm()
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   const storage = localStorage.getItem('flight')
+  //   if (storage) {
+  //     const storageFlight = JSON.parse(storage)
+
+  //     formik.setValues({
+  //       ...storageFlight,
+  //       date_from: new Date(storageFlight?.date_from),
+  //       return_to: storageFlight?.return_to
+  //         ? new Date(storageFlight?.return_to)
+  //         : '',
+  //     })
+  //     setPassengers({
+  //       adults: storageFlight.adults,
+  //       children: storageFlight.children,
+  //       infants: storageFlight.infants,
+  //     })
+  //   }
+  // }, [])
+
+  // console.log({ formik: formik.values })
+
+  // useEffect(() => {
+  //   const handleClick = (e: any) => {
+  //     if (e.target.className.includes('ant-select-item-option')) {
+  //       setFocusItem(e.target.innerText)
+  //     } else {
+  //       setFocusItem('')
+  //     }
+  //   }
+
+  //   document.addEventListener('click', handleClick)
+  //   return () => document.removeEventListener('click', handleClick)
+  // }, [])
 
   const onSearch = (value: string) => {
     if (value) {
       axs
-        .get(`/locations?locale=ro_RO&query=${value}`, {
+        .get(`/locations?locale=ro&query=${value}`, {
           headers: {
             Accept: 'application/json',
           },
@@ -147,9 +160,26 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
     formik.setFieldValue(key, value)
   }
 
+  const selectedFlight = useMemo(
+    () => ({
+      ...formik.values,
+      fly_from: formik.values?.fly_from.code,
+      fly_to: formik.values?.fly_to.code,
+    }),
+    [formik.values]
+  )
+
   const submitSearch = () => {
     setFlight(formik.values)
-    router.push('/flights')
+    localStorage.setItem('flight', JSON.stringify(formik.values))
+    if (pathname !== '/flights') {
+      router.push('/flights')
+    } else {
+      axs
+        .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
+        .then((res) => setFlights(res.data.data))
+        .catch((err) => console.log({ err }))
+    }
   }
 
   const today = dayjs().startOf('day')
@@ -157,6 +187,11 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
   const disabledDate = (current: dayjs.Dayjs) => {
     return current && current < today
   }
+
+  const switchCities = useCallback(() => {
+    formik.setFieldValue('fly_from', formik.values.fly_to)
+    formik.setFieldValue('fly_to', formik.values.fly_from)
+  }, [formik])
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -203,6 +238,7 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
               </div>
               <Button
                 variant="link"
+                onClick={switchCities}
                 className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-4"
               >
                 <Image src={refresh} alt="image" className="h-full w-full" />
@@ -263,14 +299,10 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
                   format={'DD.MM.YYYY'}
                   open={openDeparture}
                   allowClear={false}
+                  value={formik.values.date_from}
                   placeholder="Alege data"
                   disabledDate={disabledDate}
-                  onChange={(date) =>
-                    formik.setFieldValue(
-                      'date_from',
-                      date?.format('DD/MM/YYYY')
-                    )
-                  }
+                  onChange={(date) => formik.setFieldValue('date_from', date)}
                   onOpenChange={handleDepartureChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
@@ -305,12 +337,8 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
                   open={openArrival}
                   allowClear={false}
                   disabledDate={disabledDate}
-                  onChange={(date) =>
-                    formik.setFieldValue(
-                      'return_to',
-                      date?.format('DD/MM/YYYY')
-                    )
-                  }
+                  value={formik.values.return_to}
+                  onChange={(date) => formik.setFieldValue('return_to', date)}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
@@ -395,12 +423,12 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
   )
 }
 
-type TPassengers = 'adults' | 'kids' | 'infants'
+type TPassengers = 'adults' | 'children' | 'infants'
 
 interface IPopoverContent {
   passengers: {
     adults: number
-    kids: number
+    children: number
     infants: number
   }
 
@@ -483,7 +511,7 @@ const PopoverData = [
     description: '2-12 ani',
     img: kids,
     img2: kidsBlue,
-    key: 'kids',
+    key: 'children',
   },
   {
     title: 'Infanți',
@@ -491,5 +519,44 @@ const PopoverData = [
     img: infants,
     img2: infantsBlue,
     key: 'infants',
+  },
+]
+
+const mockOptions = [
+  {
+    key: 1,
+    country: 'Republica Moldova',
+    city: 'Chisinau',
+    code: 'MDA',
+  },
+  {
+    key: 2,
+    country: 'Italia',
+    city: 'Roma',
+    code: 'ROM',
+  },
+  {
+    key: 3,
+    country: 'Spania',
+    city: 'Barcelona',
+    code: 'BCN',
+  },
+  {
+    key: 4,
+    country: 'United Kingdom',
+    city: 'Londra',
+    code: 'LON',
+  },
+  {
+    key: 5,
+    country: 'Germany',
+    city: 'Munchen',
+    code: 'MUC',
+  },
+  {
+    key: 6,
+    country: 'France',
+    city: 'Paris',
+    code: 'PAR',
   },
 ]

@@ -12,11 +12,30 @@ export function getLastSegment(url: any) {
   return segments?.pop() // Handle trailing slash
 }
 
-export function convertToSearchQuery(params: Record<string, string>) {
-  const query = Object.keys(params)
+export function convertToSearchQuery(params: Record<string, string | number>) {
+  return Object.keys(params)
     .map(
       (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
     )
     .join('&')
-  return `?${query}`
+}
+
+export function getTimeFromDate(dateStr: string) {
+  const date = new Date(dateStr)
+
+  const formattedTime = date.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  })
+
+  return formattedTime
+}
+
+export function numberToTimeFormat(seconds: number) {
+  const totalMinutes = Math.floor(seconds / 60)
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+
+  return `${hours} h ${minutes} min`
 }

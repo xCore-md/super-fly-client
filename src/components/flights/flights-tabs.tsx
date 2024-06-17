@@ -6,12 +6,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
 interface IFlightsTabsProps {
   className?: string
+  flights: any
 }
-export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
+export const FlightsTabs = ({ className = '', flights }: IFlightsTabsProps) => {
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
-        <Tabs className=" text-center" defaultValue="ieftin">
+        <Tabs className="text-center" defaultValue="ieftin">
           <TabsList className="custom-shadow animate-fade rounded-full bg-white fill-mode-forwards">
             <TabsTrigger value="ieftin">Cel mai ieftin</TabsTrigger>
             <TabsTrigger className=" text-blue-400" value="rapid">
@@ -19,7 +20,7 @@ export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
             </TabsTrigger>
           </TabsList>
           <TabsContent className="relative" value="ieftin">
-            <FlightsListing length={5} />
+            <FlightsListing length={5} flights={flights} />
 
             <Button
               className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"

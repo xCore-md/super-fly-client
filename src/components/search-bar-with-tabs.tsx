@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { SearchBar } from '@components/search-bar'
 import { Button } from '@components/ui/button'
 
-export const SearchBarWithTabs = () => {
+export const SearchBarWithTabs = (setFlights: any) => {
   const [activeTab, setActiveTab] = useState('dus')
 
   const handleChangeTab = (tab: string) => {
@@ -30,7 +30,7 @@ export const SearchBarWithTabs = () => {
         </Button>
       </div>
 
-      <SearchBar arrival={activeTab === 'intors'} />
+      <SearchBar arrival={activeTab === 'intors'} setFlights={setFlights} />
     </div>
   )
 }

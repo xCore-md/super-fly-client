@@ -10,7 +10,7 @@ import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
-import { cn } from '@/lib/utils'
+import { cn, getTimeFromDate, numberToTimeFormat } from '@/lib/utils'
 
 interface IFlightsListingProps {
   length: number
@@ -20,10 +20,12 @@ interface IFlightsListingProps {
   withoutHeader?: boolean
   withoutFooter?: boolean
   pricePlacement?: 'top' | 'bottom'
+  flights: any
 }
 
 export const FlightsListing = (props: IFlightsListingProps) => {
   const elementsRef = useRef<(HTMLDivElement | null)[]>([])
+  const { flights, ...rest } = props
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
@@ -44,20 +46,26 @@ export const FlightsListing = (props: IFlightsListingProps) => {
     elementsRef.current[index] = el
   }
 
-  return Array.from({ length: props.length }).map((_, index) => (
+  return flights.map((flight: any, index: number) => (
     <div
       key={index}
       ref={(el) => setRef(el, index)}
       className={`custom-shadow group my-3 grid w-full  grid-cols-2 items-center rounded-2xl bg-white p-4  lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
-      <FlyContent {...props} />
+      <FlyContent {...rest} flight={flight} />
     </div>
   ))
 }
 
-export const FlyContent = (
-  props: Omit<IFlightsListingProps, 'length' | 'margin'>
-) => {
+export const FlyContent = (props: any) => {
+  const {
+    pricePlacement,
+    withoutAction,
+    withoutFooter,
+    withoutFlightNumber,
+    flight,
+  } = props
+
   return (
     <>
       {props.withoutHeader ? (
@@ -71,7 +79,7 @@ export const FlyContent = (
             alt="fly agency"
             className="w-12 lg:w-[112px]"
           />
-          {props.pricePlacement === 'top' && (
+          {pricePlacement === 'top' && (
             <p className="text-base font-medium lg:font-bold">€89.90</p>
           )}
           {/*<div className="mt-3 flex flex-col text-left text-xs">*/}
@@ -85,21 +93,25 @@ export const FlyContent = (
         className={cn(
           'col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0',
           {
-            'lg:col-span-4': props.withoutAction,
+            'lg:col-span-4': withoutAction,
           }
         )}
       >
         <main className="grid grid-cols-4">
           <div className="mr-2 text-right">
-            <div className="mb-2 text-xl font-normal">11:35</div>
-            <div className="text-xs text-gray-700">RMO</div>
+            <div className="mb-2 text-xl font-normal">
+              {getTimeFromDate(flight.local_departure)}
+            </div>
+            <div className="text-xs text-gray-700">{flight.cityCodeFrom}</div>
           </div>
           <div className="col-span-2 mt-2">
             <div className="mb-1 flex items-center justify-center gap-2">
               <span className="hidden text-xs text-gray-400 lg:inline">
                 Durata de zbor:
               </span>
-              <p className="text-xs text-gray-700">2 h 50 min</p>
+              <p className="text-xs text-gray-700">
+                {numberToTimeFormat(flight.duration.total)}
+              </p>
             </div>
 
             <div className="fly-line block h-[1px] w-full bg-blue-700">
@@ -115,7 +127,9 @@ export const FlyContent = (
             </div>
 
             <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
-              Direct
+              {flight.route.length
+                ? `Escale: ${flight.route.length}`
+                : `Direct`}
             </div>
 
             {/*<div className="mt-2 flex justify-between">*/}
@@ -124,12 +138,14 @@ export const FlyContent = (
             {/*</div>*/}
           </div>
           <div className="ml-2 text-left">
-            <div className="mb-2 text-xl font-normal">14:25</div>
-            <div className="text-xs text-gray-700">BGY</div>
+            <div className="mb-2 text-xl font-normal">
+              {getTimeFromDate(flight.local_arrival)}
+            </div>
+            <div className="text-xs text-gray-700">{flight.cityCodeTo}</div>
           </div>
         </main>
 
-        {props.withoutFooter ? (
+        {withoutFooter ? (
           ''
         ) : (
           <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
@@ -143,7 +159,7 @@ export const FlyContent = (
               />
               <p className="ml-1">Bagajul de mînă inclus</p>
 
-              {props.withoutFlightNumber ? (
+              {withoutFlightNumber ? (
                 ''
               ) : (
                 <p className="mt-3 w-full text-left lg:hidden">
@@ -160,8 +176,10 @@ export const FlyContent = (
                 src={seatSvg}
                 alt={'seat'}
               />
-              <p className="ml-1">Locuri disponibile: 3</p>
-              {props.withoutFlightNumber ? (
+              <p className="ml-1">
+                Locuri disponibile: {flight.availability.seats}
+              </p>
+              {withoutFlightNumber ? (
                 ''
               ) : (
                 <p className="ml-5 hidden text-left lg:inline">
@@ -173,10 +191,10 @@ export const FlyContent = (
         )}
       </section>
 
-      {!props.withoutAction && (
+      {!withoutAction && (
         <>
           <div className="col-span-1 flex flex-col items-end justify-center gap-3 border-b pb-1 lg:items-center lg:justify-normal lg:border-0 lg:pb-0">
-            {props.pricePlacement === 'bottom' && (
+            {pricePlacement === 'bottom' && (
               <p className="text-base font-medium lg:font-bold">€89.90</p>
             )}
 
