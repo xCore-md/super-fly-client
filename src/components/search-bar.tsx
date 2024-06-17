@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { DatePicker, Popover, Select } from 'antd'
+import { DatePicker, Popover, Select, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import arrive from '@/assets/img/arrive.svg'
@@ -22,21 +22,17 @@ import search from '@/assets/img/search.svg'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
+import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { searchFields } from '@/lib/constants'
 import { convertToSearchQuery } from '@/lib/utils'
 
-export const SearchBar = ({
-  arrival,
-  setFlights,
-}: {
-  arrival: boolean
-  setFlights: any
-}) => {
+export const SearchBar = ({ arrival }: { arrival: boolean }) => {
+  const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
   const [openArrival, setOpenArrival] = useState(false)
-  // const [focusItem, setFocusItem] = useState('')
+  const { setFlights } = useFlightsContext()
   const [passengers, setPassengers] = useState({
     adults: 1,
     children: 0,
@@ -81,40 +77,28 @@ export const SearchBar = ({
     }
   }, [])
 
-  // useEffect(() => {
-  //   const storage = localStorage.getItem('flight')
-  //   if (storage) {
-  //     const storageFlight = JSON.parse(storage)
+  const isSearchPage = pathname === '/flights'
 
-  //     formik.setValues({
-  //       ...storageFlight,
-  //       date_from: new Date(storageFlight?.date_from),
-  //       return_to: storageFlight?.return_to
-  //         ? new Date(storageFlight?.return_to)
-  //         : '',
-  //     })
-  //     setPassengers({
-  //       adults: storageFlight.adults,
-  //       children: storageFlight.children,
-  //       infants: storageFlight.infants,
-  //     })
-  //   }
-  // }, [])
+  useEffect(() => {
+    const storage = localStorage.getItem('flight')
+    if (storage) {
+      const storageFlight = JSON.parse(storage)
 
-  // console.log({ formik: formik.values })
+      formik.setValues({
+        ...storageFlight,
+        date_from: dayjs(new Date(storageFlight?.date_from)),
+        return_to: storageFlight?.return_to
+          ? dayjs(new Date(storageFlight?.return_to))
+          : '',
+      })
 
-  // useEffect(() => {
-  //   const handleClick = (e: any) => {
-  //     if (e.target.className.includes('ant-select-item-option')) {
-  //       setFocusItem(e.target.innerText)
-  //     } else {
-  //       setFocusItem('')
-  //     }
-  //   }
-
-  //   document.addEventListener('click', handleClick)
-  //   return () => document.removeEventListener('click', handleClick)
-  // }, [])
+      setPassengers({
+        adults: storageFlight.adults,
+        children: storageFlight.children,
+        infants: storageFlight.infants,
+      })
+    }
+  }, [])
 
   const onSearch = (value: string) => {
     if (value) {
@@ -165,16 +149,37 @@ export const SearchBar = ({
       ...formik.values,
       fly_from: formik.values?.fly_from.code,
       fly_to: formik.values?.fly_to.code,
+      date_from: dayjs(new Date(formik.values?.date_from)).format('DD/MM/YYYY'),
+      return_to: formik.values?.return_to
+        ? dayjs(new Date(formik.values?.return_to)).format('DD/MM/YYYY')
+        : '',
     }),
     [formik.values]
   )
 
   const submitSearch = () => {
+    if (
+      !formik.values.fly_from ||
+      !formik.values.fly_to ||
+      !formik.values.date_from
+    ) {
+      api.error({
+        message: 'Message',
+        description: 'Toate campurile sunt obligatorii',
+        placement: 'bottomRight',
+        duration: 3,
+        closable: true,
+      })
+      return
+    }
     setFlight(formik.values)
     localStorage.setItem('flight', JSON.stringify(formik.values))
-    if (pathname !== '/flights') {
+
+    if (!isSearchPage) {
       router.push('/flights')
     } else {
+      setFlights([])
+
       axs
         .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
         .then((res) => setFlights(res.data.data))
@@ -195,6 +200,7 @@ export const SearchBar = ({
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      {contextHolder}
       <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
         <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
           <div className="flex flex-row gap-4 max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
@@ -527,13 +533,13 @@ const mockOptions = [
     key: 1,
     country: 'Republica Moldova',
     city: 'Chisinau',
-    code: 'MDA',
+    code: 'RMO',
   },
   {
     key: 2,
     country: 'Italia',
     city: 'Roma',
-    code: 'ROM',
+    code: 'FCO',
   },
   {
     key: 3,
@@ -545,7 +551,7 @@ const mockOptions = [
     key: 4,
     country: 'United Kingdom',
     city: 'Londra',
-    code: 'LON',
+    code: 'LTN',
   },
   {
     key: 5,
@@ -557,6 +563,6 @@ const mockOptions = [
     key: 6,
     country: 'France',
     city: 'Paris',
-    code: 'PAR',
+    code: 'CDG',
   },
 ]

@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import '../styles/globals.css'
 import React from 'react'
 import { FlightContextProvider } from '@/context/flight-context'
+import { FlightsContextProvider } from '@/context/flights-context'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <FlightContextProvider>{children}</FlightContextProvider>
+        <FlightsContextProvider>
+          <FlightContextProvider>{children}</FlightContextProvider>
+        </FlightsContextProvider>
       </body>
     </html>
   )

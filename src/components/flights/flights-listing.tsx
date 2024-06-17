@@ -2,14 +2,17 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
+import { Tooltip } from 'antd'
 import gsap from 'gsap'
 import backpackSvg from '@/assets/img/backpack.svg'
 import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
+import { useFlightsContext } from '@/context/flights-context'
 import { cn, getTimeFromDate, numberToTimeFormat } from '@/lib/utils'
 
 interface IFlightsListingProps {
@@ -20,12 +23,14 @@ interface IFlightsListingProps {
   withoutHeader?: boolean
   withoutFooter?: boolean
   pricePlacement?: 'top' | 'bottom'
-  flights: any
 }
 
 export const FlightsListing = (props: IFlightsListingProps) => {
+  const pathname = usePathname()
+  const { flights } = useFlightsContext()
   const elementsRef = useRef<(HTMLDivElement | null)[]>([])
-  const { flights, ...rest } = props
+
+  const data = pathname === '/reservation' ? flights?.slice(0, 3) : flights
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
@@ -46,13 +51,13 @@ export const FlightsListing = (props: IFlightsListingProps) => {
     elementsRef.current[index] = el
   }
 
-  return flights.map((flight: any, index: number) => (
+  return data.map((flight: any, index: number) => (
     <div
       key={index}
       ref={(el) => setRef(el, index)}
-      className={`custom-shadow group my-3 grid w-full  grid-cols-2 items-center rounded-2xl bg-white p-4  lg:grid-cols-5 lg:gap-5 ${props.margin}`}
+      className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
-      <FlyContent {...rest} flight={flight} />
+      <FlyContent {...props} flight={flight} />
     </div>
   ))
 }
@@ -72,7 +77,7 @@ export const FlyContent = (props: any) => {
         ''
       ) : (
         <div
-          className={`flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1 border-b lg:border-0`}
+          className={` flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1 border-b lg:border-0`}
         >
           <Image
             src={flyOneSvg}
@@ -89,107 +94,130 @@ export const FlyContent = (props: any) => {
         </div>
       )}
 
-      <section
-        className={cn(
-          'col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0',
-          {
-            'lg:col-span-4': withoutAction,
-          }
-        )}
-      >
-        <main className="grid grid-cols-4">
-          <div className="mr-2 text-right">
-            <div className="mb-2 text-xl font-normal">
-              {getTimeFromDate(flight.local_departure)}
+      {flight && (
+        <section
+          className={cn(
+            'z-10 col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0',
+            {
+              'lg:col-span-4': withoutAction,
+            }
+          )}
+        >
+          <main className="grid grid-cols-4">
+            <div className="mr-2 text-right">
+              <div className="mb-2 text-xl font-normal">
+                {getTimeFromDate(flight.local_departure)}
+              </div>
+              <div className="text-xs text-gray-700">{flight.cityCodeFrom}</div>
             </div>
-            <div className="text-xs text-gray-700">{flight.cityCodeFrom}</div>
-          </div>
-          <div className="col-span-2 mt-2">
-            <div className="mb-1 flex items-center justify-center gap-2">
-              <span className="hidden text-xs text-gray-400 lg:inline">
-                Durata de zbor:
-              </span>
-              <p className="text-xs text-gray-700">
-                {numberToTimeFormat(flight.duration.total)}
-              </p>
-            </div>
-
-            <div className="fly-line block h-[1px] w-full bg-blue-700">
-              <FlyLineStopover className="left-1/2">
-                <p>Escala București 8h 00m</p>
-                <p>Preluarea si înregistrarea bagajului</p>
-              </FlyLineStopover>
-
-              <FlyLineStopover className="left-1/3">
-                <p>Escala Chisinau 3h 00m</p>
-                <p>Preluarea si înregistrarea bagajului</p>
-              </FlyLineStopover>
-            </div>
-
-            <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
-              {flight.route.length
-                ? `Escale: ${flight.route.length}`
-                : `Direct`}
-            </div>
-
-            {/*<div className="mt-2 flex justify-between">*/}
-            {/*  <span className="text-xs text-gray-600">MDA</span>*/}
-            {/*  <span className="text-xs text-gray-600">BGY</span>*/}
-            {/*</div>*/}
-          </div>
-          <div className="ml-2 text-left">
-            <div className="mb-2 text-xl font-normal">
-              {getTimeFromDate(flight.local_arrival)}
-            </div>
-            <div className="text-xs text-gray-700">{flight.cityCodeTo}</div>
-          </div>
-        </main>
-
-        {withoutFooter ? (
-          ''
-        ) : (
-          <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
-            <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
-              <Image
-                className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
-                width={20}
-                height={20}
-                src={backpackSvg}
-                alt={'backpack'}
-              />
-              <p className="ml-1">Bagajul de mînă inclus</p>
-
-              {withoutFlightNumber ? (
-                ''
-              ) : (
-                <p className="mt-3 w-full text-left lg:hidden">
-                  Nr. zbor: <span className="font-bold">6F4577</span>
+            <div className="col-span-2 mt-2">
+              <div className="mb-1 flex items-center justify-center gap-2">
+                <span className="hidden text-xs text-gray-400 lg:inline">
+                  Durata de zbor:
+                </span>
+                <p className="text-xs text-gray-700">
+                  {numberToTimeFormat(flight.duration.total)}
                 </p>
-              )}
-            </div>
+              </div>
 
-            <div className="flex min-w-32 items-center justify-evenly">
-              <Image
-                className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
-                width={20}
-                height={20}
-                src={seatSvg}
-                alt={'seat'}
-              />
-              <p className="ml-1">
-                Locuri disponibile: {flight.availability.seats}
-              </p>
-              {withoutFlightNumber ? (
-                ''
-              ) : (
-                <p className="ml-5 hidden text-left lg:inline">
-                  Nr. zbor: <span className="font-bold">6F4577</span>
-                </p>
-              )}
+              <div className="fly-line block h-[1px] w-full bg-blue-700">
+                <div className="flex w-full justify-center">
+                  {flight.route.length > 1 && (
+                    <div className="flex w-1/2 items-center justify-between">
+                      {flight.route.map((route: any, index: number) => (
+                        <Tooltip
+                          key={index}
+                          title={
+                            <span className=" flex flex-col gap-2 p-2 text-xs">
+                              <span className="flex gap-4">
+                                <span className="">Escale:</span>{' '}
+                                <span className="ml-2 font-semibold">
+                                  {route.cityFrom} - {route.cityTo}
+                                </span>
+                              </span>
+                              <span className="flex gap-4">
+                                <span className=""> Nr. zbor:</span>
+                                <span className="font-bold">
+                                  {route.flight_no}
+                                </span>
+                              </span>
+                              <span>Preluarea si înregistrarea bagajului</span>
+                            </span>
+                          }
+                        >
+                          <div className="fly-line-stopover"></div>
+                        </Tooltip>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
+                {flight.route.length > 1
+                  ? `Escale: ${flight.route.length}`
+                  : `Direct`}
+              </div>
+
+              {/*<div className="mt-2 flex justify-between">*/}
+              {/*  <span className="text-xs text-gray-600">MDA</span>*/}
+              {/*  <span className="text-xs text-gray-600">BGY</span>*/}
+              {/*</div>*/}
             </div>
-          </footer>
-        )}
-      </section>
+            <div className="ml-2 text-left">
+              <div className="mb-2 text-xl font-normal">
+                {getTimeFromDate(flight.local_arrival)}
+              </div>
+              <div className="text-xs text-gray-700">{flight.cityCodeTo}</div>
+            </div>
+          </main>
+
+          {withoutFooter ? (
+            ''
+          ) : (
+            <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
+              <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
+                <Image
+                  className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
+                  width={20}
+                  height={20}
+                  src={backpackSvg}
+                  alt={'backpack'}
+                />
+                <p className="ml-1">Bagajul de mînă inclus</p>
+
+                {withoutFlightNumber ? (
+                  ''
+                ) : (
+                  <p className="mt-3 w-full text-left lg:hidden">
+                    Nr. zbor: <span className="font-bold">6F4577</span>
+                  </p>
+                )}
+              </div>
+
+              <div className="flex min-w-32 items-center justify-evenly">
+                <Image
+                  className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
+                  width={20}
+                  height={20}
+                  src={seatSvg}
+                  alt={'seat'}
+                />
+                <p className="ml-1">
+                  Locuri disponibile: {flight.availability.seats}
+                </p>
+                {withoutFlightNumber ? (
+                  ''
+                ) : (
+                  <p className="ml-5 hidden text-left lg:inline">
+                    Nr. zbor: <span className="font-bold">6F4577</span>
+                  </p>
+                )}
+              </div>
+            </footer>
+          )}
+        </section>
+      )}
 
       {!withoutAction && (
         <>
@@ -249,17 +277,6 @@ export const FlyContent = (props: any) => {
   )
 }
 
-interface IFlightInfoProps {
-  className: string
-  children: React.ReactNode
-}
-
-export const FlyLineStopover = ({ className, children }: IFlightInfoProps) => {
-  return (
-    <div className={cn(`fly-line-stopover`, className)}>
-      <div className="fly-line-stopover-tooltip">
-        <div className="fly-line-stopover-tooltip-content">{children}</div>
-      </div>
-    </div>
-  )
+export const FlyLineStopover = () => {
+  return <div className="fly-line-stopover"></div>
 }

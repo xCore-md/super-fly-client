@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { Input, Button, Checkbox } from 'antd'
 import logoWhite from '@/assets/img/logo-white.png'
-import plane from '@/assets/img/plane.png'
 
 export default function Login() {
   return (
