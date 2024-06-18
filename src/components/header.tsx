@@ -37,7 +37,7 @@ export const Header = ({ menu }: IHeaderProps) => {
 
   return (
     <div
-      className={`sticky left-0 top-0 z-[9999] shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
+      className={`sticky left-0 top-0 z-40 shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
       <header
         className={`  max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
