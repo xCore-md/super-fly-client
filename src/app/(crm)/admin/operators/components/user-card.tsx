@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { use, useCallback, useState } from 'react'
 import {
   notification,
   Popover,
@@ -131,7 +131,7 @@ export const UserCard = ({ user, setUsers }: any) => {
 
   return (
     <div
-      className={`custom-shadow relative flex flex-col items-center justify-center rounded-lg p-8 ${user.role === 'admin' ? ' bg-black text-white' : 'bg-white'} ${user.is_active ? '' : ' bg-gray-300'}`}
+      className={`custom-shadow relative flex flex-col items-center justify-center rounded-lg p-8 ${user.role === 'admin' ? (user.is_active ? 'bg-black text-white' : ' bg-gray-300') : user.is_active ? 'bg-white' : 'bg-gray-200'}`}
     >
       {contextHolder}
       <Popover

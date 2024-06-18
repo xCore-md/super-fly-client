@@ -6,7 +6,7 @@ import { useFormik, FormikValues } from 'formik'
 import axs from '@/lib/axios'
 import { UserCard } from './components/user-card'
 
-export default function Leads() {
+export default function Operators() {
   const [openModal, setOpenModal] = useState(false)
   const [users, setUsers] = useState<any>([])
   const [api, contextHolder] = notification.useNotification()

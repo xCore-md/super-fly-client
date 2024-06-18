@@ -176,6 +176,6 @@ const menu: IMenu[] = [
   { title: 'Calendar', href: '/admin/calendar' },
   { title: 'Bilete', href: '/admin/tickets' },
   { title: 'Clienți', href: '/admin/clients' },
-  { title: 'Lead-uri', href: '/admin/leads' },
+  { title: 'Operatori', href: '/admin/operators' },
   { title: 'Kanban', href: '/admin/kanban' },
 ]

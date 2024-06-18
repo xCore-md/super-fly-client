@@ -179,11 +179,15 @@ export default function Login() {
         closable={true}
         onCancel={closeModal}
         onClose={closeModal}
+        onOk={() => formikResetPassword.handleSubmit()}
         okButtonProps={{ disabled: !formikResetPassword.isValid }}
         okText="Reset"
         centered
       >
-        <form onChange={formikResetPassword.handleChange}>
+        <form
+          onSubmit={formikResetPassword.handleSubmit}
+          onChange={formikResetPassword.handleChange}
+        >
           <Input
             placeholder="Email"
             className="my-2 p-2"
