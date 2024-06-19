@@ -195,25 +195,30 @@ export const FlyContent = (props: any) => {
                 )}
               </div>
 
-              <div className="flex min-w-32 items-center justify-evenly">
-                <Image
-                  className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
-                  width={20}
-                  height={20}
-                  src={seatSvg}
-                  alt={'seat'}
-                />
-                <p className="ml-1">
-                  Locuri disponibile: {flight.availability.seats}
-                </p>
-                {withoutFlightNumber ? (
-                  ''
-                ) : (
-                  <p className="ml-5 hidden text-left lg:inline">
-                    Nr. zbor: <span className="font-bold">6F4577</span>
+              {flight.availability.seats && (
+                <div className="flex min-w-32 items-center justify-evenly">
+                  <Image
+                    className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
+                    width={20}
+                    height={20}
+                    src={seatSvg}
+                    alt={'seat'}
+                  />
+                  <p className="ml-1">
+                    Locuri disponibile: {flight.availability.seats}
                   </p>
-                )}
-              </div>
+                  {withoutFlightNumber
+                    ? ''
+                    : flight.route.length === 1 && (
+                        <p className="mt-3 w-full text-left lg:hidden">
+                          Nr. zbor:{' '}
+                          <span className="font-bold">
+                            {flight.route[0].flight_no}
+                          </span>
+                        </p>
+                      )}
+                </div>
+              )}
             </footer>
           )}
         </section>
@@ -226,6 +231,7 @@ export const FlyContent = (props: any) => {
               <p className="text-base font-medium lg:font-bold">€89.90</p>
             )}
 
+            <p className="text-base font-medium">€ {flight.price}</p>
             <Link
               href="/reservation"
               className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
@@ -275,8 +281,4 @@ export const FlyContent = (props: any) => {
       )}
     </>
   )
-}
-
-export const FlyLineStopover = () => {
-  return <div className="fly-line-stopover"></div>
 }

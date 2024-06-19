@@ -4,6 +4,7 @@ import '../styles/globals.css'
 import React from 'react'
 import { FlightContextProvider } from '@/context/flight-context'
 import { FlightsContextProvider } from '@/context/flights-context'
+import { LoadingContextProvider } from '@/context/loading-context'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <FlightsContextProvider>
-          <FlightContextProvider>{children}</FlightContextProvider>
-        </FlightsContextProvider>
+        <LoadingContextProvider>
+          <FlightsContextProvider>
+            <FlightContextProvider>{children}</FlightContextProvider>
+          </FlightsContextProvider>
+        </LoadingContextProvider>
       </body>
     </html>
   )

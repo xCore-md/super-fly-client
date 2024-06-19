@@ -1,13 +1,21 @@
+'use client'
+
 import React from 'react'
+import { Button, Empty, Spin } from 'antd'
+import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
-import { Button } from '@components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 
 interface IFlightsTabsProps {
   className?: string
+  loading?: boolean
 }
-export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
+export const FlightsTabs = ({
+  className = '',
+  loading = false,
+}: IFlightsTabsProps) => {
+  const { flights } = useFlightsContext()
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
@@ -20,13 +28,18 @@ export const FlightsTabs = ({ className = '' }: IFlightsTabsProps) => {
           </TabsList>
           <TabsContent className="relative" value="ieftin">
             <FlightsListing length={5} />
-
-            <Button
-              className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
-              variant="outline"
-            >
-              Vezi mai mult zboruri
-            </Button>
+            {flights.length > 0 ? (
+              <Button
+                className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
+                type="default"
+              >
+                Vezi mai mult zboruri
+              </Button>
+            ) : (
+              <div className="mt-20">
+                {loading ? <Spin size="large" /> : <Empty />}
+              </div>
+            )}
           </TabsContent>
           <TabsContent value="rapid">Cel mai rapid</TabsContent>
         </Tabs>

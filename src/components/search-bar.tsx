@@ -27,7 +27,12 @@ import axs from '@/lib/axios'
 import { searchFields } from '@/lib/constants'
 import { convertToSearchQuery } from '@/lib/utils'
 
-export const SearchBar = ({ arrival }: { arrival: boolean }) => {
+interface ISearchBarProps {
+  arrival: boolean
+  setLoading?: (value: boolean) => void
+}
+
+export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
@@ -71,13 +76,13 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
   useEffect(() => setOptions(mockOptions), [])
 
   useEffect(() => {
-    if (pathname === '/') {
+    if (pathname !== '/flight') {
       localStorage.removeItem('flight')
       formik.resetForm()
     }
   }, [])
 
-  const isSearchPage = pathname === '/flights'
+  const isHomePage = pathname === '/'
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -175,13 +180,23 @@ export const SearchBar = ({ arrival }: { arrival: boolean }) => {
     setFlight(formik.values)
     localStorage.setItem('flight', JSON.stringify(formik.values))
 
-    if (!isSearchPage) {
+    if (isHomePage) {
       router.push('/flights')
     } else {
       setFlights([])
+      setLoading?.(true)
+
+      const storage = localStorage.getItem('userData')
+      const userData = storage ? JSON.parse(storage) : null
+      const url = pathname.includes('admin') ? '/crm/search' : '/search'
 
       axs
-        .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
+        .get(`${url}?locale=ro&${convertToSearchQuery(selectedFlight)}`, {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${userData?.token}`,
+          },
+        })
         .then((res) => setFlights(res.data.data))
         .catch((err) => console.log({ err }))
     }

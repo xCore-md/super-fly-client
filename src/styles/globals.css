@@ -205,22 +205,6 @@ html {
   line-height: 26px !important;
 }
 
-.home-tabs .ant-tabs-nav {
-  &::before {
-    border: 1px dotted #fff !important;
-  }
-}
-
-.home-tabs .ant-tabs-tab-active {
-  border-top: 1px dotted #fff !important;
-  border-left: 1px dotted #fff !important;
-  border-right: 1px dotted #fff !important;
-  border-radius: 10px;
-
-  .ant-tabs-tab-btn {
-    color: #fff !important;
-  }
-}
 .crm-header {
   z-index: 9999;
 }

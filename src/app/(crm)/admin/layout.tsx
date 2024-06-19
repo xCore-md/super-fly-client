@@ -42,7 +42,7 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
 const SearchHeader = () => {
   return (
     <section className="max-[1440px]:px-5 max-[1024px]:px-0">
-      <div className="absolute left-0 top-0 z-0 h-full w-full bg-brand-blue lg:h-[322px]">
+      <div className="absolute left-0 top-0 z-0 h-full w-full bg-brand-blue lg:h-[345px]">
         <div className="relative h-full w-full">
           <Image
             fill
