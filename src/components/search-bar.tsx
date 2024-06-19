@@ -29,7 +29,7 @@ import { convertToSearchQuery } from '@/lib/utils'
 
 interface ISearchBarProps {
   arrival: boolean
-  setLoading?: (value: boolean) => void
+  setLoading?: any
 }
 
 export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
@@ -214,7 +214,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
   }, [formik])
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="w-full md:w-auto">
       {contextHolder}
       <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
         <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
@@ -306,8 +306,8 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
             </div>
           </div>
 
-          <div className="flex flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 lg:gap-4">
-            <div className="flex items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:border-0  max-[1024px]:p-0">
+          <div className="flex w-full flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 md:w-auto lg:gap-4">
+            <div className="flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:border-0 max-[1024px]:p-0  md:w-auto">
               <div className="grid max-w-sm items-center pt-2">
                 <Label
                   className={` text-xs uppercase text-gray-400 ${openDeparture ? 'text-brand-blue' : ''}`}
@@ -344,7 +344,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
             </div>
 
             <div
-              className={`flex items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 ${arrival ? '' : 'pointer-events-none opacity-50'}`}
+              className={`flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 md:w-auto ${arrival ? '' : 'pointer-events-none opacity-50'}`}
             >
               <div className="grid max-w-sm items-center pt-2">
                 <Label
