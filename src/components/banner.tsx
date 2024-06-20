@@ -20,7 +20,7 @@ export const Banner = () => {
   const [phone, setPhone] = useState('')
   const [api, contextHolder] = notification.useNotification()
 
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
