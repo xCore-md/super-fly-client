@@ -245,6 +245,41 @@ html {
 .rc-virtual-list-scrollbar {
   width: 2px !important;
 }
+
+.home-drawer {
+  background: #f4f4f4 !important;
+  .ant-drawer-header {
+    border: 0;
+    .ant-drawer-header-title {
+      justify-content: flex-end;
+
+      button {
+        margin-inline-end: 0;
+      }
+    }
+  }
+
+  .ant-drawer-body {
+    padding-top: 0;
+  }
+}
+
+.green-button {
+  background: #11d2a4;
+  color: #fff;
+
+  &:hover {
+    background: #11d2a4 !important;
+    color: #fff !important;
+    opacity: 0.7 !important;
+  }
+}
+
+.react-tel-input .flag-dropdown {
+  border: 1px solid #e7e7e7 !important;
+  background: #fff !important;
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
