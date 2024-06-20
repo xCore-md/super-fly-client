@@ -7,7 +7,7 @@ import flyOne from '@/assets/img/fly-one.png'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
 
-export default function Page() {
+export default function TicketPage() {
   return (
     <section className="container mx-auto">
       <h2 className="my-10 w-full text-center text-2xl font-medium">
@@ -263,7 +263,7 @@ type TBaggage = {
   }
 }
 
-export const baggage: TBaggage = {
+const baggage: TBaggage = {
   8: {
     title: 'Obiect personal',
     size: '40 x 20 x 30 cm',
