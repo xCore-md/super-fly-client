@@ -59,7 +59,7 @@ export const Banner = () => {
           <SearchBarWithTabs />
         </div>
       </div>
-      <LeadModal />
+      <LeadModal closable />
     </section>
   )
 }

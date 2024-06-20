@@ -76,7 +76,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
   useEffect(() => setOptions(mockOptions), [])
 
   useEffect(() => {
-    if (pathname !== '/flight') {
+    if (pathname !== '/flights') {
       localStorage.removeItem('flight')
       formik.resetForm()
     }

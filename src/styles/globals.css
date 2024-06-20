@@ -264,6 +264,10 @@ html {
   }
 }
 
+.blue-bg {
+  background: #3f4ed6 !important;
+}
+
 .green-button {
   background: #11d2a4;
   color: #fff;
@@ -283,6 +287,10 @@ html {
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
+  }
+
+  .ant-notification-notice-description {
+    padding-right: 16px !important;
   }
 }
 

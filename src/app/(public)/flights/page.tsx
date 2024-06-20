@@ -3,6 +3,7 @@
 import React, { useEffect } from 'react'
 import { Spin } from 'antd'
 import dayjs from 'dayjs'
+import LeadModal from '@/components/lead-modal'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { convertToSearchQuery } from '@/lib/utils'
@@ -13,6 +14,13 @@ import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 export default function Flights() {
   const [loading, setLoading] = React.useState(true)
   const { flights, setFlights } = useFlightsContext()
+  const [firstLoad, setFirstLoad] = React.useState(true)
+
+  useEffect(() => {
+    if (firstLoad) {
+      setTimeout(() => setFirstLoad(false), 7320)
+    }
+  }, [])
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -69,6 +77,8 @@ export default function Flights() {
           )}
         </>
       )}
+
+      <LeadModal delay={firstLoad ? 10320 : 2000} />
     </div>
   )
 }
