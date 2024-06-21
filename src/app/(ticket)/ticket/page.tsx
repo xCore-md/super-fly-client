@@ -14,7 +14,7 @@ export default function TicketPage() {
         Ticket de zbor
       </h2>
       {Array.from({ length: 2 }).map((_, index) => (
-        <Ticket key={index} ticketIndex={index} />
+        <Ticket key={index} ticketIndex={index} escale={1} />
       ))}
       <div className="mb-6 overflow-hidden rounded-lg">
         <div className="flex justify-between bg-brand-blue pl-20 text-sm font-medium text-white">
@@ -56,9 +56,10 @@ export default function TicketPage() {
 interface ITicketProps {
   data?: any
   ticketIndex?: number
+  escale?: number
 }
 
-const Ticket = ({ ticketIndex }: ITicketProps) => {
+const Ticket = ({ ticketIndex, escale = 1 }: ITicketProps) => {
   const sizesIncluded = [10, 20]
 
   return (
@@ -81,12 +82,21 @@ const Ticket = ({ ticketIndex }: ITicketProps) => {
           <div className="w-1/2">
             <div className="flex w-full">
               <div className="relative h-auto w-3">
-                <span className="absolute left-1.5 top-0 z-0 h-full w-px bg-brand-blue"></span>
+                <span
+                  className={`absolute left-1.5 top-0 z-0 h-full w-px ${ticketIndex === 0 ? 'bg-brand-blue' : 'bg-brand-green'}`}
+                ></span>
                 <div className=" flex h-full w-full flex-col items-center justify-between">
                   <span
                     className={`z-40 h-6 w-3 rounded-lg ${ticketIndex === 0 ? 'bg-brand-blue' : 'bg-brand-green'}`}
                   ></span>
-                  <span className="z-40 h-6 w-3 rounded-lg bg-brand-yellow"></span>
+                  {Array.from({ length: escale })
+                    .reverse()
+                    .map((_, index) => (
+                      <span
+                        key={index}
+                        className={`z-40 h-6 w-3 rounded-lg  ${index === escale - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
+                      ></span>
+                    ))}
                   <span
                     className={`z-40 h-6 w-3 rounded-lg ${ticketIndex === 0 ? 'bg-brand-blue' : 'bg-brand-green'}`}
                   ></span>
@@ -124,11 +134,19 @@ const Ticket = ({ ticketIndex }: ITicketProps) => {
                   </div>
                 </div>
                 <div className="flex items-center gap-8">
-                  <div>
-                    <p className="mb-1 text-xs font-normal text-slate-600">
-                      Timp de zbor
-                    </p>
-                    <p className="text-base font-semibold text-black">06:30</p>
+                  <div
+                    className={`flex h-full flex-col items-center justify-center ${escale > 1 ? 'gap-14' : ''}`}
+                  >
+                    {Array.from({ length: escale }).map((_, index) => (
+                      <div key={index}>
+                        <p className="text-xs font-normal text-slate-600">
+                          Timp de zbor
+                        </p>
+                        <p className="text-base font-semibold text-black">
+                          06:30
+                        </p>
+                      </div>
+                    ))}
                   </div>
                   <div className="relative flex flex-col items-center">
                     <span className="absolute top-0 flex max-w-96 gap-4">
