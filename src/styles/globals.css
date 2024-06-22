@@ -197,8 +197,8 @@ html {
   font-size: 16px;
 }
 
-.ant-picker-cell-inner,
-.ant-picker-cell-inner::before {
+.datePickerPopUp .ant-picker-cell-inner,
+.datePickerPopUp .ant-picker-cell-inner::before {
   border-radius: 40px !important;
   min-width: 26px !important;
   height: 26px !important;

@@ -323,6 +323,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
                   value={formik.values.date_from}
                   placeholder="Alege data"
                   disabledDate={disabledDate}
+                  popupClassName="datePickerPopUp"
                   onChange={(date) => formik.setFieldValue('date_from', date)}
                   onOpenChange={handleDepartureChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
@@ -358,6 +359,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
                   open={openArrival}
                   allowClear={false}
                   disabledDate={disabledDate}
+                  popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
                   onChange={(date) => formik.setFieldValue('return_to', date)}
                   placeholder="Alege data"
