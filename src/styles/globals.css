@@ -205,10 +205,6 @@ html {
   line-height: 26px !important;
 }
 
-.crm-header {
-  z-index: 9999;
-}
-
 .scroll-small {
   scrollbar-width: 1px !important ;
 }

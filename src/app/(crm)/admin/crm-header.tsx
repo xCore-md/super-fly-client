@@ -2,7 +2,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { Button, Dropdown } from 'antd'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
 import {
@@ -22,12 +23,20 @@ interface IMenu {
 export const CrmHeader = () => {
   const pathname = usePathname()
   const isSimpleHeader = true
+  const storage = localStorage.getItem('userData')
+  const userData = storage ? JSON.parse(storage) : null
+  const user = userData ? userData.user : null
+
+  const logout = useCallback(() => {
+    localStorage.removeItem('userData')
+    window.location.href = '/admin/login'
+  }, [])
 
   if (pathname.includes('login')) return null
 
   return (
     <div
-      className={`crm-header sticky left-0 top-0  shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
+      className={`crm-header sticky left-0 top-0 z-10  shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
       <header className={`max-[1440px]:px-5`}>
         <div
@@ -42,7 +51,7 @@ export const CrmHeader = () => {
           </nav>
 
           <div className="flex items-center">
-            <div>
+            {/* <div>
               <Link
                 href="#"
                 className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
@@ -56,7 +65,7 @@ export const CrmHeader = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     className="mr-2"
                   >
-                    <g clip-path="url(#clip0_4_282)">
+                    <g clipPath="url(#clip0_4_282)">
                       <path
                         d="M12.0002 2C10.1437 2 8.36318 2.7375 7.05043 4.05025C5.73767 5.36301 5.00017 7.14348 5.00017 9V12.528C5.00032 12.6831 4.96437 12.8362 4.89517 12.975L3.17817 16.408C3.0943 16.5757 3.0547 16.7621 3.06312 16.9494C3.07155 17.1368 3.12773 17.3188 3.22632 17.4783C3.32491 17.6379 3.46265 17.7695 3.62644 17.8608C3.79024 17.9521 3.97465 18 4.16217 18H19.8382C20.0257 18 20.2101 17.9521 20.3739 17.8608C20.5377 17.7695 20.6754 17.6379 20.774 17.4783C20.8726 17.3188 20.9288 17.1368 20.9372 16.9494C20.9457 16.7621 20.906 16.5757 20.8222 16.408L19.1062 12.975C19.0366 12.8362 19.0003 12.6832 19.0002 12.528V9C19.0002 7.14348 18.2627 5.36301 16.9499 4.05025C15.6372 2.7375 13.8567 2 12.0002 2ZM12.0002 21C11.3796 21.0002 10.7741 20.8079 10.2673 20.4498C9.7605 20.0916 9.37718 19.5851 9.17017 19H14.8302C14.6232 19.5851 14.2399 20.0916 13.733 20.4498C13.2262 20.8079 12.6208 21.0002 12.0002 21Z"
                         fill="#575757"
@@ -72,15 +81,40 @@ export const CrmHeader = () => {
                   Notificări (<span className="text-[#F42D2D]">1</span>)
                 </p>
               </Link>
-            </div>
-            <div className="relative">
-              <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
-                <img
-                  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="icon"
-                />
-              </div>
-            </div>
+            </div> */}
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    label: (
+                      <Button
+                        onClick={logout}
+                        type="text"
+                        danger
+                        className="font-medium"
+                      >
+                        Logout
+                      </Button>
+                    ),
+                    key: '0',
+                    style: { padding: 0 },
+                  },
+                ],
+              }}
+              trigger={['click']}
+              placement="bottomRight"
+            >
+              <Button
+                type="primary"
+                shape="circle"
+                size="large"
+                className="p-0"
+              >
+                <span className="text-lg font-medium text-white">
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+              </Button>
+            </Dropdown>
           </div>
 
           <div className="lg:hidden">
