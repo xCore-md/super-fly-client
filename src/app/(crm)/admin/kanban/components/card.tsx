@@ -13,7 +13,7 @@ export type TCardType = {
 
 export const DndCard: FC<TCardType> = ({ id, phone }) => {
   const { attributes, listeners, setNodeRef, transform } = useSortable({
-    id: id,
+    id,
   })
 
   return (

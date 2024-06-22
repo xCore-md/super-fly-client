@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   closestCorners,
   DndContext,
@@ -12,49 +12,77 @@ import {
   DragOverEvent,
 } from '@dnd-kit/core'
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { notification } from 'antd'
+import axs from '@/lib/axios'
 import Column, { TColumnType } from './components/column'
+import { statusesColumns } from './utils/config'
 
-const initialSections = [
-  {
-    id: 'Column1',
-    title: 'Now',
-    circleColor: 'bg-green-500',
-    cards: Array.from({ length: 5 }, (_, index) => ({
-      id: `Column1-item-${index}`,
-      phone: `+3736955555${index}`,
-    })),
-  },
-  {
-    id: 'Column2',
-    title: 'Proces',
-    circleColor: 'bg-yellow-500',
-    cards: Array.from({ length: 5 }, (_, index) => ({
-      id: `Column2-item-${index}`,
-      phone: `+3736955555${index}`,
-    })),
-  },
-  {
-    id: 'Column3',
-    title: 'Așteptare',
-    circleColor: 'bg-red-500',
-    cards: Array.from({ length: 5 }, (_, index) => ({
-      id: `Column3-item-${index}`,
-      phone: `+3736955555${index}`,
-    })),
-  },
-  {
-    id: 'Column4',
-    title: 'To Pay',
-    circleColor: 'bg-blue-500',
-    cards: Array.from({ length: 5 }, (_, index) => ({
-      id: `Column4-item-${index}`,
-      phone: `+3736955555${index}`,
-    })),
-  },
-]
+const initialColumns = Object.values(statusesColumns).map((obj) => ({
+  id: obj.id,
+  title: obj.title,
+  circleColor: obj.color,
+  cards: obj.cards,
+}))
 
 export default function Kanban() {
-  const [columns, setColumns] = useState<TColumnType[]>(initialSections)
+  const [columns, setColumns] = useState<TColumnType[]>(initialColumns)
+  const [api, contextHolder] = notification.useNotification()
+  const storage = localStorage.getItem('userData')
+  const token = storage ? JSON.parse(storage).token : ''
+
+  const headers = {
+    Authorization: 'Bearer ' + token,
+  }
+
+  useEffect(() => {
+    axs
+      .get('/crm/leads', { headers })
+      .then((res) => {
+        const leads = res.data.leads
+
+        const newColumns = columns.map((column) => {
+          return {
+            ...column,
+            cards: leads[column.id]
+              ? leads[column.id].map((lead: any) => ({
+                  ...lead,
+                  id: String(lead.id),
+                }))
+              : [],
+          }
+        })
+        setColumns(newColumns)
+      })
+      .catch((err) => {
+        api.error({
+          message: 'Error',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 2,
+          closable: true,
+        })
+        console.log(err.response.data)
+      })
+  }, [])
+
+  const changeLeadStatus = (id: string, status: string) => {
+    const urlencoded = new URLSearchParams({ status })
+    axs
+      .put(`/crm/leads/change-status/${id}`, urlencoded, { headers })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        api.error({
+          message: 'Error',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 2,
+          closable: true,
+        })
+        console.log(err.response.data)
+      })
+  }
 
   const findColumn = (unique: string | null) => {
     if (!unique) {
@@ -121,18 +149,21 @@ export default function Kanban() {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
+
     const activeId = String(active.id)
     const overId = over ? String(over.id) : null
     const activeColumn = findColumn(activeId)
     const overColumn = findColumn(overId)
+
     if (!activeColumn || !overColumn || activeColumn !== overColumn) {
       return null
     }
     const activeIndex = activeColumn.cards.findIndex((i) => i.id === activeId)
     const overIndex = overColumn.cards.findIndex((i) => i.id === overId)
-    if (activeIndex !== overIndex) {
-      console.log({ activeColumn, overColumn, activeIndex, overIndex })
 
+    changeLeadStatus(activeId, overColumn.id)
+
+    if (activeIndex !== overIndex) {
       setColumns((prevState) => {
         return prevState.map((column) => {
           if (column.id === activeColumn.id) {
@@ -162,6 +193,7 @@ export default function Kanban() {
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
     >
+      {contextHolder}
       <div className="mt-8 grid grid-cols-4 gap-4">
         {columns.map((section: TColumnType) => (
           <Column key={section.id} {...section} />

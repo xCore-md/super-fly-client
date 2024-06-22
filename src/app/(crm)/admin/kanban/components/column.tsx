@@ -12,11 +12,12 @@ export type TColumnType = {
 const Column = (section: TColumnType) => {
   const { id, cards, title, circleColor } = section
   const { setNodeRef } = useDroppable({ id })
+
   return (
     <SortableContext id={id} items={cards} strategy={rectSortingStrategy}>
       <div
         ref={setNodeRef}
-        className="custom-shadow relative cursor-pointer overflow-hidden rounded-lg border bg-white px-2 py-3"
+        className="custom-shadow relative select-none overflow-hidden rounded-lg border bg-white px-2 py-3"
       >
         <span
           className={`absolute -left-3 -top-3 h-10 w-10 rounded-full ${circleColor} `}
@@ -29,7 +30,7 @@ const Column = (section: TColumnType) => {
 
         <hr className="mb-3 mt-2 border-t-[1px]" />
 
-        <div className="flex flex-col gap-2">
+        <div className="scroll-small flex max-h-[520px] min-h-[500px] flex-col gap-2 overflow-y-scroll">
           {section.cards.map((item, index) => (
             <DndCard key={index} id={item.id} phone={item.phone} />
           ))}
