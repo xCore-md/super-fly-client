@@ -31,8 +31,8 @@ const Column = (section: TColumnType) => {
         <hr className="mb-3 mt-2 border-t-[1px]" />
 
         <div className="scroll-small flex max-h-[520px] min-h-[500px] flex-col gap-2 overflow-y-scroll">
-          {section.cards.map((item, index) => (
-            <DndCard key={index} id={item.id} phone={item.phone} />
+          {section.cards.map((lead, index) => (
+            <DndCard key={index} id={lead.id} lead={lead} />
           ))}
         </div>
       </div>
