@@ -209,6 +209,13 @@ html {
   scrollbar-width: 1px !important ;
 }
 
+.ticket-tabs {
+  .ant-tabs-content {
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+}
+
 .statistic-picker.ant-picker-panel-container,
 .statistic-picker.ant-picker-panel-layout
   .statistic-picker.ant-picker-date-panel {
