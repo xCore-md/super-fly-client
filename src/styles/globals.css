@@ -209,6 +209,10 @@ html {
   z-index: 9999;
 }
 
+.scroll-small {
+  scrollbar-width: 1px !important ;
+}
+
 .statistic-picker.ant-picker-panel-container,
 .statistic-picker.ant-picker-panel-layout
   .statistic-picker.ant-picker-date-panel {
