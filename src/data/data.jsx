@@ -1,5 +1,15 @@
 import bagageDifference from '@/assets/img/bagage-difference.jpg'
 import bagage from '@/assets/img/bagage.jpg'
+import aa from '@/assets/img/companies/aa.png'
+import fo from '@/assets/img/companies/fo.png'
+import hs from '@/assets/img/companies/hs.png'
+import lpa from '@/assets/img/companies/lpa.png'
+import lt from '@/assets/img/companies/lt.png'
+import pa from '@/assets/img/companies/pa.png'
+import ra from '@/assets/img/companies/ra.png'
+import ta from '@/assets/img/companies/ta.png'
+import tm from '@/assets/img/companies/tm.png'
+import wa from '@/assets/img/companies/wa.png'
 import dimensions from '@/assets/img/dimensions.jpg'
 import noAlowed from '@/assets/img/no-alowed.jpg'
 import barcelona from '@/assets/img/offers/barcelona.jpg'
@@ -123,5 +133,48 @@ export const usefulInfo = [
     title: 'Diferenta dintre bagajul de mână și bagajul de cală',
     text: 'Bagajul de mână este inclus în prețul biletului de avion și este cel pe care-l poți lua cu tine la bord. Fiecare operator de zbor are propriile dimensiuni și criterii de greutate pentru bagajul de mână, iar companiile low-cost cer respectarea lor cu strictete. Bagajul de cala, în schimb, se plătește separat de biletul de avion de cele mai multe ori. Îl poți achiziționa atunci cand rezervi zborul, sau ulterior, daca esti indecis in momentul cumpararii biletului. Acesta este transportat în cala avionului pe parcursul zborului și îl poți recupera în aeroport, odată ce aterizezi. Atat bagajul de mana, cât și bagajul de cala trebuie sa se încadreze în limitele impuse de operatorul de zbor, în caz contrar va trebui să achite o taxa de bagaj suplimentar, care se calculează în general pe kilogram in plus. Tariful pentru bagajul de cala nu este singurul lucru pe care trebuie să-l iei în considerare atunci cand iei o decizie. Iată care sunt avantajele celor doua tipuri de bagaje: Bagaj de mână: este la îndemână,  economisești bani,  economisești timp, nu mai e nevoie să aștepți să recuperezi bagajul,  nu există riscul pierderii bagajului. <br /> <br /> Bagaj de cală: are o capacitate mai mare decat bagajul de mana ai mai multă libertate de mișcare, lucru important cand ai zbor cu escala îți poti lua mai multe obiecte de toaleta poti transporta fără probleme obiecte ascuțite sau din metal e necesar dacă vrei sa transporti lichide (o sticlă de vin ca suvenir) poți avea bagaje mai voluminoase.',
     img: bagageDifference,
+  },
+]
+
+export const comapnies = [
+  {
+    title: 'Ryanair',
+    image: ra,
+  },
+  {
+    title: 'Wizz Air',
+    image: wa,
+  },
+  {
+    title: 'Tarom',
+    image: tm,
+  },
+  {
+    title: 'Turkish Airlines',
+    image: ta,
+  },
+  {
+    title: 'Pegasus Airlines',
+    image: pa,
+  },
+  {
+    title: 'Lot Polish Airlines',
+    image: lpa,
+  },
+  {
+    title: 'Fly One',
+    image: fo,
+  },
+  {
+    title: 'Aegean Airlines',
+    image: aa,
+  },
+  {
+    title: 'Lufthansa',
+    image: lt,
+  },
+  {
+    title: 'Hi Sky',
+    image: hs,
   },
 ]
