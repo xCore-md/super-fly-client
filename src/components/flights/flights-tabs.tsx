@@ -10,10 +10,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 interface IFlightsTabsProps {
   className?: string
   loading?: boolean
+  handleAdminPanelReservation?: () => void
 }
 export const FlightsTabs = ({
   className = '',
   loading = false,
+  handleAdminPanelReservation,
 }: IFlightsTabsProps) => {
   const { flights } = useFlightsContext()
   return (
@@ -27,7 +29,10 @@ export const FlightsTabs = ({
             </TabsTrigger>
           </TabsList>
           <TabsContent className="relative" value="ieftin">
-            <FlightsListing length={5} />
+            <FlightsListing
+              length={5}
+              handleAdminPanelReservation={handleAdminPanelReservation}
+            />
             {flights.length > 0 ? (
               <Button
                 className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"

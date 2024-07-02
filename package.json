@@ -45,7 +45,8 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-animated": "^1.0.1",
-    "vaul": "^0.9.1"
+    "vaul": "^0.9.1",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",

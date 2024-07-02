@@ -5,14 +5,17 @@ import { Segmented } from 'antd'
 import { SearchTable } from '@/app/(crm)/admin/search/SearchTable'
 import { FlightsTabs } from '@/components/flights/flights-tabs'
 import { SearchBar } from '@/components/search-bar'
+import { AdminPanelReservationModal } from './AdminPanelReservationModal'
 
 export default function Search() {
   const [activeTab, setActiveTab] = useState('Results')
   const [loading, setLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const handleChangeLoading = (value: boolean) => {
     setLoading(value)
   }
+  const handleAdminPanelReservation = () => setShowModal(true)
 
   return (
     <div>
@@ -26,7 +29,17 @@ export default function Search() {
       </div>
 
       {activeTab === 'Results' ? (
-        <FlightsTabs loading={loading} className="-mt-16" />
+        <>
+          <FlightsTabs
+            loading={loading}
+            className="-mt-16"
+            handleAdminPanelReservation={handleAdminPanelReservation}
+          />
+          <AdminPanelReservationModal
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
+        </>
       ) : (
         <SearchTable />
       )}
