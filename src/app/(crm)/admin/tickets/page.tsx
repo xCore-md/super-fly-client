@@ -1,23 +1,40 @@
 'use client'
+
 import Image from 'next/image'
-import React, { useState } from 'react'
-import { Avatar, Badge, Table } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Badge, Table } from 'antd'
+import dayjs from 'dayjs'
 import { TicketsInfoModal } from '@/app/(crm)/admin/tickets/tickets-info-modal'
-import flyOne from '@/assets/img/fly-one.png'
+import { comapnies } from '@/data/data'
+import axs from '@/lib/axios'
 
 export default function TicketsPage() {
   const [showModal, setShowModal] = useState(false)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const storage = localStorage.getItem('userData')
+    const token = storage ? JSON.parse(storage).token : ''
+
+    axs
+      .get('/crm/sales', {
+        headers: { Authorization: 'Bearer ' + token },
+      })
+      .then((res) => {
+        setData(res.data.data)
+      })
+  }, [])
 
   return (
     <div className="rounded-lg bg-white p-6 shadow-lg">
       <Table
         pagination={false}
-        dataSource={flightData}
+        dataSource={data}
+        rowKey={(record) => record.created_at}
         columns={columns}
-        rowKey="flightDate"
-        onRow={(record) => ({
+        onRow={() => ({
+          className: 'cursor-pointer',
           onClick: () => {
-            console.log('record', record)
             setShowModal(true)
           },
         })}
@@ -27,135 +44,22 @@ export default function TicketsPage() {
   )
 }
 
-interface FlightData {
-  company: string
-  companyLogo: string
-  departure: string
-  destination: string
-  flightDate: string
-  flightType: string
-  passenger: string
-  passengerCount: number
-  phone: string
-  agentPhoto: string
-}
-
-const flightData: FlightData[] = [
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  {
-    company: 'FlyOne',
-    companyLogo: '',
-    departure: 'Moldova 12.04.2024 14:05:25',
-    destination: 'Italia 12.04.2024 14:05:25',
-    flightDate: '12.04.2024 14:05:25',
-    flightType: 'Tur - Retur',
-    passenger: 'John Doe',
-    passengerCount: 2,
-    phone: '+373 60 456 654',
-    agentPhoto:
-      'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  },
-  // Add more data as necessary
-]
-
 const columns = [
   {
     title: 'Compania',
     dataIndex: 'company',
     key: 'company',
-    render: () => (
+    render: (text: string, record: any) => (
       <div className="flex items-center">
-        <Image src={flyOne} alt="fltone" className="mr-2" />
+        {companyLogo(record.airline) ? (
+          <Image
+            src={companyLogo(record.airline)}
+            alt="image"
+            className="mr-2 w-24"
+          />
+        ) : (
+          <span className="mr-2 w-24">{record.airline}</span>
+        )}
       </div>
     ),
   },
@@ -163,42 +67,65 @@ const columns = [
     title: 'Date Zbor',
     dataIndex: 'departure',
     key: 'departure',
-    render: (text: string, record: FlightData) => (
-      <div>
-        <div>{record.departure}</div>
-        <div>{record.destination}</div>
+    render: (text: string, record: any) => (
+      <div className="text-base font-light">
+        <div>
+          {record.fly_from_city} -
+          <span className="pl-1 font-medium">
+            {dayjs(record.date_from).format('DD.MM.YYYY HH:mm')}
+          </span>
+        </div>
+        <div>
+          {record.fly_to_city} -
+          <span className="pl-1 font-medium">
+            {dayjs(record.date_to).format('DD.MM.YYYY HH:mm')}
+          </span>
+        </div>
       </div>
     ),
   },
   {
     title: 'Tip Zbor',
-    dataIndex: 'flightType',
-    key: 'flightType',
+    dataIndex: 'type',
+    key: 'type',
+    render: (text: string) => (
+      <span className=" text-base capitalize">{text}</span>
+    ),
   },
   {
     title: 'Date Pasager',
     dataIndex: 'passenger',
     key: 'passenger',
-    render: (text: string, record: FlightData) => (
-      <div className="flex items-center">
-        {text}
-        <Badge
-          count={`+${record.passengerCount}`}
-          className="ml-2"
-          style={{ backgroundColor: '#1E1267' }}
-        />
-      </div>
-    ),
+    render: (text: string, record: any) => {
+      const { passengers } = record
+
+      return (
+        <div className="flex items-center">
+          <span className="text-base">
+            {passengers[0].first_name || 'John'}{' '}
+            {passengers[0].last_name || 'Doe'}
+          </span>
+          {passengers.length > 1 && (
+            <Badge
+              count={`+${passengers.length - 1}`}
+              className="ml-2"
+              style={{ backgroundColor: '#1E1267' }}
+            />
+          )}
+        </div>
+      )
+    },
   },
   {
     title: 'Telefon',
     dataIndex: 'phone',
     key: 'phone',
-  },
-  {
-    title: 'Agent',
-    dataIndex: 'agentPhoto',
-    key: 'agentPhoto',
-    render: (text: string) => <Avatar src={text} alt="Agent" />,
+    render: (text: string, record: any) => (
+      <span className="text-base">{record.passengers[0].phone}</span>
+    ),
   },
 ]
+
+const companyLogo = (company: string) => {
+  return comapnies.find((item) => item.title === company)?.image || ''
+}
