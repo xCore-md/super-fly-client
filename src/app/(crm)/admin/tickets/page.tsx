@@ -11,6 +11,7 @@ import axs from '@/lib/axios'
 export default function TicketsPage() {
   const [showModal, setShowModal] = useState(false)
   const [data, setData] = useState([])
+  const [modalData, setModalData] = useState({})
 
   useEffect(() => {
     const storage = localStorage.getItem('userData')
@@ -32,14 +33,19 @@ export default function TicketsPage() {
         dataSource={data}
         rowKey={(record) => record.created_at}
         columns={columns}
-        onRow={() => ({
+        onRow={(row) => ({
           className: 'cursor-pointer',
           onClick: () => {
             setShowModal(true)
+            setModalData(row)
           },
         })}
       />
-      <TicketsInfoModal setShowModal={setShowModal} showModal={showModal} />
+      <TicketsInfoModal
+        setShowModal={setShowModal}
+        showModal={showModal}
+        data={modalData}
+      />
     </div>
   )
 }
