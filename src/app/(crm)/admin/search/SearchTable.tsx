@@ -21,15 +21,10 @@ export const SearchTable = () => {
     const storage = localStorage.getItem('userData')
     const userData = storage ? JSON.parse(storage) : null
     if (userData) {
-      const token = userData.token
       setUser(userData.user)
 
       axs
-        .get('/crm/search-logs', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get('/crm/search-logs')
         .then((res) => {
           if (res.data.length) {
             const historyData = res.data.map((item: any) => ({

@@ -13,7 +13,9 @@ import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useFlightsContext } from '@/context/flights-context'
+import { useIsAdminPanel } from '@/lib/hooks/useIsAdminPanel'
 import { cn, getTimeFromDate, numberToTimeFormat } from '@/lib/utils'
+import { Button } from '@components/ui/button'
 
 interface IFlightsListingProps {
   length: number
@@ -23,12 +25,14 @@ interface IFlightsListingProps {
   withoutHeader?: boolean
   withoutFooter?: boolean
   pricePlacement?: 'top' | 'bottom'
+  handleAdminPanelReservation?: () => void
 }
 
 export const FlightsListing = (props: IFlightsListingProps) => {
   const pathname = usePathname()
-  const { flights } = useFlightsContext()
+  const { flights, setSelectedFlight } = useFlightsContext()
   const elementsRef = useRef<(HTMLDivElement | null)[]>([])
+  const isAdminPanel = useIsAdminPanel()
 
   const data = pathname === '/reservation' ? flights?.slice(0, 3) : flights
   gsap.registerPlugin(useGSAP)
@@ -51,13 +55,24 @@ export const FlightsListing = (props: IFlightsListingProps) => {
     elementsRef.current[index] = el
   }
 
+  const handleAdminPanelSetSelectedFlight = (flight: object) => {
+    setSelectedFlight(flight)
+    if (props.handleAdminPanelReservation) {
+      props.handleAdminPanelReservation()
+    }
+  }
   return data.map((flight: any, index: number) => (
     <div
       key={index}
       ref={(el) => setRef(el, index)}
       className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
     >
-      <FlyContent {...props} flight={flight} />
+      <FlyContent
+        {...props}
+        flight={flight}
+        isAdminPanel={isAdminPanel}
+        handleAdminPanelSetSelectedFlight={handleAdminPanelSetSelectedFlight}
+      />
     </div>
   ))
 }
@@ -69,6 +84,8 @@ export const FlyContent = (props: any) => {
     withoutFooter,
     withoutFlightNumber,
     flight,
+    handleAdminPanelSetSelectedFlight,
+    isAdminPanel,
   } = props
 
   return (
@@ -232,12 +249,21 @@ export const FlyContent = (props: any) => {
             )}
 
             <p className="text-base font-medium">€ {flight.price}</p>
-            <Link
-              href="/reservation"
-              className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
-            >
-              Rezerva
-            </Link>
+            {isAdminPanel ? (
+              <Button
+                onClick={() => handleAdminPanelSetSelectedFlight(flight)}
+                className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+              >
+                Rezerva
+              </Button>
+            ) : (
+              <Link
+                href="/reservation"
+                className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+              >
+                Rezerva
+              </Link>
+            )}
             <div className="hidden justify-between gap-5 text-xs lg:flex">
               <Link href="/" className="flex">
                 <Image
