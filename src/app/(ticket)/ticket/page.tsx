@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
@@ -14,13 +13,13 @@ import axs from '@/lib/axios'
 import { getFlightTime } from '@/lib/utils'
 
 export default function TicketPage() {
-  const searchParams = useSearchParams()
-  const passengerId = searchParams.get('passenger_id')
   const [passengerData, setPassengerData] = useState<any>(null)
 
   useEffect(() => {
     axs
-      .get(`/ticket/${passengerId}/token/aloha`)
+      .get(
+        `/ticket/${window.location.search.substring('?passenger_id='.length)}/token/aloha`
+      )
       .then((res) => {
         setPassengerData(res.data)
       })
@@ -28,8 +27,6 @@ export default function TicketPage() {
         console.log({ err })
       })
   }, [])
-
-  console.log({ passengerData })
 
   if (!passengerData) return <div>Loading ...</div>
 
@@ -89,8 +86,6 @@ interface ITicketProps {
 
 const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = JSON.parse(data.sale.extra)
-
-  console.log({ ticket })
 
   return (
     <div className="mb-6 overflow-hidden rounded-lg">
