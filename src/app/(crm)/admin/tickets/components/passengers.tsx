@@ -1,19 +1,9 @@
-import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { Button, notification } from 'antd'
 import { format } from 'date-fns'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
 
-interface Passenger {
-  id: number
-  firstName: string
-  lastName: string
-  dateOfBirth: string
-  phone: string
-  info1: string
-  info2: string
-}
 interface IPassenger {
   id: number
   first_name: string
@@ -46,14 +36,11 @@ interface IPassenger {
   updated_at: string
 }
 
-const formatDate = (date: string) => format(new Date(date), 'dd.MM.yyyy')
-
 export const PassengersContent = ({ data }) => {
-  console.log({ data }, '@pas')
-  const passengers: IPassenger[] = data.passengers
+  const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
+
   const [showForm, setShowForm] = useState(false)
   const [api, context] = notification.useNotification()
-  const router = useRouter()
 
   const closeModal = () => setShowForm(false)
   const onSubmit = (values: any) => {
@@ -69,17 +56,18 @@ export const PassengersContent = ({ data }) => {
       )
       .then((res) => {
         api.success({
-          message: 'Succes',
+          message: 'Pasagerul a fost adăugat cu succes',
           description: res.data.message,
           placement: 'bottomRight',
           duration: 3,
           closable: true,
         })
+        refetchPassengers()
         setShowForm(false)
       })
       .catch((err) => {
         api.error({
-          message: 'Eroare',
+          message: 'Nu s-a putut adăuga pasagerul',
           description: err.response.data.message,
           placement: 'bottomRight',
           duration: 2,
@@ -88,6 +76,57 @@ export const PassengersContent = ({ data }) => {
         console.error(err)
       })
   }
+
+  const handleDeletePassenger = (id: number) => {
+    axs
+      .delete(`/crm/sales/${data.id}/passengers/${id}/delete`)
+      .then((res) => {
+        api.success({
+          message: 'Pasagerul a fost șters cu succes',
+          description: res.data.message,
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+        refetchPassengers()
+      })
+      .catch((err) => {
+        api.error({
+          message: 'Nu s-a putut șterge pasagerul',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 2,
+          closable: true,
+        })
+        console.error(err)
+      })
+  }
+
+  const refetchPassengers = () => {
+    axs
+      .get(`/crm/sales/${data.id}/show`)
+      .then((res) => {
+        api.success({
+          message: 'Lista de pasageri a fost actualizată cu succes',
+          description: res.data.message,
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+        setPassengers(res.data.passengers)
+      })
+      .catch((err) => {
+        api.error({
+          message: 'Lista de pasageri nu a putut fi actualizată cu succes',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 2,
+          closable: true,
+        })
+        console.error(err)
+      })
+  }
+
   return (
     <div className="flex min-h-[800px] flex-col">
       {passengers.map((passenger, index) => (
@@ -122,7 +161,12 @@ export const PassengersContent = ({ data }) => {
               <span className="font-medium">Email:</span>
               <span className="w-[120px]">{passenger.email}</span>
             </p>
-            <Button type="primary" danger className="mt-4">
+            <Button
+              type="primary"
+              danger
+              className="mt-4"
+              onClick={() => handleDeletePassenger(passenger.id)}
+            >
               Șterge pasagerul {passenger.first_name} {passenger.last_name}
             </Button>
           </div>
