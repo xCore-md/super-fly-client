@@ -616,7 +616,7 @@ const AdminPanelReservationForm = ({
       className="flex flex-wrap"
     >
       <div className="flex h-screen max-h-[90vh] w-full flex-1 overflow-y-auto">
-        <Collapse items={items} className="h-min w-full" />
+        <Collapse activeKey={0} items={items} className="h-min w-full" />
         <Button
           className="absolute bottom-0 right-0 mb-4 mr-4"
           type="primary"
