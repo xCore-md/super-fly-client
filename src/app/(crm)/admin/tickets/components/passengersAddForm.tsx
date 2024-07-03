@@ -8,18 +8,14 @@ import {
   Select,
   DatePicker,
   Checkbox,
-  notification,
   Typography,
 } from 'antd'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { useFlightContext } from '@/context/flight-context'
-import { useFlightsContext } from '@/context/flights-context'
-import axs from '@/lib/axios'
 
 const { Option } = Select
 
-interface Passenger {
+interface IPassenger {
   first_name: string
   last_name: string
   gender: 'M' | 'F' | ''
@@ -37,108 +33,10 @@ interface Passenger {
 }
 
 interface FormValues {
-  type: 'tur' | 'tur_retur'
-  airline: string
-  fly_from: string
-  fly_to: string
-  fly_from_city: string
-  fly_to_city: string
-  date_from: string
-  date_to: string
-  date_from_retur?: string
-  source: 'online' | 'offline'
-  comment: string
-  extra: string
-  passengers: Passenger[]
+  passengers: IPassenger[]
 }
 
-interface FlightDetails {
-  id: string
-  flyFrom: string
-  flyTo: string
-  cityFrom: string
-  cityCodeFrom: string
-  cityTo: string
-  cityCodeTo: string
-  countryFrom: {
-    code: string
-    name: string
-  }
-  countryTo: {
-    code: string
-    name: string
-  }
-  local_departure: string
-  utc_departure: string
-  local_arrival: string
-  utc_arrival: string
-  distance: number
-  duration: {
-    departure: number
-    return: number
-    total: number
-  }
-  price: number
-  bags_price: {
-    [key: string]: number
-  }
-  availability: {
-    seats: number
-  }
-  airlines: string[]
-  route: Array<{
-    id: string
-    combination_id: string
-    flyFrom: string
-    flyTo: string
-    cityFrom: string
-    cityCodeFrom: string
-    cityTo: string
-    cityCodeTo: string
-    local_departure: string
-    local_arrival: string
-    airline: string
-    flight_no: number
-  }>
-  booking_token: string
-  has_airport_change: boolean
-}
-
-interface MappedFlight {
-  type: 'tur' | 'tur_retur'
-  airline: string
-  fly_from: string
-  fly_to: string
-  fly_from_city: string
-  fly_to_city: string
-  date_from: string
-  date_to: string
-  date_from_retur?: string
-  source: 'online' | 'offline'
-  comment: string
-}
-
-function mapFlightDetails(searchedFlight: FlightDetails): MappedFlight {
-  return {
-    type: searchedFlight.route.length > 1 ? 'tur_retur' : 'tur',
-    airline: searchedFlight.airlines[0],
-    fly_from: searchedFlight.flyFrom,
-    fly_to: searchedFlight.flyTo,
-    fly_from_city: searchedFlight.cityFrom,
-    fly_to_city: searchedFlight.cityTo,
-    date_from: searchedFlight.local_departure,
-    date_to: searchedFlight.local_arrival,
-    source: 'online',
-    comment: '',
-  }
-}
-
-const getInitialValues = (
-  selectedFlightOffer: FlightDetails,
-  passengers: number
-): FormValues => ({
-  ...mapFlightDetails(selectedFlightOffer),
-  extra: JSON.stringify(selectedFlightOffer),
+const getInitialValues = (passengers: number): FormValues => ({
   passengers: Array.from({ length: passengers }, () => ({
     first_name: '',
     last_name: '',
@@ -158,20 +56,6 @@ const getInitialValues = (
 })
 
 const validationSchema = Yup.object().shape({
-  type: Yup.string().oneOf(['tur', 'tur_retur']).required('Tipul este necesar'),
-  airline: Yup.string().required('Compania aeriană este necesară'),
-  fly_from: Yup.string().required('Aeroportul de plecare este necesar'),
-  fly_to: Yup.string().required('Aeroportul de destinație este necesar'),
-  fly_from_city: Yup.string().required('Orașul de plecare este necesar'),
-  fly_to_city: Yup.string().required('Orașul de destinație este necesar'),
-  date_from: Yup.string().required('Data plecării este necesară'),
-  date_to: Yup.string().required('Data sosirii este necesară'),
-  date_from_retur: Yup.string(),
-  source: Yup.string()
-    .oneOf(['online', 'offline'])
-    .required('Sursa este necesară'),
-  comment: Yup.string(),
-  extra: Yup.string(),
   passengers: Yup.array()
     .of(
       Yup.object().shape({
@@ -214,20 +98,14 @@ interface IAdminPanelReservationForm {
   onSubmit: (values: FormValues) => void
 }
 
-const AdminPanelReservationForm = ({
+const PassengerAddForm = ({
   closeModal,
   onSubmit,
 }: IAdminPanelReservationForm) => {
-  const { selectedFlight } = useFlightsContext()
-  const { flight } = useFlightContext()
-
-  const passengers = flight.adults + flight.children + flight.infants
+  const passengers = 1
 
   const formik = useFormik({
-    initialValues: getInitialValues(
-      selectedFlight as FlightDetails,
-      passengers
-    ),
+    initialValues: getInitialValues(passengers),
     validationSchema,
     validate: (values) => {
       try {
@@ -576,17 +454,6 @@ const AdminPanelReservationForm = ({
       ))}
 
       <div className="flex justify-end">
-        {/*<Button*/}
-        {/*  type="default"*/}
-        {/*  onClick={() => {*/}
-        {/*    formik.setFieldValue('passengers', [*/}
-        {/*      ...formik.values.passengers,*/}
-        {/*      getInitialValues(extra).passengers[0],*/}
-        {/*    ])*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Mai Adaugă Un Pasager*/}
-        {/*</Button>*/}
         <Button type="primary" htmlType="submit">
           Trimite
         </Button>
@@ -595,4 +462,4 @@ const AdminPanelReservationForm = ({
   )
 }
 
-export default AdminPanelReservationForm
+export default PassengerAddForm
