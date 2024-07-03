@@ -61,7 +61,10 @@ export const FlightsListing = (props: IFlightsListingProps) => {
       props.handleAdminPanelReservation()
     }
   }
-  return data.map((flight: any, index: number) => (
+
+  if (!data?.length) return
+
+  return data?.map((flight: any, index: number) => (
     <div
       key={index}
       ref={(el) => setRef(el, index)}
