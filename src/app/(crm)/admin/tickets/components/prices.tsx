@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Button, Input } from 'antd'
 
-export const PricesContent = ({ data, updateAction }) => {
+export const PricesContent = ({
+  data,
+  updateAction,
+}: {
+  data: any
+  updateAction: any
+}) => {
   const [passengersState, setPassengersState] = useState(data.passengers)
 
   const { passengers } = data

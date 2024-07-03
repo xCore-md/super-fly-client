@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Collapse, Select } from 'antd'
+import { Button, Checkbox, Select } from 'antd'
 import dayjs from 'dayjs'
-import { Download, Link } from 'lucide-react'
+import { Download } from 'lucide-react'
 import axs from '@/lib/axios'
 
-export const Ticket = ({ data, updateAction }) => {
+export const Ticket = ({ data }: { data: any }) => {
   const [stateData, setStateData] = useState(data)
   const [remoteUrl, setRemoteUrl] = useState('')
   const [loading, setLoading] = useState(false)
@@ -24,26 +24,26 @@ export const Ticket = ({ data, updateAction }) => {
   const verification =
     data.type === 'tur_retur' ? verificationTwoWay : verificationOneWay
 
-  const handleUpdatePassengerCheckboxes = (
-    passengerId: number,
-    verification: string
-  ) => {
-    axs
-      .put(
-        `/crm/sales/${data.id}/passengers/${passengerId}/checkbox/${verification}`
-      )
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log({ err })
-      })
-  }
+  // const handleUpdatePassengerCheckboxes = (
+  //   passengerId: number,
+  //   verification: string
+  // ) => {
+  //   axs
+  //     .put(
+  //       `/crm/sales/${data.id}/passengers/${passengerId}/checkbox/${verification}`
+  //     )
+  //     .then((res) => {
+  //       console.log(res)
+  //     })
+  //     .catch((err) => {
+  //       console.log({ err })
+  //     })
+  // }
 
   const handleUpdateScopeTravelCheckboxes = (scope: string) => {
     axs
       .put(`/crm/sales/${data.id}/checkbox/${scope}`)
-      .then((res) => {
+      .then(() => {
         setStateData({ ...stateData, [scope]: !stateData[scope] })
       })
       .catch((err) => {
@@ -126,7 +126,7 @@ export const Ticket = ({ data, updateAction }) => {
         </Section>
         <Section title="Biletele de avion">
           <div className="flex gap-2 py-2">
-            {passengers.map((passenger, index: number) => (
+            {passengers.map((passenger: any, index: number) => (
               <Button
                 key={index}
                 type="primary"
@@ -176,7 +176,7 @@ export const Ticket = ({ data, updateAction }) => {
           </div>
         </Section>
         <Section title="Date pentru check-in">
-          {passengers.map((p, index) => (
+          {passengers.map((p: any, index: number) => (
             <div key={index} className="mb-4">
               <p>
                 {p.first_name} {p.last_name}

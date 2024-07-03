@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { DeleteOutlined } from '@ant-design/icons'
 import {
   Form,
   Input,
@@ -7,7 +6,6 @@ import {
   Select,
   DatePicker,
   Checkbox,
-  Typography,
   Col,
   Row,
   Tabs,
@@ -212,11 +210,11 @@ const validationSchema = Yup.object().shape({
 
 interface IAdminPanelReservationForm {
   closeModal: () => void
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (values: FormValues) => void
 }
 
 const AdminPanelReservationForm = ({
-  closeModal,
   onSubmit,
 }: IAdminPanelReservationForm) => {
   const { selectedFlight } = useFlightsContext()
@@ -243,7 +241,6 @@ const AdminPanelReservationForm = ({
     },
     onSubmit: onSubmit,
   })
-  const { Title } = Typography
   const { TextArea } = Input
 
   useEffect(() => {

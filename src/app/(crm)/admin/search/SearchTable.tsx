@@ -50,7 +50,7 @@ export const SearchTable = () => {
           })
         })
     }
-  }, [])
+  }, [api])
 
   return (
     <>

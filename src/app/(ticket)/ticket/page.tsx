@@ -3,15 +3,15 @@
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import dayjs from 'dayjs'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
-import thirtyKgSvg from '@/assets/img/bags/30kg.svg'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import flyOne from '@/assets/img/fly-one.png'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
 import axs from '@/lib/axios'
-import dayjs from 'dayjs'
+import { getFlightTime } from '@/lib/utils'
 
 export default function TicketPage() {
   const searchParams = useSearchParams()
@@ -38,14 +38,7 @@ export default function TicketPage() {
       <h2 className="my-10 w-full text-center text-2xl font-medium">
         Ticket de zbor
       </h2>
-      {Array.from({ length: 2 }).map((_, index) => (
-        <Ticket
-          key={index}
-          ticketIndex={index}
-          data={passengerData}
-          escale={1}
-        />
-      ))}
+      <Ticket data={passengerData} />
       <div className="mb-6 overflow-hidden rounded-lg">
         <div className="flex justify-between bg-brand-blue pl-20 text-sm font-medium text-white">
           <span className="py-3">DATA ACHITĂRII</span>
@@ -53,9 +46,15 @@ export default function TicketPage() {
           <span className="bg-brand-green px-14 py-3">TOTAL EURO</span>
         </div>
         <div className=" flex justify-between bg-[#EFEFEF] p-5 pl-8 pr-[70px] text-xl font-medium text-slate-600">
-          <span>12/04/2024 12:33:55</span>
-          <span className="-translate-x-14">Online - Card bancar</span>
-          <span>{passengerData.price_sold}€</span>
+          <span>
+            {dayjs(passengerData.sale.created_at).format('DD.MM.YYYY - HH:mm')}
+          </span>
+          <span className="-translate-x-14">
+            {passengerData.sale.payment_method === 'online'
+              ? 'Online - Card bancar'
+              : 'Offline - Cash'}
+          </span>
+          <span>{passengerData.price_sold || 0} €</span>
         </div>
       </div>
       <div className="overflow-hidden rounded-lg border border-brand-light-blue">
@@ -86,12 +85,9 @@ export default function TicketPage() {
 interface ITicketProps {
   data?: any
   ticketIndex?: number
-  escale?: number
 }
 
-const Ticket = ({ data, ticketIndex, escale = 1 }: ITicketProps) => {
-  const sizesIncluded = [10, 20]
-
+const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = JSON.parse(data.sale.extra)
 
   console.log({ ticket })
@@ -144,14 +140,12 @@ const Ticket = ({ data, ticketIndex, escale = 1 }: ITicketProps) => {
                   <span
                     className={`z-40 h-6 w-3 rounded-lg bg-brand-blue`}
                   ></span>
-                  {Array.from({ length: escale })
-                    .reverse()
-                    .map((_, index) => (
-                      <span
-                        key={index}
-                        className={`z-40 h-6 w-3 rounded-lg  ${index === escale - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
-                      ></span>
-                    ))}
+                  {ticket.route.map((r: any, index: number) => (
+                    <span
+                      key={index}
+                      className={`z-40 h-6 w-3 rounded-lg  ${index === ticket.route.length - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
+                    ></span>
+                  ))}
                   <span
                     className={`z-40 h-6 w-3 rounded-lg bg-brand-blue`}
                   ></span>
@@ -194,22 +188,22 @@ const Ticket = ({ data, ticketIndex, escale = 1 }: ITicketProps) => {
                 </div>
                 <div className="flex items-center gap-8">
                   <div
-                    className={`flex h-full flex-col items-center justify-center ${escale > 1 ? 'gap-14' : ''}`}
+                    className={`flex h-full flex-col items-center justify-center ${ticket.route.length > 1 ? 'gap-14' : ''}`}
                   >
-                    {Array.from({ length: escale }).map((_, index) => (
+                    {ticket.route.map((r: any, index: number) => (
                       <div key={index}>
                         <p className="text-xs font-normal text-slate-600">
                           Timp de zbor
                         </p>
                         <p className="text-base font-semibold text-black">
-                          06:30
+                          {getFlightTime(r.local_departure, r.local_arrival)}
                         </p>
                       </div>
                     ))}
                   </div>
                   <div className="relative flex flex-col items-center">
                     <span className="absolute top-0 flex max-w-96 gap-4">
-                      {Array.from({ length: 1 }).map((_, index) => (
+                      {ticket.route.map((r: any, index: number) => (
                         <span key={index}>
                           <Image
                             src={flyOne}
@@ -279,42 +273,62 @@ const Ticket = ({ data, ticketIndex, escale = 1 }: ITicketProps) => {
                   alt="bag"
                   className="w-12"
                 />
-                <span className="my-2 text-xs font-light text-slate-500">
+                <span className="my-2 text-xs font-light text-slate-800">
                   {baggage[8].size}
                 </span>
                 <span className="mb-1 text-xs font-semibold text-black">
                   {baggage[8].title}
                 </span>
 
-                <span className="text-xs font-light text-slate-500">
+                <span className="text-xs font-light text-slate-800">
                   {baggage[8].price}
                 </span>
               </div>
-              <span className="-translate-y-10 px-2 text-3xl">+</span>
-              {Array.from(sizesIncluded).map((key, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center"
-                >
-                  <Image
-                    src={baggage[key].image}
-                    width={100}
-                    height={100}
-                    alt="bag"
-                    className="w-12"
-                  />
-                  <span className="my-2 text-xs font-light text-slate-500">
-                    {baggage[8].size}
-                  </span>
-                  <span className="mb-1 text-xs font-semibold text-black">
-                    {baggage[8].title}
-                  </span>
+              <div className="flex items-end gap-8">
+                <span className="-translate-y-10 px-2 text-3xl">+</span>
+                {data.bag_10kg && (
+                  <div className="flex flex-col items-center justify-center">
+                    <Image
+                      src={baggage[10].image}
+                      width={100}
+                      height={100}
+                      alt="bag"
+                      className="w-12"
+                    />
+                    <span className="my-2 text-xs font-light text-slate-800">
+                      {baggage[10].size}
+                    </span>
+                    <span className="mb-1 text-xs font-semibold text-black">
+                      {baggage[10].title}
+                    </span>
 
-                  <span className="text-xs font-light text-slate-500">
-                    {baggage[8].price}
-                  </span>
-                </div>
-              ))}
+                    <span className="text-xs font-light text-slate-800">
+                      {baggage[10].price}
+                    </span>
+                  </div>
+                )}
+                {data.bag_20kg && (
+                  <div className="flex flex-col items-center justify-center">
+                    <Image
+                      src={baggage[20].image}
+                      width={100}
+                      height={100}
+                      alt="bag"
+                      className="w-12"
+                    />
+                    <span className="my-2 text-xs font-light text-slate-800">
+                      {baggage[20].size}
+                    </span>
+                    <span className="mb-1 text-xs font-semibold text-black">
+                      {baggage[20].title}
+                    </span>
+
+                    <span className="text-xs font-light text-slate-800">
+                      {baggage[20].price}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -322,16 +336,6 @@ const Ticket = ({ data, ticketIndex, escale = 1 }: ITicketProps) => {
     </div>
   )
 }
-
-const header = [
-  { title: 'Nume/Prenume Pasager', key: 'first_name' },
-  { title: 'Data, Luna, Anul Nașterii', key: 'date_of_birth' },
-  { title: 'Gen', key: 'gender' },
-  { title: 'Pasager', key: '1' },
-  { title: 'Cetățenia', key: 'passport_country' },
-  { title: 'Număr Pașaport', key: 'passport_number' },
-  { title: 'Număr de rezervare', key: 'AACT62' },
-]
 
 type TBaggage = {
   [key: string]: {
@@ -360,11 +364,5 @@ const baggage: TBaggage = {
     size: '78 x 28 x 52 cm',
     price: '€30',
     image: twentyKgSvg,
-  },
-  30: {
-    title: 'Bagaj de cală',
-    size: '78 x 28 x 52 cm',
-    price: '€40',
-    image: thirtyKgSvg,
   },
 }

@@ -6,12 +6,12 @@ import {
 } from '@/app/(crm)/admin/tickets/components/passengers'
 import axs from '@/lib/axios'
 
-export const BaggageComponent = ({ data }) => {
+export const BaggageComponent = ({ data }: { data: any }) => {
   const [api, context] = notification.useNotification()
 
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
 
-  const renderBaggage = (passenger) => {
+  const renderBaggage = (passenger: any) => {
     return (
       <div>
         <p className="text-gray-700">
@@ -34,11 +34,15 @@ export const BaggageComponent = ({ data }) => {
     )
   }
 
-  const updateBaggage = (e, id, baggageType: 'bag_20kg' | 'bag_10kg') => {
+  const updateBaggage = (
+    e: any,
+    id: number,
+    baggageType: 'bag_20kg' | 'bag_10kg'
+  ) => {
     const passenger = passengers.find((p) => p.id === id)
     const newPassenger = {
       ...passenger,
-      [baggageType]: !passenger[baggageType],
+      [baggageType]: passenger && !passenger[baggageType],
     }
 
     axs

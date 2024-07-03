@@ -35,7 +35,15 @@ export interface IPassenger {
   created_at: string
   updated_at: string
 }
-export const refetchPassengers = ({ salesId, setPassengers, api }) => {
+export const refetchPassengers = ({
+  salesId,
+  setPassengers,
+  api,
+}: {
+  salesId: number
+  setPassengers: any
+  api: any
+}) => {
   axs
     .get(`/crm/sales/${salesId}/show`)
     .then((res) => {
@@ -60,7 +68,7 @@ export const refetchPassengers = ({ salesId, setPassengers, api }) => {
     })
 }
 
-export const PassengersContent = ({ data }) => {
+export const PassengersContent = ({ data }: { data: any }) => {
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
   useEffect(() => {
     setPassengers(data.passengers)

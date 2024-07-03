@@ -1,6 +1,4 @@
-import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
-import { DeleteOutlined } from '@ant-design/icons'
 import {
   Form,
   Input,
@@ -95,13 +93,11 @@ const validationSchema = Yup.object().shape({
 
 interface IAdminPanelReservationForm {
   closeModal: () => void
+  // eslint-disable-next-line no-unused-vars
   onSubmit: (values: FormValues) => void
 }
 
-const PassengerAddForm = ({
-  closeModal,
-  onSubmit,
-}: IAdminPanelReservationForm) => {
+const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
   const passengers = 1
 
   const formik = useFormik({

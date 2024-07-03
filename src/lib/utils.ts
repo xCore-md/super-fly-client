@@ -39,3 +39,15 @@ export function numberToTimeFormat(seconds: number) {
 
   return `${hours} h ${minutes} min`
 }
+
+export function getFlightTime(startDate: string, endDate: string) {
+  const start = new Date(startDate)
+  const end = new Date(endDate)
+
+  const diff = end.getTime() - start.getTime()
+
+  const hours = Math.floor(diff / 1000 / 60 / 60)
+  const minutes = Math.floor((diff / 1000 / 60) % 60)
+
+  return `${hours} h ${minutes} min`
+}

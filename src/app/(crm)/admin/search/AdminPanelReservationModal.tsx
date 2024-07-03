@@ -6,6 +6,7 @@ import axs from '@/lib/axios'
 
 interface IAdminPanelReservationModal {
   showModal: boolean
+  // eslint-disable-next-line no-unused-vars
   setShowModal: (b: boolean) => void
 }
 
