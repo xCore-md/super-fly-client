@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
 
-interface IPassenger {
+export interface IPassenger {
   id: number
   first_name: string
   last_name: string
@@ -35,6 +35,30 @@ interface IPassenger {
   created_at: string
   updated_at: string
 }
+export const refetchPassengers = ({ salesId, setPassengers, api }) => {
+  axs
+    .get(`/crm/sales/${salesId}/show`)
+    .then((res) => {
+      // api.success({
+      //   message: 'Lista de pasageri a fost actualizată cu succes',
+      //   description: res.data.message,
+      //   placement: 'bottomRight',
+      //   duration: 3,
+      //   closable: true,
+      // })
+      setPassengers(res.data.passengers)
+    })
+    .catch((err) => {
+      api.error({
+        message: 'Lista de pasageri nu a putut fi actualizată cu succes',
+        description: err.response.data.message,
+        placement: 'bottomRight',
+        duration: 2,
+        closable: true,
+      })
+      console.error(err)
+    })
+}
 
 export const PassengersContent = ({ data }) => {
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
@@ -62,7 +86,11 @@ export const PassengersContent = ({ data }) => {
           duration: 3,
           closable: true,
         })
-        refetchPassengers()
+        refetchPassengers({
+          salesId: data.id,
+          setPassengers,
+          api,
+        })
         setShowForm(false)
       })
       .catch((err) => {
@@ -88,36 +116,15 @@ export const PassengersContent = ({ data }) => {
           duration: 3,
           closable: true,
         })
-        refetchPassengers()
+        refetchPassengers({
+          salesId: data.id,
+          setPassengers,
+          api,
+        })
       })
       .catch((err) => {
         api.error({
           message: 'Nu s-a putut șterge pasagerul',
-          description: err.response.data.message,
-          placement: 'bottomRight',
-          duration: 2,
-          closable: true,
-        })
-        console.error(err)
-      })
-  }
-
-  const refetchPassengers = () => {
-    axs
-      .get(`/crm/sales/${data.id}/show`)
-      .then((res) => {
-        api.success({
-          message: 'Lista de pasageri a fost actualizată cu succes',
-          description: res.data.message,
-          placement: 'bottomRight',
-          duration: 3,
-          closable: true,
-        })
-        setPassengers(res.data.passengers)
-      })
-      .catch((err) => {
-        api.error({
-          message: 'Lista de pasageri nu a putut fi actualizată cu succes',
           description: err.response.data.message,
           placement: 'bottomRight',
           duration: 2,
