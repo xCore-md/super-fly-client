@@ -131,8 +131,8 @@ const PassengerAddForm = ({
   return (
     <Form
       onFinish={formik.handleSubmit}
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 10 }}
+      labelCol={{ span: 10 }}
+      wrapperCol={{ span: 14 }}
       layout="horizontal"
       style={{ maxWidth: 600 }}
     >
@@ -140,23 +140,8 @@ const PassengerAddForm = ({
 
       {formik.values.passengers.map((_: any, index: number) => (
         <div key={index}>
-          <Title level={4} className="mt-4 flex items-center justify-center">
-            Pasager {index + 1}
-            {index !== 0 && (
-              <Button
-                shape="circle"
-                className="ml-2"
-                size="small"
-                danger
-                icon={<DeleteOutlined />}
-                onClick={() => {
-                  formik.setFieldValue(
-                    'passengers',
-                    formik.values.passengers.filter((_, i) => i !== index)
-                  )
-                }}
-              />
-            )}
+          <Title level={3} className="!mb-6">
+            Adauga un pasager
           </Title>
           <Form.Item
             label="Prenume"
@@ -453,9 +438,9 @@ const PassengerAddForm = ({
         </div>
       ))}
 
-      <div className="flex justify-end">
+      <div className="flex justify-start">
         <Button type="primary" htmlType="submit">
-          Trimite
+          Adaugă Pasagerul
         </Button>
       </div>
     </Form>

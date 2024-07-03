@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Button, notification } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Button, Drawer, notification } from 'antd'
 import { format } from 'date-fns'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
@@ -62,11 +62,18 @@ export const refetchPassengers = ({ salesId, setPassengers, api }) => {
 
 export const PassengersContent = ({ data }) => {
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
+  useEffect(() => {
+    setPassengers(data.passengers)
 
+    return () => {
+      setPassengers([])
+    }
+  }, [data])
   const [showForm, setShowForm] = useState(false)
   const [api, context] = notification.useNotification()
 
   const closeModal = () => setShowForm(false)
+
   const onSubmit = (values: any) => {
     const newPassenger = {
       sale_id: data.id,
@@ -181,16 +188,21 @@ export const PassengersContent = ({ data }) => {
       ))}
       <Button
         type="primary"
-        className="ml-auto rounded-full bg-brand-green hover:bg-green-600"
+        className="absolute bottom-0 right-0 mb-4 ml-auto mr-4 rounded-full bg-brand-green hover:bg-green-600"
         onClick={() => setShowForm(true)}
       >
         Adaugă Pasager +
       </Button>
 
       {context}
-      {showForm && (
+      <Drawer
+        onClose={closeModal}
+        open={showForm}
+        className="height-[90%]"
+        width={600}
+      >
         <PassengerAddForm onSubmit={onSubmit} closeModal={closeModal} />
-      )}
+      </Drawer>
     </div>
   )
 }
