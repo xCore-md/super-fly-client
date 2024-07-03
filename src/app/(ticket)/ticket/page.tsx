@@ -28,8 +28,6 @@ export default function TicketPage() {
       })
   }, [])
 
-  if (!passengerData) return <div>Loading ...</div>
-
   return (
     <section className="container mx-auto">
       <h2 className="my-10 w-full text-center text-2xl font-medium">
@@ -44,14 +42,14 @@ export default function TicketPage() {
         </div>
         <div className=" flex justify-between bg-[#EFEFEF] p-5 pl-8 pr-[70px] text-xl font-medium text-slate-600">
           <span>
-            {dayjs(passengerData.sale.created_at).format('DD.MM.YYYY - HH:mm')}
+            {dayjs(passengerData?.sale.created_at).format('DD.MM.YYYY - HH:mm')}
           </span>
           <span className="-translate-x-14">
-            {passengerData.sale.payment_method === 'online'
+            {passengerData?.sale.payment_method === 'online'
               ? 'Online - Card bancar'
               : 'Offline - Cash'}
           </span>
-          <span>{passengerData.price_sold || 0} €</span>
+          <span>{passengerData?.price_sold || 0} €</span>
         </div>
       </div>
       <div className="overflow-hidden rounded-lg border border-brand-light-blue">
@@ -85,7 +83,7 @@ interface ITicketProps {
 }
 
 const Ticket = ({ data, ticketIndex }: ITicketProps) => {
-  const ticket = JSON.parse(data.sale.extra)
+  const ticket = data?.sale && JSON.parse(data.sale.extra)
 
   return (
     <div className="mb-6 overflow-hidden rounded-lg">
@@ -93,18 +91,18 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Nume/Prenume Pasager</p>
           <p className="text-xl font-medium">
-            {data.first_name} {data.last_name}
+            {data?.first_name} {data?.last_name}
           </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Data, Luna, Anul Nașterii</p>
           <p className="text-xl font-medium">
-            {dayjs(data.date_of_birth).format('DD.MM.YYYY')}
+            {dayjs(data?.date_of_birth).format('DD.MM.YYYY')}
           </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Gen</p>
-          <p className="text-xl font-medium">{data.gender}</p>
+          <p className="text-xl font-medium">{data?.gender}</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Pasager</p>
@@ -112,15 +110,15 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Cetățenia</p>
-          <p className="text-xl font-medium">{data.passport_country}</p>
+          <p className="text-xl font-medium">{data?.passport_country}</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr Pașaport</p>
-          <p className="text-xl font-medium">{data.passport_number}</p>
+          <p className="text-xl font-medium">{data?.passport_number}</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
-          <p className="text-xl font-medium">{data.reservation_code}</p>
+          <p className="text-xl font-medium">{data?.reservation_code}</p>
         </div>
       </div>
       <div className="bg-[#EFEFEF] p-6">
@@ -135,7 +133,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   <span
                     className={`z-40 h-6 w-3 rounded-lg bg-brand-blue`}
                   ></span>
-                  {ticket.route.map((r: any, index: number) => (
+                  {ticket?.route.map((r: any, index: number) => (
                     <span
                       key={index}
                       className={`z-40 h-6 w-3 rounded-lg  ${index === ticket.route.length - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
@@ -153,7 +151,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       De la
                     </p>
                     <p className="text-base font-medium text-black">
-                      {ticket.countryFrom.code}
+                      {ticket?.countryFrom.code}
                     </p>
                   </div>
                   <div>
@@ -161,7 +159,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Data
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket.local_departure).format('DD.MM.YYYY')}
+                      {dayjs(ticket?.local_departure).format('DD.MM.YYYY')}
                     </p>
                   </div>
                   <div>
@@ -169,7 +167,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Ora
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket.local_departure).format('HH:mm')}
+                      {dayjs(ticket?.local_departure).format('HH:mm')}
                     </p>
                   </div>
                   <div>
@@ -177,16 +175,16 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Nr.zbor:
                     </p>
                     <p className="text-base font-semibold text-black">
-                      {ticket.route[0].flight_no}
+                      {ticket?.route[0].flight_no}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-8">
                   <div
-                    className={`flex h-full flex-col items-center justify-center ${ticket.route.length > 1 ? 'gap-14' : ''}`}
+                    className={`flex h-full flex-col items-center justify-center ${ticket?.route.length > 1 ? 'gap-14' : ''}`}
                   >
-                    {ticket.route.map((r: any, index: number) => (
-                      <div key={index}>
+                    {ticket?.route.map((r: any, index: number) => (
+                      <div key={index} className="flight_time">
                         <p className="text-xs font-normal text-slate-600">
                           Timp de zbor
                         </p>
@@ -198,7 +196,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   </div>
                   <div className="relative flex flex-col items-center">
                     <span className="absolute top-0 flex max-w-96 gap-4">
-                      {ticket.route.map((r: any, index: number) => (
+                      {ticket?.route.map((r: any, index: number) => (
                         <span key={index}>
                           <Image
                             src={flyOne}
@@ -235,7 +233,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Spre
                     </p>
                     <p className="text-base font-medium text-black">
-                      {ticket.countryTo.code}
+                      {ticket?.countryTo.code}
                     </p>
                   </div>
                   <div>
@@ -243,7 +241,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Data
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket.local_arrival).format('DD.MM.YYYY')}
+                      {dayjs(ticket?.local_arrival).format('DD.MM.YYYY')}
                     </p>
                   </div>
                   <div>
@@ -251,7 +249,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Ora
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket.local_arrival).format('HH:mm')}
+                      {dayjs(ticket?.local_arrival).format('HH:mm')}
                     </p>
                   </div>
                 </div>
@@ -280,8 +278,11 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                 </span>
               </div>
               <div className="flex items-end gap-8">
-                <span className="-translate-y-10 px-2 text-3xl">+</span>
-                {data.bag_10kg && (
+                {data?.bag_10kg ||
+                  (data?.bag_20kg && (
+                    <span className="-translate-y-10 px-2 text-3xl">+</span>
+                  ))}
+                {data?.bag_10kg && (
                   <div className="flex flex-col items-center justify-center">
                     <Image
                       src={baggage[10].image}
@@ -302,7 +303,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                     </span>
                   </div>
                 )}
-                {data.bag_20kg && (
+                {data?.bag_20kg && (
                   <div className="flex flex-col items-center justify-center">
                     <Image
                       src={baggage[20].image}
