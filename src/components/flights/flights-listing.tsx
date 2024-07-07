@@ -14,12 +14,7 @@ import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useFlightsContext } from '@/context/flights-context'
 import { useIsAdminPanel } from '@/lib/hooks/useIsAdminPanel'
-import {
-  cn,
-  getFlightTime,
-  getTimeFromDate,
-  numberToTimeFormat,
-} from '@/lib/utils'
+import { cn, getFlightTime, getTimeFromDate } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 
 interface IFlightsListingProps {
@@ -40,7 +35,6 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   const isAdminPanel = useIsAdminPanel()
 
   const data = pathname === '/reservation' ? flights?.slice(0, 3) : flights
-  const isAdmin = pathname.includes('admin')
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
