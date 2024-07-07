@@ -14,7 +14,12 @@ import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useFlightsContext } from '@/context/flights-context'
 import { useIsAdminPanel } from '@/lib/hooks/useIsAdminPanel'
-import { cn, getTimeFromDate, numberToTimeFormat } from '@/lib/utils'
+import {
+  cn,
+  getFlightTime,
+  getTimeFromDate,
+  numberToTimeFormat,
+} from '@/lib/utils'
 import { Button } from '@components/ui/button'
 
 interface IFlightsListingProps {
@@ -35,6 +40,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   const isAdminPanel = useIsAdminPanel()
 
   const data = pathname === '/reservation' ? flights?.slice(0, 3) : flights
+  const isAdmin = pathname.includes('admin')
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
@@ -128,7 +134,7 @@ export const FlyContent = (props: any) => {
               <div className="mb-2 text-xl font-normal">
                 {getTimeFromDate(flight.local_departure)}
               </div>
-              <div className="text-xs text-gray-700">{flight.cityCodeFrom}</div>
+              <div className="text-xs text-gray-700">{flight.flyFrom}</div>
             </div>
             <div className="col-span-2 mt-2">
               <div className="mb-1 flex items-center justify-center gap-2">
@@ -136,7 +142,7 @@ export const FlyContent = (props: any) => {
                   Durata de zbor:
                 </span>
                 <p className="text-xs text-gray-700">
-                  {numberToTimeFormat(flight.duration.total)}
+                  {getFlightTime(flight.local_departure, flight.local_arrival)}
                 </p>
               </div>
 
@@ -188,11 +194,11 @@ export const FlyContent = (props: any) => {
               <div className="mb-2 text-xl font-normal">
                 {getTimeFromDate(flight.local_arrival)}
               </div>
-              <div className="text-xs text-gray-700">{flight.cityCodeTo}</div>
+              <div className="text-xs text-gray-700">{flight.flyTo}</div>
             </div>
           </main>
 
-          {withoutFooter ? (
+          {withoutFooter || isAdminPanel ? (
             ''
           ) : (
             <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
@@ -267,29 +273,31 @@ export const FlyContent = (props: any) => {
                 Rezerva
               </Link>
             )}
-            <div className="hidden justify-between gap-5 text-xs lg:flex">
-              <Link href="/" className="flex">
-                <Image
-                  className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-jump-in"
-                  width={16}
-                  height={16}
-                  src={whatsappSvg}
-                  alt={'whatsapp'}
-                />
-                <p className="pl-1">Whatsapp</p>
-              </Link>
+            {!isAdminPanel && (
+              <div className="hidden justify-between gap-5 text-xs lg:flex">
+                <Link href="/" className="flex">
+                  <Image
+                    className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-jump-in"
+                    width={16}
+                    height={16}
+                    src={whatsappSvg}
+                    alt={'whatsapp'}
+                  />
+                  <p className="pl-1">Whatsapp</p>
+                </Link>
 
-              <Link href="/" className="flex">
-                <Image
-                  className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-jump-in"
-                  width={16}
-                  height={16}
-                  src={viberSvg}
-                  alt={'viber'}
-                />
-                <p className="pl-1">Viber</p>
-              </Link>
-            </div>
+                <Link href="/" className="flex">
+                  <Image
+                    className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-jump-in"
+                    width={16}
+                    height={16}
+                    src={viberSvg}
+                    alt={'viber'}
+                  />
+                  <p className="pl-1">Viber</p>
+                </Link>
+              </div>
+            )}
           </div>
 
           <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
