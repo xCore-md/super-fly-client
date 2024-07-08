@@ -9,7 +9,6 @@ export const Ticket = ({ data }: { data: any }) => {
   const [remoteUrl, setRemoteUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const { passengers } = data
-  console.log({ data })
 
   useEffect(() => {
     setStateData(data)

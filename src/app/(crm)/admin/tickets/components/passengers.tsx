@@ -150,46 +150,44 @@ export const PassengersContent = ({ data }: { data: any }) => {
   }
 
   return (
-    <div className="flex min-h-[800px] flex-col">
+    <div className="relative flex w-full flex-col pb-12">
       {passengers.map((passenger, index) => (
         <div key={passenger.id} className="mb-4 text-white">
           <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
             {index + 1}. {passenger.first_name} {passenger.last_name} (Adult)
           </h2>
-          <div className="mt-2 rounded-lg bg-white p-4 text-black">
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Nume:</span>
-              <span className="w-[120px]">{passenger.last_name}</span>
-            </p>
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Prenume:</span>
-              <span className="w-[120px]">{passenger.first_name}</span>
-            </p>
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Data nașterii:</span>
-              <span className="w-[120px]">
-                {format(new Date(passenger.date_of_birth), 'dd.MM.yyyy')}
-              </span>
-            </p>
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Telefon:</span>
-              <span className="w-[120px]">{passenger.phone}</span>
-            </p>
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Gen:</span>
-              <span className="w-[120px]">{passenger.gender}</span>
-            </p>
-            <p className="flex max-w-72 justify-between">
-              <span className="font-medium">Email:</span>
-              <span className="w-[120px]">{passenger.email}</span>
-            </p>
+          <div className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-white p-4 text-black">
+            <div className="flex">
+              <p className=" w-40 font-medium">Nume:</p>
+              <p>{passenger.last_name}</p>
+            </div>
+            <div className="flex">
+              <p className=" w-40 font-medium">Prenume:</p>
+              <p>{passenger.first_name}</p>
+            </div>
+            <div className="flex">
+              <p className=" w-40 font-medium">Data nașterii:</p>
+              <p>{format(new Date(passenger.date_of_birth), 'dd.MM.yyyy')}</p>
+            </div>
+            <div className="flex">
+              <p className=" w-40 font-medium">Telefon:</p>
+              <p>{passenger.phone}</p>
+            </div>
+            <div className="flex">
+              <p className=" w-40 font-medium">Gen:</p>
+              <p>{passenger.gender}</p>
+            </div>
+            <div className="flex">
+              <p className=" w-40 font-medium">Email:</p>
+              <p>{passenger.email}</p>
+            </div>
             <Button
               type="primary"
               danger
-              className="mt-4"
+              className="mt-4 w-40"
               onClick={() => handleDeletePassenger(passenger.id)}
             >
-              Șterge pasagerul {passenger.first_name} {passenger.last_name}
+              Șterge pasagerul
             </Button>
           </div>
         </div>
