@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Button, Input } from 'antd'
+import { Button, Input, notification } from 'antd'
 
 export const PricesContent = ({
   data,
@@ -9,6 +9,7 @@ export const PricesContent = ({
   updateAction: any
 }) => {
   const [passengersState, setPassengersState] = useState(data.passengers)
+  const [api, contextHolder] = notification.useNotification()
 
   const { passengers } = data
 
@@ -25,8 +26,20 @@ export const PricesContent = ({
     },
     [passengersState]
   )
+
+  const handleUpdatePrice = (obj: any) => {
+    updateAction(obj)
+    api.success({
+      message: 'Success',
+      description: 'Price updated',
+      placement: 'bottomRight',
+      duration: 3,
+      closable: true,
+    })
+  }
   return (
     <div className="min-h-[800px] max-w-[680px] space-y-4">
+      {contextHolder}
       {passengersState.map((p: any, index: number) => (
         <div className="flex flex-col rounded-lg border p-4" key={index}>
           <h2 className="text-lg font-bold">
@@ -53,7 +66,7 @@ export const PricesContent = ({
             </div>
             <Button
               onClick={() =>
-                updateAction({
+                handleUpdatePrice({
                   saleId: data.id,
                   passengerId: p.id,
                   passenger: p,

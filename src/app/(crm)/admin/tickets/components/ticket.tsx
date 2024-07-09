@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Checkbox, Select } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Button, Checkbox, Input, notification, Select } from 'antd'
 import dayjs from 'dayjs'
 import { Download } from 'lucide-react'
 import axs from '@/lib/axios'
 
-export const Ticket = ({ data }: { data: any }) => {
+export const Ticket = ({
+  data,
+  // updateAction,
+  updateSale,
+}: {
+  data: any
+  updateAction: any
+  updateSale: any
+}) => {
   const [stateData, setStateData] = useState(data)
   const [remoteUrl, setRemoteUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const { passengers } = data
+  const { TextArea } = Input
+  const [api, contextHolder] = notification.useNotification()
 
   useEffect(() => {
     setStateData(data)
@@ -23,30 +33,73 @@ export const Ticket = ({ data }: { data: any }) => {
   const verification =
     data.type === 'tur_retur' ? verificationTwoWay : verificationOneWay
 
-  // const handleUpdatePassengerCheckboxes = (
-  //   passengerId: number,
-  //   verification: string
-  // ) => {
-  //   axs
-  //     .put(
-  //       `/crm/sales/${data.id}/passengers/${passengerId}/checkbox/${verification}`
-  //     )
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((err) => {
-  //       console.log({ err })
-  //     })
-  // }
+  const handleChangeComment = useCallback(
+    (e: any) => {
+      setStateData({ ...stateData, comment: e.target.value })
+    },
+    [stateData]
+  )
 
-  const handleUpdateScopeTravelCheckboxes = (scope: string) => {
+  const handleUpdateComment = () => {
+    updateSale(stateData)
+      .then(() => {
+        api.success({
+          message: 'Success',
+          description: 'Comment updated',
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+      })
+      .catch((err: any) => {
+        api.error({
+          message: 'Error',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+      })
+  }
+
+  const handleUpdateSaleCheckboxes = (scope: string) => {
     axs
       .put(`/crm/sales/${data.id}/checkbox/${scope}`)
       .then(() => {
         setStateData({ ...stateData, [scope]: !stateData[scope] })
+        api.success({
+          message: 'Success',
+          description: 'User updated',
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
       })
       .catch((err) => {
         console.log({ err })
+      })
+  }
+
+  const handleUpdateStatuses = (name: string, value: string) => {
+    setStateData({ ...stateData, [name]: value })
+    updateSale({ ...stateData, [name]: value })
+      .then(() => {
+        api.success({
+          message: 'Success',
+          description: 'User status updated',
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+      })
+      .catch((err: any) => {
+        api.error({
+          message: 'Error',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
       })
   }
 
@@ -61,10 +114,29 @@ export const Ticket = ({ data }: { data: any }) => {
       .catch((err) => console.log({ err }))
   }
 
+  const soldPrice = stateData.passengers.reduce(
+    (acc: number, passenger: any) => acc + passenger.price_sold,
+    0
+  )
+
+  const costPrice = stateData.passengers.reduce(
+    (acc: number, passenger: any) => acc + passenger.price_cost,
+    0
+  )
+
+  const priceDifference = soldPrice - costPrice
+
+  console.log({ stateData })
+
   return (
     <section className="flex gap-8 p-5">
+      {contextHolder}
       <div className="w-3/5">
         <Section title="Informații despre zbor">
+          <div className="flex py-2">
+            <span className="w-2/5 font-semibold">Sale:</span>
+            <span className="w-3/5 capitalize">{stateData.id}</span>
+          </div>
           <div className="flex py-2">
             <span className="w-2/5 font-semibold">Tip zbor:</span>
             <span className="w-3/5 capitalize">{stateData.type}</span>
@@ -109,18 +181,67 @@ export const Ticket = ({ data }: { data: any }) => {
           </div>
         </Section>
         <Section title="Alte date">
-          <div className="flex gap-8 py-2" defaultValue={1}>
-            <Select className="min-w-48" defaultValue={stateData.status}>
-              {Object.keys(leadStatus).map((key, index) => (
-                <Select.Option key={index} value={key}>
-                  {leadStatus[key]}
-                </Select.Option>
-              ))}
-            </Select>
-            <Select className="min-w-48" defaultValue={stateData.source}>
-              <Select.Option value="online">online</Select.Option>
-              <Select.Option value="offline">offline</Select.Option>
-            </Select>
+          <div className="flex gap-4 py-2" defaultValue={1}>
+            <div className="w-full">
+              <p className="mb-2 font-semibold">Status</p>
+              <Select
+                className="w-full"
+                onChange={(value) => handleUpdateStatuses('status', value)}
+                defaultValue={stateData.status}
+              >
+                {Object.keys(status).map((key, index) => (
+                  <Select.Option key={index} value={key}>
+                    {status[key]}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-full">
+              <p className="mb-2 font-semibold">Source</p>
+              <Select
+                className="w-full"
+                onChange={(value) => handleUpdateStatuses('source', value)}
+                defaultValue={stateData.source}
+              >
+                {Object.keys(source).map((key, index) => (
+                  <Select.Option key={index} value={key}>
+                    {source[key]}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-full">
+              <p className="mb-2 font-semibold">Ticket status</p>
+              <Select
+                className="w-full"
+                onChange={(value) =>
+                  handleUpdateStatuses('ticket_status', value)
+                }
+                defaultValue={stateData.ticket_status}
+              >
+                {Object.keys(ticket_status).map((key, index) => (
+                  <Select.Option key={index} value={key}>
+                    {ticket_status[key]}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-full">
+              <p className="mb-2 font-semibold">Payment method</p>
+              <Select
+                className="w-full"
+                onChange={(value) =>
+                  handleUpdateStatuses('payment_method', value)
+                }
+                defaultValue={stateData.payment_method}
+              >
+                {Object.keys(payment_method).map((key, index) => (
+                  <Select.Option key={index} value={key}>
+                    {payment_method[key]}
+                  </Select.Option>
+                ))}
+              </Select>
+            </div>
           </div>
         </Section>
         <Section title="Biletele de avion">
@@ -140,13 +261,24 @@ export const Ticket = ({ data }: { data: any }) => {
           </div>
         </Section>
         <Section title="Informații adiționale">
-          <div>{stateData.comment}</div>
+          <TextArea
+            onChange={handleChangeComment}
+            rows={6}
+            defaultValue={stateData.comment}
+          />
+          <Button
+            onClick={() => handleUpdateComment()}
+            className="mt-4"
+            type="primary"
+          >
+            Save comment
+          </Button>
         </Section>
       </div>
       <div className="w-2/5">
         <Section title="Verificare">
           {Object.keys(verification).map((key, index) => (
-            <div key={index}>
+            <div key={index} onClick={() => handleUpdateSaleCheckboxes(key)}>
               <Checkbox className="py-2">{verification[key]}</Checkbox>
             </div>
           ))}
@@ -155,7 +287,7 @@ export const Ticket = ({ data }: { data: any }) => {
           {Object.keys(reason).map((key, index) => (
             <div key={index}>
               <Checkbox
-                onChange={() => handleUpdateScopeTravelCheckboxes(key)}
+                onChange={() => handleUpdateSaleCheckboxes(key)}
                 checked={stateData[key]}
                 className="py-2"
               >
@@ -166,12 +298,44 @@ export const Ticket = ({ data }: { data: any }) => {
         </Section>
         <Section title="Date financiare">
           <div className=" flex flex-col gap-2">
-            <Checkbox>Refund</Checkbox>
-            <p>Achitat: 09.04.2024 14:20:32</p>
-            <p>Pasageri: 2</p>
-            <p>Total încasat: 350$</p>
-            <p>Total de emis: 150$</p>
-            <p>Mark-up vînzare: 80$</p>
+            <p>
+              Afost creat la:{' '}
+              <span className="font-semibold">
+                {dayjs(stateData.created_at).format('DD.MM.YYYY HH:mm')}
+              </span>
+            </p>
+            <p>
+              Reservat la:{' '}
+              <span className="font-semibold">
+                {dayjs(stateData.reserved_at).format('DD.MM.YYYY HH:mm')}
+              </span>
+            </p>
+            {stateData.paid_at && (
+              <p>
+                Achitat:{' '}
+                <span className="font-semibold">
+                  {dayjs(stateData.paid_at).format('DD.MM.YYYY HH:mm')}
+                </span>
+              </p>
+            )}
+            <p>
+              Pasageri:{' '}
+              <span className="font-semibold">
+                {stateData.passengers.length}
+              </span>
+            </p>
+            <p>
+              Total încasat: <span className="font-semibold">{soldPrice}</span>{' '}
+              $
+            </p>
+            <p>
+              Total de emis: <span className="font-semibold">{costPrice}</span>{' '}
+              $
+            </p>
+            <p>
+              Mark-up vînzare:{' '}
+              <span className="font-semibold">{priceDifference}</span> $
+            </p>
           </div>
         </Section>
         <Section title="Date pentru check-in">
@@ -238,15 +402,33 @@ const reason: IKeyValue = {
   scope_medical: 'Medicină',
 }
 
-const leadStatus: IKeyValue = {
-  new: 'New',
-  in_progress: 'In progress',
-  closed: 'Closed',
-  not_interested: 'Not interested',
-  not_reachable: 'Not reachable',
-  not_qualified: 'Not qualified',
-  not_valid: 'Not valid',
-  duplicate: 'Duplicate',
-  invalid: 'Invalid',
-  spam: 'Spam',
+const status: IKeyValue = {
+  reserved: 'Rezervat',
+  paid: 'Achitat',
+  missed: 'Pierdut',
+  refunded: 'Refundat',
+}
+
+const source: IKeyValue = {
+  office: 'Oficiu',
+  facebook: 'Facebook',
+  call: 'Apel intrare',
+  recommendation: 'Recomandare',
+  ads1: 'Publicitate 1',
+  ads2: 'Publicitate 2',
+  ads3: 'Publicitate 3',
+}
+
+const ticket_status: IKeyValue = {
+  to_emit: 'De emis',
+  emitted: 'Emis',
+  debt: 'Datorie',
+}
+
+const payment_method: IKeyValue = {
+  cash: 'Cash',
+  card: 'Card',
+  'office-card': 'Card (in officiu)',
+  bank: 'Banca',
+  transfer: 'Transfer',
 }

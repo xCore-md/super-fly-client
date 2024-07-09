@@ -3,14 +3,13 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import tenKgSvg from '@/assets/img/bags/10kg.svg'
-import twentyKgSvg from '@/assets/img/bags/20kg.svg'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
-import flyOne from '@/assets/img/fly-one.png'
+import bag from '@/assets/img/bags/bag.svg'
+// import flyOne from '@/assets/img/fly-one.png'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
 import axs from '@/lib/axios'
-import { getFlightTime } from '@/lib/utils'
+import { getFlightTime, getPassengerAge } from '@/lib/utils'
 
 export default function TicketPage() {
   const [passengerData, setPassengerData] = useState<any>(null)
@@ -45,9 +44,7 @@ export default function TicketPage() {
             {dayjs(passengerData?.sale.created_at).format('DD.MM.YYYY - HH:mm')}
           </span>
           <span className="-translate-x-14">
-            {passengerData?.sale.payment_method === 'online'
-              ? 'Online - Card bancar'
-              : 'Offline - Cash'}
+            {passengerData?.sale.payment_method}
           </span>
           <span>{passengerData?.price_sold || 0} €</span>
         </div>
@@ -56,21 +53,75 @@ export default function TicketPage() {
         <div className=" overflow-hidden rounded-lg bg-brand-light-blue p-5 text-base font-semibold text-red-500">
           <p>Reguli de călătorie</p>
         </div>
-        <div className="p-8">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <div
-              key={index}
-              className="mb-4 text-xs font-normal leading-5 text-gray-500"
-            >
-              lorem ipsum dolor sit amet consectetur. Varius ultricies cras
-              sollicitudin urna vitae eget quam lectus viverra. Leo viverra
-              risus vitae gravida at est amet. Vitae ipsum et parturient
-              pharetra aliquam. Mollis habitasse aliquet ac tortor. Nunc quis
-              donec convallis risus eu. Orci amet at non varius mi dignissim.
-              Pharetra cras quisque ut tempor euismod aenean et duis. Viverra
-              tincidunt magna dignissim tempus neque pellentesque ultrices.
-            </div>
-          ))}
+        <div className="flex flex-col gap-2 p-8 text-xs font-normal leading-5 text-gray-500">
+          <p>
+            *Trebuie să vă prezentați la aeroport cu cel puțin trei ore înainte
+            de ora îmbarcării, pentru a vă asigura că aveți suficient timp
+            pentru efectuarea formalităților de check-in și securitate.
+          </p>
+          <p>
+            *Este important să verificați cu atenție informațiile referitoare la
+            zborul Dvs. de pe acest document și să informați agenția Superfly
+            prin apel telefonic imediat dacă observați vreo eroare.
+          </p>
+          <p>
+            *Respectați dimensiunile și greutatea bagajului permise de compania
+            aeriană și asigurați-vă că vă îndepliniți toate obligațiile
+            referitoare la formalitățile de check-in pentru bagaje.
+          </p>
+          <p>
+            *Compania aeriană își rezervă dreptul de a refuza îmbarcarea
+            pasagerilor care se comportă agresiv sau care reprezintă o
+            amenințare la adresa securității zborului.
+          </p>
+          <p>
+            *Superfly (Superfly Invest S.R.L) și compania aeriană nu își asumă
+            responsabilitatea pentru întârzieri la zbor cauzate de pasageri și
+            recomandăm tuturor pasagerilor să se prezinte la aeroport cu
+            suficient timp înainte de ora de plecare.
+          </p>
+          <p>
+            *Pasagerii sunt responsabili să se informeze de la intreprinderi de
+            stat cu privire la documentele necesare pentru a călători în țara de
+            destinație, inclusiv pașaportul sau cartea de identitate, viza sau
+            alte documente necesare.
+          </p>
+          <p>
+            *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
+            pentru pasagerii care nu au documentele necesare pentru a călători
+            în țara de destinație.
+          </p>
+          <p>
+            *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
+            pentru daunele sau pierderile suferite de pasageri cauzate de
+            pierderea sau furtul documentelor, biletelor sau bagajelor și
+            încurajează pasagerii să își protejeze cu grijă bunurile personale
+            în timpul călătoriei.
+          </p>
+          <p>
+            *Dacă ați primit bagajul deteriorat trebuie să depuneți imediat o
+            reclamație – Property Irregularity Report (P.I.R.) la serviciul
+            specializat din cadrul aeroportului ce conține datele Dvs. de
+            identificare, ale zborului și ale bagajului înregistrat, precum și
+            datele necesare identificării acestuia (tipul geamantanului,
+            culoare, dimensiuni, etc.)
+          </p>
+          <p>
+            *Acest document nu este permis de îmbarcare, permisul de îmbarcare
+            se eliberează doar la aeroport dupa înregistrarea la zbor.
+          </p>
+          <p>
+            *La prezentarea acestui document emis de Superfly (Superfly Invest
+            S.R.L) și confirmarea plății, pasagerii pot benefecia de check-in
+            gratuit pentru zbor.
+          </p>
+          <p>
+            *Pentru a benefecia de check-in gratuit pentru zbor pasagerul este
+            obligat să apeleze numărul +37360851555 sau +37369639555 cu 24 ore
+            înainte de zbor, dar nu mai târziu de 6 ore înaintea zborului, în
+            caz contrar pasagerul va achita suplimentar la aeroport serviciul
+            check-in.
+          </p>
         </div>
       </div>
     </section>
@@ -84,6 +135,8 @@ interface ITicketProps {
 
 const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = data?.sale && JSON.parse(data.sale.extra)
+
+  console.log({ data })
 
   return (
     <div className="mb-6 overflow-hidden rounded-lg">
@@ -101,11 +154,9 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
           </p>
         </div>
         <div className="text-white">
-          <p className="mb-3 text-xs font-normal">Gen</p>
-          <p className="text-xl font-medium">{data?.gender}</p>
-        </div>
-        <div className="text-white">
-          <p className="mb-3 text-xs font-normal">Pasager</p>
+          <p className="mb-3 text-xs font-normal">
+            {getPassengerAge(data?.date_of_birth)}
+          </p>
           <p className="text-xl font-medium">1</p>
         </div>
         <div className="text-white">
@@ -118,11 +169,14 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
-          <p className="text-xl font-medium">{data?.reservation_code}</p>
+          <p className="text-xl font-medium">
+            SF{data?.reservation_code}
+            {data?.id}
+          </p>
         </div>
       </div>
       <div className="bg-[#EFEFEF] p-6">
-        <div className="flex w-full justify-between">
+        <div className="flex h-full w-full items-center  justify-between">
           <div className="w-1/2">
             <div className="flex w-full">
               <div className="relative h-auto w-3">
@@ -195,7 +249,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                     ))}
                   </div>
                   <div className="relative flex flex-col items-center">
-                    <span className="absolute top-0 flex max-w-96 gap-4">
+                    {/* <span className="absolute top-0 flex max-w-96 gap-4">
                       {ticket?.route.map((r: any, index: number) => (
                         <span key={index}>
                           <Image
@@ -207,7 +261,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                           />
                         </span>
                       ))}
-                    </span>
+                    </span> */}
                     {ticketIndex === 0 ? (
                       <Image
                         src={planeDeparture}
@@ -256,109 +310,64 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center pr-16">
-            <div className="flex items-end gap-8">
+          <div className="flex h-3/4 items-center border border-brand-blue px-8 py-10">
+            <div className="flex h-full items-center gap-4">
               <div className="flex flex-col items-center justify-center ">
                 <Image
-                  src={baggage[8].image}
+                  src={eightKgSvg}
                   width={100}
                   height={100}
                   alt="bag"
-                  className="w-12"
+                  className="mb-2 w-11"
                 />
-                <span className="my-2 text-xs font-light text-slate-800">
+                {/* <span className="my-2 text-xs font-light text-slate-800">
                   {baggage[8].size}
-                </span>
+                </span> */}
                 <span className="mb-1 text-xs font-semibold text-black">
-                  {baggage[8].title}
+                  Obiect personal
                 </span>
 
                 <span className="text-xs font-light text-slate-800">
-                  {baggage[8].price}
+                  Inclus Gratuit
                 </span>
               </div>
-              <div className="flex items-end gap-8">
-                {data?.bag_10kg ||
-                  (data?.bag_20kg && (
-                    <span className="-translate-y-10 px-2 text-3xl">+</span>
-                  ))}
-                {data?.bag_10kg && (
-                  <div className="flex flex-col items-center justify-center">
-                    <Image
-                      src={baggage[10].image}
-                      width={100}
-                      height={100}
-                      alt="bag"
-                      className="w-12"
-                    />
-                    <span className="my-2 text-xs font-light text-slate-800">
+              {data?.baggage?.length && (
+                <div className="flex h-full items-center gap-8">
+                  <span className="px-2 text-3xl">+</span>
+                  <div className="flex h-full flex-col items-center justify-center">
+                    {data?.baggage?.length < 3 && (
+                      <Image
+                        src={bag}
+                        width={100}
+                        height={100}
+                        alt="bag"
+                        className="mb-2 w-11"
+                      />
+                    )}
+                    {data?.baggage?.map((b: any, index: number) => (
+                      <div
+                        key={index}
+                        className="flex h-full flex-col items-center justify-center"
+                      >
+                        {/* <span className="my-2 text-xs font-light text-slate-800">
                       {baggage[10].size}
-                    </span>
-                    <span className="mb-1 text-xs font-semibold text-black">
+                    </span> */}
+                        {/* <span className="mb-1 text-xs font-semibold text-black">
                       {baggage[10].title}
-                    </span>
+                    </span> */}
 
-                    <span className="text-xs font-light text-slate-800">
-                      {baggage[10].price}
-                    </span>
+                        <span className="text-sm font-normal text-slate-800">
+                          {b.type} X {b.count}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                )}
-                {data?.bag_20kg && (
-                  <div className="flex flex-col items-center justify-center">
-                    <Image
-                      src={baggage[20].image}
-                      width={100}
-                      height={100}
-                      alt="bag"
-                      className="w-12"
-                    />
-                    <span className="my-2 text-xs font-light text-slate-800">
-                      {baggage[20].size}
-                    </span>
-                    <span className="mb-1 text-xs font-semibold text-black">
-                      {baggage[20].title}
-                    </span>
-
-                    <span className="text-xs font-light text-slate-800">
-                      {baggage[20].price}
-                    </span>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
     </div>
   )
-}
-
-type TBaggage = {
-  [key: string]: {
-    title: string
-    size: string
-    price: string
-    image: any
-  }
-}
-
-const baggage: TBaggage = {
-  8: {
-    title: 'Obiect personal',
-    size: '40 x 20 x 30 cm',
-    price: 'Inclus Gratuit',
-    image: eightKgSvg,
-  },
-  10: {
-    title: 'Bagaj de mână',
-    size: '57 x 20 x 38 cm',
-    price: '€20',
-    image: tenKgSvg,
-  },
-  20: {
-    title: 'Bagaj de cală',
-    size: '78 x 28 x 52 cm',
-    price: '€30',
-    image: twentyKgSvg,
-  },
 }

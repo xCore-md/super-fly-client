@@ -31,7 +31,7 @@ export default function TicketsPage() {
       <Table
         pagination={false}
         dataSource={data}
-        rowKey={(record) => record.created_at}
+        rowKey={(record) => record.id}
         columns={columns}
         onRow={(row) => ({
           className: 'cursor-pointer',

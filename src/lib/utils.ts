@@ -51,3 +51,17 @@ export function getFlightTime(startDate: string, endDate: string) {
 
   return `${hours} h ${minutes} min`
 }
+
+export function getPassengerAge(dateOfBirth: string) {
+  const dob = new Date(dateOfBirth)
+  const today = new Date()
+  const age = today.getFullYear() - dob.getFullYear()
+
+  if (age >= 14) {
+    return 'Adult'
+  } else if (age < 14 && age > 2) {
+    return 'Child'
+  } else {
+    return 'Infant'
+  }
+}

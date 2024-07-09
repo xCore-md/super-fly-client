@@ -41,12 +41,18 @@ const components = (data: any) => {
     return {
       key: item.key,
       label: item.label,
-      children: <Component data={data} updateAction={updateAction} />,
+      children: (
+        <Component
+          data={data}
+          updateAction={updatePassenger}
+          updateSale={updateSale}
+        />
+      ),
     }
   })
 }
 
-const updateAction = (obj: any) => {
+const updatePassenger = (obj: any) => {
   axs
     .put(
       `/crm/sales/${obj.saleId}/passengers/${obj.passengerId}/update`,
@@ -60,25 +66,34 @@ const updateAction = (obj: any) => {
     })
 }
 
+const updateSale = (obj: any) => {
+  axs
+    .put(`/crm/sales/${obj.id}/update`, obj)
+    .then((res) => Promise.resolve(res))
+    .catch((err) => Promise.reject(err))
+
+  return Promise.resolve()
+}
+
 const items = [
   {
     key: '1',
-    label: 'Prețuri',
-    children: PricesContent,
-  },
-  {
-    key: '2',
-    label: 'Bilet',
-    children: Ticket,
-  },
-  {
-    key: '3',
     label: 'Pasageri',
     children: PassengersContent,
   },
   {
-    key: '4',
+    key: '2',
     label: 'Bagaje',
     children: BaggageComponent,
+  },
+  {
+    key: '3',
+    label: 'Prețuri',
+    children: PricesContent,
+  },
+  {
+    key: '4',
+    label: 'Bilet',
+    children: Ticket,
   },
 ]
