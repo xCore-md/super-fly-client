@@ -3,10 +3,11 @@ import { Button, Checkbox, Input, notification, Select } from 'antd'
 import dayjs from 'dayjs'
 import { Download } from 'lucide-react'
 import axs from '@/lib/axios'
+import { ReservationCode } from './reservation-code'
 
 export const Ticket = ({
   data,
-  // updateAction,
+  updateAction,
   updateSale,
 }: {
   data: any
@@ -134,7 +135,7 @@ export const Ticket = ({
       <div className="w-3/5">
         <Section title="Informații despre zbor">
           <div className="flex py-2">
-            <span className="w-2/5 font-semibold">Sale:</span>
+            <span className="w-2/5 font-semibold">ID:</span>
             <span className="w-3/5 capitalize">{stateData.id}</span>
           </div>
           <div className="flex py-2">
@@ -249,7 +250,7 @@ export const Ticket = ({
             {passengers.map((passenger: any, index: number) => (
               <Button
                 key={index}
-                type="primary"
+                type="default"
                 className="flex"
                 loading={loading}
                 onClick={() => getPdfTicket(passenger.id)}
@@ -341,13 +342,17 @@ export const Ticket = ({
         <Section title="Date pentru check-in">
           {passengers.map((p: any, index: number) => (
             <div key={index} className="mb-4">
-              <p>
+              <p className="font-semibold">
                 {p.first_name} {p.last_name}
               </p>
-              <p>
-                Codul de rezervare{' '}
-                <span className="font-semibold">{p.reservation_code}</span>
-              </p>
+              <div className="flex items-center gap-4">
+                Codul de rezervare:
+                <ReservationCode
+                  reservationCode={p.reservation_code}
+                  sale={stateData}
+                  updateAction={updateAction}
+                />
+              </div>
             </div>
           ))}
         </Section>
