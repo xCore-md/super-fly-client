@@ -178,3 +178,30 @@ export const comapnies = [
     image: hs,
   },
 ]
+
+export const baggages = [
+  {
+    type: '10kg',
+    count: 0,
+  },
+  {
+    type: '15kg',
+    count: 0,
+  },
+  {
+    type: '20kg',
+    count: 0,
+  },
+  {
+    type: '23kg',
+    count: 0,
+  },
+  {
+    type: '30kg',
+    count: 0,
+  },
+  {
+    type: '32kg',
+    count: 0,
+  },
+]

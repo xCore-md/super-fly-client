@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react'
-import {
-  Form,
-  Input,
-  Button,
-  Select,
-  DatePicker,
-  Checkbox,
-  Typography,
-} from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Form, Input, Button, Select, DatePicker, Typography } from 'antd'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { baggages } from '@/data/data'
+import axs from '@/lib/axios'
+import { source } from '../../tickets/components/ticket'
 
 const { Option } = Select
 
@@ -19,8 +14,8 @@ interface IPassenger {
   gender: 'M' | 'F' | ''
   phone: string
   email: string
-  bag_10kg: number
-  bag_20kg: number
+  baggage: any
+  source: string
   date_of_birth: string
   passport_issued_at: string
   passport_expires_at: string
@@ -41,8 +36,8 @@ const getInitialValues = (passengers: number): FormValues => ({
     gender: '',
     phone: '',
     email: '',
-    bag_10kg: 0,
-    bag_20kg: 0,
+    baggage: [],
+    source: '',
     date_of_birth: '',
     passport_issued_at: '',
     passport_expires_at: '',
@@ -64,8 +59,7 @@ const validationSchema = Yup.object().shape({
         email: Yup.string()
           .email('Email-ul este invalid')
           .required('Email-ul este necesar'),
-        bag_10kg: Yup.number().oneOf([0, 1]),
-        bag_20kg: Yup.number().oneOf([0, 1]),
+        baggage: Yup.array(),
         date_of_birth: Yup.string().required('Data nașterii este necesară'),
         passport_issued_at: Yup.string().required(
           'Data eliberării pașaportului este necesară'
@@ -99,10 +93,24 @@ interface IAdminPanelReservationForm {
 
 const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
   const passengers = 1
+  const [countries, setCountries] = useState([])
+
+  useEffect(() => {
+    axs
+      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .then((res) => {
+        setCountries(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   const formik = useFormik({
     initialValues: getInitialValues(passengers),
     validationSchema,
+    validateOnBlur: false,
+    validateOnChange: false,
     validate: (values) => {
       try {
         validationSchema.validateSync(values, { abortEarly: false })
@@ -124,10 +132,27 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
       formik.resetForm()
     }
   }, [])
+
+  const countriesOptions = countries.map((country: any) => ({
+    label: (
+      <span className="flex items-center gap-2">
+        <img className="h-3 w-4" src={country.flags.png} alt="icon" />{' '}
+        {country.name.common} ({country.cca2})
+      </span>
+    ),
+    value: country.cca2,
+  }))
+
   return (
     <Form
       onFinish={formik.handleSubmit}
       labelCol={{ span: 10 }}
+      onFocus={() => {
+        Object.keys(formik.errors).forEach((field) => {
+          formik.setFieldTouched(field, false)
+          formik.setFieldError(field, '')
+        })
+      }}
       wrapperCol={{ span: 14 }}
       layout="horizontal"
       style={{ maxWidth: 600 }}
@@ -224,47 +249,22 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             />
           </Form.Item>
 
-          <Form.Item
-            label="Bagaj 10kg"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.bag_10kg ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.bag_10kg}
-          >
-            <Checkbox
-              name={`passengers[${index}].bag_10kg`}
-              checked={!!formik.values.passengers[index].bag_10kg}
-              onChange={(e) =>
-                formik.setFieldValue(
-                  `passengers[${index}].bag_10kg`,
-                  e.target.checked ? 1 : 0
-                )
-              }
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Bagaj 20kg"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.bag_20kg ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.bag_20kg}
-          >
-            <Checkbox
-              name={`passengers[${index}].bag_20kg`}
-              checked={!!formik.values.passengers[index].bag_20kg}
-              onChange={(e) =>
-                formik.setFieldValue(
-                  `passengers[${index}].bag_20kg`,
-                  e.target.checked ? 1 : 0
-                )
-              }
-            />
-          </Form.Item>
+          {baggages.map((baggage, i) => (
+            <Form.Item key={i} label={baggage.type}>
+              <Input
+                name={`passengers[${index}].baggage[${i}].count`}
+                value={
+                  formik.values.passengers[index]?.baggage?.[i]?.count || ''
+                }
+                onChange={(e) =>
+                  formik.setFieldValue(`passengers[${index}].baggage[${i}]`, {
+                    type: baggage.type,
+                    count: Number(e.target.value),
+                  })
+                }
+              />
+            </Form.Item>
+          ))}
 
           <Form.Item
             label="Data nașterii"
@@ -276,8 +276,9 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             help={formik.errors.passengers?.[index]?.date_of_birth}
           >
             <DatePicker
+              className="w-full"
               name={`passengers[${index}].date_of_birth`}
-              format={(date) => (date ? date.format('DD.MM.YYYY') : date)}
+              format={'DD.MM.YYYY'}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].date_of_birth`,
@@ -301,8 +302,9 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             help={formik.errors.passengers?.[index]?.passport_issued_at}
           >
             <DatePicker
+              className="w-full"
               name={`passengers[${index}].passport_issued_at`}
-              format={(date) => (date ? date.format('DD.MM.YYYY') : date)}
+              format={'DD.MM.YYYY'}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_issued_at`,
@@ -325,8 +327,9 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             help={formik.errors.passengers?.[index]?.passport_expires_at}
           >
             <DatePicker
+              className="w-full"
               name={`passengers[${index}].passport_expires_at`}
-              format={(date) => (date ? date.format('DD.MM.YYYY') : date)}
+              format={'DD.MM.YYYY'}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_expires_at`,
@@ -370,7 +373,7 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
           </Form.Item>
 
           <Form.Item
-            label="Țara pașaportului"
+            label="Nationalitate"
             validateStatus={
               // @ts-ignore
               formik.errors.passengers?.[index]?.passport_country ? 'error' : ''
@@ -378,10 +381,16 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             // @ts-ignore
             help={formik.errors.passengers?.[index]?.passport_country}
           >
-            <Input
-              name={`passengers[${index}].passport_country`}
+            <Select
+              options={countriesOptions}
+              onChange={(value) =>
+                formik.setFieldValue(
+                  `passengers[${index}].passport_country`,
+                  value
+                )
+              }
               value={formik.values.passengers[index].passport_country}
-              onChange={formik.handleChange}
+              showSearch
             />
           </Form.Item>
 
@@ -412,9 +421,17 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
             help={formik.errors.passengers?.[index]?.source}
             name={`passengers[${index}].source`}
           >
-            <Select>
-              <Option value="online">Online</Option>
-              <Option value="offline">Offline</Option>
+            <Select
+              onChange={(e) =>
+                formik.setFieldValue(`passengers[${index}].source`, e)
+              }
+              value={formik.values.passengers[index].source}
+            >
+              {Object.keys(source).map((key) => (
+                <Option key={key} value={key}>
+                  {source[key]}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
 

@@ -108,8 +108,8 @@ const columns = [
       return (
         <div className="flex items-center">
           <span className="text-base">
-            {passengers[0].first_name || 'John'}{' '}
-            {passengers[0].last_name || 'Doe'}
+            {passengers[0]?.first_name || 'John'}{' '}
+            {passengers[0]?.last_name || 'Doe'}
           </span>
           {passengers.length > 1 && (
             <Badge
@@ -127,7 +127,7 @@ const columns = [
     dataIndex: 'phone',
     key: 'phone',
     render: (text: string, record: any) => (
-      <span className="text-base">{record.passengers[0].phone}</span>
+      <span className="text-base">{record.passengers[0]?.phone}</span>
     ),
   },
 ]

@@ -58,9 +58,6 @@ const updatePassenger = (obj: any) => {
       `/crm/sales/${obj.saleId}/passengers/${obj.passengerId}/update`,
       obj.passenger
     )
-    .then((res) => {
-      console.log({ res })
-    })
     .catch((err) => {
       console.log({ err })
     })

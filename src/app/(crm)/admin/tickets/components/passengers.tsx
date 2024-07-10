@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, notification } from 'antd'
-import { format } from 'date-fns'
+import { Button, Drawer, Input, notification, DatePicker, Select } from 'antd'
+import dayjs from 'dayjs'
+import { useFormik } from 'formik'
+import PhoneInput from 'react-phone-input-2'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
+import { getPassengerAge } from '@/lib/utils'
+import 'react-phone-input-2/lib/style.css'
 
 export interface IPassenger {
   id: number
@@ -68,8 +72,15 @@ export const refetchPassengers = ({
     })
 }
 
-export const PassengersContent = ({ data }: { data: any }) => {
+export const PassengersContent = ({
+  data,
+  updateAction,
+}: {
+  data: any
+  updateAction: any
+}) => {
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
+
   useEffect(() => {
     setPassengers(data.passengers)
 
@@ -152,45 +163,14 @@ export const PassengersContent = ({ data }: { data: any }) => {
   return (
     <div className="relative flex w-full flex-col pb-12">
       {passengers.map((passenger, index) => (
-        <div key={passenger.id} className="mb-4 text-white">
-          <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
-            {index + 1}. {passenger.first_name} {passenger.last_name} (Adult)
-          </h2>
-          <div className="mt-2 flex w-full flex-col gap-2 rounded-lg bg-white p-4 text-black">
-            <div className="flex">
-              <p className=" w-40 font-medium">Nume:</p>
-              <p>{passenger.last_name}</p>
-            </div>
-            <div className="flex">
-              <p className=" w-40 font-medium">Prenume:</p>
-              <p>{passenger.first_name}</p>
-            </div>
-            <div className="flex">
-              <p className=" w-40 font-medium">Data nașterii:</p>
-              <p>{format(new Date(passenger.date_of_birth), 'dd.MM.yyyy')}</p>
-            </div>
-            <div className="flex">
-              <p className=" w-40 font-medium">Telefon:</p>
-              <p>{passenger.phone}</p>
-            </div>
-            <div className="flex">
-              <p className=" w-40 font-medium">Gen:</p>
-              <p>{passenger.gender}</p>
-            </div>
-            <div className="flex">
-              <p className=" w-40 font-medium">Email:</p>
-              <p>{passenger.email}</p>
-            </div>
-            <Button
-              type="primary"
-              danger
-              className="mt-4 w-40"
-              onClick={() => handleDeletePassenger(passenger.id)}
-            >
-              Șterge pasagerul
-            </Button>
-          </div>
-        </div>
+        <PassengerFields
+          key={passenger.id}
+          passenger={passenger}
+          index={index}
+          updatePassenger={updateAction}
+          handleDeletePassenger={handleDeletePassenger}
+          api={api}
+        />
       ))}
       <Button
         type="primary"
@@ -209,6 +189,206 @@ export const PassengersContent = ({ data }: { data: any }) => {
       >
         <PassengerAddForm onSubmit={onSubmit} closeModal={closeModal} />
       </Drawer>
+    </div>
+  )
+}
+
+interface IPassengerFields {
+  passenger: IPassenger
+  index: number
+  // eslint-disable-next-line no-unused-vars
+  handleDeletePassenger: (id: number) => void
+  updatePassenger: any
+  api: any
+}
+
+const PassengerFields = ({
+  passenger,
+  index,
+  handleDeletePassenger,
+  updatePassenger,
+  api,
+}: IPassengerFields) => {
+  const [editable, setEditable] = useState(false)
+  const [passengerData, setPassengerData] = useState({} as IPassenger)
+  const { Option } = Select
+
+  const formik = useFormik({
+    initialValues: {
+      first_name: '',
+      last_name: '',
+      gender: '',
+      date_of_birth: dayjs().format('DD.MM.YYYY'),
+      phone: '',
+      email: '',
+    },
+    onSubmit: () => {
+      handleUpdatePassenger()
+    },
+  })
+
+  useEffect(() => {
+    setPassengerData(passenger)
+    formik.setValues({
+      first_name: passenger.first_name,
+      last_name: passenger.last_name,
+      email: passenger.email,
+      phone: passenger.phone,
+      gender: passenger.gender,
+      date_of_birth: passenger.date_of_birth,
+    })
+
+    return () => {
+      setPassengerData({} as IPassenger)
+      formik.setValues({
+        first_name: '',
+        last_name: '',
+        gender: '',
+        date_of_birth: dayjs().format('DD.MM.YYYY'),
+        phone: '',
+        email: '',
+      })
+    }
+  }, [])
+
+  const handleUpdatePassenger = () => {
+    updatePassenger({
+      saleId: passengerData.sale_id,
+      passengerId: passengerData.id,
+      passenger: { ...passengerData, ...formik.values },
+    })
+    setEditable(false)
+    api.success({
+      message: 'Success',
+      description: 'Pasagerul a fost actualizat cu succes',
+      placement: 'bottomRight',
+      duration: 3,
+      closable: true,
+    })
+  }
+
+  return (
+    <div key={passengerData.id} className="mb-4 text-white">
+      <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
+        {index + 1}. {passengerData.first_name} {passengerData.last_name} (
+        {getPassengerAge(passengerData.date_of_birth)})
+      </h2>
+      <form
+        onSubmit={formik.handleSubmit}
+        onChange={formik.handleChange}
+        className="mt-2 flex w-1/2 flex-col gap-2 rounded-lg bg-white p-4 text-black"
+      >
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Nume:</p>
+          <Input
+            name="last_name"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+            disabled={!editable}
+            className="disabled:text-black"
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Prenume:</p>
+          <Input
+            name="first_name"
+            value={formik.values.first_name}
+            onChange={formik.handleChange}
+            disabled={!editable}
+            className="disabled:text-black"
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Data nașterii:</p>
+          <DatePicker
+            className="w-full disabled:text-black"
+            format="DD.MM.YYYY"
+            disabled={!editable}
+            value={dayjs(formik.values.date_of_birth)}
+            onChange={(d) => {
+              formik.setFieldValue(
+                'date_of_birth',
+                d ? d.format('DD.MM.YYYY') : ''
+              )
+              return d
+            }}
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Telefon:</p>
+          <PhoneInput
+            inputStyle={{
+              width: '100%',
+              border: '1px solid #E7E7E7',
+            }}
+            country={'md'}
+            value={formik.values.phone}
+            disabled={!editable}
+            inputProps={{
+              autoFocus: true,
+            }}
+            onChange={formik.handleChange}
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Gen:</p>
+          <Select
+            className="w-full disabled:text-black"
+            value={formik.values.gender}
+            disabled={!editable}
+            onChange={(value) => formik.setFieldValue('gender', value)}
+          >
+            <Option value="M">Masculin</Option>
+            <Option value="F">Feminin</Option>
+          </Select>
+        </div>
+        <div className="flex items-center">
+          <p className=" w-40 font-medium">Email:</p>
+          <Input
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            disabled={!editable}
+            className="disabled:text-black"
+          />
+        </div>
+        <div className="flex gap-4">
+          <Button
+            type="primary"
+            danger
+            className="mt-4 w-40"
+            onClick={() => handleDeletePassenger(passengerData.id)}
+          >
+            Șterge pasagerul
+          </Button>
+          {editable ? (
+            <div className="flex gap-4">
+              <Button
+                type="default"
+                className="mt-4 w-40"
+                onClick={() => setEditable(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="primary"
+                className="mt-4 w-40"
+                onClick={() => handleUpdatePassenger()}
+              >
+                Save
+              </Button>
+            </div>
+          ) : (
+            <Button
+              type="primary"
+              className="mt-4 w-40"
+              onClick={() => setEditable(true)}
+            >
+              Edit
+            </Button>
+          )}
+        </div>
+      </form>
     </div>
   )
 }

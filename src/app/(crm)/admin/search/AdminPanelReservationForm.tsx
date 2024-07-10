@@ -14,6 +14,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
+import { baggages } from '@/data/data'
 import axs from '@/lib/axios'
 import { source } from '../tickets/components/ticket'
 
@@ -633,30 +634,3 @@ const AdminPanelReservationForm = ({
 }
 
 export default AdminPanelReservationForm
-
-const baggages = [
-  {
-    type: '10kg',
-    count: 0,
-  },
-  {
-    type: '15kg',
-    count: 0,
-  },
-  {
-    type: '20kg',
-    count: 0,
-  },
-  {
-    type: '23kg',
-    count: 0,
-  },
-  {
-    type: '30kg',
-    count: 0,
-  },
-  {
-    type: '32kg',
-    count: 0,
-  },
-]

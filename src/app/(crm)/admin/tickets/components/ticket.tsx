@@ -127,8 +127,6 @@ export const Ticket = ({
 
   const priceDifference = soldPrice - costPrice
 
-  console.log({ stateData })
-
   return (
     <section className="flex gap-8 p-5">
       {contextHolder}
