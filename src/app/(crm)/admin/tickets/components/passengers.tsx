@@ -18,8 +18,7 @@ export interface IPassenger {
   passport: string | null
   price_sold: number | null
   price_cost: number | null
-  bag_10kg: boolean
-  bag_20kg: boolean
+  baggage: any
   date_of_birth: string
   passport_issued_at: string
   passport_expires_at: string
