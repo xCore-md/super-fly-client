@@ -80,6 +80,18 @@ export const PassengersContent = ({
   updateAction: any
 }) => {
   const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
+  const [countries, setCountries] = useState([])
+
+  useEffect(() => {
+    axs
+      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .then((res) => {
+        setCountries(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   useEffect(() => {
     setPassengers(data.passengers)
@@ -170,6 +182,7 @@ export const PassengersContent = ({
           updatePassenger={updateAction}
           handleDeletePassenger={handleDeletePassenger}
           api={api}
+          countries={countries}
         />
       ))}
       <Button
@@ -200,6 +213,7 @@ interface IPassengerFields {
   handleDeletePassenger: (id: number) => void
   updatePassenger: any
   api: any
+  countries: any
 }
 
 const PassengerFields = ({
@@ -208,20 +222,14 @@ const PassengerFields = ({
   handleDeletePassenger,
   updatePassenger,
   api,
+  countries,
 }: IPassengerFields) => {
   const [editable, setEditable] = useState(false)
   const [passengerData, setPassengerData] = useState({} as IPassenger)
   const { Option } = Select
 
   const formik = useFormik({
-    initialValues: {
-      first_name: '',
-      last_name: '',
-      gender: '',
-      date_of_birth: dayjs().format('DD.MM.YYYY'),
-      phone: '',
-      email: '',
-    },
+    initialValues: passengerObj,
     onSubmit: () => {
       handleUpdatePassenger()
     },
@@ -236,18 +244,16 @@ const PassengerFields = ({
       phone: passenger.phone,
       gender: passenger.gender,
       date_of_birth: passenger.date_of_birth,
+      passport_expires_at: passenger.passport_expires_at,
+      passport_issued_at: passenger.passport_issued_at,
+      passport_series: passenger.passport_series,
+      passport_number: passenger.passport_number,
+      passport_country: passenger.passport_country,
     })
 
     return () => {
       setPassengerData({} as IPassenger)
-      formik.setValues({
-        first_name: '',
-        last_name: '',
-        gender: '',
-        date_of_birth: dayjs().format('DD.MM.YYYY'),
-        phone: '',
-        email: '',
-      })
+      formik.setValues(passengerObj)
     }
   }, [])
 
@@ -267,6 +273,18 @@ const PassengerFields = ({
     })
   }
 
+  console.log({ passengerData })
+
+  const countriesOptions = countries.map((country: any) => ({
+    label: (
+      <span className="flex items-center gap-2">
+        <img className="h-3 w-4" src={country.flags.png} alt="icon" />{' '}
+        {country.name.common} ({country.cca2})
+      </span>
+    ),
+    value: country.cca2,
+  }))
+
   return (
     <div key={passengerData.id} className="mb-4 text-white">
       <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
@@ -279,7 +297,7 @@ const PassengerFields = ({
         className="mt-2 flex w-1/2 flex-col gap-2 rounded-lg bg-white p-4 text-black"
       >
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Nume:</p>
+          <p className=" w-80 font-medium">Nume:</p>
           <Input
             name="last_name"
             value={formik.values.last_name}
@@ -289,7 +307,7 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Prenume:</p>
+          <p className=" w-80 font-medium">Prenume:</p>
           <Input
             name="first_name"
             value={formik.values.first_name}
@@ -299,7 +317,7 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Data nașterii:</p>
+          <p className=" w-80 font-medium">Data nașterii:</p>
           <DatePicker
             className="w-full disabled:text-black"
             format="DD.MM.YYYY"
@@ -315,7 +333,7 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Telefon:</p>
+          <p className=" w-80 font-medium">Telefon:</p>
           <PhoneInput
             inputStyle={{
               width: '100%',
@@ -331,7 +349,7 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Gen:</p>
+          <p className=" w-80 font-medium">Gen:</p>
           <Select
             className="w-full disabled:text-black"
             value={formik.values.gender}
@@ -343,13 +361,80 @@ const PassengerFields = ({
           </Select>
         </div>
         <div className="flex items-center">
-          <p className=" w-40 font-medium">Email:</p>
+          <p className=" w-80 font-medium">Email:</p>
           <Input
             name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             disabled={!editable}
             className="disabled:text-black"
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-80 font-medium">Data eliberării pașaportului:</p>
+          <DatePicker
+            className="w-full"
+            name="passport_issued_at"
+            value={dayjs(formik.values.passport_issued_at)}
+            format="DD.MM.YYYY"
+            disabled={!editable}
+            onChange={(d) => {
+              formik.setFieldValue(
+                'passport_issued_at',
+                d ? d.format('DD.MM.YYYY') : ''
+              )
+              return d
+            }}
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-80 font-medium">Data expirării pașaportului:</p>
+          <DatePicker
+            className="w-full disabled:text-black"
+            name="passport_expires_at"
+            value={dayjs(formik.values.passport_expires_at)}
+            format="DD.MM.YYYY"
+            disabled={!editable}
+            onChange={(d) => {
+              formik.setFieldValue(
+                'passport_expires_at',
+                d ? d.format('DD.MM.YYYY') : ''
+              )
+              return d
+            }}
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-80 font-medium">Seria pașaportului:</p>
+          <Input
+            name="email"
+            value={formik.values.passport_series}
+            onChange={formik.handleChange}
+            disabled={!editable}
+            className="disabled:text-black"
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-80 font-medium">Numărul pașaportului:</p>
+          <Input
+            name="email"
+            value={formik.values.passport_number}
+            onChange={formik.handleChange}
+            disabled={!editable}
+            className="disabled:text-black"
+          />
+        </div>
+        <div className="flex items-center">
+          <p className=" w-80 font-medium">Numărul pașaportului:</p>
+          <Select
+            className="w-full disabled:text-black"
+            options={countriesOptions}
+            disabled={!editable}
+            onChange={(value) =>
+              formik.setFieldValue('passport_country', value)
+            }
+            value={formik.values.passport_country}
+            showSearch
           />
         </div>
         <div className="flex gap-4">
@@ -391,4 +476,18 @@ const PassengerFields = ({
       </form>
     </div>
   )
+}
+
+const passengerObj = {
+  first_name: '',
+  last_name: '',
+  gender: '',
+  date_of_birth: '',
+  phone: '',
+  email: '',
+  passport_country: '',
+  passport_expires_at: '',
+  passport_issued_at: '',
+  passport_number: '',
+  passport_series: '',
 }
