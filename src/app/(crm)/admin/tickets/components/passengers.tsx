@@ -47,13 +47,13 @@ export const refetchPassengers = ({
   axs
     .get(`/crm/sales/${salesId}/show`)
     .then((res) => {
-      // api.success({
-      //   message: 'Lista de pasageri a fost actualizată cu succes',
-      //   description: res.data.message,
-      //   placement: 'bottomRight',
-      //   duration: 3,
-      //   closable: true,
-      // })
+      api.success({
+        message: 'Lista de pasageri a fost actualizată cu succes',
+        description: res.data.message,
+        placement: 'bottomRight',
+        duration: 3,
+        closable: true,
+      })
       setPassengers(res.data.passengers)
     })
     .catch((err) => {

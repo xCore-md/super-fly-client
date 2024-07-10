@@ -18,12 +18,19 @@ export const AdminPanelReservationModal = ({
   const router = useRouter()
 
   const closeModal = () => setShowModal(false)
-  const onSubmit = (values: object) => {
+  const onSubmit = (values: any) => {
+    const passengers = values.passengers.map((passenger: any) => ({
+      ...passenger,
+      baggage: passenger.baggage.filter((bag: any) => bag?.count > 0),
+    }))
+
+    const data = { ...values, passengers }
+
     axs
-      .post('/crm/sales/create', values)
+      .post('/crm/sales/create', data)
       .then((res) => {
         api.success({
-          message: 'Succes',
+          message: 'Success',
           description: res.data.message,
           placement: 'bottomRight',
           duration: 3,
