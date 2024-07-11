@@ -8,7 +8,6 @@ import { useGSAP } from '@gsap/react'
 import { Tooltip } from 'antd'
 import gsap from 'gsap'
 import backpackSvg from '@/assets/img/backpack.svg'
-import flyOneSvg from '@/assets/img/fly-one.png'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
@@ -91,6 +90,8 @@ export const FlyContent = (props: any) => {
     isAdminPanel,
   } = props
 
+  console.log({ flight })
+
   return (
     <>
       {props.withoutHeader ? (
@@ -99,10 +100,10 @@ export const FlyContent = (props: any) => {
         <div
           className={` flex flex-row items-start justify-between pb-3 lg:flex-col lg:items-center lg:justify-center lg:pb-0 ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1 border-b lg:border-0`}
         >
-          <Image
-            src={flyOneSvg}
-            alt="fly agency"
-            className="w-12 lg:w-[112px]"
+          <img
+            alt="airline"
+            src={`https://images.kiwi.com/airlines/128x128/${flight.airlines[0]}.png`}
+            className="w-12 lg:w-28"
           />
           {pricePlacement === 'top' && (
             <p className="text-base font-medium lg:font-bold">€89.90</p>
