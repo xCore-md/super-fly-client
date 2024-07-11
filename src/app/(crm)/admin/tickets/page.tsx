@@ -57,15 +57,11 @@ const columns = [
     key: 'company',
     render: (text: string, record: any) => (
       <div className="flex items-center">
-        {companyLogo(record.airline) ? (
-          <Image
-            src={companyLogo(record.airline)}
-            alt="image"
-            className="mr-2 w-24"
-          />
-        ) : (
-          <span className="mr-2 w-24">{record.airline}</span>
-        )}
+        <img
+          alt="airline"
+          src={`https://images.kiwi.com/airlines/128x128/${JSON.parse(record.extra).airlines[0]}.png`}
+          className="w-12  lg:w-24"
+        />
       </div>
     ),
   },
