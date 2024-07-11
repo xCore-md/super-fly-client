@@ -323,10 +323,7 @@ const PassengerFields = ({
             disabled={!editable}
             value={dayjs(formik.values.date_of_birth)}
             onChange={(d) => {
-              formik.setFieldValue(
-                'date_of_birth',
-                d ? d.format('DD.MM.YYYY') : ''
-              )
+              formik.setFieldValue('date_of_birth', d)
               return d
             }}
           />
@@ -378,10 +375,7 @@ const PassengerFields = ({
             format="DD.MM.YYYY"
             disabled={!editable}
             onChange={(d) => {
-              formik.setFieldValue(
-                'passport_issued_at',
-                d ? d.format('DD.MM.YYYY') : ''
-              )
+              formik.setFieldValue('passport_issued_at', d)
               return d
             }}
           />
@@ -395,10 +389,7 @@ const PassengerFields = ({
             format="DD.MM.YYYY"
             disabled={!editable}
             onChange={(d) => {
-              formik.setFieldValue(
-                'passport_expires_at',
-                d ? d.format('DD.MM.YYYY') : ''
-              )
+              formik.setFieldValue('passport_expires_at', d)
               return d
             }}
           />
@@ -406,7 +397,7 @@ const PassengerFields = ({
         <div className="flex items-center">
           <p className=" w-80 font-medium">Seria pașaportului:</p>
           <Input
-            name="email"
+            name="passport_series"
             value={formik.values.passport_series}
             onChange={formik.handleChange}
             disabled={!editable}
@@ -416,7 +407,7 @@ const PassengerFields = ({
         <div className="flex items-center">
           <p className=" w-80 font-medium">Numărul pașaportului:</p>
           <Input
-            name="email"
+            name="passport_number"
             value={formik.values.passport_number}
             onChange={formik.handleChange}
             disabled={!editable}
