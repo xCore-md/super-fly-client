@@ -130,26 +130,29 @@ const BaggageForUpdateField = (props: any) => {
     props
   const [bag, setBag] = useState(baggage)
 
-  const handleUpdate = useCallback(() => {
-    updateAction(passenger, bag)
-    updatePassengers((prev: any) => {
-      const newPassengers = prev.map((p: any) => {
-        if (p.id === passenger.id) {
-          return {
-            ...p,
-            baggage: p.baggage.map((b: any) => {
-              if (b.id === bag.id) {
-                return bag
-              }
-              return b
-            }),
+  const handleUpdate = useCallback(
+    (bag: any) => {
+      updateAction(passenger, bag)
+      updatePassengers((prev: any) => {
+        const newPassengers = prev.map((p: any) => {
+          if (p.id === passenger.id) {
+            return {
+              ...p,
+              baggage: p.baggage.map((b: any) => {
+                if (b.id === bag.id) {
+                  return bag
+                }
+                return b
+              }),
+            }
           }
-        }
-        return p
+          return p
+        })
+        return newPassengers
       })
-      return newPassengers
-    })
-  }, [updateAction, passenger, bag, updatePassengers])
+    },
+    [updateAction, passenger, updatePassengers]
+  )
 
   const handleDelete = useCallback(() => {
     deleteAction(passenger, bag)
@@ -169,13 +172,13 @@ const BaggageForUpdateField = (props: any) => {
 
   const increase = useCallback(() => {
     setBag({ ...bag, count: bag.count + 1 })
-    handleUpdate()
+    handleUpdate({ ...bag, count: bag.count + 1 })
   }, [bag, handleUpdate])
 
   const decrease = useCallback(() => {
     if (bag.count === 0) return
     setBag({ ...bag, count: bag.count - 1 })
-    handleUpdate()
+    handleUpdate({ ...bag, count: bag.count - 1 })
   }, [bag, handleUpdate])
 
   return (
