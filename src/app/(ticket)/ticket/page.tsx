@@ -136,8 +136,6 @@ interface ITicketProps {
 const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = data?.sale && JSON.parse(data.sale.extra)
 
-  console.log({ data })
-
   return (
     <div className="mb-6 overflow-hidden rounded-lg">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
@@ -235,7 +233,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                 </div>
                 <div className="flex items-center gap-8">
                   <div
-                    className={`flex h-full flex-col items-center justify-center ${ticket?.route.length > 1 ? 'gap-14' : ''}`}
+                    className={`flex h-full w-24 min-w-24 flex-col items-center justify-center ${ticket?.route.length > 1 ? 'gap-14' : ''}`}
                   >
                     {ticket?.route.map((r: any, index: number) => (
                       <div key={index} className="flight_time">
@@ -249,19 +247,16 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                     ))}
                   </div>
                   <div className="relative flex flex-col items-center">
-                    {/* <span className="absolute top-0 flex max-w-96 gap-4">
+                    <span className="absolute -top-6 mr-8 flex max-w-44 gap-4">
                       {ticket?.route.map((r: any, index: number) => (
-                        <span key={index}>
-                          <Image
-                            src={flyOne}
-                            width={300}
-                            height={300}
-                            className="w-full"
-                            alt="company"
-                          />
-                        </span>
+                        <img
+                          key={index}
+                          src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
+                          className={`w-[${100 / ticket.route.length}%] max-w-16`}
+                          alt="company"
+                        />
                       ))}
-                    </span> */}
+                    </span>
                     {ticketIndex === 0 ? (
                       <Image
                         src={planeDeparture}
@@ -331,7 +326,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   Inclus Gratuit
                 </span>
               </div>
-              {data?.baggage?.length && (
+              {data?.baggage?.length > 0 && (
                 <div className="flex h-full items-center gap-8">
                   <span className="px-2 text-3xl">+</span>
                   <div className="flex h-full flex-col items-center justify-center">
