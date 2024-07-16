@@ -12,8 +12,8 @@ export const statusesColumns = {
     cards: [],
   },
   waiting: {
-    id: 'waiting',
-    title: 'Waiting',
+    id: 'promising',
+    title: 'Promising',
     color: 'bg-red-500',
     cards: [],
   },
