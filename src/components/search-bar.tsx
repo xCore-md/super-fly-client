@@ -319,7 +319,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
                   suffixIcon={null}
                   format={'DD.MM.YYYY'}
                   open={openDeparture}
-                  allowClear={false}
+                  allowClear={true}
                   value={formik.values.date_from}
                   placeholder="Alege data"
                   disabledDate={disabledDate}
@@ -357,7 +357,7 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
                   suffixIcon={null}
                   format={'DD.MM.YYYY'}
                   open={openArrival}
-                  allowClear={false}
+                  allowClear={true}
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}

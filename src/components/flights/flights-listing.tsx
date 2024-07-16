@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
-import { Tooltip } from 'antd'
+import { Divider, Tooltip } from 'antd'
 import gsap from 'gsap'
 import backpackSvg from '@/assets/img/backpack.svg'
 import seatSvg from '@/assets/img/seat.svg'
@@ -15,6 +15,7 @@ import { useFlightsContext } from '@/context/flights-context'
 import { useIsAdminPanel } from '@/lib/hooks/useIsAdminPanel'
 import { cn, getFlightTime, getTimeFromDate } from '@/lib/utils'
 import { Button } from '@components/ui/button'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
 interface IFlightsListingProps {
   length: number
@@ -90,7 +91,21 @@ export const FlyContent = (props: any) => {
     isAdminPanel,
   } = props
 
-  console.log({ flight })
+  const startDirection = flight.route.filter((route: any) => route.return === 0)
+
+  // I need to sum direction flight time
+
+  const startDirectionTime = getFlightTime(
+    startDirection[0].local_departure,
+    startDirection[startDirection.length - 1].local_arrival
+  )
+
+  const endDirection = flight.route.filter((route: any) => route.return === 1)
+
+  const endDirectionTime = getFlightTime(
+    endDirection?.[0]?.local_departure,
+    endDirection?.[endDirection.length - 1]?.local_arrival
+  )
 
   return (
     <>
@@ -102,96 +117,112 @@ export const FlyContent = (props: any) => {
         >
           <img
             alt="airline"
-            src={`https://images.kiwi.com/airlines/128x128/${flight.airlines[0]}.png`}
-            className="w-12 lg:w-28"
+            src={`https://images.kiwi.com/airlines/128x128/${startDirection[0].airline}.png`}
+            className={`w-12 ${endDirection.length > 0 ? 'mb-8 lg:w-16' : 'lg:w-24'}`}
           />
-          {pricePlacement === 'top' && (
-            <p className="text-base font-medium lg:font-bold">€89.90</p>
+          {endDirection.length > 0 && (
+            <img
+              alt="airline"
+              src={`https://images.kiwi.com/airlines/128x128/${endDirection[0].airline}.png`}
+              className="w-12 lg:w-16"
+            />
           )}
-          {/*<div className="mt-3 flex flex-col text-left text-xs">*/}
-          {/*  <p>Escala Bucuresti 3h 00m</p>*/}
-          {/*  <p>Escala Paris 7h 30m</p>*/}
-          {/*</div>*/}
         </div>
       )}
 
       {flight && (
         <section
           className={cn(
-            'z-10 col-span-2 row-start-2 flex flex-col justify-center pt-3 lg:col-span-3 lg:row-start-auto lg:pt-0',
+            'z-10 col-span-2 row-start-2 flex flex-col justify-center py-3 lg:col-span-3 lg:row-start-auto lg:py-6',
             {
               'lg:col-span-4': withoutAction,
             }
           )}
         >
-          <main className="grid grid-cols-4">
-            <div className="mr-2 text-right">
-              <div className="mb-2 text-xl font-normal">
-                {getTimeFromDate(flight.local_departure)}
-              </div>
-              <div className="text-xs text-gray-700">{flight.flyFrom}</div>
-            </div>
-            <div className="col-span-2 mt-2">
-              <div className="mb-1 flex items-center justify-center gap-2">
-                <span className="hidden text-xs text-gray-400 lg:inline">
-                  Durata de zbor:
-                </span>
-                <p className="text-xs text-gray-700">
-                  {getFlightTime(flight.local_departure, flight.local_arrival)}
-                </p>
-              </div>
-
-              <div className="fly-line block h-[1px] w-full bg-blue-700">
-                <div className="flex w-full justify-center">
-                  {flight.route.length > 1 && (
-                    <div className="flex w-1/2 items-center justify-between">
-                      {flight.route.map((route: any, index: number) => (
-                        <Tooltip
-                          key={index}
-                          title={
-                            <span className=" flex flex-col gap-2 p-2 text-xs">
-                              <span className="flex gap-4">
-                                <span className="">Escale:</span>{' '}
-                                <span className="ml-2 font-semibold">
-                                  {route.cityFrom} - {route.cityTo}
-                                </span>
-                              </span>
-                              <span className="flex gap-4">
-                                <span className=""> Nr. zbor:</span>
-                                <span className="font-bold">
-                                  {route.flight_no}
-                                </span>
-                              </span>
-                              <span>Preluarea si înregistrarea bagajului</span>
-                            </span>
-                          }
-                        >
-                          <div className="fly-line-stopover"></div>
-                        </Tooltip>
-                      ))}
-                    </div>
-                  )}
+          <div className="flex w-full flex-row items-center">
+            {endDirection.length > 0 && (
+              <span className="flex w-8">
+                <ArrowRightOutlined />
+              </span>
+            )}
+            <main className="grid w-full grid-cols-4">
+              <div className="mr-2 text-right">
+                <div className="mb-2 text-xl font-normal">
+                  {getTimeFromDate(startDirection[0].local_departure)}
+                </div>
+                <div className="text-xs text-gray-700">
+                  {startDirection[0].flyFrom}
                 </div>
               </div>
 
-              <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
-                {flight.route.length > 1
-                  ? `Escale: ${flight.route.length}`
-                  : `Direct`}
-              </div>
+              <div className="col-span-2 mt-2">
+                <div className="mb-1 flex items-center justify-center gap-2">
+                  <span className="hidden text-xs text-gray-400 lg:inline">
+                    Durata de zbor:
+                  </span>
+                  <p className="text-xs text-gray-700">{startDirectionTime}</p>
+                </div>
 
-              {/*<div className="mt-2 flex justify-between">*/}
-              {/*  <span className="text-xs text-gray-600">MDA</span>*/}
-              {/*  <span className="text-xs text-gray-600">BGY</span>*/}
-              {/*</div>*/}
-            </div>
-            <div className="ml-2 text-left">
-              <div className="mb-2 text-xl font-normal">
-                {getTimeFromDate(flight.local_arrival)}
+                <div className="fly-line block h-[1px] w-full bg-blue-700">
+                  <div className="flex w-full justify-center">
+                    {startDirection.length > 1 && (
+                      <div className="flex w-1/2 items-center justify-center gap-10">
+                        {startDirection
+                          .slice(1)
+                          .map((route: any, index: number) => (
+                            <Tooltip
+                              key={index}
+                              title={
+                                <span className=" flex flex-col gap-2 p-2 text-xs">
+                                  <span className="flex gap-4">
+                                    <span className="">Escale:</span>{' '}
+                                    <span className="ml-2 font-semibold">
+                                      {route.cityFrom} - {route.cityTo}
+                                    </span>
+                                  </span>
+                                  <span className="flex gap-4">
+                                    <span className=""> Nr. zbor:</span>
+                                    <span className="font-bold">
+                                      {route.flight_no}
+                                    </span>
+                                  </span>
+                                  <span>
+                                    Preluarea si înregistrarea bagajului
+                                  </span>
+                                </span>
+                              }
+                            >
+                              <div className="fly-line-stopover"></div>
+                            </Tooltip>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
+                  {startDirection.length > 1
+                    ? `Escale: ${startDirection.slice(1).length}`
+                    : `Direct`}
+                </div>
+
+                {/*<div className="mt-2 flex justify-between">*/}
+                {/*  <span className="text-xs text-gray-600">MDA</span>*/}
+                {/*  <span className="text-xs text-gray-600">BGY</span>*/}
+                {/*</div>*/}
               </div>
-              <div className="text-xs text-gray-700">{flight.flyTo}</div>
-            </div>
-          </main>
+              <div className="ml-2 text-left">
+                <div className="mb-2 text-xl font-normal">
+                  {getTimeFromDate(
+                    startDirection[startDirection.length - 1].local_arrival
+                  )}
+                </div>
+                <div className="text-xs text-gray-700">
+                  {startDirection[startDirection.length - 1].flyTo}
+                </div>
+              </div>
+            </main>
+          </div>
 
           {withoutFooter || isAdminPanel ? (
             ''
@@ -242,6 +273,150 @@ export const FlyContent = (props: any) => {
               )}
             </footer>
           )}
+          {endDirection.length > 0 && (
+            <section
+              className={cn('flex w-full flex-col justify-center pt-0', {
+                'lg:col-span-4': withoutAction,
+              })}
+            >
+              <Divider />
+              <div className="flex w-full flex-row items-center">
+                {endDirection.length > 0 && (
+                  <span className="flex w-8">
+                    <ArrowLeftOutlined />
+                  </span>
+                )}
+                <main className="grid w-full grid-cols-4">
+                  <div className="mr-2 text-right">
+                    <div className="mb-2 text-xl font-normal">
+                      {getTimeFromDate(endDirection[0].local_departure)}
+                    </div>
+                    <div className="text-xs text-gray-700">
+                      {endDirection[0].flyFrom}
+                    </div>
+                  </div>
+                  <div className="col-span-2 mt-2">
+                    <div className="mb-1 flex items-center justify-center gap-2">
+                      <span className="hidden text-xs text-gray-400 lg:inline">
+                        Durata de zbor:
+                      </span>
+                      <p className="text-xs text-gray-700">
+                        {endDirectionTime}
+                      </p>
+                    </div>
+
+                    <div className="fly-line block h-[1px] w-full bg-blue-700">
+                      <div className="flex w-full justify-center">
+                        {endDirection.length > 1 && (
+                          <div className="flex w-1/2 items-center justify-between">
+                            {endDirection
+                              .slice(1)
+                              .map((route: any, index: number) => (
+                                <Tooltip
+                                  key={index}
+                                  title={
+                                    <span className=" flex flex-col gap-2 p-2 text-xs">
+                                      <span className="flex gap-4">
+                                        <span className="">Escale:</span>{' '}
+                                        <span className="ml-2 font-semibold">
+                                          {route.cityFrom} - {route.cityTo}
+                                        </span>
+                                      </span>
+                                      <span className="flex gap-4">
+                                        <span className=""> Nr. zbor:</span>
+                                        <span className="font-bold">
+                                          {route.flight_no}
+                                        </span>
+                                      </span>
+                                      <span>
+                                        Preluarea si înregistrarea bagajului
+                                      </span>
+                                    </span>
+                                  }
+                                >
+                                  <div className="fly-line-stopover"></div>
+                                </Tooltip>
+                              ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
+                      {endDirection.length > 1
+                        ? `Escale: ${endDirection.slice(1).length}`
+                        : `Direct`}
+                    </div>
+
+                    {/*<div className="mt-2 flex justify-between">*/}
+                    {/*  <span className="text-xs text-gray-600">MDA</span>*/}
+                    {/*  <span className="text-xs text-gray-600">BGY</span>*/}
+                    {/*</div>*/}
+                  </div>
+                  <div className="ml-2 text-left">
+                    <div className="mb-2 text-xl font-normal">
+                      {getTimeFromDate(
+                        endDirection[endDirection.length - 1].local_arrival
+                      )}
+                    </div>
+                    <div className="text-xs text-gray-700">
+                      {endDirection[endDirection.length - 1].flyTo}
+                    </div>
+                  </div>
+                </main>
+              </div>
+
+              {withoutFooter || isAdminPanel ? (
+                ''
+              ) : (
+                <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
+                  <div className="mr-5 flex min-w-32 flex-row flex-wrap items-center">
+                    <Image
+                      className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
+                      width={20}
+                      height={20}
+                      src={backpackSvg}
+                      alt={'backpack'}
+                    />
+                    <p className="ml-1">Bagajul de mînă inclus</p>
+
+                    {withoutFlightNumber ? (
+                      ''
+                    ) : (
+                      <p className="mt-3 w-full text-left lg:hidden">
+                        Nr. zbor: <span className="font-bold">6F4577</span>
+                      </p>
+                    )}
+                  </div>
+
+                  {flight.availability.seats && (
+                    <div className="flex min-w-32 items-center justify-evenly">
+                      <Image
+                        className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
+                        width={20}
+                        height={20}
+                        src={seatSvg}
+                        alt={'seat'}
+                      />
+                      <p className="ml-1">
+                        Locuri disponibile: {flight.availability.seats}
+                      </p>
+                      {withoutFlightNumber
+                        ? ''
+                        : flight.route.length === 1 && (
+                            <p className="mt-3 w-full text-left lg:hidden">
+                              Nr. zbor:{' '}
+                              <span className="font-bold">
+                                {flight.route[0].flight_no}
+                              </span>
+                            </p>
+                          )}
+                    </div>
+                  )}
+                </footer>
+              )}
+            </section>
+          )}
         </section>
       )}
 
@@ -256,7 +431,7 @@ export const FlyContent = (props: any) => {
             {isAdminPanel ? (
               <Button
                 onClick={() => handleAdminPanelSetSelectedFlight(flight)}
-                className="hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+                className={`hidden h-11 w-40 items-center justify-center ${endDirection.length > 1 ? 'mb-8' : ''} rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex`}
               >
                 Rezerva
               </Button>
