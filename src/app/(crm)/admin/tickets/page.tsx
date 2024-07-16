@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Badge, Table } from 'antd'
+import { Badge, Divider, Table } from 'antd'
 import dayjs from 'dayjs'
 import { TicketsInfoModal } from '@/app/(crm)/admin/tickets/tickets-info-modal'
-import { comapnies } from '@/data/data'
 import axs from '@/lib/axios'
+import { source, status, ticket_status } from './components/ticket'
 
 export default function TicketsPage() {
   const [showModal, setShowModal] = useState(false)
@@ -66,31 +66,35 @@ const columns = [
   },
   {
     title: 'Date Zbor',
-    dataIndex: 'departure',
-    key: 'departure',
+    dataIndex: 'date_from',
+    key: 'date_from',
+    sorter: (a: any, b: any) =>
+      dayjs(a.date_from).unix() - dayjs(b.date_from).unix(),
     render: (text: string, record: any) => (
-      <div className="text-base font-light">
+      <div>
         <div>
-          {record.fly_from_city} -
-          <span className="pl-1 font-medium">
+          <p className="text-sm font-light uppercase">{record.fly_from_city}</p>
+          <p className="text-sm font-medium">
             {dayjs(record.date_from).format('DD.MM.YYYY HH:mm')}
-          </span>
+          </p>
         </div>
+        <Divider className="my-2" />
         <div>
-          {record.fly_to_city} -
-          <span className="pl-1 font-medium">
+          <p className="text-sm font-light uppercase">{record.fly_to_city}</p>
+          <p className="text-sm font-medium">
             {dayjs(record.date_to).format('DD.MM.YYYY HH:mm')}
-          </span>
+          </p>
         </div>
       </div>
     ),
+    width: '12%',
   },
   {
     title: 'Tip Zbor',
     dataIndex: 'type',
     key: 'type',
     render: (text: string) => (
-      <span className=" text-base capitalize">{text}</span>
+      <span className="text-sm font-medium uppercase">{text}</span>
     ),
   },
   {
@@ -116,6 +120,57 @@ const columns = [
         </div>
       )
     },
+    width: '20%',
+  },
+
+  {
+    title: 'Ticket status',
+    dataIndex: 'ticket_status',
+    key: 'ticket_status',
+    filterSearch: true,
+    filters: Object.keys(source).map((key) => ({
+      text: source[key],
+      value: key,
+    })),
+    onFilter: (value: any, record: any) =>
+      record.ticket_status.includes(value as string),
+    render: (text: string) => (
+      <span className="text-sm font-medium uppercase">
+        {ticket_status[text]}
+      </span>
+    ),
+    width: '12%',
+  },
+  {
+    title: 'Source',
+    dataIndex: 'source',
+    key: 'source',
+    filterSearch: true,
+    filters: Object.keys(source).map((key) => ({
+      text: source[key],
+      value: key,
+    })),
+    onFilter: (value: any, record: any) =>
+      record.source.includes(value as string),
+    render: (text: string) => (
+      <span className="text-sm font-medium uppercase">{source[text]}</span>
+    ),
+    width: '12%',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    filterSearch: true,
+    filters: Object.keys(source).map((key) => ({
+      text: source[key],
+      value: key,
+    })),
+    onFilter: (value: any, record: any) =>
+      record.status.includes(value as string),
+    render: (text: string) => (
+      <span className="text-sm font-medium uppercase">{status[text]}</span>
+    ),
   },
   {
     title: 'Telefon',
@@ -124,9 +179,6 @@ const columns = [
     render: (text: string, record: any) => (
       <span className="text-base">{record.passengers[0]?.phone}</span>
     ),
+    width: '15%',
   },
 ]
-
-const companyLogo = (company: string) => {
-  return comapnies.find((item) => item.title === company)?.image || ''
-}

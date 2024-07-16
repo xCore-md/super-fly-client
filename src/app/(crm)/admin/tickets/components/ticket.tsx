@@ -405,7 +405,7 @@ const reason: IKeyValue = {
   scope_medical: 'Medicină',
 }
 
-const status: IKeyValue = {
+export const status: IKeyValue = {
   reserved: 'Rezervat',
   paid: 'Achitat',
   missed: 'Pierdut',
@@ -422,13 +422,13 @@ export const source: IKeyValue = {
   ads3: 'Publicitate 3',
 }
 
-const ticket_status: IKeyValue = {
+export const ticket_status: IKeyValue = {
   to_emit: 'De emis',
   emitted: 'Emis',
   debt: 'Datorie',
 }
 
-const payment_method: IKeyValue = {
+export const payment_method: IKeyValue = {
   cash: 'Cash',
   card: 'Card',
   'office-card': 'Card (in officiu)',

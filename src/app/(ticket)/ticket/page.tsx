@@ -137,7 +137,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = data?.sale && JSON.parse(data.sale.extra)
 
   return (
-    <div className="mb-6 overflow-hidden rounded-lg">
+    <div className="mb-6 overflow-hidden rounded-lg bg-white">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Nume/Prenume Pasager</p>
@@ -173,7 +173,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
           </p>
         </div>
       </div>
-      <div className="bg-[#EFEFEF] p-6">
+      <div className="p-6">
         <div className="flex h-full w-full items-center  justify-between">
           <div className="w-1/2">
             <div className="flex w-full">
