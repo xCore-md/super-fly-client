@@ -308,7 +308,7 @@ export const FlyContent = (props: any) => {
                     <div className="fly-line block h-[1px] w-full bg-blue-700">
                       <div className="flex w-full justify-center">
                         {endDirection.length > 1 && (
-                          <div className="flex w-1/2 items-center justify-between">
+                          <div className="flex w-1/2 items-center justify-center gap-10">
                             {endDirection
                               .slice(1)
                               .map((route: any, index: number) => (
