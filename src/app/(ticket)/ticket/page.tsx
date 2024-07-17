@@ -2,10 +2,10 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import bag from '@/assets/img/bags/bag.svg'
-// import flyOne from '@/assets/img/fly-one.png'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
 import axs from '@/lib/axios'
@@ -27,12 +27,27 @@ export default function TicketPage() {
       })
   }, [])
 
+  const sale = passengerData?.sale && JSON.parse(passengerData.sale.extra)
+
+  const startDirection = sale?.route.filter((r: any) => r.return === 0)
+  const endDirection = sale?.route.filter((r: any) => r.return === 1)
+  const directions = endDirection?.length
+    ? [startDirection, endDirection]
+    : [startDirection]
+
   return (
     <section className="container mx-auto">
       <h2 className="my-10 w-full text-center text-2xl font-medium">
         Ticket de zbor
       </h2>
-      <Ticket data={passengerData} />
+      {directions.map((routes, index) => (
+        <Ticket
+          key={index}
+          ticketIndex={index}
+          passenger={passengerData}
+          routes={routes}
+        />
+      ))}
       <div className="mb-6 overflow-hidden rounded-lg">
         <div className="flex justify-between bg-brand-blue pl-20 text-sm font-medium text-white">
           <span className="py-3">DATA ACHITĂRII</span>
@@ -129,49 +144,46 @@ export default function TicketPage() {
 }
 
 interface ITicketProps {
-  data?: any
+  passenger?: any
+  routes?: any
   ticketIndex?: number
 }
 
-const Ticket = ({ data, ticketIndex }: ITicketProps) => {
-  const ticket = data?.sale && JSON.parse(data.sale.extra)
-
-  console.log({ ticket })
-
+const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
   return (
     <div className="mb-6 overflow-hidden rounded-lg bg-white">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Nume/Prenume Pasager</p>
           <p className="text-xl font-medium">
-            {data?.first_name} {data?.last_name}
+            {passenger?.first_name} {passenger?.last_name}
           </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Data, Luna, Anul Nașterii</p>
           <p className="text-xl font-medium">
-            {dayjs(data?.date_of_birth).format('DD.MM.YYYY')}
+            {dayjs(passenger?.date_of_birth).format('DD.MM.YYYY')}
           </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">
-            {getPassengerAge(data?.date_of_birth)}
+            {getPassengerAge(passenger?.date_of_birth)}
           </p>
           <p className="text-xl font-medium">1</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Cetățenia</p>
-          <p className="text-xl font-medium">{data?.passport_country}</p>
+          <p className="text-xl font-medium">{passenger?.passport_country}</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr Pașaport</p>
-          <p className="text-xl font-medium">{data?.passport_number}</p>
+          <p className="text-xl font-medium">{passenger?.passport_number}</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
           <p className="text-xl font-medium">
-            SF{data?.reservation_code}
-            {data?.id}
+            SF{passenger?.reservation_code}
+            {passenger?.id}
           </p>
         </div>
       </div>
@@ -187,12 +199,28 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   <span
                     className={`z-40 h-6 w-3 rounded-lg bg-brand-blue`}
                   ></span>
-                  {ticket?.route.map((r: any, index: number) => (
-                    <span
-                      key={index}
-                      className={`z-40 h-6 w-3 rounded-lg  ${index === ticket.route.length - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
-                    ></span>
-                  ))}
+                  {routes?.length > 1 &&
+                    routes?.map((r: any, index: number) => (
+                      <Tooltip
+                        key={index}
+                        title={
+                          <span className=" flex flex-col gap-2 p-2 text-xs">
+                            <span className="flex gap-4">
+                              <span className="">Escale:</span>{' '}
+                              <span className="ml-2 font-semibold">
+                                {r.cityFrom} - {r.cityTo}
+                              </span>
+                            </span>
+                            <span className="flex gap-4">
+                              <span className=""> Nr. zbor:</span>
+                              <span className="font-bold">{r.flight_no}</span>
+                            </span>
+                            <span>Preluarea si înregistrarea bagajului</span>
+                          </span>
+                        }
+                        className={`z-40 h-6 w-3 rounded-lg  ${index === routes?.length - 1 ? ' bg-brand-yellow' : 'bg-gray-400'}`}
+                      ></Tooltip>
+                    ))}
                   <span
                     className={`z-40 h-6 w-3 rounded-lg bg-brand-blue`}
                   ></span>
@@ -205,7 +233,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       De la
                     </p>
                     <p className="text-base font-medium text-black">
-                      {ticket?.countryFrom.code}
+                      {routes?.[0].flyFrom}
                     </p>
                   </div>
                   <div>
@@ -213,7 +241,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Data
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket?.local_departure).format('DD.MM.YYYY')}
+                      {dayjs(routes?.[0]?.local_departure).format('DD.MM.YYYY')}
                     </p>
                   </div>
                   <div>
@@ -221,7 +249,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Ora
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket?.local_departure).format('HH:mm')}
+                      {dayjs(routes?.[0]?.local_departure).format('HH:mm')}
                     </p>
                   </div>
                   <div>
@@ -229,15 +257,15 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Nr.zbor:
                     </p>
                     <p className="text-base font-semibold text-black">
-                      {ticket?.route[0].flight_no}
+                      {routes?.[0].flight_no}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-8">
                   <div
-                    className={`flex h-full w-24 min-w-24 flex-col items-center justify-center ${ticket?.route.length > 1 ? 'gap-14' : ''}`}
+                    className={`flex h-full w-24 min-w-24 flex-col justify-center ${routes?.length > 1 ? 'gap-14' : ''}`}
                   >
-                    {ticket?.route.map((r: any, index: number) => (
+                    {routes?.map((r: any, index: number) => (
                       <div key={index} className="flight_time">
                         <p className="text-xs font-normal text-slate-600">
                           Timp de zbor
@@ -250,11 +278,11 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   </div>
                   <div className="relative flex flex-col items-center">
                     <span className="absolute -top-6 mr-8 flex max-w-44 gap-4">
-                      {ticket?.route.map((r: any, index: number) => (
+                      {routes?.map((r: any, index: number) => (
                         <img
                           key={index}
                           src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
-                          className={`w-[${100 / ticket.route.length}%] max-w-16`}
+                          className={`w-[${100 / routes.length}%] max-w-16`}
                           alt="company"
                         />
                       ))}
@@ -284,7 +312,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Spre
                     </p>
                     <p className="text-base font-medium text-black">
-                      {ticket?.countryTo.code}
+                      {routes?.[routes.length - 1].flyTo}
                     </p>
                   </div>
                   <div>
@@ -292,7 +320,9 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Data
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket?.local_arrival).format('DD.MM.YYYY')}
+                      {dayjs(routes?.[routes.length - 1].local_arrival).format(
+                        'DD.MM.YYYY'
+                      )}
                     </p>
                   </div>
                   <div>
@@ -300,7 +330,9 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                       Ora
                     </p>
                     <p className="text-base font-normal text-slate-600">
-                      {dayjs(ticket?.local_arrival).format('HH:mm')}
+                      {dayjs(routes?.[routes.length - 1].local_arrival).format(
+                        'HH:mm'
+                      )}
                     </p>
                   </div>
                 </div>
@@ -317,9 +349,7 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   alt="bag"
                   className="mb-2 w-11"
                 />
-                {/* <span className="my-2 text-xs font-light text-slate-800">
-                  {baggage[8].size}
-                </span> */}
+
                 <span className="mb-1 text-xs font-semibold text-black">
                   Obiect personal
                 </span>
@@ -328,11 +358,11 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                   Inclus Gratuit
                 </span>
               </div>
-              {data?.baggage?.length > 0 && (
+              {passenger?.baggage?.length > 0 && (
                 <div className="flex h-full items-center gap-8">
                   <span className="px-2 text-3xl">+</span>
                   <div className="flex h-full flex-col items-center justify-center">
-                    {data?.baggage?.length < 3 && (
+                    {passenger?.baggage?.length < 3 && (
                       <Image
                         src={bag}
                         width={100}
@@ -341,18 +371,11 @@ const Ticket = ({ data, ticketIndex }: ITicketProps) => {
                         className="mb-2 w-11"
                       />
                     )}
-                    {data?.baggage?.map((b: any, index: number) => (
+                    {passenger?.baggage?.map((b: any, index: number) => (
                       <div
                         key={index}
                         className="flex h-full flex-col items-center justify-center"
                       >
-                        {/* <span className="my-2 text-xs font-light text-slate-800">
-                      {baggage[10].size}
-                    </span> */}
-                        {/* <span className="mb-1 text-xs font-semibold text-black">
-                      {baggage[10].title}
-                    </span> */}
-
                         <span className="text-sm font-normal text-slate-800">
                           {b.type} X {b.count}
                         </span>

@@ -10,14 +10,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 interface IFlightsTabsProps {
   className?: string
   loading?: boolean
+  isNoFlights?: boolean
   handleAdminPanelReservation?: () => void
 }
 export const FlightsTabs = ({
   className = '',
   loading = false,
+  isNoFlights = false,
   handleAdminPanelReservation,
 }: IFlightsTabsProps) => {
   const { flights } = useFlightsContext()
+
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
@@ -42,7 +45,8 @@ export const FlightsTabs = ({
               </Button>
             ) : (
               <div className="mt-20">
-                {loading ? <Spin size="large" /> : <Empty />}
+                {loading && <Spin size="large" />}{' '}
+                {!loading && isNoFlights && <Empty />}
               </div>
             )}
           </TabsContent>

@@ -14,9 +14,30 @@ import {
   CarouselPrevious,
 } from '@components/ui/carousel'
 
-const graphql = JSON.stringify({
-  query:
-    'query CalendarPricesFetcherQuery(\n  $search: SearchPricesCalendarInput\n  $filter: ItinerariesFilterInput\n  $options: ItinerariesOptionsInput\n) {\n  itineraryPricesCalendar(search: $search, filter: $filter, options: $options) {\n    __typename\n    ... on ItineraryPricesCalendar {\n      calendar {\n        date\n        ratedPrice {\n          price {\n            amount\n          }\n          rating\n        }\n      }\n    }\n    ... on AppError {\n      error: message\n    }\n  }\n}\n',
+const data = JSON.stringify({
+  query: `query CalendarPricesFetcherQuery(
+  $search: SearchPricesCalendarInput
+  $filter: ItinerariesFilterInput
+  $options: ItinerariesOptionsInput
+) {
+  itineraryPricesCalendar(search: $search, filter: $filter, options: $options) {
+    __typename
+    ... on ItineraryPricesCalendar {
+      calendar {
+        date
+        ratedPrice {
+          price {
+            amount
+          }
+          rating
+        }
+      }
+    }
+    ... on AppError {
+      error: message
+    }
+  }
+}`,
   variables: {
     search: {
       source: { ids: ['City:bucharest_ro'] },
@@ -64,21 +85,34 @@ const graphql = JSON.stringify({
     },
   },
 })
-const requestOptions = {
-  method: 'POST',
-  headers: {},
-  body: graphql,
-  redirect: 'follow',
+
+const config = {
+  method: 'post',
+  maxBodyLength: Infinity,
+  url: 'https://api.skypicker.com/umbrella/v2/graphql?featureName=CalendarPricesFetcherQuery',
+  headers: {
+    accept: '*/*',
+    'accept-language':
+      'ro-RO,ro;q=0.9,ru-MD;q=0.8,ru;q=0.7,en-US;q=0.6,en;q=0.5',
+    'content-type': 'application/json',
+    dnt: '1',
+    priority: 'u=1, i',
+    'sec-ch-ua':
+      '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"macOS"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+  },
+  data: data,
 }
 export const FlightsCarousel = () => {
   const [selected, setSelected] = useState(3)
 
   useEffect(() => {
     axs
-      .post(
-        'https://api.skypicker.com/umbrella/v2/graphql?featureName=CalendarPricesFetcherQuery',
-        requestOptions
-      )
+      .request(config)
       .then((res) => {
         console.log(res.data)
       })

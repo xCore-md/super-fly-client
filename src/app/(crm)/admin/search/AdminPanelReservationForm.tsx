@@ -31,7 +31,6 @@ interface Passenger {
   date_of_birth: string
   passport_issued_at: string
   passport_expires_at: string
-  passport_series: string
   passport_number: string
   passport_country: string
   reservation_code: string
@@ -151,7 +150,6 @@ const getInitialValues = (
     date_of_birth: '',
     passport_issued_at: '',
     passport_expires_at: '',
-    passport_series: '',
     passport_number: '',
     passport_country: '',
     reservation_code: '',
@@ -188,9 +186,6 @@ const validationSchema = Yup.object().shape({
         ),
         passport_expires_at: Yup.string().required(
           'Data expirării pașaportului este necesară'
-        ),
-        passport_series: Yup.string().required(
-          'Seria pașaportului este necesară'
         ),
         passport_number: Yup.string().required(
           'Numărul pașaportului este necesar'
@@ -479,25 +474,6 @@ const AdminPanelReservationForm = ({
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={8}>
-              <Form.Item
-                label="Seria pașaportului"
-                validateStatus={
-                  // @ts-ignore
-                  formik.errors.passengers?.[index]?.passport_series
-                    ? 'error'
-                    : ''
-                }
-                // @ts-ignore
-                help={formik.errors.passengers?.[index]?.passport_series}
-              >
-                <Input
-                  name={`passengers[${index}].passport_series`}
-                  value={formik.values.passengers[index].passport_series}
-                  onChange={formik.handleChange}
-                />
-              </Form.Item>
-            </Col>
             <Col span={8}>
               <Form.Item
                 label="Numărul pașaportului"

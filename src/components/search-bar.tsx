@@ -30,9 +30,14 @@ import { convertToSearchQuery } from '@/lib/utils'
 interface ISearchBarProps {
   arrival: boolean
   setLoading?: any
+  setIsNoFlights?: any
 }
 
-export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
+export const SearchBar = ({
+  arrival,
+  setLoading,
+  setIsNoFlights,
+}: ISearchBarProps) => {
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
@@ -197,7 +202,15 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
             Authorization: `Bearer ${userData?.token}`,
           },
         })
-        .then((res) => setFlights(res.data.data))
+        .then((res) => {
+          setFlights(res.data.data)
+          setLoading?.(false)
+          if (res.data.data.length === 0) {
+            setIsNoFlights?.(true)
+          } else {
+            setIsNoFlights?.(false)
+          }
+        })
         .catch((err) => console.log({ err }))
     }
   }
@@ -222,16 +235,16 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
             <div className="relative flex w-full items-center gap-4 rounded-t-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
               <Image src={departure} alt="image" width={22} height={17} />
               <div className="grid max-w-sm items-center pt-2">
-                <Label
+                {/* <Label
                   className=" text-xs uppercase text-gray-400"
                   htmlFor="departure"
                 >
                   ZBOR DIN
-                </Label>
+                </Label> */}
 
                 <Select
                   showSearch
-                  placeholder="Chisinau (MDA)"
+                  placeholder="ZBOR DIN"
                   popupClassName="autocompleteSelectPopUp"
                   className="autocompleteSelect h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_from.city || null}
@@ -269,15 +282,15 @@ export const SearchBar = ({ arrival, setLoading }: ISearchBarProps) => {
             <div className="flex w-full items-center gap-4 rounded-b-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-0 max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
               <Image src={arrive} alt="image" width={22} height={17} />
               <div className="grid max-w-sm items-center pt-2">
-                <Label
+                {/* <Label
                   className=" text-xs uppercase text-gray-400"
                   htmlFor="departure"
                 >
                   ATERIZARE ÎN
-                </Label>
+                </Label> */}
                 <Select
                   showSearch
-                  placeholder="Chisinau (MDA)"
+                  placeholder="ATERIZARE ÎN"
                   popupClassName="autocompleteSelectPopUp"
                   className="autocompleteSelect h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_to.city || null}

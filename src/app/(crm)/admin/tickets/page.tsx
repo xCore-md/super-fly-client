@@ -128,8 +128,8 @@ const columns = [
     dataIndex: 'ticket_status',
     key: 'ticket_status',
     filterSearch: true,
-    filters: Object.keys(source).map((key) => ({
-      text: source[key],
+    filters: Object.keys(ticket_status).map((key) => ({
+      text: ticket_status[key],
       value: key,
     })),
     onFilter: (value: any, record: any) =>
@@ -162,8 +162,8 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     filterSearch: true,
-    filters: Object.keys(source).map((key) => ({
-      text: source[key],
+    filters: Object.keys(status).map((key) => ({
+      text: status[key],
       value: key,
     })),
     onFilter: (value: any, record: any) =>

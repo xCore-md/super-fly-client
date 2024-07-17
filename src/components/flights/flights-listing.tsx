@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useRef } from 'react'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { useGSAP } from '@gsap/react'
 import { Divider, Tooltip } from 'antd'
 import gsap from 'gsap'
@@ -15,7 +16,6 @@ import { useFlightsContext } from '@/context/flights-context'
 import { useIsAdminPanel } from '@/lib/hooks/useIsAdminPanel'
 import { cn, getFlightTime, getTimeFromDate } from '@/lib/utils'
 import { Button } from '@components/ui/button'
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 
 interface IFlightsListingProps {
   length: number
@@ -431,7 +431,7 @@ export const FlyContent = (props: any) => {
             {isAdminPanel ? (
               <Button
                 onClick={() => handleAdminPanelSetSelectedFlight(flight)}
-                className={`hidden h-11 w-40 items-center justify-center ${endDirection.length > 1 ? 'mb-8' : ''} rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex`}
+                className={`hidden h-11 w-40 items-center justify-center ${endDirection.length > 0 ? 'mb-8' : ''} rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex`}
               >
                 Rezerva
               </Button>

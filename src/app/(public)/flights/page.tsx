@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import dayjs from 'dayjs'
 import LeadModal from '@/components/lead-modal'
@@ -12,9 +12,9 @@ import { FlightsTabs } from '@components/flights/flights-tabs'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 
 export default function Flights() {
-  const [loading, setLoading] = React.useState(true)
+  const [loading, setLoading] = useState(true)
   const { flights, setFlights } = useFlightsContext()
-  const [firstLoad, setFirstLoad] = React.useState(true)
+  const [firstLoad, setFirstLoad] = useState(true)
 
   useEffect(() => {
     if (firstLoad) {
@@ -40,7 +40,10 @@ export default function Flights() {
 
       axs
         .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
-        .then((res) => setFlights(res.data.data))
+        .then((res) => {
+          setFlights(res.data.data)
+          setLoading(false)
+        })
         .catch((err) => console.log({ err }))
     }
 
@@ -72,7 +75,7 @@ export default function Flights() {
             <FlightsTabs />
           ) : (
             <div className="mb-6 mt-10 flex w-full justify-center">
-              <Spin />
+              {loading && <Spin />}
             </div>
           )}
         </>

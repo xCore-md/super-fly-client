@@ -22,7 +22,6 @@ export interface IPassenger {
   date_of_birth: string
   passport_issued_at: string
   passport_expires_at: string
-  passport_series: string
   passport_number: string
   passport_country: string
   reservation_code: string
@@ -245,7 +244,6 @@ const PassengerFields = ({
       date_of_birth: passenger.date_of_birth,
       passport_expires_at: passenger.passport_expires_at,
       passport_issued_at: passenger.passport_issued_at,
-      passport_series: passenger.passport_series,
       passport_number: passenger.passport_number,
       passport_country: passenger.passport_country,
     })
@@ -395,16 +393,6 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-80 font-medium">Seria pașaportului:</p>
-          <Input
-            name="passport_series"
-            value={formik.values.passport_series}
-            onChange={formik.handleChange}
-            disabled={!editable}
-            className="disabled:text-black"
-          />
-        </div>
-        <div className="flex items-center">
           <p className=" w-80 font-medium">Numărul pașaportului:</p>
           <Input
             name="passport_number"
@@ -479,5 +467,4 @@ const passengerObj = {
   passport_expires_at: '',
   passport_issued_at: '',
   passport_number: '',
-  passport_series: '',
 }

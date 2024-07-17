@@ -10,6 +10,7 @@ import { AdminPanelReservationModal } from './AdminPanelReservationModal'
 export default function Search() {
   const [activeTab, setActiveTab] = useState('Results')
   const [loading, setLoading] = useState(false)
+  const [isNoFlights, setIsNoFlights] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const handleChangeLoading = (value: boolean) => {
@@ -20,7 +21,11 @@ export default function Search() {
   return (
     <div>
       <div className="mb-20 flex w-full flex-col items-center justify-center gap-8">
-        <SearchBar arrival={true} setLoading={handleChangeLoading} />
+        <SearchBar
+          arrival={true}
+          setLoading={handleChangeLoading}
+          setIsNoFlights={setIsNoFlights}
+        />
         <Segmented
           onChange={(value) => setActiveTab(value)}
           options={['Results', 'History']}
@@ -32,6 +37,7 @@ export default function Search() {
         <>
           <FlightsTabs
             loading={loading}
+            isNoFlights={isNoFlights}
             className="-mt-16"
             handleAdminPanelReservation={handleAdminPanelReservation}
           />
