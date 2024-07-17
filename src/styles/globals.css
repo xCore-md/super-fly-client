@@ -291,6 +291,13 @@ html {
   background: #fff !important;
 }
 
+.search-input {
+  input,
+  button {
+    height: 44px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;

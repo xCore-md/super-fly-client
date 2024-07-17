@@ -1,9 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import crossSvg from '@/assets/img/cross.svg'
+import axs from '@/lib/axios'
 import { cn } from '@/lib/utils'
 import {
   Carousel,
@@ -13,8 +14,78 @@ import {
   CarouselPrevious,
 } from '@components/ui/carousel'
 
+const graphql = JSON.stringify({
+  query:
+    'query CalendarPricesFetcherQuery(\n  $search: SearchPricesCalendarInput\n  $filter: ItinerariesFilterInput\n  $options: ItinerariesOptionsInput\n) {\n  itineraryPricesCalendar(search: $search, filter: $filter, options: $options) {\n    __typename\n    ... on ItineraryPricesCalendar {\n      calendar {\n        date\n        ratedPrice {\n          price {\n            amount\n          }\n          rating\n        }\n      }\n    }\n    ... on AppError {\n      error: message\n    }\n  }\n}\n',
+  variables: {
+    search: {
+      source: { ids: ['City:bucharest_ro'] },
+      destination: { ids: ['City:chisinau_md'] },
+      dates: { start: '2024-07-15T00:00:00', end: '2024-08-31T23:59:59' },
+      passengers: {
+        adults: 1,
+        children: 0,
+        infants: 0,
+        adultsHoldBags: [0],
+        adultsHandBags: [0],
+        childrenHoldBags: [],
+        childrenHandBags: [],
+      },
+      cabinClass: { cabinClass: 'ECONOMY', applyMixedClasses: false },
+    },
+    filter: {
+      allowChangeInboundDestination: true,
+      allowChangeInboundSource: true,
+      allowDifferentStationConnection: true,
+      enableSelfTransfer: true,
+      enableThrowAwayTicketing: true,
+      enableTrueHiddenCity: true,
+      transportTypes: ['FLIGHT'],
+      contentProviders: ['KIWI'],
+      flightsApiLimit: 1,
+    },
+    options: {
+      sortBy: 'PRICE',
+      mergePriceDiffRule: 'INCREASED',
+      currency: 'eur',
+      userEmail: 'antonio21213@gmail.com',
+      apiUrl: null,
+      locale: 'en',
+      market: 'md',
+      partner: 'skypicker',
+      partnerMarket: 'md',
+      affilID: 'crm',
+      storeSearch: false,
+      searchStrategy: 'REDUCED',
+      abTestInput: {
+        kiwiGuaranteeABTest: 'ENABLE',
+        kiwiGuaranteeEsABTest: 'DISABLE',
+      },
+    },
+  },
+})
+const requestOptions = {
+  method: 'POST',
+  headers: {},
+  body: graphql,
+  redirect: 'follow',
+}
 export const FlightsCarousel = () => {
   const [selected, setSelected] = useState(3)
+
+  useEffect(() => {
+    axs
+      .post(
+        'https://api.skypicker.com/umbrella/v2/graphql?featureName=CalendarPricesFetcherQuery',
+        requestOptions
+      )
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   const data = [
     { price: 221.9, date: '2024-02-01T00:00:00Z' },

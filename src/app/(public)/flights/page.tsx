@@ -49,7 +49,7 @@ export default function Flights() {
 
   return (
     <div className="mt-14 pb-10 lg:mt-4">
-      {loading ? (
+      {/* {loading ? (
         <div className="fixed left-0 top-0 z-[99999] flex h-full w-full items-center justify-center bg-white">
           <video
             playsInline
@@ -62,21 +62,21 @@ export default function Flights() {
             <source src="/airplane.mp4" type="video/mp4" />
           </video>
         </div>
-      ) : (
-        <>
-          <Header />
-          <div className="animate-fade-down fill-mode-forwards">
-            <FlightsCarousel />
+      ) : ( */}
+      <>
+        <Header />
+        <div className="animate-fade-down fill-mode-forwards">
+          <FlightsCarousel />
+        </div>
+        {flights?.length > 0 ? (
+          <FlightsTabs />
+        ) : (
+          <div className="mb-6 mt-10 flex w-full justify-center">
+            <Spin />
           </div>
-          {flights?.length > 0 ? (
-            <FlightsTabs />
-          ) : (
-            <div className="mb-6 mt-10 flex w-full justify-center">
-              <Spin />
-            </div>
-          )}
-        </>
-      )}
+        )}
+      </>
+      {/* )} */}
 
       <LeadModal delay={firstLoad ? 10320 : 2000} />
     </div>

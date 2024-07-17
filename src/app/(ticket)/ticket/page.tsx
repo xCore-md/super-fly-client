@@ -136,6 +136,8 @@ interface ITicketProps {
 const Ticket = ({ data, ticketIndex }: ITicketProps) => {
   const ticket = data?.sale && JSON.parse(data.sale.extra)
 
+  console.log({ ticket })
+
   return (
     <div className="mb-6 overflow-hidden rounded-lg bg-white">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
