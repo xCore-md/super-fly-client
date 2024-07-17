@@ -203,6 +203,10 @@ export const SearchBar = ({
           },
         })
         .then((res) => {
+          // const data = [...res.data.data].sort(
+          //   (a: any, b: any) => a.price - b.price
+          // )
+          // setInitialFlights(res.data.data)
           setFlights(res.data.data)
           setLoading?.(false)
           if (res.data.data.length === 0) {

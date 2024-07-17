@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Empty, Spin } from 'antd'
 import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
@@ -19,15 +19,43 @@ export const FlightsTabs = ({
   isNoFlights = false,
   handleAdminPanelReservation,
 }: IFlightsTabsProps) => {
-  const { flights } = useFlightsContext()
+  const { flights, initialFlights, setFlights, setInitialFlights } =
+    useFlightsContext()
+  const [isSorting, setIsSorting] = useState(false)
+
+  useEffect(() => {
+    if (flights.length > 0) {
+      const data = [...flights].sort((a: any, b: any) => a.price - b.price)
+      setInitialFlights(flights)
+      setFlights(data)
+    }
+  }, [])
+
+  const toggleSorting = useCallback(() => {
+    if (isSorting) {
+      setFlights(initialFlights)
+      setIsSorting(false)
+    } else {
+      const data = [...flights].sort((a: any, b: any) => a.price - b.price)
+      setInitialFlights(flights)
+      setFlights(data)
+      setIsSorting(true)
+    }
+  }, [isSorting, flights, initialFlights, setFlights, setInitialFlights])
 
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] lg:mt-14">
         <Tabs className="text-center" defaultValue="ieftin">
           <TabsList className="custom-shadow animate-fade rounded-full bg-white fill-mode-forwards">
-            <TabsTrigger value="ieftin">Cel mai ieftin</TabsTrigger>
-            <TabsTrigger className=" text-blue-400" value="rapid" disabled>
+            <TabsTrigger value="ieftin" onClick={toggleSorting}>
+              Cel mai ieftin
+            </TabsTrigger>
+            <TabsTrigger
+              className=" text-blue-400"
+              value="rapid"
+              onClick={toggleSorting}
+            >
               Cel mai rapid
             </TabsTrigger>
           </TabsList>
@@ -50,7 +78,25 @@ export const FlightsTabs = ({
               </div>
             )}
           </TabsContent>
-          <TabsContent value="rapid">Cel mai rapid</TabsContent>
+          <TabsContent value="rapid">
+            <FlightsListing
+              length={5}
+              handleAdminPanelReservation={handleAdminPanelReservation}
+            />
+            {flights.length > 0 ? (
+              <Button
+                className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
+                type="default"
+              >
+                Vezi mai mult zboruri
+              </Button>
+            ) : (
+              <div className="mt-20">
+                {loading && <Spin size="large" />}{' '}
+                {!loading && isNoFlights && <Empty />}
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
       </div>
       {/* <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
