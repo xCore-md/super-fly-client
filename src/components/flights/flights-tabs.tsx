@@ -54,6 +54,7 @@ export const FlightsTabs = ({
             <TabsTrigger
               className=" text-blue-400"
               value="rapid"
+              disabled
               onClick={toggleSorting}
             >
               Cel mai rapid
