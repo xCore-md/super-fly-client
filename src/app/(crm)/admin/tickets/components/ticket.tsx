@@ -415,6 +415,7 @@ export const status: IKeyValue = {
 export const source: IKeyValue = {
   office: 'Oficiu',
   facebook: 'Facebook',
+  google: 'Google',
   call: 'Apel intrare',
   recommendation: 'Recomandare',
   ads1: 'Publicitate 1',
