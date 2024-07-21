@@ -182,8 +182,8 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
           <p className="text-xl font-medium">
-            SF240{passenger?.reservation_code}
-            {passenger?.id}
+            SF{passenger?.id}
+            {passenger?.reservation_code}
           </p>
         </div>
       </div>
@@ -226,9 +226,9 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
                   ></span>
                 </div>
               </div>
-              <div className="ml-4 flex w-full flex-col  gap-12">
-                <div className="flex gap-12">
-                  <div className=" relative">
+              <div className="ml-4 flex w-full  flex-col gap-12">
+                <div className="relative flex gap-12">
+                  <div>
                     <p className="mb-1 text-xs font-normal text-slate-600">
                       De la
                     </p>
@@ -309,8 +309,8 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
                     )}
                   </div>
                 </div>
-                <div className="flex gap-12">
-                  <div className=" relative">
+                <div className="relative flex gap-12">
+                  <div>
                     <p className="mb-1 text-xs font-normal text-slate-600">
                       Spre
                     </p>
