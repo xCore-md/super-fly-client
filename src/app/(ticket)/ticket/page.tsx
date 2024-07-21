@@ -54,9 +54,9 @@ export default function TicketPage() {
           <span className="py-3">MODUL DE ACHITARE</span>
           <span className="bg-brand-green px-14 py-3">TOTAL EURO</span>
         </div>
-        <div className=" flex justify-between bg-[#EFEFEF] p-5 pl-8 pr-[70px] text-xl font-medium text-slate-600">
+        <div className="flex justify-between bg-[#EFEFEF] p-5 pl-20 pr-[70px] text-xl font-medium text-slate-600">
           <span>
-            {dayjs(passengerData?.sale.created_at).format('DD.MM.YYYY - HH:mm')}
+            {dayjs(passengerData?.sale.created_at).format('DD.MM.YYYY')}
           </span>
           <span className="-translate-x-14">
             {passengerData?.sale.payment_method}
@@ -182,7 +182,7 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
           <p className="text-xl font-medium">
-            SF{passenger?.reservation_code}
+            SF240{passenger?.reservation_code}
             {passenger?.id}
           </p>
         </div>
@@ -228,13 +228,16 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
               </div>
               <div className="ml-4 flex w-full flex-col  gap-12">
                 <div className="flex gap-12">
-                  <div>
+                  <div className=" relative">
                     <p className="mb-1 text-xs font-normal text-slate-600">
                       De la
                     </p>
-                    <p className="text-base font-medium text-black">
+                    <p className="mb-0 text-base font-medium text-black">
                       {routes?.[0].flyFrom}
                     </p>
+                    <span className="absolute -bottom-4 text-xs text-gray-500">
+                      {routes?.[0].cityFrom}
+                    </span>
                   </div>
                   <div>
                     <p className="mb-1 text-xs font-normal text-slate-600">
@@ -307,13 +310,16 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
                   </div>
                 </div>
                 <div className="flex gap-12">
-                  <div>
+                  <div className=" relative">
                     <p className="mb-1 text-xs font-normal text-slate-600">
                       Spre
                     </p>
-                    <p className="text-base font-medium text-black">
+                    <p className="mb-0 text-base font-medium text-black">
                       {routes?.[routes.length - 1].flyTo}
                     </p>
+                    <span className="absolute -bottom-4 text-xs text-gray-500">
+                      {routes?.[routes.length - 1].cityTo}
+                    </span>
                   </div>
                   <div>
                     <p className="mb-1 text-xs font-normal text-slate-600">

@@ -41,7 +41,10 @@ export default function Flights() {
       axs
         .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
         .then((res) => {
-          setFlights(res.data.data)
+          const data = [...res.data.data].sort(
+            (a: any, b: any) => a.duration.total - b.duration.total
+          )
+          setFlights(data)
           setLoading(false)
         })
         .catch((err) => console.log({ err }))

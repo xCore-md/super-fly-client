@@ -13,6 +13,10 @@ export default function TicketsPage() {
   const [modalData, setModalData] = useState({})
 
   useEffect(() => {
+    getData()
+  }, [])
+
+  const getData = () => {
     const storage = localStorage.getItem('userData')
     const token = storage ? JSON.parse(storage).token : ''
 
@@ -23,7 +27,7 @@ export default function TicketsPage() {
       .then((res) => {
         setData(res.data.data)
       })
-  }, [])
+  }
 
   return (
     <div className="rounded-lg bg-white p-6 shadow-lg">
@@ -44,6 +48,7 @@ export default function TicketsPage() {
         setShowModal={setShowModal}
         showModal={showModal}
         data={modalData}
+        onTabChange={getData}
       />
     </div>
   )

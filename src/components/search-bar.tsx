@@ -42,7 +42,7 @@ export const SearchBar = ({
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
   const [openArrival, setOpenArrival] = useState(false)
-  const { setFlights } = useFlightsContext()
+  const { setFlights, setInitialFlights } = useFlightsContext()
   const [passengers, setPassengers] = useState({
     adults: 1,
     children: 0,
@@ -189,6 +189,7 @@ export const SearchBar = ({
       router.push('/flights')
     } else {
       setFlights([])
+      setInitialFlights([])
       setLoading?.(true)
 
       const storage = localStorage.getItem('userData')
@@ -203,11 +204,11 @@ export const SearchBar = ({
           },
         })
         .then((res) => {
-          // const data = [...res.data.data].sort(
-          //   (a: any, b: any) => a.price - b.price
-          // )
-          // setInitialFlights(res.data.data)
-          setFlights(res.data.data)
+          const data = [...res.data.data].sort(
+            (a: any, b: any) => a.duration.total - b.duration.total
+          )
+          setFlights(data)
+          setInitialFlights(data)
           setLoading?.(false)
           if (res.data.data.length === 0) {
             setIsNoFlights?.(true)

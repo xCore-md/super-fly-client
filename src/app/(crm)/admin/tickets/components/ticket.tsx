@@ -23,7 +23,7 @@ export const Ticket = ({
 
   useEffect(() => {
     setStateData(data)
-  }, [data])
+  }, [])
 
   useEffect(() => {
     if (remoteUrl) {
@@ -63,23 +63,26 @@ export const Ticket = ({
       })
   }
 
-  const handleUpdateSaleCheckboxes = (scope: string) => {
-    axs
-      .put(`/crm/sales/${data.id}/checkbox/${scope}`)
-      .then(() => {
-        setStateData({ ...stateData, [scope]: !stateData[scope] })
-        api.success({
-          message: 'Success',
-          description: 'User updated',
-          placement: 'bottomRight',
-          duration: 3,
-          closable: true,
+  const handleUpdateSaleCheckboxes = useCallback(
+    (scope: string) => {
+      axs
+        .put(`/crm/sales/${data.id}/checkbox/${scope}`)
+        .then(() => {
+          setStateData({ ...stateData, [scope]: !stateData[scope] })
+          api.success({
+            message: 'Success',
+            description: 'User updated',
+            placement: 'bottomRight',
+            duration: 3,
+            closable: true,
+          })
         })
-      })
-      .catch((err) => {
-        console.log({ err })
-      })
-  }
+        .catch((err) => {
+          console.log({ err })
+        })
+    },
+    [stateData, data.id, api]
+  )
 
   const handleUpdateStatuses = (name: string, value: string) => {
     setStateData({ ...stateData, [name]: value })
@@ -116,12 +119,12 @@ export const Ticket = ({
   }
 
   const soldPrice = stateData.passengers.reduce(
-    (acc: number, passenger: any) => acc + passenger.price_sold,
+    (acc: number, passenger: any) => acc + Number(passenger.price_sold),
     0
   )
 
   const costPrice = stateData.passengers.reduce(
-    (acc: number, passenger: any) => acc + passenger.price_cost,
+    (acc: number, passenger: any) => acc + Number(passenger.price_cost),
     0
   )
 
@@ -276,15 +279,21 @@ export const Ticket = ({
       </div>
       <div className="w-2/5">
         <Section title="Verificare">
-          {Object.keys(verification).map((key, index) => (
-            <div key={index} onClick={() => handleUpdateSaleCheckboxes(key)}>
-              <Checkbox className="py-2">{verification[key]}</Checkbox>
+          {Object.keys(verification).map((key) => (
+            <div key={key}>
+              <Checkbox
+                checked={stateData[key]}
+                onChange={() => handleUpdateSaleCheckboxes(key)}
+                className="py-2"
+              >
+                {verification[key]}
+              </Checkbox>
             </div>
           ))}
         </Section>
         <Section title="Scopul călătoriei">
-          {Object.keys(reason).map((key, index) => (
-            <div key={index}>
+          {Object.keys(reason).map((key) => (
+            <div key={key}>
               <Checkbox
                 onChange={() => handleUpdateSaleCheckboxes(key)}
                 checked={stateData[key]}

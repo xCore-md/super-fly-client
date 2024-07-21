@@ -270,8 +270,6 @@ const PassengerFields = ({
     })
   }
 
-  console.log({ passengerData })
-
   const countriesOptions = countries.map((country: any) => ({
     label: (
       <span className="flex items-center gap-2">

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Button, Empty, Spin } from 'antd'
 import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
@@ -21,22 +21,19 @@ export const FlightsTabs = ({
 }: IFlightsTabsProps) => {
   const { flights, initialFlights, setFlights, setInitialFlights } =
     useFlightsContext()
-  const [isSorting, setIsSorting] = useState(false)
-
-  useEffect(() => {
-    if (flights.length > 0) {
-      const data = [...flights].sort((a: any, b: any) => a.price - b.price)
-      setInitialFlights(flights)
-      setFlights(data)
-    }
-  }, [])
+  const [isSorting, setIsSorting] = useState(true)
 
   const toggleSorting = useCallback(() => {
     if (isSorting) {
-      setFlights(initialFlights)
+      const data = [...initialFlights].sort(
+        (a: any, b: any) => a.price - b.price
+      )
+      setFlights(data)
       setIsSorting(false)
     } else {
-      const data = [...flights].sort((a: any, b: any) => a.price - b.price)
+      const data = [...flights].sort(
+        (a: any, b: any) => a.duration.total - b.duration.total
+      )
       setInitialFlights(flights)
       setFlights(data)
       setIsSorting(true)
@@ -54,7 +51,6 @@ export const FlightsTabs = ({
             <TabsTrigger
               className=" text-blue-400"
               value="ieftin"
-              disabled
               onClick={toggleSorting}
             >
               Cel mai ieftin

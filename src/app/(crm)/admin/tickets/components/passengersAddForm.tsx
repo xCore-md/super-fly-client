@@ -279,7 +279,6 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
                   `passengers[${index}].date_of_birth`,
                   d ? d.format('DD.MM.YYYY') : ''
                 )
-                console.log(d.format(), d.format('DD.MM.YYYY'))
                 return d
               }}
             />

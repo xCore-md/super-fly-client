@@ -11,11 +11,13 @@ export const TicketsInfoModal = ({
   showModal,
   setShowModal,
   data,
+  onTabChange,
 }: {
   showModal: boolean
   // eslint-disable-next-line no-unused-vars
   setShowModal: (value: boolean) => void
   data: any
+  onTabChange: () => void
 }) => {
   return (
     <Modal
@@ -30,6 +32,7 @@ export const TicketsInfoModal = ({
         defaultActiveKey="1"
         items={components(data)}
         className="ticket-tabs"
+        onChange={() => onTabChange()}
       />
     </Modal>
   )
