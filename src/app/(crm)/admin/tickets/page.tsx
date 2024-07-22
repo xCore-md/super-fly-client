@@ -29,6 +29,11 @@ export default function TicketsPage() {
       })
   }
 
+  const closeModal = () => {
+    getData()
+    setShowModal(false)
+  }
+
   return (
     <div className="rounded-lg bg-white p-6 shadow-lg">
       <Table
@@ -45,7 +50,7 @@ export default function TicketsPage() {
         })}
       />
       <TicketsInfoModal
-        setShowModal={setShowModal}
+        closeModal={closeModal}
         showModal={showModal}
         data={modalData}
         onTabChange={getData}

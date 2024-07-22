@@ -9,13 +9,12 @@ import { Ticket } from './components/ticket'
 
 export const TicketsInfoModal = ({
   showModal,
-  setShowModal,
   data,
   onTabChange,
+  closeModal,
 }: {
   showModal: boolean
-  // eslint-disable-next-line no-unused-vars
-  setShowModal: (value: boolean) => void
+  closeModal: () => void
   data: any
   onTabChange: () => void
 }) => {
@@ -23,8 +22,8 @@ export const TicketsInfoModal = ({
     <Modal
       title="Lead Modal"
       open={showModal}
-      onOk={() => setShowModal(false)}
-      onCancel={() => setShowModal(false)}
+      onOk={() => closeModal()}
+      onCancel={() => closeModal()}
       width={1200}
       footer={null}
     >

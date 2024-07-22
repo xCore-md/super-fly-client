@@ -55,8 +55,8 @@ export const SearchBar = ({
 
   const formik = useFormik({
     initialValues: searchFields,
-    onSubmit: (values) => {
-      console.log({ values })
+    onSubmit: () => {
+      console.log('submit')
     },
   })
 

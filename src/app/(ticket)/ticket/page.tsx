@@ -181,10 +181,7 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">Număr de rezervare</p>
-          <p className="text-xl font-medium">
-            SF{passenger?.id}
-            {passenger?.reservation_code}
-          </p>
+          <p className="text-xl font-medium">SF240{passenger?.id}</p>
         </div>
       </div>
       <div className="p-6">
