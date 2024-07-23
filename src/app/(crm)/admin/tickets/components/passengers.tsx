@@ -5,7 +5,7 @@ import { useFormik } from 'formik'
 import PhoneInput from 'react-phone-input-2'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
-import { getPassengerAge } from '@/lib/utils'
+import { getPassengerAge, handleCalendarKeyDown } from '@/lib/utils'
 import 'react-phone-input-2/lib/style.css'
 
 export interface IPassenger {
@@ -317,6 +317,7 @@ const PassengerFields = ({
             className="w-full disabled:text-black"
             format="DD.MM.YYYY"
             disabled={!editable}
+            onKeyDown={handleCalendarKeyDown}
             value={dayjs(formik.values.date_of_birth)}
             onChange={(d) => {
               formik.setFieldValue('date_of_birth', d)
@@ -370,6 +371,7 @@ const PassengerFields = ({
             value={dayjs(formik.values.passport_issued_at)}
             format="DD.MM.YYYY"
             disabled={!editable}
+            onKeyDown={handleCalendarKeyDown}
             onChange={(d) => {
               formik.setFieldValue('passport_issued_at', d)
               return d
@@ -384,6 +386,7 @@ const PassengerFields = ({
             value={dayjs(formik.values.passport_expires_at)}
             format="DD.MM.YYYY"
             disabled={!editable}
+            onKeyDown={handleCalendarKeyDown}
             onChange={(d) => {
               formik.setFieldValue('passport_expires_at', d)
               return d

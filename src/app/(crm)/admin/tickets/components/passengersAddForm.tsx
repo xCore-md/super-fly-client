@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import { baggages } from '@/data/data'
 import axs from '@/lib/axios'
 import { source } from '../../tickets/components/ticket'
+import { handleCalendarKeyDown } from '@/lib/utils'
 
 const { Option } = Select
 
@@ -274,6 +275,7 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
               className="w-full"
               name={`passengers[${index}].date_of_birth`}
               format={'DD.MM.YYYY'}
+              onKeyDown={handleCalendarKeyDown}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].date_of_birth`,
@@ -299,6 +301,7 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
               className="w-full"
               name={`passengers[${index}].passport_issued_at`}
               format={'DD.MM.YYYY'}
+              onKeyDown={handleCalendarKeyDown}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_issued_at`,

@@ -65,3 +65,12 @@ export function getPassengerAge(dateOfBirth: string) {
     return 'Infant'
   }
 }
+
+export function handleCalendarKeyDown(e: any) {
+  const value = e.target.value
+  const length = value.length
+
+  if ((length === 2 || length === 5) && e.key !== 'Backspace') {
+    e.target.value = `${value}.`
+  }
+}

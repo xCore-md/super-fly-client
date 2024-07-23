@@ -25,7 +25,7 @@ import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { searchFields } from '@/lib/constants'
-import { convertToSearchQuery } from '@/lib/utils'
+import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
 
 interface ISearchBarProps {
   arrival: boolean
@@ -342,6 +342,7 @@ export const SearchBar = ({
                   placeholder="Alege data"
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
+                  onKeyDown={handleCalendarKeyDown}
                   onChange={(date) => formik.setFieldValue('date_from', date)}
                   onOpenChange={handleDepartureChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
@@ -379,6 +380,7 @@ export const SearchBar = ({
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
+                  onKeyDown={handleCalendarKeyDown}
                   onChange={(date) => formik.setFieldValue('return_to', date)}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}

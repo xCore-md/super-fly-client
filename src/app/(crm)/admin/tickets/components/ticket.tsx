@@ -164,7 +164,7 @@ export const Ticket = ({
         </Section>
         <Section title="Detalii rezervare">
           <div className="flex py-2">
-            <span className="w-2/5 font-semibold">Rezervat la ora:</span>
+            <span className="w-2/5 font-semibold">Rezervat la:</span>
             <span className="w-3/5">
               {dayjs(passengers[0].created_at).format('DD.MM.YYYY - HH:mm')}
             </span>
