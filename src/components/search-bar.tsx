@@ -226,6 +226,16 @@ export const SearchBar = ({
     return current && current < today
   }
 
+  const disableNextDate = (current: dayjs.Dayjs) => {
+    return (
+      (current && current < today) ||
+      (current &&
+        current.isBefore(
+          dayjs(formik.values.date_from).add(1, 'day').startOf('day')
+        ))
+    )
+  }
+
   const switchCities = useCallback(() => {
     formik.setFieldValue('fly_from', formik.values.fly_to)
     formik.setFieldValue('fly_to', formik.values.fly_from)
@@ -377,7 +387,7 @@ export const SearchBar = ({
                   format={'DD.MM.YYYY'}
                   open={openArrival}
                   allowClear={true}
-                  disabledDate={disabledDate}
+                  disabledDate={disableNextDate}
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
