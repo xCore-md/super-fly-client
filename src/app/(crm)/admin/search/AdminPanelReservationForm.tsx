@@ -545,17 +545,15 @@ const AdminPanelReservationForm = ({
                 label="Sursa"
                 validateStatus={
                   // @ts-ignore
-                  formik.errors.passengers?.[index]?.source ? 'error' : ''
+                  formik.errors.source ? 'error' : ''
                 }
                 // @ts-ignore
-                help={formik.errors.passengers?.[index]?.source}
+                help={formik.errors.source}
                 name={`passengers[${index}].source`}
               >
                 <Select
-                  onChange={(e) =>
-                    formik.setFieldValue(`passengers[${index}].source`, e)
-                  }
-                  value={formik.values.passengers[index].source}
+                  onChange={(e) => formik.setFieldValue('source', e)}
+                  value={formik.values.source}
                 >
                   {Object.keys(source).map((key) => (
                     <Option key={key} value={key}>
@@ -571,13 +569,17 @@ const AdminPanelReservationForm = ({
                 label="Comentariu"
                 validateStatus={
                   // @ts-ignore
-                  formik.errors.passengers?.[index]?.comment ? 'error' : ''
+                  formik.errors.comment ? 'error' : ''
                 }
                 // @ts-ignore
-                help={formik.errors.passengers?.[index]?.comment}
-                name={`passengers[${index}].comment`}
+                help={formik.errors.comment}
+                name="comment"
               >
-                <TextArea rows={2} />
+                <TextArea
+                  rows={2}
+                  value={formik.values.comment}
+                  onChange={formik.handleChange}
+                />
               </Form.Item>
             </Col>
           </Row>
