@@ -298,6 +298,11 @@ html {
   }
 }
 
+.datePickerPopUp .ant-picker-header-super-prev-btn,
+.datePickerPopUp .ant-picker-header-super-next-btn {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
