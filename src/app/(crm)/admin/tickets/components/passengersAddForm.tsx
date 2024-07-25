@@ -327,6 +327,7 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
               className="w-full"
               name={`passengers[${index}].passport_expires_at`}
               format={'DD.MM.YYYY'}
+              onKeyDown={handleCalendarKeyDown}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_expires_at`,
