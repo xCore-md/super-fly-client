@@ -377,6 +377,7 @@ export const SearchBar = ({
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
+                  defaultPickerValue={dayjs(formik.values.date_from)}
                   onChange={(date) => formik.setFieldValue('return_to', date)}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}
