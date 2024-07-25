@@ -10,7 +10,7 @@ import { source, status, ticket_status } from './components/ticket'
 export default function TicketsPage() {
   const [showModal, setShowModal] = useState(false)
   const [data, setData] = useState([])
-  const [modalData, setModalData] = useState({})
+  const [modalData, setModalData] = useState({} as any)
 
   useEffect(() => {
     getData()
@@ -26,6 +26,12 @@ export default function TicketsPage() {
       })
       .then((res) => {
         setData(res.data.data)
+        if (modalData.id) {
+          const newData = res.data.data.find(
+            (item: any) => item.id === modalData.id
+          )
+          setModalData(newData)
+        }
       })
   }
 

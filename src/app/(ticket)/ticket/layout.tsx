@@ -11,7 +11,7 @@ export default function TicketLayout({
 
   return (
     <>
-      <main className="p-5">
+      <main className="bg-white p-5">
         <div className="relative">{children}</div>
       </main>
     </>

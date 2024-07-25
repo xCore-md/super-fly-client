@@ -19,9 +19,9 @@ export interface IPassenger {
   price_sold: number | null
   price_cost: number | null
   baggage: any
-  date_of_birth: string
-  passport_issued_at: string
-  passport_expires_at: string
+  date_of_birth: any
+  passport_issued_at: any
+  passport_expires_at: any
   passport_number: string
   passport_country: string
   reservation_code: string
@@ -77,7 +77,7 @@ export const PassengersContent = ({
   data: any
   updateAction: any
 }) => {
-  const [passengers, setPassengers] = useState<IPassenger[]>(data.passengers)
+  const [passengers, setPassengers] = useState<IPassenger[]>([])
   const [countries, setCountries] = useState([])
 
   useEffect(() => {
@@ -227,7 +227,7 @@ const PassengerFields = ({
   const { Option } = Select
 
   const formik = useFormik({
-    initialValues: passengerObj,
+    initialValues: passengerObj as any,
     onSubmit: () => {
       handleUpdatePassenger()
     },
@@ -235,17 +235,29 @@ const PassengerFields = ({
 
   useEffect(() => {
     setPassengerData(passenger)
+    const {
+      first_name,
+      last_name,
+      email,
+      phone,
+      gender,
+      date_of_birth,
+      passport_expires_at,
+      passport_issued_at,
+      passport_number,
+      passport_country,
+    } = passenger
     formik.setValues({
-      first_name: passenger.first_name,
-      last_name: passenger.last_name,
-      email: passenger.email,
-      phone: passenger.phone,
-      gender: passenger.gender,
-      date_of_birth: passenger.date_of_birth,
-      passport_expires_at: passenger.passport_expires_at,
-      passport_issued_at: passenger.passport_issued_at,
-      passport_number: passenger.passport_number,
-      passport_country: passenger.passport_country,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      gender: gender,
+      date_of_birth: dayjs(date_of_birth),
+      passport_expires_at: dayjs(passport_expires_at),
+      passport_issued_at: dayjs(passport_issued_at),
+      passport_number: passport_number,
+      passport_country: passport_country,
     })
 
     return () => {
@@ -260,6 +272,7 @@ const PassengerFields = ({
       passengerId: passengerData.id,
       passenger: { ...passengerData, ...formik.values },
     })
+    setPassengerData({ ...passengerData, ...formik.values })
     setEditable(false)
     api.success({
       message: 'Success',
@@ -317,12 +330,10 @@ const PassengerFields = ({
             className="w-full disabled:text-black"
             format="DD.MM.YYYY"
             disabled={!editable}
+            allowClear={true}
             onKeyDown={handleCalendarKeyDown}
-            value={dayjs(formik.values.date_of_birth)}
-            onChange={(d) => {
-              formik.setFieldValue('date_of_birth', d)
-              return d
-            }}
+            value={formik.values.date_of_birth}
+            onChange={(d) => formik.setFieldValue('date_of_birth', d)}
           />
         </div>
         <div className="flex items-center">
@@ -367,30 +378,24 @@ const PassengerFields = ({
           <p className=" w-80 font-medium">Data eliberării pașaportului:</p>
           <DatePicker
             className="w-full"
-            name="passport_issued_at"
-            value={dayjs(formik.values.passport_issued_at)}
+            value={formik.values.passport_issued_at}
             format="DD.MM.YYYY"
             disabled={!editable}
+            allowClear={true}
             onKeyDown={handleCalendarKeyDown}
-            onChange={(d) => {
-              formik.setFieldValue('passport_issued_at', d)
-              return d
-            }}
+            onChange={(d) => formik.setFieldValue('passport_issued_at', d)}
           />
         </div>
         <div className="flex items-center">
           <p className=" w-80 font-medium">Data expirării pașaportului:</p>
           <DatePicker
             className="w-full disabled:text-black"
-            name="passport_expires_at"
-            value={dayjs(formik.values.passport_expires_at)}
+            value={formik.values.passport_expires_at}
             format="DD.MM.YYYY"
+            allowClear={true}
             disabled={!editable}
             onKeyDown={handleCalendarKeyDown}
-            onChange={(d) => {
-              formik.setFieldValue('passport_expires_at', d)
-              return d
-            }}
+            onChange={(d) => formik.setFieldValue('passport_expires_at', d)}
           />
         </div>
         <div className="flex items-center">

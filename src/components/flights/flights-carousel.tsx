@@ -113,8 +113,8 @@ export const FlightsCarousel = () => {
   useEffect(() => {
     axs
       .request(config)
-      .then((res) => {
-        console.log(res.data)
+      .then(() => {
+        console.log('loaded')
       })
       .catch((err) => {
         console.log(err)

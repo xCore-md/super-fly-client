@@ -132,20 +132,6 @@ export const SearchBar = ({
     }
   }
 
-  // const selectLabel = (data: any) => {
-  //   const obj = options.find(
-  //     (opt: any) => opt.city.toLowerCase() === data.city.toLowerCase()
-  //   )
-
-  //   const label = (
-  //     <div className="flex w-full items-center justify-between">
-  //       <span>{obj?.city}</span>
-  //       <span>{`(${obj?.code})`}</span>
-  //     </div>
-  //   )
-  //   return <span>{label}</span>
-  // }
-
   const updatePassengersCount = (key: string, value: number) => {
     setPassengers({
       ...passengers,
