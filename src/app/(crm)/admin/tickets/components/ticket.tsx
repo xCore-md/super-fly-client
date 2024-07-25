@@ -15,7 +15,6 @@ export const Ticket = ({
   updateSale: any
 }) => {
   const [stateData, setStateData] = useState(data)
-  const [remoteUrl, setRemoteUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const { passengers } = data
   const { TextArea } = Input
@@ -24,12 +23,6 @@ export const Ticket = ({
   useEffect(() => {
     setStateData(data)
   }, [])
-
-  useEffect(() => {
-    if (remoteUrl) {
-      window.open(remoteUrl, '_blank')
-    }
-  }, [remoteUrl])
 
   const verification =
     data.type === 'tur_retur' ? verificationTwoWay : verificationOneWay
@@ -112,7 +105,7 @@ export const Ticket = ({
     axs
       .get(`/crm/sales/${data.id}/passengers/${passengerId}/ticket`)
       .then((res) => {
-        setRemoteUrl(res.data.invoice)
+        window.open(res.data.invoice, '_blank')
         setLoading(false)
       })
       .catch((err) => console.log({ err }))
