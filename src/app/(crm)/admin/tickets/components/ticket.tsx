@@ -240,7 +240,7 @@ export const Ticket = ({
           </div>
         </Section>
         <Section title="Biletele de avion">
-          <div className="flex gap-2 py-2">
+          <div className="flex flex-wrap gap-2 py-2">
             {passengers.map((passenger: any, index: number) => (
               <Button
                 key={index}
