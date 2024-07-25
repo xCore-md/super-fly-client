@@ -39,7 +39,7 @@ export default function Flights() {
       }
 
       axs
-        .get(`/search?locale=ro&${convertToSearchQuery(selectedFlight)}`)
+        .get(`/search?locale=ro-RO&${convertToSearchQuery(selectedFlight)}`)
         .then((res) => {
           const data = [...res.data.data].sort(
             (a: any, b: any) => a.duration.total - b.duration.total

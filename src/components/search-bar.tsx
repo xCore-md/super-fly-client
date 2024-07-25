@@ -111,9 +111,9 @@ export const SearchBar = ({
   }, [])
 
   const onSearch = (value: string) => {
-    if (value) {
+    if (value && value.length > 2) {
       axs
-        .get(`/locations?locale=ro&query=${value}`, {
+        .get(`/locations?locale=ro-RO&query=${value}`, {
           headers: {
             Accept: 'application/json',
           },
@@ -183,7 +183,7 @@ export const SearchBar = ({
       const url = pathname.includes('admin') ? '/crm/search' : '/search'
 
       axs
-        .get(`${url}?locale=ro&${convertToSearchQuery(selectedFlight)}`, {
+        .get(`${url}?locale=ro-RO&${convertToSearchQuery(selectedFlight)}`, {
           headers: {
             Accept: 'application/json',
             Authorization: `Bearer ${userData?.token}`,
