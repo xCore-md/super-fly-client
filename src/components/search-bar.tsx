@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { DatePicker, Popover, Select, notification } from 'antd'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { useFormik } from 'formik'
 import arrive from '@/assets/img/arrive.svg'
 import calendarBlue from '@/assets/img/calendar-blue.svg'
@@ -227,6 +227,10 @@ export const SearchBar = ({
     formik.setFieldValue('fly_to', formik.values.fly_from)
   }, [formik])
 
+  const isLastDayOfMonth = (date: any) => {
+    return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
+  }
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto">
       {contextHolder}
@@ -377,7 +381,11 @@ export const SearchBar = ({
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
-                  defaultPickerValue={dayjs(formik.values.date_from)}
+                  defaultPickerValue={
+                    isLastDayOfMonth(formik.values.date_from)
+                      ? dayjs(formik.values.date_from).add(1, 'month')
+                      : dayjs(formik.values.date_from)
+                  }
                   onChange={(date) => formik.setFieldValue('return_to', date)}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}
