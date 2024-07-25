@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Form, Input, Button, Select, DatePicker, Typography } from 'antd'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { baggages } from '@/data/data'
 import axs from '@/lib/axios'
 import { handleCalendarKeyDown } from '@/lib/utils'
-import { source } from '../../tickets/components/ticket'
 
 const { Option } = Select
 
@@ -13,16 +11,11 @@ interface IPassenger {
   first_name: string
   last_name: string
   gender: 'M' | 'F' | ''
-  phone: string
-  email: string
-  baggage: any
-  source: string
   date_of_birth: string
   passport_issued_at: string
   passport_expires_at: string
   passport_number: string
   passport_country: string
-  reservation_code: string
 }
 
 interface FormValues {
@@ -34,16 +27,11 @@ const getInitialValues = (passengers: number): FormValues => ({
     first_name: '',
     last_name: '',
     gender: '',
-    phone: '',
-    email: '',
-    baggage: [],
-    source: '',
     date_of_birth: '',
     passport_issued_at: '',
     passport_expires_at: '',
     passport_number: '',
     passport_country: '',
-    reservation_code: '',
   })),
 })
 
@@ -54,11 +42,6 @@ const validationSchema = Yup.object().shape({
         first_name: Yup.string().required('Prenumele este necesar'),
         last_name: Yup.string().required('Numele de familie este necesar'),
         gender: Yup.string().oneOf(['M', 'F']).required('Genul este necesar'),
-        phone: Yup.string().required('Telefonul este necesar'),
-        email: Yup.string()
-          .email('Email-ul este invalid')
-          .required('Email-ul este necesar'),
-        baggage: Yup.array(),
         date_of_birth: Yup.string().required('Data nașterii este necesară'),
         passport_issued_at: Yup.string().required(
           'Data eliberării pașaportului este necesară'
@@ -71,9 +54,6 @@ const validationSchema = Yup.object().shape({
         ),
         passport_country: Yup.string().required(
           'Țara pașaportului este necesară'
-        ),
-        reservation_code: Yup.string().required(
-          'Codul de rezervare este necesar'
         ),
       })
     )
@@ -121,7 +101,6 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
     onSubmit: onSubmit,
   })
   const { Title } = Typography
-  const { TextArea } = Input
 
   useEffect(() => {
     return () => {
@@ -212,55 +191,6 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
               <Option value="F">Feminin</Option>
             </Select>
           </Form.Item>
-
-          <Form.Item
-            label="Telefon"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.phone ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.phone}
-          >
-            <Input
-              name={`passengers[${index}].phone`}
-              value={formik.values.passengers[index].phone}
-              onChange={formik.handleChange}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label="Email"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.email ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.email}
-          >
-            <Input
-              name={`passengers[${index}].email`}
-              value={formik.values.passengers[index].email}
-              onChange={formik.handleChange}
-            />
-          </Form.Item>
-
-          {baggages.map((baggage, i) => (
-            <Form.Item key={i} label={baggage.type}>
-              <Input
-                name={`passengers[${index}].baggage[${i}].count`}
-                value={
-                  formik.values.passengers[index]?.baggage?.[i]?.count || ''
-                }
-                onChange={(e) =>
-                  formik.setFieldValue(`passengers[${index}].baggage[${i}]`, {
-                    type: baggage.type,
-                    count: Number(e.target.value),
-                  })
-                }
-              />
-            </Form.Item>
-          ))}
 
           <Form.Item
             label="Data nașterii"
@@ -374,61 +304,6 @@ const PassengerAddForm = ({ onSubmit }: IAdminPanelReservationForm) => {
               value={formik.values.passengers[index].passport_country}
               showSearch
             />
-          </Form.Item>
-
-          <Form.Item
-            label="Cod de rezervare"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.reservation_code ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.reservation_code}
-          >
-            <Input
-              name={`passengers[${index}].reservation_code`}
-              value={formik.values.passengers[index].reservation_code}
-              onChange={formik.handleChange}
-            />
-          </Form.Item>
-
-          {/*  source*/}
-          <Form.Item
-            label="Sursa"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.source ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.source}
-            name={`passengers[${index}].source`}
-          >
-            <Select
-              onChange={(e) =>
-                formik.setFieldValue(`passengers[${index}].source`, e)
-              }
-              value={formik.values.passengers[index].source}
-            >
-              {Object.keys(source).map((key) => (
-                <Option key={key} value={key}>
-                  {source[key]}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          {/*comment*/}
-          <Form.Item
-            label="Comentariu"
-            validateStatus={
-              // @ts-ignore
-              formik.errors.passengers?.[index]?.comment ? 'error' : ''
-            }
-            // @ts-ignore
-            help={formik.errors.passengers?.[index]?.comment}
-            name={`passengers[${index}].comment`}
-          >
-            <TextArea rows={2} />
           </Form.Item>
         </div>
       ))}
