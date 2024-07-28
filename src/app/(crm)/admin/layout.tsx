@@ -1,5 +1,6 @@
 'use client'
 
+import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -30,6 +31,9 @@ export default function CrmLayout({ children }: { children: React.ReactNode }) {
 
   return authorized || isLoginPage ? (
     <>
+      <Head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
       <CrmHeader />
       <main className="container mx-auto p-5 lg:px-0">
         <SearchHeader />

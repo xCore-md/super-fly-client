@@ -43,8 +43,8 @@ export default function TicketsPage() {
   return (
     <div className="rounded-lg bg-white p-6 shadow-lg">
       <Table
-        pagination={false}
         dataSource={data}
+        loading={!data.length}
         rowKey={(record) => record.id}
         columns={columns}
         onRow={(row) => ({

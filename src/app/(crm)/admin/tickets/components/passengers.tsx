@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Drawer, Input, notification, DatePicker, Select } from 'antd'
+import {
+  Button,
+  Drawer,
+  Input,
+  notification,
+  DatePicker,
+  Select,
+  Popconfirm,
+} from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import PhoneInput from 'react-phone-input-2'
@@ -181,6 +189,7 @@ export const PassengersContent = ({
           handleDeletePassenger={handleDeletePassenger}
           api={api}
           countries={countries}
+          passengersCount={passengers.length}
         />
       ))}
       <Button
@@ -212,6 +221,7 @@ interface IPassengerFields {
   updatePassenger: any
   api: any
   countries: any
+  passengersCount: number
 }
 
 const PassengerFields = ({
@@ -221,6 +231,7 @@ const PassengerFields = ({
   updatePassenger,
   api,
   countries,
+  passengersCount,
 }: IPassengerFields) => {
   const [editable, setEditable] = useState(false)
   const [passengerData, setPassengerData] = useState({} as IPassenger)
@@ -422,14 +433,18 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex gap-4">
-          <Button
-            type="primary"
-            danger
-            className="mt-4 w-40"
-            onClick={() => handleDeletePassenger(passengerData.id)}
-          >
-            Șterge pasagerul
-          </Button>
+          {passengersCount > 1 && (
+            <Popconfirm
+              title="Ești sigur că vrei să ștergi pasagerul?"
+              onConfirm={() => handleDeletePassenger(passengerData.id)}
+              okText="Da"
+              cancelText="Nu"
+            >
+              <Button type="primary" danger className="mt-4 w-40">
+                Șterge pasagerul
+              </Button>
+            </Popconfirm>
+          )}
           {editable ? (
             <div className="flex gap-4">
               <Button

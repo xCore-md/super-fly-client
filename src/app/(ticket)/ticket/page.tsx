@@ -8,6 +8,7 @@ import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import bag from '@/assets/img/bags/bag.svg'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
+import logo from '@/assets/img/sf_logo.svg'
 import axs from '@/lib/axios'
 import { getFlightTime, getPassengerAge } from '@/lib/utils'
 
@@ -35,11 +36,21 @@ export default function TicketPage() {
     ? [startDirection, endDirection]
     : [startDirection]
 
+  const isRulesVisible =
+    (startDirection?.length < 3 && endDirection?.length == 0) ||
+    (startDirection?.length === 1 && endDirection?.length === 1)
+
   return (
     <section className="container mx-auto">
-      <h2 className="my-10 w-full text-center text-2xl font-medium">
-        Ticket de zbor
-      </h2>
+      <div className="relative">
+        <h2 className="my-10 w-full text-center text-2xl font-medium">
+          Ticket de zbor
+        </h2>
+        <div className="absolute bottom-0 right-0 flex">
+          <Image className=" w-[150px]" src={logo} alt="logo" />
+          <span className=" text-2xl font-bold text-[#465ccb]">.md</span>
+        </div>
+      </div>
       {directions.map((routes, index) => (
         <Ticket
           key={index}
@@ -64,81 +75,84 @@ export default function TicketPage() {
           <span>{passengerData?.price_sold || 0} €</span>
         </div>
       </div>
-      <div className="overflow-hidden rounded-lg border border-brand-light-blue">
-        <div className=" overflow-hidden rounded-lg bg-brand-light-blue p-5 text-base font-semibold text-red-500">
-          <p>Reguli de călătorie</p>
+      {isRulesVisible && (
+        <div className="overflow-hidden rounded-lg border border-brand-light-blue">
+          <div className=" overflow-hidden rounded-lg bg-brand-light-blue p-5 text-base font-semibold text-red-500">
+            <p>Reguli de călătorie</p>
+          </div>
+          <div className="flex flex-col gap-2 p-8 text-xs font-normal leading-5 text-gray-500">
+            <p>
+              *Trebuie să vă prezentați la aeroport cu cel puțin trei ore
+              înainte de ora îmbarcării, pentru a vă asigura că aveți suficient
+              timp pentru efectuarea formalităților de check-in și securitate.
+            </p>
+            <p>
+              *Este important să verificați cu atenție informațiile referitoare
+              la zborul Dvs. de pe acest document și să informați agenția
+              Superfly prin apel telefonic imediat dacă observați vreo eroare.
+            </p>
+            <p>
+              *Respectați dimensiunile și greutatea bagajului permise de
+              compania aeriană și asigurați-vă că vă îndepliniți toate
+              obligațiile referitoare la formalitățile de check-in pentru
+              bagaje.
+            </p>
+            <p>
+              *Compania aeriană își rezervă dreptul de a refuza îmbarcarea
+              pasagerilor care se comportă agresiv sau care reprezintă o
+              amenințare la adresa securității zborului.
+            </p>
+            <p>
+              *Superfly (Superfly Invest S.R.L) și compania aeriană nu își asumă
+              responsabilitatea pentru întârzieri la zbor cauzate de pasageri și
+              recomandăm tuturor pasagerilor să se prezinte la aeroport cu
+              suficient timp înainte de ora de plecare.
+            </p>
+            <p>
+              *Pasagerii sunt responsabili să se informeze de la intreprinderi
+              de stat cu privire la documentele necesare pentru a călători în
+              țara de destinație, inclusiv pașaportul sau cartea de identitate,
+              viza sau alte documente necesare.
+            </p>
+            <p>
+              *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
+              pentru pasagerii care nu au documentele necesare pentru a călători
+              în țara de destinație.
+            </p>
+            <p>
+              *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
+              pentru daunele sau pierderile suferite de pasageri cauzate de
+              pierderea sau furtul documentelor, biletelor sau bagajelor și
+              încurajează pasagerii să își protejeze cu grijă bunurile personale
+              în timpul călătoriei.
+            </p>
+            <p>
+              *Dacă ați primit bagajul deteriorat trebuie să depuneți imediat o
+              reclamație – Property Irregularity Report (P.I.R.) la serviciul
+              specializat din cadrul aeroportului ce conține datele Dvs. de
+              identificare, ale zborului și ale bagajului înregistrat, precum și
+              datele necesare identificării acestuia (tipul geamantanului,
+              culoare, dimensiuni, etc.)
+            </p>
+            <p>
+              *Acest document nu este permis de îmbarcare, permisul de îmbarcare
+              se eliberează doar la aeroport dupa înregistrarea la zbor.
+            </p>
+            <p>
+              *La prezentarea acestui document emis de Superfly (Superfly Invest
+              S.R.L) și confirmarea plății, pasagerii pot benefecia de check-in
+              gratuit pentru zbor.
+            </p>
+            <p>
+              *Pentru a benefecia de check-in gratuit pentru zbor pasagerul este
+              obligat să apeleze numărul +37360851555 sau +37369639555 cu 24 ore
+              înainte de zbor, dar nu mai târziu de 6 ore înaintea zborului, în
+              caz contrar pasagerul va achita suplimentar la aeroport serviciul
+              check-in.
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 p-8 text-xs font-normal leading-5 text-gray-500">
-          <p>
-            *Trebuie să vă prezentați la aeroport cu cel puțin trei ore înainte
-            de ora îmbarcării, pentru a vă asigura că aveți suficient timp
-            pentru efectuarea formalităților de check-in și securitate.
-          </p>
-          <p>
-            *Este important să verificați cu atenție informațiile referitoare la
-            zborul Dvs. de pe acest document și să informați agenția Superfly
-            prin apel telefonic imediat dacă observați vreo eroare.
-          </p>
-          <p>
-            *Respectați dimensiunile și greutatea bagajului permise de compania
-            aeriană și asigurați-vă că vă îndepliniți toate obligațiile
-            referitoare la formalitățile de check-in pentru bagaje.
-          </p>
-          <p>
-            *Compania aeriană își rezervă dreptul de a refuza îmbarcarea
-            pasagerilor care se comportă agresiv sau care reprezintă o
-            amenințare la adresa securității zborului.
-          </p>
-          <p>
-            *Superfly (Superfly Invest S.R.L) și compania aeriană nu își asumă
-            responsabilitatea pentru întârzieri la zbor cauzate de pasageri și
-            recomandăm tuturor pasagerilor să se prezinte la aeroport cu
-            suficient timp înainte de ora de plecare.
-          </p>
-          <p>
-            *Pasagerii sunt responsabili să se informeze de la intreprinderi de
-            stat cu privire la documentele necesare pentru a călători în țara de
-            destinație, inclusiv pașaportul sau cartea de identitate, viza sau
-            alte documente necesare.
-          </p>
-          <p>
-            *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
-            pentru pasagerii care nu au documentele necesare pentru a călători
-            în țara de destinație.
-          </p>
-          <p>
-            *Superfly (Superfly Invest S.R.L) nu își asumă responsabilitatea
-            pentru daunele sau pierderile suferite de pasageri cauzate de
-            pierderea sau furtul documentelor, biletelor sau bagajelor și
-            încurajează pasagerii să își protejeze cu grijă bunurile personale
-            în timpul călătoriei.
-          </p>
-          <p>
-            *Dacă ați primit bagajul deteriorat trebuie să depuneți imediat o
-            reclamație – Property Irregularity Report (P.I.R.) la serviciul
-            specializat din cadrul aeroportului ce conține datele Dvs. de
-            identificare, ale zborului și ale bagajului înregistrat, precum și
-            datele necesare identificării acestuia (tipul geamantanului,
-            culoare, dimensiuni, etc.)
-          </p>
-          <p>
-            *Acest document nu este permis de îmbarcare, permisul de îmbarcare
-            se eliberează doar la aeroport dupa înregistrarea la zbor.
-          </p>
-          <p>
-            *La prezentarea acestui document emis de Superfly (Superfly Invest
-            S.R.L) și confirmarea plății, pasagerii pot benefecia de check-in
-            gratuit pentru zbor.
-          </p>
-          <p>
-            *Pentru a benefecia de check-in gratuit pentru zbor pasagerul este
-            obligat să apeleze numărul +37360851555 sau +37369639555 cu 24 ore
-            înainte de zbor, dar nu mai târziu de 6 ore înaintea zborului, în
-            caz contrar pasagerul va achita suplimentar la aeroport serviciul
-            check-in.
-          </p>
-        </div>
-      </div>
+      )}
     </section>
   )
 }
