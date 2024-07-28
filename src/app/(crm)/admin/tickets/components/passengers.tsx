@@ -360,7 +360,7 @@ const PassengerFields = ({
             inputProps={{
               autoFocus: true,
             }}
-            onChange={formik.handleChange}
+            onChange={(p) => formik.setFieldValue('phone', p)}
           />
         </div>
         <div className="flex items-center">
