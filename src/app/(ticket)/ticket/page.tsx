@@ -80,7 +80,7 @@ export default function TicketPage() {
           <div className=" overflow-hidden rounded-lg bg-brand-light-blue p-5 text-base font-semibold text-red-500">
             <p>Reguli de călătorie</p>
           </div>
-          <div className="flex flex-col gap-2 p-8 text-xs font-normal leading-5 text-gray-500">
+          <div className="flex flex-col p-8 text-xs font-normal leading-5 text-gray-500 ">
             <p>
               *Trebuie să vă prezentați la aeroport cu cel puțin trei ore
               înainte de ora îmbarcării, pentru a vă asigura că aveți suficient
