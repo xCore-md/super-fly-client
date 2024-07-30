@@ -28,12 +28,14 @@ export const ItemsCarousel = (props: IProps) => {
     props
 
   return (
-    <section className="mb-14 animate-fade-up fill-mode-forwards lg:mb-24">
-      <h2
-        className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
-      >
-        {title}
-      </h2>
+    <section className=" animate-fade-up fill-mode-forwards ">
+      <div className="container mx-auto px-5 lg:px-0">
+        <h2
+          className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
+        >
+          {title}
+        </h2>
+      </div>
       <Swiper
         slidesPerView={1}
         loop={true}
@@ -43,7 +45,7 @@ export const ItemsCarousel = (props: IProps) => {
             slidesPerView: 2,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 8,
           },
         }}
         autoplay={{
@@ -81,7 +83,7 @@ export const ItemsCarousel = (props: IProps) => {
         ))}
       </Swiper>
       <div
-        className={`hidden items-center lg:flex ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+        className={`container mx-auto hidden items-center px-5 lg:flex lg:px-0 ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>

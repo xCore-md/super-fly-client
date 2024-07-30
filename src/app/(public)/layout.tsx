@@ -14,7 +14,7 @@ export default function PublicLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Header menu={menu} />
-      <main className="container mx-auto p-5 lg:px-0">{children}</main>
+      <main>{children}</main>
       <Footer />
     </>
   )

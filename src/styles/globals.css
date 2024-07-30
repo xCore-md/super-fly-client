@@ -97,10 +97,10 @@
   }
 }
 
-body,
+/* body,
 html {
   background: #fafafa;
-}
+} */
 
 .block {
   display: flex;

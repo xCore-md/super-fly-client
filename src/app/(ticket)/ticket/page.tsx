@@ -40,6 +40,11 @@ export default function TicketPage() {
     (startDirection?.length < 3 && endDirection?.length == 0) ||
     (startDirection?.length === 1 && endDirection?.length === 1)
 
+  const rulesFontSize =
+    startDirection?.length < 3 && endDirection?.length === 0
+      ? 'text-[10px]'
+      : 'text-[7px]'
+
   return (
     <section className="container mx-auto">
       <div className="relative">
@@ -48,7 +53,9 @@ export default function TicketPage() {
         </h2>
         <div className="absolute bottom-0 right-0 flex">
           <Image className=" w-[150px]" src={logo} alt="logo" />
-          <span className=" text-2xl font-bold text-[#465ccb]">.md</span>
+          <span className=" text-[29px] font-semibold leading-7 text-[#465ccb]">
+            .md
+          </span>
         </div>
       </div>
       {directions.map((routes, index) => (
@@ -80,7 +87,9 @@ export default function TicketPage() {
           <div className=" overflow-hidden rounded-lg bg-brand-light-blue p-5 text-base font-semibold text-red-500">
             <p>Reguli de călătorie</p>
           </div>
-          <div className="leading-2 flex flex-col p-8 text-[7px] font-normal text-gray-500 ">
+          <div
+            className={`leading-2 flex flex-col p-8 font-normal text-gray-500 ${rulesFontSize}`}
+          >
             <p>
               *Trebuie să vă prezentați la aeroport cu cel puțin trei ore
               înainte de ora îmbarcării, pentru a vă asigura că aveți suficient

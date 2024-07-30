@@ -9,7 +9,9 @@ import { WhyUs } from '@components/why-us'
 export default function Home() {
   return (
     <div className="mt-28 overflow-x-hidden pb-10 max-[1024px]:mt-10 lg:overflow-x-auto lg:max-[1440px]:px-5">
-      <Banner />
+      <div className="container mx-auto p-5 lg:px-0">
+        <Banner />
+      </div>
       <ItemsCarousel
         buttonTitle="Vezi Toate Ofertele"
         buttonUrl="#"
@@ -22,18 +24,20 @@ export default function Home() {
           </span>
         }
       />
-      <Offers />
-      <section className="mb-14 mt-20 lg:mb-36">
-        <WhyUs title="Rezervați cu noi" />
-      </section>
-      <BlogList
-        title="Informație utilă"
-        subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
-        buttonTitle="Vezi Toate"
-        buttonUrl="/blog"
-        items={usefulInfo}
-      />
-      <Questions />
+      <div className="container mx-auto p-5 lg:px-0">
+        <Offers />
+        <section className="mb-14 mt-20 lg:mb-36">
+          <WhyUs title="Rezervați cu noi" />
+        </section>
+        <BlogList
+          title="Informație utilă"
+          subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
+          buttonTitle="Vezi Toate"
+          buttonUrl="/blog"
+          items={usefulInfo}
+        />
+        <Questions />
+      </div>
     </div>
   )
 }

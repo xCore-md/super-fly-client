@@ -4,7 +4,12 @@ import { useState } from 'react'
 import { SearchBar } from '@components/search-bar'
 import { Button } from '@components/ui/button'
 
-export const SearchBarWithTabs = () => {
+export const SearchBarWithTabs = ({
+  setLoading,
+}: {
+  // eslint-disable-next-line
+  setLoading: (loading: boolean) => void
+}) => {
   const [activeTab, setActiveTab] = useState('dus')
 
   const handleChangeTab = (tab: string) => {
@@ -19,18 +24,18 @@ export const SearchBarWithTabs = () => {
           variant={activeTab === 'dus' ? 'secondary' : 'ghost'}
           onClick={() => handleChangeTab('dus')}
         >
-          Dus
+          Tur
         </Button>
         <Button
           className={`h-[22px] rounded-xl p-4 text-sm font-semibold max-[1024px]:text-xs ${activeTab === 'intors' ? '' : 'text-white'}`}
           variant={activeTab === 'intors' ? 'secondary' : 'ghost'}
           onClick={() => handleChangeTab('intors')}
         >
-          Întors
+          Tur-Retur
         </Button>
       </div>
 
-      <SearchBar arrival={activeTab === 'intors'} />
+      <SearchBar setLoading={setLoading} arrival={activeTab === 'intors'} />
     </div>
   )
 }

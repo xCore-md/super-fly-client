@@ -153,6 +153,26 @@ export const SearchBar = ({
     [formik.values]
   )
 
+  const getCurrentCityByIp = () => {
+    axs
+      .get('/current-city')
+      .then((res) => {
+        const { locations } = res.data
+        const { city, code, airport_int_id } = locations[0]
+        formik.setFieldValue('fly_from', {
+          key: airport_int_id,
+          country: city.country.name,
+          city: city.name,
+          code: code,
+        })
+      })
+      .catch((err) => console.log({ err }))
+  }
+
+  useEffect(() => {
+    getCurrentCityByIp()
+  }, [])
+
   const submitSearch = () => {
     if (
       !formik.values.fly_from ||

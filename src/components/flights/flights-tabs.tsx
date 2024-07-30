@@ -1,11 +1,12 @@
 'use client'
 
 import React, { useCallback, useState } from 'react'
-import { Button, Empty, Spin } from 'antd'
+import { Button, Empty } from 'antd'
 import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
+import { FlightsSkeleton } from './flights-skeleton'
 
 interface IFlightsTabsProps {
   className?: string
@@ -15,7 +16,7 @@ interface IFlightsTabsProps {
 }
 export const FlightsTabs = ({
   className = '',
-  loading = false,
+  loading,
   isNoFlights = false,
   handleAdminPanelReservation,
 }: IFlightsTabsProps) => {
@@ -57,42 +58,20 @@ export const FlightsTabs = ({
             </TabsTrigger>
           </TabsList>
           <TabsContent className="relative" value="ieftin">
-            <FlightsListing
-              length={5}
+            <FlightListComponent
+              flights={flights}
+              loading={loading}
+              isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
-            {flights.length > 0 ? (
-              <Button
-                className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
-                type="default"
-              >
-                Vezi mai mult zboruri
-              </Button>
-            ) : (
-              <div className="mt-20">
-                {loading && <Spin size="large" />}{' '}
-                {!loading && isNoFlights && <Empty />}
-              </div>
-            )}
           </TabsContent>
           <TabsContent value="rapid">
-            <FlightsListing
-              length={5}
+            <FlightListComponent
+              flights={flights}
+              loading={loading}
+              isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
-            {flights.length > 0 ? (
-              <Button
-                className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
-                type="default"
-              >
-                Vezi mai mult zboruri
-              </Button>
-            ) : (
-              <div className="mt-20">
-                {loading && <Spin size="large" />}{' '}
-                {!loading && isNoFlights && <Empty />}
-              </div>
-            )}
           </TabsContent>
         </Tabs>
       </div>
@@ -122,5 +101,34 @@ export const FlightsTabs = ({
         </Link>
       </div> */}
     </div>
+  )
+}
+
+function FlightListComponent({
+  flights,
+  loading,
+  isNoFlights,
+  handleAdminPanelReservation,
+}: any) {
+  return (
+    <>
+      <FlightsListing
+        length={5}
+        handleAdminPanelReservation={handleAdminPanelReservation}
+      />
+      {flights?.length > 0 ? (
+        <Button
+          className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
+          type="default"
+        >
+          Vezi mai mult zboruri
+        </Button>
+      ) : (
+        <div>
+          {loading && <FlightsSkeleton count={5} />}{' '}
+          {!loading && isNoFlights && <Empty />}
+        </div>
+      )}
+    </>
   )
 }
