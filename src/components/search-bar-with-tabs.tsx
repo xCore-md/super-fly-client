@@ -8,7 +8,7 @@ export const SearchBarWithTabs = ({
   setLoading,
 }: {
   // eslint-disable-next-line
-  setLoading: (loading: boolean) => void
+  setLoading?: (loading: boolean) => void
 }) => {
   const [activeTab, setActiveTab] = useState('dus')
 
