@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { Modal, Tabs } from 'antd'
 import axs from '@/lib/axios'
 import { BaggageComponent } from './components/baggage'
@@ -20,6 +21,7 @@ export const TicketsInfoModal = ({
 }) => {
   return (
     <Modal
+      key={data.id}
       title="Lead Modal"
       open={showModal}
       onOk={() => closeModal()}

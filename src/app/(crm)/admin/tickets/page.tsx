@@ -26,18 +26,13 @@ export default function TicketsPage() {
       })
       .then((res) => {
         setData(res.data.data)
-        if (modalData.id) {
-          const newData = res.data.data.find(
-            (item: any) => item.id === modalData.id
-          )
-          setModalData(newData)
-        }
       })
   }
 
   const closeModal = () => {
     getData()
     setShowModal(false)
+    setModalData({})
   }
 
   return (
@@ -50,8 +45,8 @@ export default function TicketsPage() {
         onRow={(row) => ({
           className: 'cursor-pointer',
           onClick: () => {
-            setShowModal(true)
             setModalData(row)
+            setShowModal(true)
           },
         })}
       />

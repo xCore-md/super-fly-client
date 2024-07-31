@@ -31,12 +31,14 @@ interface ISearchBarProps {
   arrival: boolean
   setLoading?: any
   setIsNoFlights?: any
+  setActiveTab?: any
 }
 
 export const SearchBar = ({
   arrival,
   setLoading,
   setIsNoFlights,
+  setActiveTab,
 }: ISearchBarProps) => {
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
@@ -363,7 +365,12 @@ export const SearchBar = ({
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
                   onKeyDown={handleCalendarKeyDown}
-                  onChange={(date) => formik.setFieldValue('date_from', date)}
+                  onChange={(date) => {
+                    formik.setFieldValue('date_from', date)
+                    if (date === null) {
+                      setActiveTab?.('dus')
+                    }
+                  }}
                   onOpenChange={handleDepartureChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
@@ -384,7 +391,7 @@ export const SearchBar = ({
             </div>
 
             <div
-              className={`flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 md:w-auto ${arrival ? '' : 'pointer-events-none opacity-50'}`}
+              className={`flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 md:w-auto ${formik.values.date_from || arrival ? '' : 'pointer-events-none opacity-50'}`}
             >
               <div className="grid max-w-sm items-center pt-2">
                 <Label
@@ -406,7 +413,14 @@ export const SearchBar = ({
                       ? dayjs(formik.values.date_from).add(1, 'month')
                       : dayjs(formik.values.date_from)
                   }
-                  onChange={(date) => formik.setFieldValue('return_to', date)}
+                  onChange={(date) => {
+                    formik.setFieldValue('return_to', date)
+                    if (date === null) {
+                      setActiveTab?.('dus')
+                    } else {
+                      setActiveTab?.('intors')
+                    }
+                  }}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"

@@ -35,7 +35,11 @@ export const SearchBarWithTabs = ({
         </Button>
       </div>
 
-      <SearchBar setLoading={setLoading} arrival={activeTab === 'intors'} />
+      <SearchBar
+        setLoading={setLoading}
+        setActiveTab={setActiveTab}
+        arrival={activeTab === 'intors'}
+      />
     </div>
   )
 }

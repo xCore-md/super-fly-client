@@ -6,9 +6,9 @@ import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import bag from '@/assets/img/bags/bag.svg'
+import logo from '@/assets/img/logo_ticket.png'
 import planeArrival from '@/assets/img/plane-arrival.png'
 import planeDeparture from '@/assets/img/plane-departure.png'
-import logo from '@/assets/img/sf_logo.svg'
 import axs from '@/lib/axios'
 import { getFlightTime, getPassengerAge } from '@/lib/utils'
 
@@ -52,10 +52,7 @@ export default function TicketPage() {
           Ticket de zbor
         </h2>
         <div className="absolute bottom-0 right-0 flex">
-          <Image className=" w-[150px]" src={logo} alt="logo" />
-          <span className=" text-[29px] font-semibold leading-7 text-[#465ccb]">
-            .md
-          </span>
+          <Image className=" w-[250px]" src={logo} alt="logo" />
         </div>
       </div>
       {directions.map((routes, index) => (

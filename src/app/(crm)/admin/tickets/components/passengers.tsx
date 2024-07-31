@@ -180,7 +180,7 @@ export const PassengersContent = ({
 
   return (
     <div className="relative flex w-full flex-col pb-12">
-      {passengers.map((passenger, index) => (
+      {passengers?.map((passenger, index) => (
         <PassengerFields
           key={passenger.id}
           passenger={passenger}
