@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { Modal, Tabs } from 'antd'
 import axs from '@/lib/axios'
 import { BaggageComponent } from './components/baggage'
