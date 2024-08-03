@@ -35,6 +35,7 @@ export const Banner = () => {
         <div className="relative h-full w-full">
           <Image
             fill
+            id="banner-plane-image"
             className="banner-image h-full rounded-b-[50px] object-contain opacity-0"
             src={plane}
             alt="'plane"

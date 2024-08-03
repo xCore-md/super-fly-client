@@ -44,6 +44,7 @@ export const SearchBar = ({
   const [options, setOptions] = useState([] as any)
   const [openDeparture, setOpenDeparture] = useState(false)
   const [openArrival, setOpenArrival] = useState(false)
+  const [openPassengers, setOpenPassengers] = useState(false)
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [passengers, setPassengers] = useState({
     adults: 1,
@@ -253,8 +254,28 @@ export const SearchBar = ({
     return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
   }
 
+  const [flyToOpen, setFlyToOpen] = useState(false)
+
+  const handleClickOutside = () => {
+    setFlyToOpen(false)
+    setOpenDeparture(false)
+    setOpenArrival(false)
+    setOpenPassengers(false)
+  }
+
+  useEffect(() => {
+    document
+      ?.getElementById('banner-plane-image')
+      ?.addEventListener('mousedown', handleClickOutside)
+
+    return () =>
+      document
+        ?.getElementById('banner-plane-image')
+        ?.removeEventListener('mousedown', handleClickOutside)
+  })
+
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full md:w-auto">
+    <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
       <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
         <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
@@ -279,7 +300,10 @@ export const SearchBar = ({
                   optionRender={({ data }) => (
                     <span
                       className="flex justify-between gap-4"
-                      onClick={() => formik.setFieldValue('fly_from', data)}
+                      onClick={() => {
+                        formik.setFieldValue('fly_from', data)
+                        setFlyToOpen(true)
+                      }}
                     >
                       <span>
                         <span className="text-sm text-brand-blue">
@@ -317,15 +341,20 @@ export const SearchBar = ({
                 </Label> */}
                 <Select
                   showSearch
+                  open={flyToOpen}
                   placeholder="ATERIZARE ÎN"
                   popupClassName="autocompleteSelectPopUp"
                   className="autocompleteSelect h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_to.city || null}
                   filterOption={() => true}
+                  onClick={() => setFlyToOpen(!flyToOpen)}
                   optionRender={({ data }) => (
                     <span
                       className="flex justify-between gap-4"
-                      onClick={() => formik.setFieldValue('fly_to', data)}
+                      onClick={() => {
+                        formik.setFieldValue('fly_to', data)
+                        setOpenDeparture(true)
+                      }}
                     >
                       <span>
                         <span className="text-sm text-brand-blue">
@@ -370,6 +399,8 @@ export const SearchBar = ({
                     if (date === null) {
                       setActiveTab?.('dus')
                     }
+                    setOpenDeparture(!openDeparture)
+                    setOpenArrival(true)
                   }}
                   onOpenChange={handleDepartureChange}
                   className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
@@ -420,6 +451,8 @@ export const SearchBar = ({
                     } else {
                       setActiveTab?.('intors')
                     }
+                    setOpenArrival(!openArrival)
+                    setOpenPassengers(true)
                   }}
                   placeholder="Alege data"
                   onOpenChange={handleArrivalChange}
@@ -467,10 +500,13 @@ export const SearchBar = ({
                   />
                 }
                 placement="bottom"
-                trigger={['click']}
+                open={openPassengers}
                 onOpenChange={(status) => setPassengersPopOverStatus(status)}
               >
-                <Button className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0">
+                <Button
+                  onClick={() => setOpenPassengers(!openPassengers)}
+                  className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                >
                   <span className="flex">
                     <span
                       className={
