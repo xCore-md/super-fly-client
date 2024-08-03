@@ -76,11 +76,11 @@ export const Header = ({ menu }: IHeaderProps) => {
               </div>
               <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
             </div>
-            <div
+            {/* <div
               className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
             >
               ro
-            </div>
+            </div> */}
           </div>
 
           <div className="lg:hidden">

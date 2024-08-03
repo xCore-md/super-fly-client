@@ -38,7 +38,7 @@ export const SearchBarWithTabs = ({
       <SearchBar
         setLoading={setLoading}
         setActiveTab={setActiveTab}
-        arrival={activeTab === 'intors'}
+        tab={activeTab}
       />
     </div>
   )
