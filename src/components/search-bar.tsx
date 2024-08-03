@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { SwapOutlined } from '@ant-design/icons'
 import { DatePicker, Popover, Select, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
@@ -17,7 +18,6 @@ import infantsBlue from '@/assets/img/infants-blue.svg'
 import infants from '@/assets/img/infants.svg'
 import kidsBlue from '@/assets/img/kids-blue.svg'
 import kids from '@/assets/img/kids.svg'
-import refresh from '@/assets/img/refresh.svg'
 import search from '@/assets/img/search.svg'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -317,7 +317,7 @@ export const SearchBar = ({
                 onClick={switchCities}
                 className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-4"
               >
-                <Image src={refresh} alt="image" className="h-full w-full" />
+                <SwapOutlined className="text-xl" />
               </Button>
             </div>
 
