@@ -29,7 +29,7 @@ import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
 
 interface ISearchBarProps {
   setLoading?: any
-  tab: string
+  tab?: string
   setIsNoFlights?: any
   setActiveTab?: any
 }

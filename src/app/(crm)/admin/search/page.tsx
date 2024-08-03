@@ -22,7 +22,6 @@ export default function Search() {
     <div>
       <div className="mb-20 flex w-full flex-col items-center justify-center gap-8">
         <SearchBar
-          arrival={true}
           setLoading={handleChangeLoading}
           setIsNoFlights={setIsNoFlights}
         />
