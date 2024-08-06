@@ -315,7 +315,7 @@ export const SearchBar = ({
               <Button
                 variant="link"
                 onClick={switchCities}
-                className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-4"
+                className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-[18px]"
               >
                 <SwapOutlined className="text-xl" />
               </Button>

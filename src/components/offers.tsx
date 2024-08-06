@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -77,9 +76,9 @@ const Offers = () => {
                 Este un oraș plin de istorie și cultură, cu obiective turistice
                 celebre, cum ar fi Colosseum, Vatican și Fontana di Trevi.
               </p>
-              <Link className="text-blue-700 underline" href="">
+              {/* <Link className="text-blue-700 underline" href="">
                 Mai multe detalii
-              </Link>
+              </Link> */}
             </CardContent>
           </Card>
           <div className="h-[280px] w-full rounded-2xl">

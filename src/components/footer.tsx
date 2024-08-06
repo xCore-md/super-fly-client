@@ -3,14 +3,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import fb from '@/assets/img/fb.svg'
-import insta from '@/assets/img/insta.svg'
+import fbOriginal from '@/assets/img/fb-original.svg'
+import instaOriginal from '@/assets/img/insta-original.svg'
 import logo from '@/assets/img/logo-footer.png'
 import mail from '@/assets/img/mail.svg'
-import mastercard from '@/assets/img/mastercard.svg'
-import paynet from '@/assets/img/paynet.svg'
+import mastercardS from '@/assets/img/mastercard-s.svg'
+import paynetS from '@/assets/img/paynet-icon-s.svg'
 import phone from '@/assets/img/phone.svg'
-import visa from '@/assets/img/visa.svg'
+import visaS from '@/assets/img/visa-s.svg'
 import {
   Accordion,
   AccordionContent,
@@ -103,9 +103,15 @@ export const Footer = () => {
 
         <div className="mb-10 grid grid-cols-1 items-center justify-center justify-items-center gap-4 lg:grid-cols-12 lg:justify-items-start lg:gap-0">
           <Link href="/">
-            <Image src={logo} alt="log" width={82} height={16} />
+            <Image
+              src={logo}
+              alt="log"
+              width={82}
+              height={16}
+              className="w-full md:w-auto"
+            />
           </Link>
-          <p className="text-xs text-gray-500 lg:col-span-4">
+          <p className="text-xs text-gray-500 md:pr-6 lg:col-span-4">
             Misiunea noastră este de a oferi clienților noștri o experiență de
             călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
             mândrim cu faptul că suntem o agentie de bilete avia de încredere,
@@ -116,10 +122,10 @@ export const Footer = () => {
 
           <div className="flex justify-center gap-4 lg:col-span-2">
             <Link href="/">
-              <Image src={fb} alt="social" width={32} height={32} />
+              <Image src={fbOriginal} alt="social" width={32} height={32} />
             </Link>
             <Link href="/">
-              <Image src={insta} alt="social" width={32} height={32} />
+              <Image src={instaOriginal} alt="social" width={32} height={32} />
             </Link>
           </div>
 
@@ -141,9 +147,9 @@ export const Footer = () => {
           </div>
 
           <div className="flex items-center justify-end gap-5 lg:col-span-3 lg:gap-16">
-            <Image src={mastercard} width={52} height={40} alt="icon" />
-            <Image src={visa} width={78} height={44} alt="icon" />
-            <Image src={paynet} width={73} height={38} alt="icon" />
+            <Image src={mastercardS} width={52} height={40} alt="icon" />
+            <Image src={visaS} width={78} height={44} alt="icon" />
+            <Image src={paynetS} width={73} height={38} alt="icon" />
           </div>
         </div>
         <iframe
