@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
 import mastercard from '@/assets/img/mastercard.svg'
 import paynetWhite from '@/assets/img/paynet-white.svg'
@@ -6,9 +9,15 @@ import paynet from '@/assets/img/paynet.svg'
 import visaWhite from '@/assets/img/visa-white.svg'
 import visa from '@/assets/img/visa.svg'
 import { ReservationSummary } from '@/components/reservation/reservation-summary'
+import { useReservationContext } from '@/context/reservation-context'
 // import { FlyContent } from '../../../components/flights/flights-listing'
 
 export default function ConfirmReservationPage() {
+  const { reservation } = useReservationContext()
+  const router = useRouter()
+
+  if (!reservation) return router.push('/flights')
+
   return (
     <section className="flex justify-center pb-20 pt-5 lg:pt-14">
       <div className="flex w-full flex-col gap-2 lg:max-w-[1152px] lg:flex-row lg:gap-20">
@@ -239,7 +248,7 @@ export default function ConfirmReservationPage() {
           </div>
         </div>
         <div className="lg:w-1/3">
-          <ReservationSummary />
+          <ReservationSummary reservation={reservation} />
         </div>
       </div>
     </section>
