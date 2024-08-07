@@ -12,7 +12,7 @@ import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 
 export default function Flights() {
   const [loading, setLoading] = useState(true)
-  const { setFlights } = useFlightsContext()
+  const { setFlights, setInitialFlights } = useFlightsContext()
   const [firstLoad, setFirstLoad] = useState(true)
 
   useEffect(() => {
@@ -44,6 +44,7 @@ export default function Flights() {
             (a: any, b: any) => a.duration.total - b.duration.total
           )
           setFlights(data)
+          setInitialFlights(data)
           setLoading(false)
         })
         .catch((err) => console.log({ err }))

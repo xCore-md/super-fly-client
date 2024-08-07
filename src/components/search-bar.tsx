@@ -66,9 +66,7 @@ export const SearchBar = ({
 
   const formik = useFormik({
     initialValues: searchFields,
-    onSubmit: () => {
-      console.log('submit')
-    },
+    onSubmit: () => submitSearch(),
   })
 
   const closeAllFields = () => {
