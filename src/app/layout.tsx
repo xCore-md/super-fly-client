@@ -5,6 +5,7 @@ import React from 'react'
 import { FlightContextProvider } from '@/context/flight-context'
 import { FlightsContextProvider } from '@/context/flights-context'
 import { LoadingContextProvider } from '@/context/loading-context'
+import { ReservationContextProvider } from '@/context/reservation-context'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -32,9 +33,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LoadingContextProvider>
-          <FlightsContextProvider>
-            <FlightContextProvider>{children}</FlightContextProvider>
-          </FlightsContextProvider>
+          <ReservationContextProvider>
+            <FlightsContextProvider>
+              <FlightContextProvider>{children}</FlightContextProvider>
+            </FlightsContextProvider>
+          </ReservationContextProvider>
         </LoadingContextProvider>
       </body>
     </html>

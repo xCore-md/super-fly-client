@@ -1,9 +1,12 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
+import { FlyContent } from '@/components/flights/fly-content'
+import { useReservationContext } from '@/context/reservation-context'
 import { cn } from '@/lib/utils'
-import { FlightsListing } from '@components/flights/flights-listing'
 import { ReservationCard } from '@components/reservation/reservation-card'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
 import { ReservationSummary } from '@components/reservation/reservation-summary'
@@ -11,12 +14,20 @@ import { Button } from '@components/ui/button'
 import { Checkbox } from '@components/ui/checkbox'
 
 export default function Reservation() {
+  const { reservation } = useReservationContext()
+
   return (
-    <div className="mt-4 flex flex-col pb-10 pt-12 sm:px-10 lg:flex-row xl:px-0">
+    <div className="mt-4 flex flex-col px-10 pb-10  pt-12 lg:flex-row ">
       <section className="flex flex-col lg:w-2/3">
         <h2 className="mb-4 text-sm font-bold">Informații zbor:</h2>
 
-        <FlightsListing length={3} withoutAction />
+        <div
+          className={
+            'custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5'
+          }
+        >
+          <FlyContent flight={reservation} withoutAction />
+        </div>
 
         <ReservationMainForm />
 
