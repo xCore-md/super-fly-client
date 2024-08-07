@@ -18,7 +18,11 @@ export default function Reservation() {
   const { reservation } = useReservationContext()
   const router = useRouter()
 
-  if (reservation?.date_from?.length === 0) return router.push('/flights')
+  if (
+    Object.keys(reservation).length === 0 ||
+    reservation?.date_from?.length === 0
+  )
+    return router.push('/flights')
 
   return (
     <div className="mt-4 flex flex-col px-10 pb-10  pt-12 lg:flex-row ">
@@ -62,7 +66,7 @@ export default function Reservation() {
         </Link>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">
-        <ReservationSummary />
+        <ReservationSummary reservation={reservation} />
       </aside>
     </div>
   )

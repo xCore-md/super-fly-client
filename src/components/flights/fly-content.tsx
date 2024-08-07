@@ -30,8 +30,8 @@ export const FlyContent = (props: any) => {
   // I need to sum direction flight time
 
   const startDirectionTime = getFlightTime(
-    startDirection[0].local_departure,
-    startDirection[startDirection.length - 1].local_arrival
+    startDirection?.[0].local_departure,
+    startDirection?.[startDirection?.length - 1].local_arrival
   )
 
   const endDirection = flight?.route?.filter((route: any) => route.return === 1)
@@ -46,6 +46,8 @@ export const FlyContent = (props: any) => {
     router.push('/reservation')
   }, [flight, setReservation])
 
+  if (!flight?.route?.length) return null
+
   return (
     <>
       {props.withoutHeader ? (
@@ -56,13 +58,13 @@ export const FlyContent = (props: any) => {
         >
           <img
             alt="airline"
-            src={`https://images.kiwi.com/airlines/128x128/${startDirection[0].airline}.png`}
-            className={`w-12 ${endDirection.length > 0 ? 'lg:w-16 lg:-translate-y-14' : 'lg:w-24'}`}
+            src={`https://images.kiwi.com/airlines/128x128/${startDirection?.[0].airline}.png`}
+            className={`w-12 ${endDirection?.length > 0 ? 'lg:w-16 lg:-translate-y-14' : 'lg:w-24'}`}
           />
-          {endDirection.length > 0 && (
+          {endDirection?.length > 0 && (
             <img
               alt="airline"
-              src={`https://images.kiwi.com/airlines/128x128/${endDirection[0].airline}.png`}
+              src={`https://images.kiwi.com/airlines/128x128/${endDirection?.[0].airline}.png`}
               className="w-12 lg:w-16 lg:translate-y-4"
             />
           )}
@@ -216,7 +218,7 @@ export const FlyContent = (props: any) => {
               )}
             </footer>
           )}
-          {endDirection.length > 0 && (
+          {endDirection?.length > 0 && (
             <section
               className={cn('flex w-full flex-col justify-center pt-0', {
                 'lg:col-span-4': withoutAction,
@@ -224,7 +226,7 @@ export const FlyContent = (props: any) => {
             >
               <Divider />
               <div className="flex w-full flex-row items-center">
-                {endDirection.length > 0 && (
+                {endDirection?.length > 0 && (
                   <span className="flex w-8">
                     <ArrowLeftOutlined />
                   </span>
@@ -232,10 +234,10 @@ export const FlyContent = (props: any) => {
                 <main className="grid w-full grid-cols-4">
                   <div className="mr-2 text-right">
                     <div className="mb-2 text-xl font-normal">
-                      {getTimeFromDate(endDirection[0].local_departure)}
+                      {getTimeFromDate(endDirection?.[0].local_departure)}
                     </div>
                     <div className="text-xs text-gray-700">
-                      {endDirection[0].flyFrom}
+                      {endDirection?.[0].flyFrom}
                     </div>
                   </div>
                   <div className="col-span-2 mt-2">
@@ -250,7 +252,7 @@ export const FlyContent = (props: any) => {
 
                     <div className="fly-line block h-[1px] w-full bg-blue-700">
                       <div className="flex w-full justify-center">
-                        {endDirection.length > 1 && (
+                        {endDirection?.length > 1 && (
                           <div className="flex w-1/2 items-center justify-center gap-10">
                             {endDirection
                               .slice(1)

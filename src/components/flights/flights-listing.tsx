@@ -10,6 +10,7 @@ import { FlyContent } from './fly-content'
 
 interface IFlightsListingProps {
   length: number
+  flightsToShow: number
   margin?: string
   withoutAction?: boolean
   withoutFlightNumber?: boolean
@@ -55,18 +56,20 @@ export const FlightsListing = (props: IFlightsListingProps) => {
 
   if (!data?.length) return
 
-  return data?.map((flight: any, index: number) => (
-    <div
-      key={index}
-      ref={(el) => setRef(el, index)}
-      className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
-    >
-      <FlyContent
-        {...props}
-        flight={flight}
-        isAdminPanel={isAdminPanel}
-        handleAdminPanelSetSelectedFlight={handleAdminPanelSetSelectedFlight}
-      />
-    </div>
-  ))
+  return data
+    ?.slice(0, props.flightsToShow)
+    .map((flight: any, index: number) => (
+      <div
+        key={index}
+        ref={(el) => setRef(el, index)}
+        className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
+      >
+        <FlyContent
+          {...props}
+          flight={flight}
+          isAdminPanel={isAdminPanel}
+          handleAdminPanelSetSelectedFlight={handleAdminPanelSetSelectedFlight}
+        />
+      </div>
+    ))
 }

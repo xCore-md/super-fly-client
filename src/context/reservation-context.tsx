@@ -1,15 +1,14 @@
 'use client'
 
 import React, { createContext, useState, useContext, ReactNode } from 'react'
-import { searchFields, SearchFields } from '@/lib/constants'
 
 interface ReservationContextProps {
-  reservation: SearchFields
-  setReservation: React.Dispatch<React.SetStateAction<SearchFields>>
+  reservation: any
+  setReservation: React.Dispatch<React.SetStateAction<any>>
 }
 
 export const ReservationContext = createContext<ReservationContextProps>({
-  reservation: searchFields,
+  reservation: {},
   setReservation: () => {},
 })
 
@@ -20,7 +19,7 @@ interface ReservationContextProviderProps {
 export function ReservationContextProvider({
   children,
 }: ReservationContextProviderProps) {
-  const [reservation, setReservation] = useState<SearchFields>(searchFields)
+  const [reservation, setReservation] = useState<any>({})
 
   return (
     <ReservationContext.Provider value={{ reservation, setReservation }}>

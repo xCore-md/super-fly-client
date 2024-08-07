@@ -22,7 +22,9 @@ export const FlightsTabs = ({
 }: IFlightsTabsProps) => {
   const { flights, initialFlights, setFlights, setInitialFlights } =
     useFlightsContext()
+
   const [isSorting, setIsSorting] = useState(true)
+  const [flightsToShow, setFlightsToShow] = useState(10)
 
   const toggleSorting = useCallback(() => {
     if (isSorting) {
@@ -60,6 +62,8 @@ export const FlightsTabs = ({
           <TabsContent className="relative" value="ieftin">
             <FlightListComponent
               flights={flights}
+              flightsToShow={flightsToShow}
+              setFlightsToShow={setFlightsToShow}
               loading={loading}
               isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
@@ -68,6 +72,8 @@ export const FlightsTabs = ({
           <TabsContent value="rapid">
             <FlightListComponent
               flights={flights}
+              flightsToShow={flightsToShow}
+              setFlightsToShow={setFlightsToShow}
               loading={loading}
               isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
@@ -106,6 +112,8 @@ export const FlightsTabs = ({
 
 function FlightListComponent({
   flights,
+  flightsToShow,
+  setFlightsToShow,
   loading,
   isNoFlights,
   handleAdminPanelReservation,
@@ -114,15 +122,23 @@ function FlightListComponent({
     <>
       <FlightsListing
         length={5}
+        flightsToShow={flightsToShow}
         handleAdminPanelReservation={handleAdminPanelReservation}
       />
       {flights?.length > 0 ? (
-        <Button
-          className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
-          type="default"
-        >
-          Vezi mai mult zboruri
-        </Button>
+        <>
+          {flightsToShow === 10 && (
+            <Button
+              className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
+              type="default"
+              onClick={() =>
+                flights.length > 10 && setFlightsToShow(flightsToShow + 10)
+              }
+            >
+              Vezi mai mult zboruri
+            </Button>
+          )}
+        </>
       ) : (
         <div>
           {loading && <FlightsSkeleton count={5} />}{' '}

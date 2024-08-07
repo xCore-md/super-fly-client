@@ -1,20 +1,20 @@
 'use client'
+
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode } from 'react'
+import { useFlightContext } from '@/context/flight-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { Input } from '@components/ui/input'
-import { Progress } from '@components/ui/progress'
+import { ReservationTimer } from './reservation-timer'
 
-const countdownInitial = 60 * 30
+export const ReservationSummary = ({ reservation }: { reservation: any }) => {
+  const { flight } = useFlightContext()
+  const router = useRouter()
+  const { adults, children, infants } = flight
+  const { cityFrom, cityTo, route } = reservation
 
-const formatTime = (time: number) => {
-  const minutes = Math.floor(time / 60)
-  const seconds = time % 60
-  return `${minutes}m : ${seconds}s`
-}
-export const ReservationSummary = () => {
   const flightData = [
     {
       route: 'Chisinau - Milan',
@@ -32,24 +32,9 @@ export const ReservationSummary = () => {
       fareType: '1 x Economy Basic',
     },
   ]
-  const router = useRouter()
-  const [countDownProgress, setCountDownProgress] = useState(countdownInitial)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountDownProgress((prev) => {
-        if (prev <= 0) {
-          router.push('/')
-          clearInterval(interval)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [router])
+  const isRoundTrip = route?.some((r: any) => r.return)
+  const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
 
   return (
     <section className="flex flex-1 flex-col">
@@ -58,15 +43,18 @@ export const ReservationSummary = () => {
           <SectionLightBlue>
             <div>
               <h6 className="text-xs font-bold text-[#121C5E]">
-                Chisinau - Milano
+                {cityFrom} - {cityTo}
               </h6>
               <p className="mt-1 text-xxs text-[#9D9D9D]">
-                Dus - Întors - 1 Adult
+                {flightType} - {adults > 0 && `${adults} Adulți`}
+                {children > 0 && `, ${children} Copii`}
+                {infants > 0 && `, ${infants} Infanți`}
               </p>
             </div>
             <Button
               className="rounded-full border-brand-blue bg-transparent text-sm text-brand-blue"
               variant="outline"
+              onClick={() => router.push('/flights')}
             >
               Editează
             </Button>
@@ -110,25 +98,7 @@ export const ReservationSummary = () => {
           Total: <span className="font-bold">€466</span>
         </div>
 
-        <p className="mt-9 text-center text-lg font-bold lg:text-left">
-          Prețul expiră în:
-          <span className="ml-1 text-red-600">
-            {formatTime(countDownProgress)}
-          </span>
-        </p>
-
-        <Progress
-          value={(countDownProgress / countdownInitial) * 100}
-          progressClassName="bg-red-600 "
-          className="mt-4 h-0.5 w-[100%] bg-[#E7E7E7]"
-          showRectangle
-        />
-
-        <p className="mt-3 text-xxs text-[#9D9D9D]">
-          <span className="font-bold">Economisești timp și bani:</span> Exemplu
-          text, in care va fi indicat anuntul despre disponibilitatea pretului,
-          si propunerea de a rezerva acum, pentru a nu pierde oferta la pret.
-        </p>
+        <ReservationTimer />
 
         <Link
           href="/confirm-reservation"
