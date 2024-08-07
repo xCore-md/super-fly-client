@@ -10,7 +10,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
-import { FlyContent } from '@components/flights/flights-listing'
+import { FlyContent } from './flights/fly-content'
 import { Button } from './ui/button'
 
 const CollapsibleBlock = () => {

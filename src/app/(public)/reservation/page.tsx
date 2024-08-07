@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
 import { FlyContent } from '@/components/flights/fly-content'
@@ -15,6 +16,9 @@ import { Checkbox } from '@components/ui/checkbox'
 
 export default function Reservation() {
   const { reservation } = useReservationContext()
+  const router = useRouter()
+
+  if (reservation?.date_from?.length === 0) return router.push('/flights')
 
   return (
     <div className="mt-4 flex flex-col px-10 pb-10  pt-12 lg:flex-row ">

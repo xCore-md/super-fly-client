@@ -23,7 +23,9 @@ export const FlyContent = (props: any) => {
   } = props
   const { setReservation } = useReservationContext()
   const router = useRouter()
-  const startDirection = flight.route.filter((route: any) => route.return === 0)
+  const startDirection = flight?.route?.filter(
+    (route: any) => route.return === 0
+  )
 
   // I need to sum direction flight time
 
@@ -32,7 +34,7 @@ export const FlyContent = (props: any) => {
     startDirection[startDirection.length - 1].local_arrival
   )
 
-  const endDirection = flight.route.filter((route: any) => route.return === 1)
+  const endDirection = flight?.route?.filter((route: any) => route.return === 1)
 
   const endDirectionTime = getFlightTime(
     endDirection?.[0]?.local_departure,
