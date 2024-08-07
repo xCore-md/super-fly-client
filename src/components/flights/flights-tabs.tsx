@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Empty } from 'antd'
 import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
@@ -25,6 +25,10 @@ export const FlightsTabs = ({
 
   const [isSorting, setIsSorting] = useState(true)
   const [flightsToShow, setFlightsToShow] = useState(10)
+
+  useEffect(() => {
+    setInitialFlights(flights)
+  }, [])
 
   const toggleSorting = useCallback(() => {
     if (isSorting) {
