@@ -1,5 +1,9 @@
 import Image from 'next/image'
 import React from 'react'
+import { DeleteOutlined } from '@ant-design/icons'
+import { Select, Input, DatePicker, Button, Tabs } from 'antd'
+// import { useFormik } from 'formik'
+import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
 import thirtyKgSvg from '@/assets/img/bags/30kg.svg'
@@ -8,137 +12,201 @@ import passportSvg from '@/assets/img/passport.svg'
 import { cn } from '@/lib/utils'
 import { BagNumberInput } from '@components/form/bag-number-input'
 import { ReservationCard } from '@components/reservation/reservation-card'
-import { Button } from '@components/ui/button'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
-import { DatePicker } from '@components/ui/datepicker'
-import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
+import 'react-phone-input-2/lib/style.css'
 
 interface IMainFormProps {
   showBaggage?: boolean
+  countries?: any
+  passengersCount: number
 }
 
-export const ReservationMainForm = ({ showBaggage = true }: IMainFormProps) => {
+export const ReservationMainForm = ({
+  showBaggage = true,
+  passengersCount,
+  countries,
+}: IMainFormProps) => {
+  const countriesOptions = countries?.map((country: any) => ({
+    label: (
+      <span className="flex items-center gap-2">
+        <img className="h-3 w-4" src={country.flags.png} alt="icon" />{' '}
+        {country.name.common} ({country.cca2})
+      </span>
+    ),
+    value: country.cca2,
+  }))
+
+  // const formik = useFormik({
+  //   initialValues: {},
+  //   onSubmit: () => {},
+  // })
+
+  const items = Array.from({ length: passengersCount }).map((_, index) => ({
+    key: `index-${index}`,
+    label: `Pasager ${index + 1}`,
+    children: (
+      <PassengerForm
+        key={index}
+        countriesOptions={countriesOptions}
+        showBaggage={showBaggage}
+      />
+    ),
+  }))
+
+  return (
+    <div className="mt-4">
+      {passengersCount === 1 && (
+        <PassengerForm
+          countriesOptions={countriesOptions}
+          showBaggage={showBaggage}
+        />
+      )}
+      {passengersCount > 1 && <Tabs items={items} defaultActiveKey={'0'} />}
+    </div>
+  )
+}
+
+const PassengerForm = ({ countriesOptions, showBaggage }: any) => {
+  const { Option } = Select
+
   return (
     <ReservationCard>
-      <div className="flex flex-col lg:flex-row lg:gap-5">
-        <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
-          Prenume
-        </Label>
-        <Input
-          id="reservation-form-first-name"
-          type="text"
-          placeholder="Prenume*"
-        />
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div>
+          <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
+            Prenume
+          </Label>
+          <Input className="h-10" type="text" placeholder="Prenume*" />
+        </div>
 
-        <Label
-          htmlFor="reservation-form-last-name"
-          className="mb-1 ml-1 mt-3 lg:hidden"
-        >
-          Nume
-        </Label>
-        <Input
-          id="reservation-form-last-name"
-          type="text"
-          placeholder="Nume*"
-        />
+        <div>
+          <Label
+            htmlFor="reservation-form-last-name"
+            className="mb-1 ml-1 mt-3 lg:hidden"
+          >
+            Nume
+          </Label>
+          <Input className="h-10" type="text" placeholder="Nume*" />
+        </div>
+        <div>
+          <Select placeholder="Gen" className="h-10 w-full">
+            <Option value="M">Masculin</Option>
+            <Option value="F">Feminin</Option>
+          </Select>
+        </div>
       </div>
 
-      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
-        <Label
-          htmlFor="reservation-form-country-code"
-          className="mb-1 ml-1 lg:hidden"
-        >
-          Codul tarii
-        </Label>
-        <Input
-          type="text"
-          placeholder="Codul tarii*"
-          id="reservation-form-country-code"
-        />
-
-        <Label
-          htmlFor="reservation-form-phone-number"
-          className="mb-1 ml-1 mt-3 lg:hidden"
-        >
-          Numar de telefon
-        </Label>
-        <Input
-          type="text"
-          placeholder="Numar de telefon*"
-          id="reservation-form-phone-number"
-        />
+      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3 lg:mt-5">
+        <div>
+          <Label
+            htmlFor="reservation-form-country-code"
+            className="mb-1 ml-1 lg:hidden"
+          >
+            Nationalitate
+          </Label>
+          <Select
+            placeholder="Nationalitate"
+            className="h-10 w-full"
+            options={countriesOptions}
+            showSearch
+          />
+        </div>
+        <div>
+          <Label
+            htmlFor="reservation-form-phone-number"
+            className="mb-1 ml-1 mt-3 lg:hidden"
+          >
+            Numar de telefon
+          </Label>
+          <PhoneInput
+            inputStyle={{
+              width: '100%',
+              height: '40px',
+              border: '1px solid #E7E7E7',
+            }}
+            country={'md'}
+            inputProps={{
+              autoFocus: true,
+            }}
+          />
+        </div>
+        <div className="flex flex-col lg:gap-5">
+          <Label
+            htmlFor="reservation-form-email"
+            className="mb-1 ml-1 lg:hidden"
+          >
+            Adresa de email
+          </Label>
+          <Input className="h-10" type="text" placeholder="Adresa de email*" />
+        </div>
       </div>
 
       {/*todo: add phone and birth date */}
-
-      <div className="mt-3 flex flex-col lg:mt-5 lg:gap-5">
-        <Label htmlFor="reservation-form-email" className="mb-1 ml-1 lg:hidden">
-          Adresa de email
-        </Label>
-        <Input
-          type="text"
-          placeholder="Adresa de email*"
-          id="reservation-form-email"
-        />
-      </div>
 
       <div className="mt-3 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm lg:mt-7">
         Adaugă datele pașaportului
       </div>
 
-      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
-        <Label htmlFor="prenume" className="mb-1 ml-1 lg:hidden">
-          Prenume
-        </Label>
-        <Input type="text" placeholder="Prenume*" id="prenume" />
-
-        <Label htmlFor="nume" className="mb-1 ml-1 mt-3 lg:hidden">
-          Nume
-        </Label>
-        <Input type="text" placeholder="Nume*" id="nume" />
-
-        <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
-          Data nașterii
-        </Label>
-        {/*<Input type="text" placeholder="Data nașterii*" id="data-nasterii" />*/}
-        <DatePicker />
+      <div className="mt-3 grid grid-cols-1 md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
+        <div>
+          <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
+            Data nașterii
+          </Label>
+          <DatePicker className="h-10 w-full" placeholder="Data nașterii" />
+        </div>
+        <div>
+          <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
+            Data eliberării pașaportului
+          </Label>
+          <DatePicker
+            className="h-10 w-full"
+            placeholder="Data eliberării pașaportului"
+          />
+        </div>
+        <div>
+          <Label htmlFor="data-nasterii" className="mb-1 ml-1 mt-3 lg:hidden">
+            Data expirării pașaportului
+          </Label>
+          <DatePicker
+            className="h-10 w-full"
+            placeholder="Data expirării pașaportului"
+          />
+        </div>
+        <div className="flex flex-col lg:gap-5">
+          <Label
+            htmlFor="reservation-form-email"
+            className="mb-1 ml-1 lg:hidden"
+          >
+            Numărul pașaportului
+          </Label>
+          <Input
+            className="h-10"
+            type="text"
+            placeholder="Numărul pașaportului*"
+          />
+        </div>
+        <div>
+          <Button
+            type="primary"
+            className="flex h-10 w-full items-center justify-center rounded-lg px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-brand-blue"
+          >
+            <span className="mr-2">Poza pașaport</span>
+            <Image src={passportSvg} alt={'passport image'} />
+          </Button>
+        </div>
+        <div className="flex justify-between">
+          <p className="text-xs">
+            <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
+            <span>file321455xx45522668adasda65ss.jpg</span>
+          </p>
+          <Button
+            icon={<DeleteOutlined />}
+            className="min-w-8 text-xs text-red-500"
+          />
+        </div>
       </div>
-
-      <div className="mt-3 flex flex-col lg:mt-5 lg:flex-row lg:gap-5">
-        <Label htmlFor="numar-document" className="mb-1 ml-1 lg:hidden">
-          Număr document
-        </Label>
-        <Input type="text" placeholder="Număr document*" id="numar-document" />
-
-        <Label htmlFor="data-eliberarii" className="mb-1 ml-1 mt-3 lg:hidden">
-          Data Eliberării
-        </Label>
-        <DatePicker />
-        {/*<Input*/}
-        {/*  type="text"*/}
-        {/*  placeholder="Data Eliberării*"*/}
-        {/*  id="data-eliberarii"*/}
-        {/*/>*/}
-
-        <Label htmlFor="data-expirarii" className="mb-1 ml-1 mt-3 lg:hidden">
-          Data Expirării
-        </Label>
-        {/*<Input type="text" placeholder="Data Expirării*" id="data-expirarii" />*/}
-        <DatePicker />
-      </div>
-
-      <Button className="mt-8 flex h-11 w-full items-center justify-center rounded-lg bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400">
-        <span className="mr-2">Poza pașaport</span>
-        <Image src={passportSvg} alt={'passport image'} />
-      </Button>
-
-      <p className="mt-5 text-xs">
-        <span className="text-gray-500">Document încărcat:</span>{' '}
-        <span>file321455xx45522668adasda65ss.jpg</span>
-      </p>
-      <p className="mt-1 text-xs text-red-500">Șterge poza</p>
 
       <Separator className="my-8" />
 
@@ -146,7 +214,6 @@ export const ReservationMainForm = ({ showBaggage = true }: IMainFormProps) => {
     </ReservationCard>
   )
 }
-
 const BaggageSection = () => {
   const bags: IBags[] = [
     {

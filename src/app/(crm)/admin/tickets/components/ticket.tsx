@@ -327,15 +327,15 @@ export const Ticket = ({
             </p>
             <p>
               Total încasat: <span className="font-semibold">{soldPrice}</span>{' '}
-              $
+              €
             </p>
             <p>
               Total de emis: <span className="font-semibold">{costPrice}</span>{' '}
-              $
+              €
             </p>
             <p>
               Mark-up vînzare:{' '}
-              <span className="font-semibold">{priceDifference}</span> $
+              <span className="font-semibold">{priceDifference}</span> €
             </p>
           </div>
         </Section>

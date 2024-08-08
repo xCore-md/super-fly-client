@@ -66,7 +66,7 @@ export const SearchBar = ({
 
   const formik = useFormik({
     initialValues: searchFields,
-    onSubmit: () => submitSearch(),
+    onSubmit: () => {},
   })
 
   const closeAllFields = () => {
@@ -539,7 +539,7 @@ export const SearchBar = ({
           </div>
 
           <Button
-            onClick={submitSearch}
+            onClick={() => submitSearch()}
             className="search-button-shadow flex h-[56px] w-[56px] items-center justify-center rounded-full bg-emerald-400 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full"
           >
             <span className="mr-3  font-medium text-white min-[1024px]:hidden">

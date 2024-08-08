@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
 import { FlyContent } from '@/components/flights/fly-content'
+import { useFlightContext } from '@/context/flight-context'
 import { useReservationContext } from '@/context/reservation-context'
+import axs from '@/lib/axios'
 import { cn } from '@/lib/utils'
 import { ReservationCard } from '@components/reservation/reservation-card'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
@@ -16,7 +18,21 @@ import { Checkbox } from '@components/ui/checkbox'
 
 export default function Reservation() {
   const { reservation } = useReservationContext()
+  const { flight } = useFlightContext()
+  const { adults, children, infants } = flight
   const router = useRouter()
+  const [countries, setCountries] = useState([])
+
+  useEffect(() => {
+    axs
+      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .then((res) => {
+        setCountries(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
 
   if (
     Object.keys(reservation).length === 0 ||
@@ -24,8 +40,12 @@ export default function Reservation() {
   )
     return router.push('/flights')
 
+  console.log({ reservation, flight })
+
+  const passengersCount = adults + children + infants
+
   return (
-    <div className="mt-4 flex flex-col px-10 pb-10  pt-12 lg:flex-row ">
+    <div className="mt-4 flex flex-col px-5 pb-10 pt-12 lg:flex-row lg:px-10 ">
       <section className="flex flex-col lg:w-2/3">
         <h2 className="mb-4 text-sm font-bold">Informații zbor:</h2>
 
@@ -37,7 +57,10 @@ export default function Reservation() {
           <FlyContent flight={reservation} withoutAction />
         </div>
 
-        <ReservationMainForm />
+        <ReservationMainForm
+          countries={countries}
+          passengersCount={passengersCount}
+        />
 
         <OnlineCheckinSection />
 
