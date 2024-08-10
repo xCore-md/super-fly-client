@@ -10,7 +10,7 @@ export const ReservationCard = (props: IReservationCardProps) => {
   return (
     <div
       className={cn(
-        'mt-4 rounded-2xl bg-white px-3 py-6 shadow-md lg:p-10',
+        'custom-shadow mt-4 rounded-2xl bg-white px-3 py-6 lg:p-10',
         props.className
       )}
     >

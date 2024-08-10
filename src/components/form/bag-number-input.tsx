@@ -5,12 +5,29 @@ import { Button } from '@components/ui/button'
 
 type actionType = 'minus' | 'plus'
 
-export const BagNumberInput = () => {
+export const BagNumberInput = ({
+  formik,
+  passengerIndex,
+  bag,
+  bagIndex,
+}: {
+  formik: any
+  passengerIndex: number
+  bag: any
+  bagIndex: number
+}) => {
   const [value, setValue] = useState(0)
   const onChange = (type: actionType) => () => {
     const newValue = type === 'plus' ? value + 1 : value - 1
     if (newValue >= 0 && newValue <= 99) {
       setValue(newValue)
+      formik.setFieldValue(
+        `passengers[${passengerIndex || 0}].baggage[${bagIndex}]`,
+        {
+          type: bag.type,
+          count: newValue,
+        }
+      )
     }
   }
 

@@ -436,7 +436,6 @@ const AdminPanelReservationForm = ({
               >
                 <DatePicker
                   className="w-full"
-                  name={`passengers[${index}].passport_issued_at`}
                   format={'DD.MM.YYYY'}
                   onKeyDown={handleCalendarKeyDown}
                   onChange={(d) => {

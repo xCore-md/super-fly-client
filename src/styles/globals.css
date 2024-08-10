@@ -107,6 +107,14 @@ html {
   gap: 89px;
 }
 
+.ant-upload-list-item {
+  display: none !important;
+}
+
+.ant-upload {
+  display: block !important;
+}
+
 .search-button-shadow {
   box-shadow: 0 0 7px 0 rgba(0 0 0 / 45%);
 }

@@ -47,7 +47,7 @@ export default function Reservation() {
   return (
     <div className="mt-4 flex flex-col px-5 pb-10 pt-12 lg:flex-row lg:px-10 ">
       <section className="flex flex-col lg:w-2/3">
-        <h2 className="mb-4 text-sm font-bold">Informații zbor:</h2>
+        <h2 className="mb-4 text-lg font-medium">Informații zbor:</h2>
 
         <div
           className={
