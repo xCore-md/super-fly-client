@@ -11,7 +11,6 @@ import {
   Upload,
   UploadProps,
 } from 'antd'
-import { useFormik } from 'formik'
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
@@ -31,12 +30,14 @@ interface IMainFormProps {
   showBaggage?: boolean
   countries?: any
   passengersCount: number
+  formik: any
 }
 
 export const ReservationMainForm = ({
   showBaggage = true,
   passengersCount,
   countries,
+  formik,
 }: IMainFormProps) => {
   const countriesOptions = countries?.map((country: any) => ({
     label: (
@@ -47,13 +48,6 @@ export const ReservationMainForm = ({
     ),
     value: country.cca2,
   }))
-
-  const formik = useFormik({
-    initialValues: {},
-    onSubmit: () => {},
-  })
-
-  console.log({ formik: formik.values })
 
   const items = Array.from({ length: passengersCount }).map((_, index) => ({
     key: `index-${index}`,
@@ -76,6 +70,7 @@ export const ReservationMainForm = ({
           countriesOptions={countriesOptions}
           showBaggage={showBaggage}
           formik={formik}
+          index={0}
         />
       )}
       {passengersCount > 1 && <Tabs items={items} defaultActiveKey={'0'} />}
@@ -85,7 +80,7 @@ export const ReservationMainForm = ({
 
 const PassengerForm = ({
   formik,
-  index,
+  index = 0,
   countriesOptions,
   showBaggage,
 }: any) => {
@@ -134,9 +129,15 @@ const PassengerForm = ({
           <Input
             autoFocus
             className="h-10"
+            name={formik.values.passengers?.[index]?.first_name}
             type="text"
             placeholder="Prenume*"
-            onChange={formik.handleChange}
+            onChange={(e) =>
+              formik.setFieldValue(
+                `passengers[${index}].first_name`,
+                e.target.value
+              )
+            }
           />
         </div>
 
@@ -148,7 +149,13 @@ const PassengerForm = ({
             Nume
           </Label>
           <Input
-            onChange={formik.handleChange}
+            onChange={(e) =>
+              formik.setFieldValue(
+                `passengers[${index}].last_name`,
+                e.target.value
+              )
+            }
+            name={formik.values.passengers?.[index]?.last_name}
             className="h-10"
             type="text"
             placeholder="Nume*"

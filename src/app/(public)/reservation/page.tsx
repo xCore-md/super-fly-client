@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { useFormik } from 'formik'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
 import { FlyContent } from '@/components/flights/fly-content'
 import { useFlightContext } from '@/context/flight-context'
@@ -23,6 +24,11 @@ export default function Reservation() {
   const router = useRouter()
   const [countries, setCountries] = useState([])
 
+  const formik = useFormik({
+    initialValues: {},
+    onSubmit: () => {},
+  })
+
   useEffect(() => {
     axs
       .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
@@ -39,8 +45,6 @@ export default function Reservation() {
     reservation?.date_from?.length === 0
   )
     return router.push('/flights')
-
-  console.log({ reservation, flight })
 
   const passengersCount = adults + children + infants
 
@@ -60,6 +64,7 @@ export default function Reservation() {
         <ReservationMainForm
           countries={countries}
           passengersCount={passengersCount}
+          formik={formik}
         />
 
         <OnlineCheckinSection />
@@ -89,7 +94,7 @@ export default function Reservation() {
         </Link>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">
-        <ReservationSummary reservation={reservation} />
+        <ReservationSummary reservation={reservation} formik={formik} />
       </aside>
     </div>
   )

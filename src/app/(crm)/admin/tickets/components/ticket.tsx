@@ -419,6 +419,7 @@ export const source: IKeyValue = {
   facebook: 'Facebook',
   google: 'Google',
   call: 'Apel intrare',
+  superfly: 'SuperFly',
   recommendation: 'Recomandare',
   ads1: 'Publicitate 1',
   ads2: 'Publicitate 2',
