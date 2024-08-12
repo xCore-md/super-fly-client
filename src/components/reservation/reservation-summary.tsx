@@ -3,18 +3,18 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { ReactNode } from 'react'
+import { Divider } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { ReservationTimer } from './reservation-timer'
-import { Divider } from 'antd'
 
 export const ReservationSummary = ({
   reservation,
   formik,
 }: {
   reservation: any
-  formik: any
+  formik?: any
 }) => {
   const { flight } = useFlightContext()
   const router = useRouter()
@@ -88,33 +88,35 @@ export const ReservationSummary = ({
             <h6>Bagaje</h6>
           </SectionLightBlue>
           <div className="flex flex-col">
-            {formik.values.passengers?.map((passenger: any, index: number) => (
-              <div key={index}>
-                <div className="grid grid-cols-4 gap-4">
-                  <p className="col-span-1 text-sm uppercase">
-                    {passenger.first_name} {passenger.last_name}
-                  </p>
-                  <div className="col-span-2 grid grid-cols-3 gap-4">
-                    {passenger?.baggage?.map((bag: any, bagIndex: number) => (
-                      <div key={bagIndex}>
-                        <p className="text-xs font-bold text-[#171717]">
-                          {bag.type}
-                        </p>
-                        <p className="text-xs text-[#9D9D9D]">
-                          {bag.count} x €30
-                        </p>
-                      </div>
-                    ))}
+            {formik?.values?.passengers?.map(
+              (passenger: any, index: number) => (
+                <div key={index}>
+                  <div className="grid grid-cols-4 gap-4">
+                    <p className="col-span-1 text-sm uppercase">
+                      {passenger.first_name} {passenger.last_name}
+                    </p>
+                    <div className="col-span-2 grid grid-cols-3 gap-4">
+                      {passenger?.baggage?.map((bag: any, bagIndex: number) => (
+                        <div key={bagIndex}>
+                          <p className="text-xs font-bold text-[#171717]">
+                            {bag.type}
+                          </p>
+                          <p className="text-xs text-[#9D9D9D]">
+                            {bag.count} x €30
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                  {formik.values.passengers.length > 0 &&
+                  index !== formik.values.passengers.length - 1 ? (
+                    <Divider />
+                  ) : (
+                    ''
+                  )}
                 </div>
-                {formik.values.passengers.length > 0 &&
-                index !== formik.values.passengers.length - 1 ? (
-                  <Divider />
-                ) : (
-                  ''
-                )}
-              </div>
-            ))}
+              )
+            )}
           </div>
 
           <div>
