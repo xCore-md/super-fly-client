@@ -14,7 +14,6 @@ import {
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
-import thirtyKgSvg from '@/assets/img/bags/30kg.svg'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import passportSvg from '@/assets/img/passport.svg'
 import { cn, handleCalendarKeyDown } from '@/lib/utils'
@@ -24,13 +23,13 @@ import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import 'react-phone-input-2/lib/style.css'
-// import axs from '@/lib/axios'
 
 interface IMainFormProps {
   showBaggage?: boolean
   countries?: any
   passengersCount: number
   formik: any
+  reservation: any
 }
 
 export const ReservationMainForm = ({
@@ -38,6 +37,7 @@ export const ReservationMainForm = ({
   passengersCount,
   countries,
   formik,
+  reservation,
 }: IMainFormProps) => {
   const countriesOptions = countries?.map((country: any) => ({
     label: (
@@ -59,6 +59,7 @@ export const ReservationMainForm = ({
         countriesOptions={countriesOptions}
         showBaggage={showBaggage}
         formik={formik}
+        bagsPrice={reservation?.bags_price}
       />
     ),
   }))
@@ -71,6 +72,7 @@ export const ReservationMainForm = ({
           showBaggage={showBaggage}
           formik={formik}
           index={0}
+          bagsPrice={reservation?.bags_price}
         />
       )}
       {passengersCount > 1 && <Tabs items={items} defaultActiveKey={'0'} />}
@@ -83,6 +85,7 @@ const PassengerForm = ({
   index = 0,
   countriesOptions,
   showBaggage,
+  bagsPrice,
 }: any) => {
   const { Option } = Select
 
@@ -316,35 +319,35 @@ const PassengerForm = ({
 
       <Separator className="my-8" />
 
-      {showBaggage && <BaggageSection formik={formik} index={index} />}
+      {showBaggage && (
+        <BaggageSection formik={formik} index={index} bagsPrice={bagsPrice} />
+      )}
     </ReservationCard>
   )
 }
-const BaggageSection = ({ formik, index }: { formik: any; index: number }) => {
+const BaggageSection = ({
+  formik,
+  index,
+  bagsPrice,
+}: {
+  formik: any
+  index: number
+  bagsPrice: any
+}) => {
   const bags: IBags[] = [
     {
       id: 'bagaj_de_mana',
-      size: '57 x 20 x 38 cm',
+      size: '20 x 40 x 50 cm',
       name: 'Bagaj de mana',
-      price: '10.99€',
       imageUrl: tenKgSvg,
       type: '10kg',
     },
     {
       id: 'bagaj_de_cala',
-      size: '78 x 28 x 52 cm',
+      size: '28 x 52 x 78 cm',
       name: 'Bagaj de cala',
-      price: '20.99€',
       imageUrl: twentyKgSvg,
       type: '20kg',
-    },
-    {
-      id: 'bagaj_de_cala_mare',
-      size: '78 x 28 x 52 cm',
-      name: 'Bagaj de cala',
-      price: '30.99€',
-      imageUrl: thirtyKgSvg,
-      type: '30kg',
     },
   ]
 
@@ -361,21 +364,19 @@ const BaggageSection = ({ formik, index }: { formik: any; index: number }) => {
             />
 
             <div className="w-full text-center lg:text-center">
-              <span className="text-xs text-[#757575]">40 x 20 x 30 cm</span>
+              <span className="text-xs text-[#757575]">20 x 30 x 40 cm</span>
               <div className="w-full lg:hidden">
                 <h6 className="text-sm font-medium">Obiect personal</h6>
               </div>
             </div>
           </CardHeader>
 
-          {/*mobile*/}
-          <CardContent className="flex-2 flex w-28 items-center border-l-2 px-5 py-3 lg:hidden lg:p-6">
-            <p className="mt-0.5 text-xs text-green-600">{bags[0].price}</p>
-          </CardContent>
-
           {/*desktop*/}
           <CardContent className="mt-auto hidden min-h-14 rounded-xl bg-brand-light-blue p-2 lg:block">
-            <BagTypeAndPrice bag={bags[0]} />
+            <h6 className="text-sm font-medium">Obiect personal</h6>
+            <div className="text-sm font-light text-green-600">
+              Inclus Gratuit
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -393,7 +394,11 @@ const BaggageSection = ({ formik, index }: { formik: any; index: number }) => {
               <div className="w-full text-center lg:text-center">
                 <span className="text-xs text-[#757575]">{bag.size}</span>
                 <div className="w-full lg:hidden">
-                  <BagTypeAndPrice bag={bag} />
+                  <BagTypeAndPrice
+                    bag={bag}
+                    bagsPrice={bagsPrice}
+                    index={bagIndex}
+                  />
                 </div>
               </div>
             </CardHeader>
@@ -401,7 +406,9 @@ const BaggageSection = ({ formik, index }: { formik: any; index: number }) => {
             {/*mobile*/}
             <CardContent className="flex-2 flex w-28 items-center border-l-2 px-5 py-3 lg:hidden lg:p-6">
               {bag.hideInput ? (
-                <p className="mt-0.5 text-xs text-green-600">{bag.price}</p>
+                <p className="mt-0.5 text-xs text-green-600">
+                  {bagsPrice[index + 1]}
+                </p>
               ) : (
                 <BagNumberInput
                   formik={formik}
@@ -414,7 +421,11 @@ const BaggageSection = ({ formik, index }: { formik: any; index: number }) => {
 
             {/*desktop*/}
             <CardContent className="mt-auto hidden min-h-14 rounded-xl bg-brand-light-blue p-2 lg:block">
-              <BagTypeAndPrice bag={bag} />
+              <BagTypeAndPrice
+                bag={bag}
+                bagsPrice={bagsPrice}
+                index={bagIndex}
+              />
             </CardContent>
           </Card>
 
@@ -438,13 +449,20 @@ interface IBags {
   id: string
   size: string
   name: string
-  price: string
   imageUrl: string
   hideInput?: boolean
   type: string
 }
 
-const BagTypeAndPrice = ({ bag }: { bag: IBags }) => {
+const BagTypeAndPrice = ({
+  bag,
+  bagsPrice,
+  index,
+}: {
+  bag: IBags
+  bagsPrice: any
+  index: number
+}) => {
   return (
     <>
       <h6 className="text-sm font-medium">{bag.name}</h6>
@@ -453,7 +471,7 @@ const BagTypeAndPrice = ({ bag }: { bag: IBags }) => {
           hidden: bag.hideInput,
         })}
       >
-        {bag.price}
+        {bagsPrice[index + 1]} €
       </p>
     </>
   )

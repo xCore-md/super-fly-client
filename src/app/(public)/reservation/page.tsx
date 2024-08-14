@@ -65,6 +65,7 @@ export default function Reservation() {
           countries={countries}
           passengersCount={passengersCount}
           formik={formik}
+          reservation={reservation}
         />
 
         <OnlineCheckinSection />
