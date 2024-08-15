@@ -5,6 +5,7 @@ export interface Location {
   city: string
   code: string
   country: string
+  cityId: string
 }
 
 export interface SearchFields {
@@ -23,12 +24,14 @@ export const searchFields: SearchFields = {
     city: '',
     code: '',
     country: '',
+    cityId: '',
   },
   fly_to: {
     key: 0,
     city: '',
     code: '',
     country: '',
+    cityId: '',
   },
   date_from: '',
   return_to: '',
