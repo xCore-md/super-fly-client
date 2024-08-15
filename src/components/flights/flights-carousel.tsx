@@ -91,7 +91,6 @@ export const FlightsCarousel = () => {
       }
     )
     setLoading(false)
-    console.log('@debug', result)
     setPrices(result)
   }
 
