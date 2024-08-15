@@ -2,14 +2,20 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useMemo } from 'react'
+import { Divider } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
-import { Input } from '@components/ui/input'
 import { ReservationTimer } from './reservation-timer'
 
-export const ReservationSummary = ({ reservation }: { reservation: any }) => {
+export const ReservationSummary = ({
+  reservation,
+  formik,
+}: {
+  reservation: any
+  formik?: any
+}) => {
   const { flight } = useFlightContext()
   const router = useRouter()
   const { adults, children, infants } = flight
@@ -36,6 +42,27 @@ export const ReservationSummary = ({ reservation }: { reservation: any }) => {
   const isRoundTrip = route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
 
+  const baggagePrice = useMemo(
+    () =>
+      formik?.values?.passengers
+        ?.map((passenger: any) => {
+          const baggagePrice = passenger?.baggage?.map(
+            (bag: any, bagIndex: number) => {
+              return Number(bag.count) > 0
+                ? Math.round(bag.count * reservation.bags_price?.[bagIndex + 1])
+                : 0
+            }
+          )
+
+          return baggagePrice?.reduce(
+            (acc: number, curr: number) => acc + curr,
+            0
+          )
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
+    [formik?.values?.passengers, reservation.bags_price]
+  )
+
   return (
     <section className="flex flex-1 flex-col">
       <div className="lg:sticky lg:top-32">
@@ -60,7 +87,7 @@ export const ReservationSummary = ({ reservation }: { reservation: any }) => {
             </Button>
           </SectionLightBlue>
 
-          <div>
+          {/* <div>
             <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
               <h6>Nume și Prenume</h6>
             </SectionLightBlue>
@@ -76,11 +103,57 @@ export const ReservationSummary = ({ reservation }: { reservation: any }) => {
                 placeholder="Nume"
               />
             </div>
-          </div>
+          </div> */}
 
           <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
             <h6>Bagaje</h6>
           </SectionLightBlue>
+          <div className="flex flex-col">
+            {formik?.values?.passengers?.map(
+              (passenger: any, index: number) => {
+                return passenger?.baggage?.some((e: any) => e.count > 0) ? (
+                  <div key={index}>
+                    <div className="grid grid-cols-4 gap-4">
+                      <p className="col-span-1 text-sm uppercase">
+                        {passenger.first_name} {passenger.last_name}
+                      </p>
+                      <div className="col-span-2 grid grid-cols-3 gap-4">
+                        {passenger?.baggage?.map(
+                          (bag: any, bagIndex: number) => {
+                            return Number(bag.count) > 0 ? (
+                              <div key={bagIndex}>
+                                <p className="text-xs font-bold text-[#171717]">
+                                  {bag.type}
+                                </p>
+                                <p className="text-xs text-[#9D9D9D]">
+                                  {bag.count} x{' '}
+                                  {Math.round(
+                                    bag.count *
+                                      reservation.bags_price?.[bagIndex + 1]
+                                  )}{' '}
+                                  €
+                                </p>
+                              </div>
+                            ) : (
+                              ''
+                            )
+                          }
+                        )}
+                      </div>
+                    </div>
+                    {formik.values.passengers.length > 0 &&
+                    index !== formik.values.passengers.length - 1 ? (
+                      <Divider />
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                ) : (
+                  ''
+                )
+              }
+            )}
+          </div>
 
           <div>
             <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
@@ -95,7 +168,10 @@ export const ReservationSummary = ({ reservation }: { reservation: any }) => {
         </div>
 
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
-          Total: <span className="font-bold">€466</span>
+          Total:{' '}
+          <span className="font-bold">
+            {reservation.price + baggagePrice} €
+          </span>
         </div>
 
         <ReservationTimer />

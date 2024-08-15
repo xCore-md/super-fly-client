@@ -1,9 +1,13 @@
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { LogoutOutlined, PhoneOutlined } from '@ant-design/icons'
+import { Modal } from 'antd'
 import { Progress } from '@components/ui/progress'
 
 export function ReservationTimer() {
   const [countDownProgress, setCountDownProgress] = useState(900)
+  const [openModal, setOpenModal] = useState(false)
 
   const router = useRouter()
 
@@ -11,8 +15,8 @@ export function ReservationTimer() {
     const interval = setInterval(() => {
       setCountDownProgress((prev) => {
         if (prev <= 0) {
-          router.push('/')
           clearInterval(interval)
+          setOpenModal(true)
           return 0
         }
         return prev - 1
@@ -25,6 +29,29 @@ export function ReservationTimer() {
 
   return (
     <>
+      <Modal
+        open={openModal}
+        centered
+        onClose={() => router.push('/flights')}
+        okText={
+          <Link href="tel:+37360851555">
+            Apelati <PhoneOutlined />
+          </Link>
+        }
+        cancelText={
+          <div>
+            Cautare <LogoutOutlined />
+          </div>
+        }
+        onCancel={() => router.push('/flights')}
+      >
+        <div className="mt-4 p-5">
+          <h4 className="text-lg">
+            Timpul de rezervare a expirat, va rugam sa refaceti rezervarea, sau
+            contactati-va consultantul de zbor{' '}
+          </h4>
+        </div>
+      </Modal>
       <p className="mt-9 text-center text-lg font-bold lg:text-left">
         Prețul expiră în:
         <span className="ml-1 text-red-600">
