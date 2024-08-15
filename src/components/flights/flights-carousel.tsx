@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import React from 'react'
 import dayjs from 'dayjs'
 import crossSvg from '@/assets/img/cross.svg'
@@ -25,12 +25,20 @@ export const FlightsCarousel = () => {
   const [prices, setPrices] = useState<CalendarPrice[] | null>(null)
   const [loading, setLoading] = useState(false)
 
+  const storageFlight = useMemo(() => {
+    const storage = localStorage.getItem('flight')
+    return storage ? JSON.parse(storage) : null
+  }, [])
+
   const isDisabled = (price: number | undefined) => price === undefined
 
   const isSeleted = (index: number) =>
     index ===
-      prices?.findIndex((p) => dayjs(p.date).isSame(dayjs(flight.date_from))) ||
-    0
+      prices?.findIndex((p) =>
+        dayjs(p.date).isSame(
+          dayjs(flight.date_from || dayjs(storageFlight?.date_from).format())
+        )
+      ) || 0
 
   const handleCarouselSelect = (selectedFlight: CalendarPrice) => {
     if (isDisabled(selectedFlight.ratedPrice.price.amount)) return
@@ -44,10 +52,33 @@ export const FlightsCarousel = () => {
   const handleFetchPrices = async () => {
     setLoading(true)
 
-    const dates = getFlightDates(flight.date_from, flight.return_to)
+    const dateFrom = flight.date_from
+      ? flight.date_from
+      : storageFlight?.date_from
+        ? dayjs(storageFlight?.date_from).format()
+        : dayjs().format()
+
+    const returnTo = flight.return_to
+      ? flight.return_to
+      : storageFlight?.return_to
+        ? dayjs(storageFlight?.return_to).format()
+        : null
+    const flyFromCityId = flight.fly_from?.cityId
+      ? flight.fly_from.cityId
+      : storageFlight?.fly_from?.cityId
+        ? storageFlight.fly_from.cityId
+        : null
+
+    const flyToCityId = flight.fly_to?.cityId
+      ? flight.fly_to.cityId
+      : storageFlight?.fly_to?.cityId
+        ? storageFlight.fly_to.cityId
+        : null
+
+    const dates = getFlightDates(dateFrom, returnTo)
     const result = await fetchFlightCalendarPrices(
-      { ids: [`City:${flight.fly_from.cityId}`] },
-      { ids: [`City:${flight.fly_to.cityId}`] },
+      { ids: [`City:${flyFromCityId}`] },
+      { ids: [`City:${flyToCityId}`] },
       { start: dates.startDate, end: dates?.endDate },
       {
         adults: 1,
@@ -66,11 +97,11 @@ export const FlightsCarousel = () => {
 
   useEffect(() => {
     handleFetchPrices()
-  }, [flight])
+  }, [flight, storageFlight])
 
   return (
     <div className="relative mx-auto mt-28  w-full max-w-[780px] px-9 lg:mt-20 lg:px-0">
-      {loading ? (
+      {loading || !prices || !prices.length ? (
         <div className="h-[88px]">
           <Skeleton className="absolute bottom-0 left-0 right-0 top-4 h-[88px] w-full rounded-full " />
         </div>

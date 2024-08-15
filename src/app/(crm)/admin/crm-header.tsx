@@ -38,7 +38,7 @@ export const CrmHeader = () => {
     <div
       className={`crm-header sticky left-0 top-0 z-50  shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
-      <header className={`max-[1440px]:px-5`}>
+      <div className={`max-[1440px]:px-5`}>
         <div
           className={`container  z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
@@ -121,7 +121,7 @@ export const CrmHeader = () => {
             <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
           </div>
         </div>
-      </header>
+      </div>
     </div>
   )
 }
