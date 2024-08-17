@@ -30,7 +30,7 @@ import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
-import { searchFields } from '@/lib/constants'
+import { SearchFields, searchFields } from '@/lib/constants'
 import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
 
 interface ISearchBarProps {
@@ -282,6 +282,13 @@ export const SearchBar = ({
     return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
   }
 
+  const updateFormValues = (newValues: SearchFields) => {
+    formik.setValues((prevState) => ({
+      ...prevState,
+      ...newValues,
+    }))
+  }
+
   const updateFormDates = (newDate: string) => {
     if (dayjs(newDate).isValid()) {
       // @ts-ignore
@@ -295,6 +302,7 @@ export const SearchBar = ({
   useImperativeHandle(searchBarRef, () => ({
     submitSearch,
     updateFormDates,
+    updateFormValues,
   }))
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
