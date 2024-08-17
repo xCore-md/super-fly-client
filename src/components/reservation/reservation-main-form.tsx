@@ -10,11 +10,13 @@ import {
   notification,
   Upload,
   UploadProps,
+  Divider,
 } from 'antd'
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
+import checkMarkSvg from '@/assets/img/check-mark.svg'
 import passportSvg from '@/assets/img/passport.svg'
 import { cn, handleCalendarKeyDown } from '@/lib/utils'
 import { BagNumberInput } from '@components/form/bag-number-input'
@@ -23,6 +25,7 @@ import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import 'react-phone-input-2/lib/style.css'
+import { Checkbox } from '@components/ui/checkbox'
 
 interface IMainFormProps {
   showBaggage?: boolean
@@ -122,207 +125,215 @@ const PassengerForm = ({
   }
 
   return (
-    <ReservationCard>
-      {contextHolder}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-        <div>
-          <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
-            Prenume
-          </Label>
-          <Input
-            autoFocus
-            className="h-10"
-            name={formik.values.passengers?.[index]?.first_name}
-            type="text"
-            placeholder="Prenume*"
-            onChange={(e) =>
-              formik.setFieldValue(
-                `passengers[${index}].first_name`,
-                e.target.value
-              )
-            }
-          />
-        </div>
+    <>
+      <ReservationCard>
+        {contextHolder}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div>
+            <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
+              Prenume
+            </Label>
+            <Input
+              autoFocus
+              className="h-10"
+              name={formik.values.passengers?.[index]?.first_name}
+              type="text"
+              placeholder="Prenume*"
+              onChange={(e) =>
+                formik.setFieldValue(
+                  `passengers[${index}].first_name`,
+                  e.target.value
+                )
+              }
+            />
+          </div>
 
-        <div>
-          <Label
-            htmlFor="reservation-form-last-name"
-            className="mb-1 ml-1 mt-3 lg:hidden"
-          >
-            Nume
-          </Label>
-          <Input
-            onChange={(e) =>
-              formik.setFieldValue(
-                `passengers[${index}].last_name`,
-                e.target.value
-              )
-            }
-            name={formik.values.passengers?.[index]?.last_name}
-            className="h-10"
-            type="text"
-            placeholder="Nume*"
-          />
-        </div>
-        <div>
-          <Select
-            placeholder="Gen"
-            className="h-10 w-full"
-            onChange={formik.handleChange}
-          >
-            <Option value="M">Masculin</Option>
-            <Option value="F">Feminin</Option>
-          </Select>
-        </div>
-      </div>
-
-      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3 lg:mt-5">
-        <div>
-          <Label
-            htmlFor="reservation-form-country-code"
-            className="mb-1 ml-1 lg:hidden"
-          >
-            Nationalitate
-          </Label>
-          <Select
-            placeholder="Nationalitate"
-            className="h-10 w-full"
-            options={countriesOptions}
-            showSearch
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          <Label
-            htmlFor="reservation-form-phone-number"
-            className="mb-1 ml-1 mt-3 lg:hidden"
-          >
-            Numar de telefon
-          </Label>
-          <PhoneInput
-            onChange={(p) => formik.setFieldValue('phone', p)}
-            inputStyle={{
-              width: '100%',
-              height: '40px',
-              border: '1px solid #E7E7E7',
-            }}
-            country={'md'}
-          />
-        </div>
-        <div className="flex flex-col lg:gap-5">
-          <Label
-            htmlFor="reservation-form-email"
-            className="mb-1 ml-1 lg:hidden"
-          >
-            Adresa de email
-          </Label>
-          <Input className="h-10" type="text" placeholder="Adresa de email*" />
-        </div>
-      </div>
-
-      <div className="mt-3 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm lg:mt-7">
-        Adaugă datele pașaportului
-      </div>
-
-      <div className="mt-3 grid grid-cols-1 md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
-        <div>
-          <Label className="mb-1 ml-1 mt-3 lg:hidden">Data nașterii</Label>
-          <DatePicker
-            onKeyDown={handleCalendarKeyDown}
-            format={'DD.MM.YYYY'}
-            name={`passengers[${index}].date_of_birth`}
-            className="h-10 w-full"
-            placeholder="Data nașterii"
-            onChange={(d) => {
-              formik.setFieldValue(
-                `passengers[${index}].date_of_birth`,
-                d ? d.format('DD.MM.YYYY') : ''
-              )
-              return d
-            }}
-          />
-        </div>
-        <div>
-          <Label className="mb-1 ml-1 mt-3 lg:hidden">
-            Data eliberării pașaportului
-          </Label>
-          <DatePicker
-            onKeyDown={handleCalendarKeyDown}
-            name={`passengers[${index}].passport_issued_at`}
-            format={'DD.MM.YYYY'}
-            className="h-10 w-full"
-            placeholder="Data eliberării pașaportului"
-            onChange={(d) => {
-              formik.setFieldValue(
-                `passengers[${index}].passport_issued_at`,
-                d ? d.format('DD.MM.YYYY') : ''
-              )
-              return d
-            }}
-          />
-        </div>
-        <div>
-          <Label className="mb-1 ml-1 mt-3 lg:hidden">
-            Data expirării pașaportului
-          </Label>
-          <DatePicker
-            onKeyDown={handleCalendarKeyDown}
-            format={'DD.MM.YYYY'}
-            name={`passengers[${index}].passport_expires_at`}
-            className="h-10 w-full"
-            placeholder="Data expirării pașaportului"
-            onChange={(d) => {
-              formik.setFieldValue(
-                `passengers[${index}].passport_expires_at`,
-                d ? d.format('DD.MM.YYYY') : ''
-              )
-              return d
-            }}
-          />
-        </div>
-        <div className="flex flex-col lg:gap-5">
-          <Label
-            htmlFor="reservation-form-email"
-            className="mb-1 ml-1 lg:hidden"
-          >
-            Numărul pașaportului
-          </Label>
-          <Input
-            className="h-10"
-            type="text"
-            placeholder="Numărul pașaportului*"
-            onChange={formik.handleChange}
-          />
-        </div>
-        <div>
-          <Upload {...props}>
-            <Button
-              type="primary"
-              className="flex h-10 min-w-full items-center justify-center rounded-lg px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-brand-blue"
+          <div>
+            <Label
+              htmlFor="reservation-form-last-name"
+              className="mb-1 ml-1 mt-3 lg:hidden"
             >
-              <span className="mr-2">Poza pașaport</span>
-              <Image src={passportSvg} alt={'passport image'} />
-            </Button>
-          </Upload>
+              Nume
+            </Label>
+            <Input
+              onChange={(e) =>
+                formik.setFieldValue(
+                  `passengers[${index}].last_name`,
+                  e.target.value
+                )
+              }
+              name={formik.values.passengers?.[index]?.last_name}
+              className="h-10"
+              type="text"
+              placeholder="Nume*"
+            />
+          </div>
+          <div>
+            <Select
+              placeholder="Gen"
+              className="h-10 w-full"
+              onChange={formik.handleChange}
+            >
+              <Option value="M">Masculin</Option>
+              <Option value="F">Feminin</Option>
+            </Select>
+          </div>
         </div>
-        <div className="flex justify-between">
-          <p className="text-xs">
-            <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
-            <span>file321455xx45522668adasda65ss.jpg</span>
-          </p>
-          <Button
-            icon={<DeleteOutlined />}
-            className="min-w-8 text-xs text-red-500"
-          />
+
+        <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3 lg:mt-5">
+          <div>
+            <Label
+              htmlFor="reservation-form-country-code"
+              className="mb-1 ml-1 lg:hidden"
+            >
+              Nationalitate
+            </Label>
+            <Select
+              placeholder="Nationalitate"
+              className="h-10 w-full"
+              options={countriesOptions}
+              showSearch
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div>
+            <Label
+              htmlFor="reservation-form-phone-number"
+              className="mb-1 ml-1 mt-3 lg:hidden"
+            >
+              Numar de telefon
+            </Label>
+            <PhoneInput
+              onChange={(p) => formik.setFieldValue('phone', p)}
+              inputStyle={{
+                width: '100%',
+                height: '40px',
+                border: '1px solid #E7E7E7',
+              }}
+              country={'md'}
+            />
+          </div>
+          <div className="flex flex-col lg:gap-5">
+            <Label
+              htmlFor="reservation-form-email"
+              className="mb-1 ml-1 lg:hidden"
+            >
+              Adresa de email
+            </Label>
+            <Input
+              className="h-10"
+              type="text"
+              placeholder="Adresa de email*"
+            />
+          </div>
         </div>
-      </div>
 
-      <Separator className="my-8" />
+        <div className="mt-3 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm lg:mt-7">
+          Adaugă datele pașaportului
+        </div>
 
-      {showBaggage && (
-        <BaggageSection formik={formik} index={index} bagsPrice={bagsPrice} />
-      )}
-    </ReservationCard>
+        <div className="mt-3 grid grid-cols-1 md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
+          <div>
+            <Label className="mb-1 ml-1 mt-3 lg:hidden">Data nașterii</Label>
+            <DatePicker
+              onKeyDown={handleCalendarKeyDown}
+              format={'DD.MM.YYYY'}
+              name={`passengers[${index}].date_of_birth`}
+              className="h-10 w-full"
+              placeholder="Data nașterii"
+              onChange={(d) => {
+                formik.setFieldValue(
+                  `passengers[${index}].date_of_birth`,
+                  d ? d.format('DD.MM.YYYY') : ''
+                )
+                return d
+              }}
+            />
+          </div>
+          <div>
+            <Label className="mb-1 ml-1 mt-3 lg:hidden">
+              Data eliberării pașaportului
+            </Label>
+            <DatePicker
+              onKeyDown={handleCalendarKeyDown}
+              name={`passengers[${index}].passport_issued_at`}
+              format={'DD.MM.YYYY'}
+              className="h-10 w-full"
+              placeholder="Data eliberării pașaportului"
+              onChange={(d) => {
+                formik.setFieldValue(
+                  `passengers[${index}].passport_issued_at`,
+                  d ? d.format('DD.MM.YYYY') : ''
+                )
+                return d
+              }}
+            />
+          </div>
+          <div>
+            <Label className="mb-1 ml-1 mt-3 lg:hidden">
+              Data expirării pașaportului
+            </Label>
+            <DatePicker
+              onKeyDown={handleCalendarKeyDown}
+              format={'DD.MM.YYYY'}
+              name={`passengers[${index}].passport_expires_at`}
+              className="h-10 w-full"
+              placeholder="Data expirării pașaportului"
+              onChange={(d) => {
+                formik.setFieldValue(
+                  `passengers[${index}].passport_expires_at`,
+                  d ? d.format('DD.MM.YYYY') : ''
+                )
+                return d
+              }}
+            />
+          </div>
+          <div className="flex flex-col lg:gap-5">
+            <Label
+              htmlFor="reservation-form-email"
+              className="mb-1 ml-1 lg:hidden"
+            >
+              Numărul pașaportului
+            </Label>
+            <Input
+              className="h-10"
+              type="text"
+              placeholder="Numărul pașaportului*"
+              onChange={formik.handleChange}
+            />
+          </div>
+          <div>
+            <Upload {...props}>
+              <Button
+                type="primary"
+                className="flex h-10 min-w-full items-center justify-center rounded-lg px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-brand-blue"
+              >
+                <span className="mr-2">Poza pașaport</span>
+                <Image src={passportSvg} alt={'passport image'} />
+              </Button>
+            </Upload>
+          </div>
+          <div className="flex justify-between">
+            <p className="text-xs">
+              <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
+              <span>file321455xx45522668adasda65ss.jpg</span>
+            </p>
+            <Button
+              icon={<DeleteOutlined />}
+              className="min-w-8 text-xs text-red-500"
+            />
+          </div>
+        </div>
+
+        <Separator className="my-8" />
+
+        {showBaggage && (
+          <BaggageSection formik={formik} index={index} bagsPrice={bagsPrice} />
+        )}
+      </ReservationCard>
+
+      <OnlineCheckinSection index={index} formik={formik} />
+    </>
   )
 }
 const BaggageSection = ({
@@ -474,5 +485,87 @@ const BagTypeAndPrice = ({
         {bagsPrice[index + 1]} €
       </p>
     </>
+  )
+}
+
+const OnlineCheckinSection = ({
+  formik,
+  index,
+}: {
+  formik: any
+  index: number
+}) => {
+  const isOnlineCheckIn = React.useMemo(
+    () => formik.values?.passengers?.[index]?.isOnlineCheckIn,
+    [formik, index]
+  )
+
+  const handleAddCheckInOnline = () => {
+    formik.setFieldValue(
+      `passengers[${index}].isOnlineCheckIn`,
+      !isOnlineCheckIn
+    )
+  }
+
+  React.useEffect(() => {
+    handleAddCheckInOnline()
+  }, [])
+
+  return (
+    <ReservationCard
+      className="relative cursor-pointer rounded-t-3xl lg:pb-7 lg:pt-6"
+      onClick={handleAddCheckInOnline}
+    >
+      <main className="flex flex-col justify-between">
+        <div className="flex items-center justify-between">
+          <h6 className="flex items-center">
+            Adaugă check-in-ul online!
+            <span className="ml-1 rounded-full bg-brand-yellow px-3 py-2 text-xxs">
+              Popular
+            </span>
+          </h6>
+          <Checkbox className="ml-auto" checked={isOnlineCheckIn} />
+        </div>
+
+        <ul className="select-none text-xxs font-medium text-[#7E7E7E]">
+          <li className="mt-3 flex items-center">
+            <CheckMark className="mt-1" />
+            Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
+            check-in-ul independent
+          </li>
+          <li className="mt-2 flex items-center">
+            <CheckMark className="mt-1" />
+            Economisești timp și bani: check-in-ul direct la aeroport poate
+            genera cheltuieli suplimentare sau întârzieri
+          </li>
+          <li className="mt-2 flex items-center">
+            <CheckMark className="mt-1" />
+            Emitem cărțile de îmbarcare la timp
+          </li>
+        </ul>
+        <Divider className="my-3" />
+        <div className="flex items-center space-x-2">
+          <div className="ml-1 h-auto text-xs font-light">
+            Adaugă €8.99 per pasager
+          </div>
+        </div>
+      </main>
+    </ReservationCard>
+  )
+}
+
+interface ICheckMarkProps {
+  className?: string
+}
+
+const CheckMark = (props: ICheckMarkProps) => {
+  return (
+    <Image
+      src={checkMarkSvg}
+      alt={'check mark'}
+      width={12}
+      height={12}
+      className={cn('mr-2 min-w-3 self-start', props.className)}
+    />
   )
 }

@@ -8,7 +8,7 @@ import { useFlightContext } from '@/context/flight-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { ReservationTimer } from './reservation-timer'
-
+export const CHECK_IN_PRICE = 8.99
 export const ReservationSummary = ({
   reservation,
   formik,
@@ -48,7 +48,7 @@ export const ReservationSummary = ({
         ?.map((passenger: any) => {
           const baggagePrice = passenger?.baggage?.map(
             (bag: any, bagIndex: number) => {
-              return Number(bag.count) > 0
+              return Number(bag?.count) > 0
                 ? Math.round(bag.count * reservation.bags_price?.[bagIndex + 1])
                 : 0
             }
@@ -61,6 +61,16 @@ export const ReservationSummary = ({
         })
         .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
     [formik?.values?.passengers, reservation.bags_price]
+  )
+
+  const checkInPrice = useMemo(
+    () =>
+      formik?.values?.passengers
+        ?.map((passenger: any) => {
+          return passenger?.isOnlineCheckIn ? CHECK_IN_PRICE : 0
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
+    [formik?.values?.passengers]
   )
 
   return (
@@ -111,7 +121,7 @@ export const ReservationSummary = ({
           <div className="flex flex-col">
             {formik?.values?.passengers?.map(
               (passenger: any, index: number) => {
-                return passenger?.baggage?.some((e: any) => e.count > 0) ? (
+                return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
                   <div key={index}>
                     <div className="grid grid-cols-4 gap-4">
                       <p className="col-span-1 text-sm uppercase">
@@ -120,7 +130,7 @@ export const ReservationSummary = ({
                       <div className="col-span-2 grid grid-cols-3 gap-4">
                         {passenger?.baggage?.map(
                           (bag: any, bagIndex: number) => {
-                            return Number(bag.count) > 0 ? (
+                            return Number(bag?.count) > 0 ? (
                               <div key={bagIndex}>
                                 <p className="text-xs font-bold text-[#171717]">
                                   {bag.type}
@@ -158,19 +168,49 @@ export const ReservationSummary = ({
           <div>
             <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
               <h6>Servicii</h6>
-              <h6>€30</h6>
+              {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
             </SectionLightBlue>
 
-            {flightData.map((flight) => (
-              <FlightInfo key={flight.route} {...flight} />
-            ))}
+            <div className="flex flex-col py-4">
+              {formik?.values?.passengers?.map(
+                (passenger: any, index: number) => {
+                  if (!passenger?.isOnlineCheckIn) {
+                    return ''
+                  }
+                  return (
+                    <div key={index}>
+                      <div className="grid grid-cols-4 gap-4">
+                        <p className="col-span-1 text-sm uppercase">
+                          {passenger.first_name} {passenger.last_name}
+                        </p>
+                        <div className="col-span-3 gap-4">
+                          <p className="text-xs text-[#9D9D9D]">
+                            Online Check In
+                          </p>
+                        </div>
+                      </div>
+                      {formik.values.passengers.length > 0 &&
+                      index !== formik.values.passengers.length - 1 ? (
+                        <Divider />
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  )
+                }
+              )}
+            </div>
+
+            {/*{flightData.map((flight) => (*/}
+            {/*  <FlightInfo key={flight.route} {...flight} />*/}
+            {/*))}*/}
           </div>
         </div>
 
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
           Total:{' '}
           <span className="font-bold">
-            {reservation.price + baggagePrice} €
+            {reservation.price + baggagePrice + checkInPrice} €
           </span>
         </div>
 
