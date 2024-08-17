@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { DeleteOutlined } from '@ant-design/icons'
 import {
   Select,
@@ -42,6 +42,8 @@ export const ReservationMainForm = ({
   formik,
   reservation,
 }: IMainFormProps) => {
+  const [loading, setLoading] = useState(false)
+
   const countriesOptions = countries?.map((country: any) => ({
     label: (
       <span className="flex items-center gap-2">
@@ -62,6 +64,8 @@ export const ReservationMainForm = ({
         countriesOptions={countriesOptions}
         showBaggage={showBaggage}
         formik={formik}
+        setLoading={setLoading}
+        loading={loading}
         bagsPrice={reservation?.bags_price}
       />
     ),
@@ -74,6 +78,8 @@ export const ReservationMainForm = ({
           countriesOptions={countriesOptions}
           showBaggage={showBaggage}
           formik={formik}
+          loading={loading}
+          setLoading={setLoading}
           index={0}
           bagsPrice={reservation?.bags_price}
         />
@@ -88,6 +94,8 @@ const PassengerForm = ({
   index = 0,
   countriesOptions,
   showBaggage,
+  loading,
+  setLoading,
   bagsPrice,
 }: any) => {
   const { Option } = Select
@@ -95,15 +103,13 @@ const PassengerForm = ({
   const [api, contextHolder] = notification.useNotification()
 
   const props: UploadProps = {
-    name: 'file',
+    name: 'passport',
     action: `${process.env.NEXT_PUBLIC_API_URL}/files/upload`,
     headers: {
       authorization: 'authorization-text',
     },
     onChange(info: any) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
+      setLoading(true)
       if (info.file.status === 'done') {
         api.success({
           message: 'File uploaded successfully',
@@ -111,6 +117,12 @@ const PassengerForm = ({
           placement: 'bottomRight',
           duration: 2,
           closable: true,
+        })
+        setLoading(false)
+
+        formik.setFieldValue(`passengers[${index}].passport`, {
+          path: info.file?.response?.path,
+          name: info.file?.name,
         })
       } else if (info.file.status === 'error') {
         api.error({
@@ -138,6 +150,7 @@ const PassengerForm = ({
               className="h-10"
               name={formik.values.passengers?.[index]?.first_name}
               type="text"
+              disabled={loading}
               placeholder="Prenume*"
               onChange={(e) =>
                 formik.setFieldValue(
@@ -162,6 +175,7 @@ const PassengerForm = ({
                   e.target.value
                 )
               }
+              disabled={loading}
               name={formik.values.passengers?.[index]?.last_name}
               className="h-10"
               type="text"
@@ -172,6 +186,7 @@ const PassengerForm = ({
             <Select
               placeholder="Gen"
               className="h-10 w-full"
+              disabled={loading}
               onChange={formik.handleChange}
             >
               <Option value="M">Masculin</Option>
@@ -192,6 +207,7 @@ const PassengerForm = ({
               placeholder="Nationalitate"
               className="h-10 w-full"
               options={countriesOptions}
+              disabled={loading}
               showSearch
               onChange={formik.handleChange}
             />
@@ -205,6 +221,7 @@ const PassengerForm = ({
             </Label>
             <PhoneInput
               onChange={(p) => formik.setFieldValue('phone', p)}
+              disabled={loading}
               inputStyle={{
                 width: '100%',
                 height: '40px',
@@ -224,6 +241,7 @@ const PassengerForm = ({
               className="h-10"
               type="text"
               placeholder="Adresa de email*"
+              disabled={loading}
             />
           </div>
         </div>
@@ -241,6 +259,7 @@ const PassengerForm = ({
               name={`passengers[${index}].date_of_birth`}
               className="h-10 w-full"
               placeholder="Data nașterii"
+              disabled={loading}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].date_of_birth`,
@@ -260,6 +279,7 @@ const PassengerForm = ({
               format={'DD.MM.YYYY'}
               className="h-10 w-full"
               placeholder="Data eliberării pașaportului"
+              disabled={loading}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_issued_at`,
@@ -279,6 +299,7 @@ const PassengerForm = ({
               name={`passengers[${index}].passport_expires_at`}
               className="h-10 w-full"
               placeholder="Data expirării pașaportului"
+              disabled={loading}
               onChange={(d) => {
                 formik.setFieldValue(
                   `passengers[${index}].passport_expires_at`,
@@ -298,6 +319,7 @@ const PassengerForm = ({
             <Input
               className="h-10"
               type="text"
+              disabled={loading}
               placeholder="Numărul pașaportului*"
               onChange={formik.handleChange}
             />
@@ -306,6 +328,7 @@ const PassengerForm = ({
             <Upload {...props}>
               <Button
                 type="primary"
+                disabled={loading}
                 className="flex h-10 min-w-full items-center justify-center rounded-lg px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-brand-blue"
               >
                 <span className="mr-2">Poza pașaport</span>
@@ -313,16 +336,20 @@ const PassengerForm = ({
               </Button>
             </Upload>
           </div>
-          <div className="flex justify-between">
-            <p className="text-xs">
-              <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
-              <span>file321455xx45522668adasda65ss.jpg</span>
-            </p>
-            <Button
-              icon={<DeleteOutlined />}
-              className="min-w-8 text-xs text-red-500"
-            />
-          </div>
+        {formik.values.passengers?.[index]?.passport && (
+            <div className="flex justify-between">
+                <p className="flex flex-col text-xs">
+                    <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
+                    <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
+            {formik.values.passengers[index].passport.name}
+          </span>
+                </p>
+                <Button
+                    icon={<DeleteOutlined />}
+                    className="min-w-8 text-xs text-red-500"
+                />
+            </div>
+        )}
         </div>
 
         <Separator className="my-8" />

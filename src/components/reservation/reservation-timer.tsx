@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { LogoutOutlined, PhoneOutlined } from '@ant-design/icons'
+import { ArrowRightOutlined, SearchOutlined } from '@ant-design/icons'
 import { Modal } from 'antd'
 import { Progress } from '@components/ui/progress'
 
@@ -25,7 +24,7 @@ export function ReservationTimer() {
     return () => {
       clearInterval(interval)
     }
-  }, [])
+  }, [countDownProgress])
 
   return (
     <>
@@ -33,23 +32,33 @@ export function ReservationTimer() {
         open={openModal}
         centered
         onClose={() => router.push('/flights')}
-        okText={
-          <Link href="tel:+37360851555">
-            Apelati <PhoneOutlined />
-          </Link>
+        title={
+          <h4 className="text-lg">
+            Sesiunia dumneavoastrǎ va expira in curǎnd
+          </h4>
         }
+        okText={
+          <div>
+            Continua <ArrowRightOutlined />
+          </div>
+        }
+        onOk={() => {
+          setOpenModal(false)
+          setCountDownProgress(450)
+        }}
         cancelText={
           <div>
-            Cautare <LogoutOutlined />
+            Cautare <SearchOutlined />
           </div>
         }
         onCancel={() => router.push('/flights')}
       >
-        <div className="mt-4 p-5">
-          <h4 className="text-lg">
-            Timpul de rezervare a expirat, va rugam sa refaceti rezervarea, sau
-            contactati-va consultantul de zbor{' '}
-          </h4>
+        <div className="mt-4 pb-4">
+          <p className="text-base">
+            Ne pare rǎu, sesiunea dumneavoastrǎ este pe punctul de a expira din
+            cauza inactivitǎții. Incǎ mai puteți continua rezervarea actualǎ sau
+            puteți începe o nouǎ căutare.
+          </p>
         </div>
       </Modal>
       <p className="mt-9 text-center text-lg font-bold lg:text-left">
