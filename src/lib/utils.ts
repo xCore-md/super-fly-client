@@ -1,5 +1,10 @@
 import { type ClassValue, clsx } from 'clsx'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 import { twMerge } from 'tailwind-merge'
+
+// Extend dayjs with the UTC plugin
+dayjs.extend(utc)
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -73,4 +78,8 @@ export function handleCalendarKeyDown(e: any) {
   if ((length === 2 || length === 5) && e.key !== 'Backspace') {
     e.target.value = `${value}.`
   }
+}
+
+export const setToGreenwichMidnight = (date: string | Date): string => {
+  return dayjs(date).utc(true).startOf('day').format('YYYY-MM-DDTHH:mm:ss')
 }

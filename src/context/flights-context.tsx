@@ -4,7 +4,9 @@ import React, { createContext, useState, useContext, ReactNode } from 'react'
 
 interface FlightsContextProps {
   flights: []
+  originalFlights: []
   setFlights: any
+  setOriginalFlights: any
   initialFlights: []
   setInitialFlights: any
   selectedFlight: {}
@@ -13,7 +15,9 @@ interface FlightsContextProps {
 
 export const FlightsContext = createContext<FlightsContextProps>({
   flights: [],
+  originalFlights: [],
   setFlights: () => [],
+  setOriginalFlights: () => {},
   initialFlights: [],
   setInitialFlights: () => [],
   selectedFlight: {},
@@ -28,6 +32,7 @@ export function FlightsContextProvider({
   children,
 }: FlightsContextProviderProps) {
   const [flights, setFlights] = useState<[]>([])
+  const [originalFlights, setOriginalFlights] = useState<[]>([])
   const [initialFlights, setInitialFlights] = useState<[]>([])
   const [selectedFlight, setSelectedFlight] = useState<{}>({})
 
@@ -35,9 +40,11 @@ export function FlightsContextProvider({
     <FlightsContext.Provider
       value={{
         flights,
+        originalFlights,
         initialFlights,
         setInitialFlights,
         setFlights,
+        setOriginalFlights,
         selectedFlight,
         setSelectedFlight,
       }}

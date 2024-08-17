@@ -39,7 +39,7 @@ export const Header = ({ menu }: IHeaderProps) => {
     <div
       className={`sticky left-0 top-0 z-[999999] shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
-      <header
+      <div
         className={`  max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
       >
         <div
@@ -87,7 +87,7 @@ export const Header = ({ menu }: IHeaderProps) => {
             <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
           </div>
         </div>
-      </header>
+      </div>
     </div>
   )
 }

@@ -104,12 +104,12 @@ export default function Reservation() {
 const OnlineCheckinSection = () => {
   return (
     <ReservationCard className="relative rounded-t-3xl pt-14">
-      <header className="absolute left-0 right-0 top-0 flex justify-between rounded-3xl bg-brand-light-blue px-4 py-3">
+      <div className="absolute left-0 right-0 top-0 flex justify-between rounded-3xl bg-brand-light-blue px-4 py-3">
         <h5 className="text-sm font-bold text-[#121C5E]">Check-in Online</h5>
         <span className="rounded-full bg-brand-yellow px-3 py-2 text-xxs">
           Popular
         </span>
-      </header>
+      </div>
 
       <main className="mt-6 flex flex-col justify-between lg:flex-row">
         <div className="">

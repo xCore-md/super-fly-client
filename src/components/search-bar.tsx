@@ -3,7 +3,13 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react'
 import { SwapOutlined } from '@ant-design/icons'
 import { DatePicker, Popover, Select, notification } from 'antd'
 import dayjs from 'dayjs'
@@ -24,7 +30,7 @@ import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
-import { searchFields } from '@/lib/constants'
+import { SearchFields, searchFields } from '@/lib/constants'
 import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
 
 interface ISearchBarProps {
@@ -62,7 +68,7 @@ export const SearchBar = ({
 
   const router = useRouter()
   const pathname = usePathname()
-  const { setFlight } = useFlightContext()
+  const { setFlight, searchBarRef } = useFlightContext()
 
   const formik = useFormik({
     initialValues: searchFields,
@@ -147,6 +153,7 @@ export const SearchBar = ({
               country: loc.city.country.name,
               city: loc.city.name,
               code: loc.code,
+              cityId: loc.city.id,
             }))
           )
         })
@@ -186,6 +193,7 @@ export const SearchBar = ({
           country: city.country.name,
           city: city.name,
           code: code,
+          cityId: city.id,
         })
       })
       .catch((err) => console.log({ err }))
@@ -274,6 +282,28 @@ export const SearchBar = ({
     return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
   }
 
+  const updateFormValues = (newValues: SearchFields) => {
+    formik.setValues((prevState) => ({
+      ...prevState,
+      ...newValues,
+    }))
+  }
+
+  const updateFormDates = (newDate: string) => {
+    if (dayjs(newDate).isValid()) {
+      // @ts-ignore
+      formik.setValues((prevState) => ({
+        ...prevState,
+        date_from: dayjs(newDate),
+      }))
+    }
+  }
+
+  useImperativeHandle(searchBarRef, () => ({
+    submitSearch,
+    updateFormDates,
+    updateFormValues,
+  }))
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
@@ -658,35 +688,41 @@ const mockOptions = [
     country: 'Republica Moldova',
     city: 'Chisinau',
     code: 'RMO',
+    cityId: 'chisinau_md',
   },
   {
     key: 2,
     country: 'Italia',
     city: 'Roma',
     code: 'FCO',
+    cityId: 'rome_it',
   },
   {
     key: 3,
     country: 'Spania',
     city: 'Barcelona',
     code: 'BCN',
+    cityId: 'barcelona_es',
   },
   {
     key: 4,
     country: 'United Kingdom',
     city: 'Londra',
     code: 'LTN',
+    cityId: 'london_gb',
   },
   {
     key: 5,
     country: 'Germany',
     city: 'Munchen',
     code: 'MUC',
+    cityId: 'munich_de',
   },
   {
     key: 6,
     country: 'France',
     city: 'Paris',
     code: 'CDG',
+    cityId: 'paris_fr',
   },
 ]
