@@ -301,7 +301,7 @@ const Ticket = ({ passenger, routes, ticketIndex }: ITicketProps) => {
                       {routes?.map((r: any, index: number) => (
                         <img
                           key={index}
-                          src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
+                          src={`https://api-superfly.xcore.md/logo/${r.airline}`}
                           className={`w-[${100 / routes.length}%] max-w-16`}
                           alt="company"
                         />
