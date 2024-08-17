@@ -4,10 +4,9 @@ import clock from '@/assets/img/clock.svg'
 import fb from '@/assets/img/fb.svg'
 import insta from '@/assets/img/insta.svg'
 import mail from '@/assets/img/mail.svg'
-import markerWhite from '@/assets/img/marker-white.svg'
 import marker from '@/assets/img/marker.svg'
 import phone from '@/assets/img/phone.svg'
-import { Button } from '@components/ui/button'
+import { ButtonVeziLocatia } from '@components/button-vezi-locatia'
 
 export default function Contacts() {
   return (
@@ -118,10 +117,7 @@ export default function Contacts() {
             </li>
           </ul>
         </div>
-        <Button className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-8 text-base font-light text-white shadow-md shadow-slate-400">
-          Vezi locația
-          <Image className="ml-1" src={markerWhite} alt="icon" />
-        </Button>
+        <ButtonVeziLocatia />
       </div>
     </section>
   )
