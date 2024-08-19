@@ -101,8 +101,9 @@ const PassengerForm = ({
   const { Option } = Select
 
   const [api, contextHolder] = notification.useNotification()
+  const [file, setFile] = useState<any>({})
 
-  const props: UploadProps = {
+  const uploadProps: UploadProps = {
     name: 'passport',
     action: `${process.env.NEXT_PUBLIC_API_URL}/files/upload`,
     headers: {
@@ -120,7 +121,12 @@ const PassengerForm = ({
         })
         setLoading(false)
 
-        formik.setFieldValue(`passengers[${index}].passport`, {
+        formik.setFieldValue(
+          `passengers[${index}].passport_id`,
+          info.file?.response?.id
+        )
+        setFile({
+          id: info.file?.response?.id,
           path: info.file?.response?.path,
           name: info.file?.name,
         })
@@ -187,7 +193,9 @@ const PassengerForm = ({
               placeholder="Gen"
               className="h-10 w-full"
               disabled={loading}
-              onChange={formik.handleChange}
+              onChange={(value) =>
+                formik.setFieldValue(`passengers[${index}].gender`, value)
+              }
             >
               <Option value="M">Masculin</Option>
               <Option value="F">Feminin</Option>
@@ -209,7 +217,9 @@ const PassengerForm = ({
               options={countriesOptions}
               disabled={loading}
               showSearch
-              onChange={formik.handleChange}
+              onChange={(value) =>
+                formik.setFieldValue(`passengers[${index}].country`, value)
+              }
             />
           </div>
           <div>
@@ -220,7 +230,9 @@ const PassengerForm = ({
               Numar de telefon
             </Label>
             <PhoneInput
-              onChange={(p) => formik.setFieldValue('phone', p)}
+              onChange={(p) =>
+                formik.setFieldValue(`passengers[${index}].phone`, p)
+              }
               disabled={loading}
               inputStyle={{
                 width: '100%',
@@ -319,13 +331,14 @@ const PassengerForm = ({
             <Input
               className="h-10"
               type="text"
+              name={`passengers[${index}].passport_number`}
               disabled={loading}
               placeholder="Numărul pașaportului*"
               onChange={formik.handleChange}
             />
           </div>
           <div>
-            <Upload {...props}>
+            <Upload {...uploadProps}>
               <Button
                 type="primary"
                 disabled={loading}
@@ -341,13 +354,9 @@ const PassengerForm = ({
               <p className="flex flex-col text-xs">
                 <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
                 <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {formik.values.passengers[index].passport.name}
+                  {file?.name}
                 </span>
               </p>
-              <Button
-                icon={<DeleteOutlined />}
-                className="min-w-8 text-xs text-red-500"
-              />
             </div>
           )}
         </div>

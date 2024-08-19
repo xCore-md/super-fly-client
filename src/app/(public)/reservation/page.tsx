@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { Button, notification } from 'antd'
+import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import { FlyContent } from '@/components/flights/fly-content'
 import { useFlightContext } from '@/context/flight-context'
@@ -18,6 +20,8 @@ export default function Reservation() {
   const { adults, children, infants } = flight
   const router = useRouter()
   const [countries, setCountries] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [api, contextHolder] = notification.useNotification()
 
   const formik = useFormik({
     initialValues: {},
@@ -42,14 +46,51 @@ export default function Reservation() {
     return router.push('/flights')
   }
 
-  // const handleSubmit = () => {
-  //   console.log('submit')
-  // }
+  const handleSubmit = () => {
+    setLoading(true)
+    const storage = localStorage.getItem('flight')
+    const storageFlight = storage ? JSON.parse(storage) : null
+
+    const { flyFrom, flyTo, cityFrom, cityTo, local_arrival, local_departure } =
+      reservation
+
+    const obj = {
+      type: storageFlight.return_to ? 'tur-retur' : 'tur',
+      airline: reservation?.airlines[0],
+      fly_from: flyFrom,
+      fly_to: flyTo,
+      fly_from_city: cityFrom,
+      fly_to_city: cityTo,
+      date_from: dayjs(local_departure).format('DD.MM.YYYY'),
+      date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
+      extra: JSON.stringify(reservation),
+      ...formik.values,
+    }
+
+    axs
+      .post('/sale/create', obj)
+      .then(() => {
+        setLoading(false)
+        router.push('/confirm-reservation')
+      })
+      .catch((err) => {
+        setLoading(false)
+        api.error({
+          message: 'Error',
+          description: err.response.data.message,
+          placement: 'bottomRight',
+          duration: 3,
+          closable: true,
+        })
+        console.log({ err })
+      })
+  }
 
   const passengersCount = adults + children + infants
 
   return (
     <div className="mt-4 flex flex-col px-5 pb-10 pt-12 lg:flex-row lg:px-10 ">
+      {contextHolder}
       <section className="flex flex-col lg:w-2/3">
         <h2 className="mb-4 text-lg font-medium">Informații zbor:</h2>
 
@@ -85,12 +126,13 @@ export default function Reservation() {
               </Link>
             </label>
           </div>
-          <button
-            // onClick={() => handleSubmit()}
-            className="custom-shadow hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
+          <Button
+            onClick={() => handleSubmit()}
+            loading={loading}
+            className="custom-shadow green-button hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
           >
             Rezervă acum
-          </button>
+          </Button>
         </div>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">

@@ -61,9 +61,9 @@ export function ReservationTimer() {
           </p>
         </div>
       </Modal>
-      <p className="mt-9 text-center text-lg font-bold lg:text-left">
+      <p className="mt-9 text-center text-lg font-semibold lg:text-left">
         Prețul expiră în:
-        <span className="ml-1 text-red-600">
+        <span className="ml-1 font-bold text-red-600">
           {formatTime(countDownProgress)}
         </span>
       </p>

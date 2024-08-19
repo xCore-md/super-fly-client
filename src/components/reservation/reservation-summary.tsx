@@ -21,24 +21,6 @@ export const ReservationSummary = ({
   const { adults, children, infants } = flight
   const { cityFrom, cityTo, route } = reservation
 
-  const flightData = [
-    {
-      route: 'Chisinau - Milan',
-      passenger: 'Adult 1',
-      fareType: '1 x Change Flex',
-    },
-    {
-      route: 'Chisinau - London',
-      passenger: 'Adult 2',
-      fareType: '2 x Economy Saver',
-    },
-    {
-      route: 'Chisinau - Berlin',
-      passenger: 'Child 1',
-      fareType: '1 x Economy Basic',
-    },
-  ]
-
   const isRoundTrip = route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
 
@@ -79,10 +61,10 @@ export const ReservationSummary = ({
         <div className="hidden flex-col gap-7 lg:flex">
           <SectionLightBlue>
             <div>
-              <h6 className="text-xs font-bold text-[#121C5E]">
+              <h6 className="text-sm font-semibold text-[#121C5E]">
                 {cityFrom} - {cityTo}
               </h6>
-              <p className="mt-1 text-xxs text-[#9D9D9D]">
+              <p className="mt-1 text-xs text-gray-500">
                 {flightType} - {adults > 0 && `${adults} Adulți`}
                 {children > 0 && `, ${children} Copii`}
                 {infants > 0 && `, ${infants} Infanți`}
@@ -132,10 +114,10 @@ export const ReservationSummary = ({
                           (bag: any, bagIndex: number) => {
                             return Number(bag?.count) > 0 ? (
                               <div key={bagIndex}>
-                                <p className="text-xs font-bold text-[#171717]">
+                                <p className="mb-1 text-sm font-semibold text-[#171717]">
                                   {bag.type}
                                 </p>
-                                <p className="text-xs text-[#9D9D9D]">
+                                <p className="text-xs text-gray-500">
                                   {bag.count} x{' '}
                                   {Math.round(
                                     bag.count *
@@ -174,17 +156,17 @@ export const ReservationSummary = ({
             <div className="flex flex-col py-4">
               {formik?.values?.passengers?.map(
                 (passenger: any, index: number) => {
-                  if (!passenger?.isOnlineCheckIn) {
+                  if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
                     return ''
                   }
                   return (
                     <div key={index}>
-                      <div className="grid grid-cols-4 gap-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
                         <p className="col-span-1 text-sm uppercase">
                           {passenger.first_name} {passenger.last_name}
                         </p>
                         <div className="col-span-3 gap-4">
-                          <p className="text-xs text-[#9D9D9D]">
+                          <p className="text-xs text-gray-500">
                             Online Check In
                           </p>
                         </div>
@@ -207,9 +189,9 @@ export const ReservationSummary = ({
           </div>
         </div>
 
-        <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
-          Total:{' '}
-          <span className="font-bold">
+        <div className="mt-4 rounded-md bg-brand-blue px-4 py-3 text-base text-white lg:mt-11">
+          <span className="font-light">Total:</span>
+          <span className="ml-2 font-semibold">
             {reservation.price + baggagePrice + checkInPrice} €
           </span>
         </div>
@@ -227,21 +209,21 @@ export const ReservationSummary = ({
   )
 }
 
-interface IFlightInfoProps {
-  route: string
-  passenger: string
-  fareType: string
-}
+// interface IFlightInfoProps {
+//   route: string
+//   passenger: string
+//   fareType: string
+// }
 
-const FlightInfo = ({ route, passenger, fareType }: IFlightInfoProps) => {
-  return (
-    <div className="ml-4 border-l border-gray-200 pl-3">
-      <p className="mt-0 pt-2 text-xxs text-[#9D9D9D]">{route}</p>
-      <p className="mt-1 text-xxs font-bold text-[#171717]">{passenger}</p>
-      <p className="mt-1 text-xxs text-[#9D9D9D]">{fareType}</p>
-    </div>
-  )
-}
+// const FlightInfo = ({ route, passenger, fareType }: IFlightInfoProps) => {
+//   return (
+//     <div className="ml-4 border-l border-gray-200 pl-3">
+//       <p className="mt-0 pt-2 text-xxs text-[#9D9D9D]">{route}</p>
+//       <p className="mt-1 text-xxs font-bold text-[#171717]">{passenger}</p>
+//       <p className="mt-1 text-xxs text-[#9D9D9D]">{fareType}</p>
+//     </div>
+//   )
+// }
 
 interface ISectionLightBlueProps {
   children: ReactNode
