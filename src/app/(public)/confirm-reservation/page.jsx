@@ -10,6 +10,8 @@ import visaWhite from '@/assets/img/visa-white.svg'
 import visa from '@/assets/img/visa.svg'
 import { ReservationSummary } from '@/components/reservation/reservation-summary'
 import { useReservationContext } from '@/context/reservation-context'
+import OurOfficeModal from './our-office-modal'
+import { Button } from '../../../components/ui/button'
 // import { FlyContent } from '../../../components/flights/flights-listing'
 
 export default function ConfirmReservationPage() {
@@ -180,7 +182,10 @@ export default function ConfirmReservationPage() {
           <div className="custom-shadow mt-4 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
             <h4 className="mb-6 text-lg">Selectați metoda de plată</h4>
             <div className="flex w-full gap-5">
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
+              <Button
+                variant="ghost"
+                className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+              >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Card bancar
                 </span>
@@ -214,8 +219,11 @@ export default function ConfirmReservationPage() {
                     className="block lg:hidden"
                   />
                 </span>
-              </div>
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
+              </Button>
+              <Button
+                variant="ghost"
+                className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+              >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Plată electronică
                 </span>
@@ -235,15 +243,9 @@ export default function ConfirmReservationPage() {
                     className="block lg:hidden"
                   />
                 </span>
-              </div>
-              <div className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue">
-                <span className="hidden text-xxs text-brand-blue lg:block">
-                  Achitare la oficiul nostru
-                </span>
-                <span className="block text-xxs text-white lg:hidden">
-                  Oficiul nostru
-                </span>
-              </div>
+              </Button>
+
+              <OurOfficeModal />
             </div>
           </div>
         </div>
