@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
-import { DeleteOutlined } from '@ant-design/icons'
 import {
   Select,
   Input,
