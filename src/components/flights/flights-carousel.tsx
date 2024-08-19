@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import dayjs from 'dayjs'
 import crossSvg from '@/assets/img/cross.svg'
@@ -24,10 +24,13 @@ export const FlightsCarousel = () => {
   const { flight, searchBarRef } = useFlightContext()
   const [prices, setPrices] = useState<CalendarPrice[] | null>(null)
   const [loading, setLoading] = useState(false)
+  const [storageFlight, setStorageFlight] = useState<any>(null)
 
-  const storageFlight = useMemo(() => {
-    const storage = localStorage.getItem('flight')
-    return storage ? JSON.parse(storage) : null
+  useEffect(() => {
+    const storage = localStorage?.getItem('flight')
+    if (storage) {
+      setStorageFlight(JSON.parse(storage))
+    }
   }, [])
 
   const isDisabled = (price: number | undefined) => price === undefined

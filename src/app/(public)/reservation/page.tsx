@@ -49,41 +49,50 @@ export default function Reservation() {
   const handleSubmit = () => {
     setLoading(true)
     const storage = localStorage.getItem('flight')
-    const storageFlight = storage ? JSON.parse(storage) : null
 
-    const { flyFrom, flyTo, cityFrom, cityTo, local_arrival, local_departure } =
-      reservation
+    if (!storage) {
+      const storageFlight = storage ? JSON.parse(storage) : null
 
-    const obj = {
-      type: storageFlight.return_to ? 'tur-retur' : 'tur',
-      airline: reservation?.airlines[0],
-      fly_from: flyFrom,
-      fly_to: flyTo,
-      fly_from_city: cityFrom,
-      fly_to_city: cityTo,
-      date_from: dayjs(local_departure).format('DD.MM.YYYY'),
-      date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
-      extra: JSON.stringify(reservation),
-      ...formik.values,
-    }
+      const {
+        flyFrom,
+        flyTo,
+        cityFrom,
+        cityTo,
+        local_arrival,
+        local_departure,
+      } = reservation
 
-    axs
-      .post('/sale/create', obj)
-      .then(() => {
-        setLoading(false)
-        router.push('/confirm-reservation')
-      })
-      .catch((err) => {
-        setLoading(false)
-        api.error({
-          message: 'Error',
-          description: err.response.data.message,
-          placement: 'bottomRight',
-          duration: 3,
-          closable: true,
+      const obj = {
+        type: storageFlight.return_to ? 'tur-retur' : 'tur',
+        airline: reservation?.airlines[0],
+        fly_from: flyFrom,
+        fly_to: flyTo,
+        fly_from_city: cityFrom,
+        fly_to_city: cityTo,
+        date_from: dayjs(local_departure).format('DD.MM.YYYY'),
+        date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
+        extra: JSON.stringify(reservation),
+        ...formik.values,
+      }
+
+      axs
+        .post('/sale/create', obj)
+        .then(() => {
+          setLoading(false)
+          router.push('/confirm-reservation')
         })
-        console.log({ err })
-      })
+        .catch((err) => {
+          setLoading(false)
+          api.error({
+            message: 'Error',
+            description: err.response.data.message,
+            placement: 'bottomRight',
+            duration: 3,
+            closable: true,
+          })
+          console.log({ err })
+        })
+    }
   }
 
   const passengersCount = adults + children + infants

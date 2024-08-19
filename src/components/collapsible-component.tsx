@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React, { ReactElement, useState } from 'react'
+import React, { useState } from 'react'
 import { Collapsible } from '@radix-ui/react-collapsible'
 import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
