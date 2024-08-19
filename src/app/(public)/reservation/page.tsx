@@ -38,8 +38,13 @@ export default function Reservation() {
   if (
     Object.keys(reservation).length === 0 ||
     reservation?.date_from?.length === 0
-  )
+  ) {
     return router.push('/flights')
+  }
+
+  // const handleSubmit = () => {
+  //   console.log('submit')
+  // }
 
   const passengersCount = adults + children + infants
 
@@ -63,29 +68,30 @@ export default function Reservation() {
           reservation={reservation}
         />
 
-        <div className="ml-3 mt-4 flex items-center space-x-2">
-          <Checkbox id="terms" />
-          <label
-            htmlFor="terms"
-            className="text-sm text-xxs font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        <div className="ml-3 mt-4 flex items-center justify-between space-x-2">
+          <div className="flex items-center gap-2">
+            <Checkbox id="terms" />
+            <label
+              htmlFor="terms"
+              className="cursor-pointer select-none text-xs font-normal md:text-sm"
+            >
+              Sunt de acord cu{' '}
+              <Link className="text-[#596AD9]" href="/public">
+                Politica de confidentialitate
+              </Link>
+              și cu{' '}
+              <Link className="text-[#596AD9]" href={'/'}>
+                Termenii si conditiile
+              </Link>
+            </label>
+          </div>
+          <button
+            // onClick={() => handleSubmit()}
+            className="custom-shadow hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
           >
-            Sunt de acord cu{' '}
-            <Link className="text-[#596AD9]" href="/public">
-              Politica de confidentialitate
-            </Link>
-            și cu{' '}
-            <Link className="text-[#596AD9]" href={'/'}>
-              Termenii si conditiile
-            </Link>
-          </label>
+            Rezervă acum
+          </button>
         </div>
-
-        <Link
-          href="/confirm-reservation"
-          className="mt-8 hidden h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
-        >
-          Rezervă acum
-        </Link>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">
         <ReservationSummary reservation={reservation} formik={formik} />

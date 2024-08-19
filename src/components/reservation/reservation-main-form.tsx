@@ -336,20 +336,20 @@ const PassengerForm = ({
               </Button>
             </Upload>
           </div>
-        {formik.values.passengers?.[index]?.passport && (
+          {formik.values.passengers?.[index]?.passport && (
             <div className="flex justify-between">
-                <p className="flex flex-col text-xs">
-                    <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
-                    <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
-            {formik.values.passengers[index].passport.name}
-          </span>
-                </p>
-                <Button
-                    icon={<DeleteOutlined />}
-                    className="min-w-8 text-xs text-red-500"
-                />
+              <p className="flex flex-col text-xs">
+                <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
+                <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
+                  {formik.values.passengers[index].passport.name}
+                </span>
+              </p>
+              <Button
+                icon={<DeleteOutlined />}
+                className="min-w-8 text-xs text-red-500"
+              />
             </div>
-        )}
+          )}
         </div>
 
         <Separator className="my-8" />
@@ -540,39 +540,41 @@ const OnlineCheckinSection = ({
 
   return (
     <ReservationCard
-      className="relative cursor-pointer rounded-t-3xl lg:pb-7 lg:pt-6"
+      className="relative cursor-pointer"
       onClick={handleAddCheckInOnline}
     >
       <main className="flex flex-col justify-between">
         <div className="flex items-center justify-between">
-          <h6 className="flex items-center">
-            Adaugă check-in-ul online!
-            <span className="ml-1 rounded-full bg-brand-yellow px-3 py-2 text-xxs">
+          <div className="flex gap-2">
+            <h6 className="flex items-center text-base font-medium">
+              Adaugă check-in-ul online!
+            </h6>
+            <span className="rounded-full bg-brand-yellow px-3 py-1 text-xxs">
               Popular
             </span>
-          </h6>
+          </div>
           <Checkbox className="ml-auto" checked={isOnlineCheckIn} />
         </div>
 
-        <ul className="select-none text-xxs font-medium text-[#7E7E7E]">
+        <ul className="select-none text-sm font-normal text-[#7E7E7E]">
           <li className="mt-3 flex items-center">
-            <CheckMark className="mt-1" />
+            <CheckMark className="mt-0.5" />
             Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
             check-in-ul independent
           </li>
           <li className="mt-2 flex items-center">
-            <CheckMark className="mt-1" />
+            <CheckMark className="mt-0.5" />
             Economisești timp și bani: check-in-ul direct la aeroport poate
             genera cheltuieli suplimentare sau întârzieri
           </li>
           <li className="mt-2 flex items-center">
-            <CheckMark className="mt-1" />
+            <CheckMark className="mt-0.5" />
             Emitem cărțile de îmbarcare la timp
           </li>
         </ul>
         <Divider className="my-3" />
         <div className="flex items-center space-x-2">
-          <div className="ml-1 h-auto text-xs font-light">
+          <div className="ml-1 h-auto text-sm font-normal">
             Adaugă €8.99 per pasager
           </div>
         </div>
@@ -590,8 +592,8 @@ const CheckMark = (props: ICheckMarkProps) => {
     <Image
       src={checkMarkSvg}
       alt={'check mark'}
-      width={12}
-      height={12}
+      width={16}
+      height={16}
       className={cn('mr-2 min-w-3 self-start', props.className)}
     />
   )
