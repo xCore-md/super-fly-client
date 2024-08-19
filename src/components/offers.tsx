@@ -1,13 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import offers from '@/assets/img/offers.jpg'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
+import { offers as offersList } from '../data/data'
 
 gsap.registerPlugin(useGSAP)
 gsap.registerPlugin(ScrollTrigger)
@@ -55,6 +56,11 @@ const Offers = () => {
     },
     { scope: container }
   )
+  const [currentOpenedAccortion, setCurrentOpenedAccortion] = useState(
+    offersList[0].title
+  )
+
+  const isOpen = (title: string) => title === currentOpenedAccortion
 
   return (
     <section
@@ -87,9 +93,13 @@ const Offers = () => {
         </div>
 
         <div className="animate-left-to-right w-full lg:w-4/6">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {offersList.map((offer, index) => (
             <div key={index}>
-              <CollapsibleBlock />
+              <CollapsibleBlock
+                isOpen={isOpen}
+                setIsOpen={(title: string) => setCurrentOpenedAccortion(title)}
+                offer={offer}
+              />
               {index !== 5 && (
                 <div className="flex justify-center">
                   <hr className="my-3 h-0 w-[90%] border-t-0 border-t-gray-200 lg:border-t" />

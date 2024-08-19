@@ -9,18 +9,23 @@ import { Button } from './ui/button'
 import { CollapsibleContent, CollapsibleTrigger } from './ui/collapsible'
 
 interface ICollapsibleComponentProps {
-  title: string
-  content: ReactElement
+  items: {
+    title: string
+    text: string
+  }[]
 }
 
 const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
-  const { title, content } = props
-  const [isOpen, setIsOpen] = useState(false)
+  const { items } = props
+  const [currentOpened, setCurrentOpened] = useState(items[0].title)
 
-  return (
+  const isOpen = (title: string) => title === currentOpened
+
+  return items.map(({ title, text }) => (
     <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
+      key={title}
+      open={isOpen(title)}
+      onOpenChange={() => setCurrentOpened(title)}
       className="rounded-full bg-white"
     >
       <CollapsibleTrigger
@@ -28,18 +33,18 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
         className="relative z-10 w-full text-left lg:text-center"
       >
         <div
-          className={`flex items-center justify-between rounded-full p-6 lg:h-[63px] lg:px-4 ${isOpen ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
+          className={`flex items-center justify-between rounded-full p-6 lg:h-[63px] lg:px-4 ${isOpen(title) ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
         >
           <span
-            className={`pr-4 text-sm font-light lg:text-lg ${isOpen ? 'text-white' : 'text-black'}`}
+            className={`pr-4 text-sm font-light lg:text-lg ${isOpen(title) ? 'text-white' : 'text-black'}`}
           >
             {title}
           </span>
           <Button
-            className={`h-[28px] min-h-[28px] w-[28px] min-w-[28px] rounded-full p-0 lg:h-[38px] lg:w-[38px] ${isOpen ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
+            className={`h-[28px] min-h-[28px] w-[28px] min-w-[28px] rounded-full p-0 lg:h-[38px] lg:w-[38px] ${isOpen(title) ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
           >
             <Image
-              src={isOpen ? minus : plus}
+              src={isOpen(title) ? minus : plus}
               alt="plus-icon"
               width={18}
               height={18}
@@ -48,12 +53,12 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-4 pt-14 ${isOpen ? 'shadow-lg shadow-slate-200' : ''}`}
+        className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-4 pt-14 ${isOpen(title) ? 'shadow-lg shadow-slate-200' : ''}`}
       >
-        {content}
+        <span className="text-md block px-2 py-3 text-gray-500">{text}</span>
       </CollapsibleContent>
     </Collapsible>
-  )
+  ))
 }
 
 export default CollapsibleComponent

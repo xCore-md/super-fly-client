@@ -86,17 +86,7 @@ const Questions = () => {
 
       <div className="animate-left-to-right-Questions lg:w-2/3">
         <div className="flex flex-col gap-4">
-          {items.map(({ title, text }) => (
-            <CollapsibleComponent
-              key={title}
-              title={title}
-              content={
-                <span className="text-md block px-2 py-3 text-gray-500">
-                  {text}
-                </span>
-              }
-            />
-          ))}
+          <CollapsibleComponent items={items} />
         </div>
       </div>
       <DoYouNeedHelp className="mt-9 text-center lg:hidden" />

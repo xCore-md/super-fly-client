@@ -170,12 +170,12 @@ const FooterColumns = ({ list }: { list: FooterList[] }) => {
       <div className="hidden grid-cols-5 lg:grid">
         {list.map(({ title, items }) => (
           <div key={title}>
-            <h4 className="mb-5 text-lg font-medium text-blue-700">{title}</h4>
+            <h4 className="mb-3 text-lg font-medium text-blue-700">{title}</h4>
             <ul key={title}>
               {items.map(({ label, href }) => (
                 <li
                   key={label}
-                  className="mb-5 text-gray-500 transition-all hover:text-gray-900"
+                  className="mb-2 text-gray-500 transition-all hover:text-gray-900"
                 >
                   <a href={href}>{label}</a>
                 </li>
