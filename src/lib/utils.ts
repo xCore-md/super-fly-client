@@ -83,3 +83,33 @@ export function handleCalendarKeyDown(e: any) {
 export const setToGreenwichMidnight = (date: string | Date): string => {
   return dayjs(date).utc(true).startOf('day').format('YYYY-MM-DDTHH:mm:ss')
 }
+
+export const handleDownloadImage = async ({
+  imageUrl,
+  fileName,
+}: {
+  imageUrl: any
+  fileName: any
+}) => {
+  try {
+    // Fetch the image
+    const response = await fetch(imageUrl)
+    const blob = await response.blob()
+
+    // Create a URL for the blob
+    const url = window.URL.createObjectURL(blob)
+
+    // Create a temporary anchor element to trigger the download
+    const a = document.createElement('a')
+    a.href = url
+    a.download = fileName || 'downloaded-image' // Set default file name if not provided
+    document.body.appendChild(a)
+    a.click()
+
+    // Clean up by revoking the blob URL and removing the anchor
+    window.URL.revokeObjectURL(url)
+    document.body.removeChild(a)
+  } catch (error) {
+    console.error('Failed to download image', error)
+  }
+}

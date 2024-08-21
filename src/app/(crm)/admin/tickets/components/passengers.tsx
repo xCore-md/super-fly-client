@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
+import { DownloadOutlined } from '@ant-design/icons'
 import {
   Button,
   Drawer,
@@ -13,7 +15,11 @@ import { useFormik } from 'formik'
 import PhoneInput from 'react-phone-input-2'
 import PassengerAddForm from '@/app/(crm)/admin/tickets/components/passengersAddForm'
 import axs from '@/lib/axios'
-import { getPassengerAge, handleCalendarKeyDown } from '@/lib/utils'
+import {
+  getPassengerAge,
+  handleCalendarKeyDown,
+  handleDownloadImage,
+} from '@/lib/utils'
 import 'react-phone-input-2/lib/style.css'
 
 export interface IPassenger {
@@ -304,6 +310,8 @@ const PassengerFields = ({
     value: country.cca2,
   }))
 
+  console.log({ passengerData })
+
   return (
     <div key={passengerData.id} className="mb-4 text-white">
       <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
@@ -420,7 +428,7 @@ const PassengerFields = ({
           />
         </div>
         <div className="flex items-center">
-          <p className=" w-80 font-medium">Numărul pașaportului:</p>
+          <p className=" w-80 font-medium">Nationalitate:</p>
           <Select
             className="w-full disabled:text-black"
             options={countriesOptions}
@@ -431,6 +439,23 @@ const PassengerFields = ({
             value={formik.values.passport_country}
             showSearch
           />
+        </div>
+
+        <div className="flex items-center">
+          <p className=" w-[198px] font-medium">Imaginea pașaportului:</p>
+          <Button
+            className="flex items-center"
+            icon={<DownloadOutlined style={{ fontSize: 14 }} />}
+            onClick={() =>
+              handleDownloadImage({
+                // @ts-ignore
+                imageUrl: `https://api-superfly.xcore.md/${passengerData.passport?.path}`,
+                fileName: 'passport-image',
+              })
+            }
+          >
+            Download
+          </Button>
         </div>
         <div className="flex gap-4">
           {passengersCount > 1 && (
