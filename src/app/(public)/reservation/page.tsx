@@ -130,11 +130,11 @@ export default function Reservation() {
               className="cursor-pointer select-none text-xs font-normal md:text-sm"
             >
               Sunt de acord cu{' '}
-              <Link className="text-[#596AD9]" href="/public">
+              <Link className="text-[#596AD9]" href="/policy">
                 Politica de confidentialitate
               </Link>
               și cu{' '}
-              <Link className="text-[#596AD9]" href={'/'}>
+              <Link className="text-[#596AD9]" href="/terms">
                 Termenii si conditiile
               </Link>
             </label>
