@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Modal } from 'antd'
 import clock from '@/assets/img/clock.svg'
 import mail from '@/assets/img/mail.svg'
@@ -14,6 +14,10 @@ const OurOfficeModal = () => {
   const showModal = () => {
     setIsModalOpen(true)
   }
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false)
+  }, [])
 
   return (
     <div>
@@ -29,7 +33,13 @@ const OurOfficeModal = () => {
           Oficiul nostru
         </span>
       </Button>
-      <Modal title="" open={isModalOpen} footer={null}>
+      <Modal
+        title=""
+        onCancel={closeModal}
+        onClose={closeModal}
+        open={isModalOpen}
+        footer={null}
+      >
         <h2 className="mt-4 text-center text-2xl font-semibold text-brand-blue">
           Contactează-ne
         </h2>

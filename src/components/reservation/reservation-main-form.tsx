@@ -21,10 +21,10 @@ import { cn, handleCalendarKeyDown } from '@/lib/utils'
 import { BagNumberInput } from '@components/form/bag-number-input'
 import { ReservationCard } from '@components/reservation/reservation-card'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
+import { Checkbox } from '@components/ui/checkbox'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import 'react-phone-input-2/lib/style.css'
-import { Checkbox } from '@components/ui/checkbox'
 
 interface IMainFormProps {
   showBaggage?: boolean
@@ -100,7 +100,7 @@ const PassengerForm = ({
   const { Option } = Select
 
   const [api, contextHolder] = notification.useNotification()
-  const [file, setFile] = useState<any>({})
+  const [files, setFiles] = useState<any>([])
 
   const uploadProps: UploadProps = {
     name: 'passport',
@@ -124,11 +124,9 @@ const PassengerForm = ({
           `passengers[${index}].passport_id`,
           info.file?.response?.id
         )
-        setFile({
-          id: info.file?.response?.id,
-          path: info.file?.response?.path,
-          name: info.file?.name,
-        })
+        const newFiles = [...files]
+        newFiles[index] = info.file?.response?.path
+        setFiles(newFiles)
       } else if (info.file.status === 'error') {
         api.error({
           message: 'File upload failed',
@@ -217,7 +215,10 @@ const PassengerForm = ({
               disabled={loading}
               showSearch
               onChange={(value) =>
-                formik.setFieldValue(`passengers[${index}].country`, value)
+                formik.setFieldValue(
+                  `passengers[${index}].passport_country`,
+                  value
+                )
               }
             />
           </div>
@@ -251,8 +252,15 @@ const PassengerForm = ({
             <Input
               className="h-10"
               type="text"
+              name={formik.values.passengers?.[index]?.email}
               placeholder="Adresa de email*"
               disabled={loading}
+              onChange={(e) =>
+                formik.setFieldValue(
+                  `passengers[${index}].email`,
+                  e.target.value
+                )
+              }
             />
           </div>
         </div>
@@ -348,12 +356,12 @@ const PassengerForm = ({
               </Button>
             </Upload>
           </div>
-          {formik.values.passengers?.[index]?.passport && (
+          {formik.values.passengers?.[index]?.passport_id && (
             <div className="flex justify-between">
               <p className="flex flex-col text-xs">
                 <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
                 <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {file?.name}
+                  {files[index].split('/').pop()}
                 </span>
               </p>
             </div>

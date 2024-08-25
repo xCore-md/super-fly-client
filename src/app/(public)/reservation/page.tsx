@@ -15,7 +15,7 @@ import { ReservationSummary } from '@components/reservation/reservation-summary'
 import { Checkbox } from '@components/ui/checkbox'
 
 export default function Reservation() {
-  const { reservation } = useReservationContext()
+  const { reservation, setReservation } = useReservationContext()
   const { flight } = useFlightContext()
   const { adults, children, infants } = flight
   const router = useRouter()
@@ -49,8 +49,7 @@ export default function Reservation() {
   const handleSubmit = () => {
     setLoading(true)
     const storage = localStorage.getItem('flight')
-
-    if (!storage) {
+    if (storage) {
       const storageFlight = storage ? JSON.parse(storage) : null
 
       const {
@@ -63,7 +62,7 @@ export default function Reservation() {
       } = reservation
 
       const obj = {
-        type: storageFlight.return_to ? 'tur-retur' : 'tur',
+        type: storageFlight.return_to ? 'tur_retur' : 'tur',
         airline: reservation?.airlines[0],
         fly_from: flyFrom,
         fly_to: flyTo,
@@ -77,8 +76,13 @@ export default function Reservation() {
 
       axs
         .post('/sale/create', obj)
-        .then(() => {
+        .then((res) => {
           setLoading(false)
+          setReservation({ ...reservation, confirmedReservation: res.data })
+          localStorage.setItem(
+            'reservation',
+            JSON.stringify({ ...reservation, confirmedReservation: res.data })
+          )
           router.push('/confirm-reservation')
         })
         .catch((err) => {
