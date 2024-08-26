@@ -188,9 +188,9 @@ export default function Policy() {
         <p>
           În alte țări ar putea funcționa diferite (și mai puțin stricte)
           normele de protecție a confidențialității și securității datelor decât
-          în ​​țara dvs. În consecință, informațiile personale pot fi supuse
-          unor solicitări de acces din partea statelor, instanțelor sau
-          organelor de drept în conformitate cu legislația în vigoare din țările
+          în țara dvs. În consecință, informațiile personale pot fi supuse unor
+          solicitări de acces din partea statelor, instanțelor sau organelor de
+          drept în conformitate cu legislația în vigoare din țările
           respective.&nbsp;
         </p>
         <p>Confidențialitate și securitate</p>

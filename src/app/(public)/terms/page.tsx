@@ -131,13 +131,14 @@ export default function Terms() {
         </p>
         <h3>Forță majoră </h3>
         <p>
-          Termenul "forță majoră" se referă la evenimente imprevizibile cauzate
-          de fenomene naturale, cum ar fi cutremure, alunecări de teren,
-          incendii, secetă, vânt puternic, ploi torențiale, inundații, ger sau
-          înzăpezire, sau de circumstanțe economice sau sociale, cum ar fi
-          revoluții, stări beligerante, blocade, greve, falimente, interdicții
-          la nivel de stat privind importul sau exportul, epidemii, etc. Lista
-          acestor fenomene și circumstanțe nu este exhaustivă.
+          Termenul &quot;forță majoră&quot; se referă la evenimente
+          imprevizibile cauzate de fenomene naturale, cum ar fi cutremure,
+          alunecări de teren, incendii, secetă, vânt puternic, ploi torențiale,
+          inundații, ger sau înzăpezire, sau de circumstanțe economice sau
+          sociale, cum ar fi revoluții, stări beligerante, blocade, greve,
+          falimente, interdicții la nivel de stat privind importul sau exportul,
+          epidemii, etc. Lista acestor fenomene și circumstanțe nu este
+          exhaustivă.
         </p>
         <p>
           Un eveniment poate fi considerat forță majoră doar în cazul în care
@@ -581,29 +582,31 @@ export default function Terms() {
         </p>
         <h3>PROTECTIA DATELOR CU CARACTER PERSONAL </h3>
         <p>
-          "Superfly Invest" SRL se angajează să protejeze confidențialitatea și
-          securitatea datelor cu caracter personal ale clienților și
-          vizitatorilor website-urilor sale. Datele personale sunt colectate
-          doar cu acordul sau la solicitarea persoanei vizate și sunt prelucrate
-          numai în scopurile necesare, cu respectarea măsurilor legale de
-          securitate și confidențialitate a datelor. Utilizarea website-urilor
-          "Superfly Invest" SRL implică acceptul prezentelor termeni și
-          condiții, iar în caz contrar, persoana nu trebuie să furnizeze datele
-          sale personale și nu poate accesa anumite servicii.
+          &quot;Superfly Invest&quot; SRL se angajează să protejeze
+          confidențialitatea și securitatea datelor cu caracter personal ale
+          clienților și vizitatorilor website-urilor sale. Datele personale sunt
+          colectate doar cu acordul sau la solicitarea persoanei vizate și sunt
+          prelucrate numai în scopurile necesare, cu respectarea măsurilor
+          legale de securitate și confidențialitate a datelor. Utilizarea
+          website-urilor &quot;Superfly Invest&quot; SRL implică acceptul
+          prezentelor termeni și condiții, iar în caz contrar, persoana nu
+          trebuie să furnizeze datele sale personale și nu poate accesa anumite
+          servicii.
         </p>
         <h3>
           Ce date cu caracter personal prelucreaza “SUPERFLY INVEST” SRL?{' '}
         </h3>
         <p>
-          "Superfly Invest" SRL prelucrează date cu caracter personal, inclusiv
-          nume și prenume, telefon/fax, adresa de domiciliu/reședință, e-mail,
-          profesie, loc de muncă, adresa IP, nr. Card bancar, data expirării
-          cardului etc., în contextul desfășurării activității curente, cum ar
-          fi derularea activității comerciale/contractuale, procurarea de bilete
-          de avion, procurarea de servicii de cazare, procurarea de pachete
-          turistice și abonarea la newsletter-ele "Superfly Invest" SRL. Cu
-          toate acestea, pentru a accesa site-urile web "Superfly Invest" SRL,
-          nu este necesar să furnizați date cu caracter personal.
+          &quot;Superfly Invest&quot; SRL prelucrează date cu caracter personal,
+          inclusiv nume și prenume, telefon/fax, adresa de domiciliu/reședință,
+          e-mail, profesie, loc de muncă, adresa IP, nr. Card bancar, data
+          expirării cardului etc., în contextul desfășurării activității
+          curente, cum ar fi derularea activității comerciale/contractuale,
+          procurarea de bilete de avion, procurarea de servicii de cazare,
+          procurarea de pachete turistice și abonarea la newsletter-ele
+          &quot;Superfly Invest&quot; SRL. Cu toate acestea, pentru a accesa
+          site-urile web &quot;Superfly Invest&quot; SRL, nu este necesar să
+          furnizați date cu caracter personal.
         </p>
         <h3>Cine sunt persoanele vizate? </h3>
         <p>
@@ -624,12 +627,12 @@ export default function Terms() {
         </p>
         <p>Care sunt scopurile colectarii datelor cu caracter personal?</p>
         <p>
-          Scopurile colectării datelor cu caracter personal de către "SUPERFLY
-          INVEST" SRL includ derularea activității comerciale/contractuale a
-          companiei, facturarea și încasarea serviciilor, marketingul,
-          promovarea și publicitatea, gestionarea relațiilor cu clienții,
-          îndeplinirea obligațiilor legale, comunicarea cu
-          organisme/autorități/instituții publice sau de interes public,
+          Scopurile colectării datelor cu caracter personal de către
+          &quot;SUPERFLY INVEST&quot; SRL includ derularea activității
+          comerciale/contractuale a companiei, facturarea și încasarea
+          serviciilor, marketingul, promovarea și publicitatea, gestionarea
+          relațiilor cu clienții, îndeplinirea obligațiilor legale, comunicarea
+          cu organisme/autorități/instituții publice sau de interes public,
           activități de audit și control/supraveghere, arhivarea, colectarea și
           recuperarea debitelor, soluționarea disputelor și litigiilor, și
           punerea în aplicare a hotărârilor judecătorești sau arbitrale.
@@ -641,9 +644,9 @@ export default function Terms() {
           Cine sunt destinatarii datelor dumneavoastra cu caracter personal?{' '}
         </h3>
         <p>
-          "Destinatarii datelor cu caracter personal furnizate către „SUPERFLY
-          INVEST” SRL pot fi persoanele vizate (clienti persoane fizice actuali,
-          fosti sau potentiali, vizitatori, public larg,
+          &quot;Destinatarii datelor cu caracter personal furnizate către
+          „SUPERFLY INVEST” SRL pot fi persoanele vizate (clienti persoane
+          fizice actuali, fosti sau potentiali, vizitatori, public larg,
           reprezentanti/imputerniciti acestora, legali sau conventionali) pentru
           scopul derularii raporturilor comerciale/contractuale. Alti
           destinatari pot fi autoritati publice centrale si locale, autoritati
@@ -682,24 +685,24 @@ export default function Terms() {
           dreptul la rectificare, dreptul la stergerea datelor, dreptul la
           restrictionarea prelucrarii, dreptul la portabilitatea datelor,
           dreptul la opozitie si procesul individual automatizat, conform
-          prevederilor legale aplicabile."
+          prevederilor legale aplicabile.&quot;
         </p>
         <p>Durata prelucrării datelor cu caracter personal:</p>
         <p>
-          În vederea realizării scopului menţionat, "SUPERFLY INVEST" SRL va
-          prelucra datele dumneavoastră cu caracter personal pe toată perioada
-          de desfășurare a relațiilor contractuale pentru care ați accesat
-          serviciul, până în momentul în care dumneavoastră sau reprezentantul
-          legal/convențional al dvs, veți exercita dreptul de opoziție/ de
-          ștergere (cu excepția situației în care "SUPERFLY INVEST" SRL
-          prelucrează datele în baza unei obligații legale sau justifică un
-          interes legitim). Ulterior încheierii operațiunilor de prelucrare a
-          datelor cu caracter personal, în scopul pentru care au fost colectate,
-          dacă dumneavoastră sau reprezentantul legal/convențional nu veți
-          exercita dreptul de opoziție/de ștergere, conform legii, aceste date
-          vor fi arhivate de către "SUPERFLY INVEST" SRL pe durata de timp
-          prevăzută în procedurile interne "SUPERFLY INVEST" SRL și/sau vor fi
-          distruse.
+          În vederea realizării scopului menţionat, &quot;SUPERFLY INVEST&quot;
+          SRL va prelucra datele dumneavoastră cu caracter personal pe toată
+          perioada de desfășurare a relațiilor contractuale pentru care ați
+          accesat serviciul, până în momentul în care dumneavoastră sau
+          reprezentantul legal/convențional al dvs, veți exercita dreptul de
+          opoziție/ de ștergere (cu excepția situației în care &quot;SUPERFLY
+          INVEST&quot; SRL prelucrează datele în baza unei obligații legale sau
+          justifică un interes legitim). Ulterior încheierii operațiunilor de
+          prelucrare a datelor cu caracter personal, în scopul pentru care au
+          fost colectate, dacă dumneavoastră sau reprezentantul
+          legal/convențional nu veți exercita dreptul de opoziție/de ștergere,
+          conform legii, aceste date vor fi arhivate de către &quot;SUPERFLY
+          INVEST&quot; SRL pe durata de timp prevăzută în procedurile interne
+          &quot;SUPERFLY INVEST&quot; SRL și/sau vor fi distruse.
         </p>
         <h3>
           Ce măsuri de securitate sunt utilizate pentru protejarea datelor
@@ -713,14 +716,15 @@ export default function Terms() {
         </p>
         <p>
           Securitatea integrală a datelor transmise prin internet nu poate fi
-          niciodată garantată. În timp ce "SUPERFLY INVEST" SRL depune toate
-          eforturile în privința protejării datelor dumneavoastră personale, nu
-          putem garanta în mod absolut securitatea datelor transmise către
-          website-urile "SUPERFLY INVEST" SRL. Orice transmitere de date se face
-          pe riscul dumneavoastră. Odată ce primim informația referitoare la
-          dumneavoastră, vom utiliza proceduri și măsuri stricte de securitate
-          împotriva utilizării neautorizate, nelegale, distrugerii, pierderii
-          accidentale sau divulgării datelor personale.
+          niciodată garantată. În timp ce &quot;SUPERFLY INVEST&quot; SRL depune
+          toate eforturile în privința protejării datelor dumneavoastră
+          personale, nu putem garanta în mod absolut securitatea datelor
+          transmise către website-urile &quot;SUPERFLY INVEST&quot; SRL. Orice
+          transmitere de date se face pe riscul dumneavoastră. Odată ce primim
+          informația referitoare la dumneavoastră, vom utiliza proceduri și
+          măsuri stricte de securitate împotriva utilizării neautorizate,
+          nelegale, distrugerii, pierderii accidentale sau divulgării datelor
+          personale.
         </p>
         <h3>Securitatea datelor bancare. </h3>
         <p>
