@@ -66,7 +66,6 @@ const Offers = () => {
 
   const [activeSliderIndex, setActiveSliderIndex] = useState(0)
 
-  console.log({ activeSliderIndex })
   const swiper1: any = useRef(null)
   const swiper2: any = useRef(null)
 
@@ -93,8 +92,8 @@ const Offers = () => {
             modules={[Autoplay]}
             initialSlide={activeSliderIndex}
             onSlideChange={(e) => {
-              setActiveSliderIndex(e.activeIndex)
-              swiper2.current?.slideTo?.(e.activeIndex)
+              setActiveSliderIndex(e.realIndex)
+              swiper2.current?.slideTo?.(e.realIndex)
             }}
           >
             {list.map((offer, index) => (
