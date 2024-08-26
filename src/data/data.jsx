@@ -1,5 +1,11 @@
 import bagageDifference from '@/assets/img/bagage-difference.jpg'
 import bagage from '@/assets/img/bagage.jpg'
+import dub from '@/assets/img/bestOffers/dub.jpg'
+import londra from '@/assets/img/bestOffers/londra.jpg'
+import moscova from '@/assets/img/bestOffers/moscova.jpg'
+import par from '@/assets/img/bestOffers/paris.jpg'
+import roma from '@/assets/img/bestOffers/roma.jpg'
+import telaviv_il from '@/assets/img/bestOffers/telaviv_il.jpg'
 import aa from '@/assets/img/companies/aa.png'
 import fo from '@/assets/img/companies/fo.png'
 import hs from '@/assets/img/companies/hs.png'
@@ -157,6 +163,57 @@ export const offers = [
     cityId: 'chicago_us',
     city: 'Chicago',
     country: 'USA',
+  },
+]
+
+export const bestDestinations = [
+  {
+    title: 'Moscova',
+    price: 39,
+    img: moscova,
+    code: 'CDG',
+    description:
+      'Descoperă splendoarea Moscovei! Rezervă acum bilete către capitala Rusiei și explorează istoria și cultura sa bogată.',
+  },
+  {
+    title: 'Tel Aviv',
+    price: 44,
+    img: telaviv_il,
+    code: 'BCN',
+    description:
+      'Călătorește către Tel Aviv, inima culturală a Israelului! Găsește bilete convenabile pentru această destinație vibrantă și diversă.',
+  },
+  {
+    title: 'Londra',
+    price: 44,
+    img: londra,
+    code: 'BCN',
+    description:
+      'Bucură-te de farmecul Londrei! Rezervă bilete către capitala Regatului Unit și explorează istoria, teatrul și gastronomia sa remarcabilă.',
+  },
+  {
+    title: 'Roma',
+    price: 44,
+    img: roma,
+    code: 'BCN',
+    description:
+      'Admiră frumusețea Romei antice! Găsește bilete pentru această capitală istorică și bucură-te de artă, arhitectură și bucătăria delicioasă.',
+  },
+  {
+    title: 'Franța',
+    price: 44,
+    img: par,
+    code: 'BCN',
+    description:
+      'Descoperă farmecul Franței! Rezervă bilete către Paris sau alte orașe franțuzești și bucură-te de artă, cultură și gastronomie de neegalat.',
+  },
+  {
+    title: 'Dublin',
+    price: 44,
+    img: dub,
+    code: 'BCN',
+    description:
+      'Zbor direct spre Dublin! Găsește bilete către capitala Irlandei și descoperă atmosfera sa prietenoasă, muzica tradițională și pub-urile autentice.',
   },
 ]
 

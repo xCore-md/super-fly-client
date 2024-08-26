@@ -5,10 +5,12 @@ import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
-import offers from '@/assets/img/offers.jpg'
+import { Autoplay } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
-import { offers as offersList } from '../data/data'
+import { bestDestinations as list } from '../data/data'
+import 'swiper/css'
 
 gsap.registerPlugin(useGSAP)
 gsap.registerPlugin(ScrollTrigger)
@@ -57,10 +59,16 @@ const Offers = () => {
     { scope: container }
   )
   const [currentOpenedAccortion, setCurrentOpenedAccortion] = useState(
-    offersList[0].title
+    list[0].title
   )
 
   const isOpen = (title: string) => title === currentOpenedAccortion
+
+  const [activeSliderIndex, setActiveSliderIndex] = useState(0)
+
+  console.log({ activeSliderIndex })
+  const swiper1: any = useRef(null)
+  const swiper2: any = useRef(null)
 
   return (
     <section
@@ -73,27 +81,67 @@ const Offers = () => {
 
       <div className="animate-right-to-left flex gap-6">
         <div className="hidden w-2/6 lg:block">
-          <Card className="mb-4 rounded-xl">
-            <CardHeader className="pb-2">
-              <h3 className="text-xl font-medium">Chisinau - Roma</h3>
-            </CardHeader>
-            <CardContent>
-              <p className="pb-6 text-base font-light">
-                Este un oraș plin de istorie și cultură, cu obiective turistice
-                celebre, cum ar fi Colosseum, Vatican și Fontana di Trevi.
-              </p>
-              {/* <Link className="text-blue-700 underline" href="">
-                Mai multe detalii
-              </Link> */}
-            </CardContent>
-          </Card>
-          <div className="h-[280px] w-full rounded-2xl">
-            <Image className="w-full object-cover" src={offers} alt="image" />
-          </div>
+          <Swiper
+            onSwiper={(swiper) => (swiper1.current = swiper)}
+            slidesPerView={1}
+            className="w-full"
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            modules={[Autoplay]}
+            initialSlide={activeSliderIndex}
+            onSlideChange={(e) => {
+              setActiveSliderIndex(e.activeIndex)
+              swiper2.current?.slideTo?.(e.activeIndex)
+            }}
+          >
+            {list.map((offer, index) => (
+              <SwiperSlide key={index} className=" min-w-full">
+                <Card className="mb-4 rounded-xl">
+                  <CardHeader className="pb-2">
+                    <h3 className="text-xl font-medium">
+                      Chisinau - {offer.title}
+                    </h3>
+                  </CardHeader>
+                  <CardContent className="min-h-[120px]">
+                    <p className="text-base font-light">{offer.description}</p>
+                  </CardContent>
+                </Card>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <Swiper
+            onSwiper={(swiper) => (swiper2.current = swiper)}
+            slidesPerView={1}
+            className="w-full"
+            autoplay={{
+              delay: 2500,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            modules={[Autoplay]}
+            initialSlide={activeSliderIndex}
+            onSlideChange={(e) => setActiveSliderIndex(e.activeIndex)}
+          >
+            {list.map((offer, index) => (
+              <SwiperSlide key={index} className="h-[280px] min-w-full">
+                <div className=" w-full ">
+                  <Image
+                    className="h-[280px] rounded-2xl object-cover"
+                    src={offer.img}
+                    alt="image"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <div className="animate-left-to-right w-full lg:w-4/6">
-          {offersList.map((offer, index) => (
+          {list.map((offer, index) => (
             <div key={index}>
               <CollapsibleBlock
                 isOpen={isOpen}
