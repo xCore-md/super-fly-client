@@ -32,6 +32,7 @@ import paris from '@/assets/img/offers/paris.jpg'
 import telaviv from '@/assets/img/offers/telaviv.jpg'
 import verona from '@/assets/img/offers/verona.jpg'
 import tarif from '@/assets/img/tarif.jpg'
+import dayjs from 'dayjs'
 
 export const offers = [
   {
@@ -169,9 +170,11 @@ export const offers = [
 export const bestDestinations = [
   {
     title: 'Moscova',
-    price: 39,
+    price: 220,
     img: moscova,
-    code: 'CDG',
+    city_code: 'moscova_ru',
+    date_from: dayjs().add(3, 'months').format('DD.MM.YYYY'),
+    code: 'VKO',
     description:
       'Descoperă splendoarea Moscovei! Rezervă acum bilete către capitala Rusiei și explorează istoria și cultura sa bogată.',
   },
@@ -179,7 +182,8 @@ export const bestDestinations = [
     title: 'Tel Aviv',
     price: 44,
     img: telaviv_il,
-    code: 'BCN',
+    city_code: 'tel-aviv_il',
+    code: 'TLV',
     description:
       'Călătorește către Tel Aviv, inima culturală a Israelului! Găsește bilete convenabile pentru această destinație vibrantă și diversă.',
   },
@@ -187,7 +191,8 @@ export const bestDestinations = [
     title: 'Londra',
     price: 44,
     img: londra,
-    code: 'BCN',
+    city_code: 'london_gb',
+    code: 'LTN',
     description:
       'Bucură-te de farmecul Londrei! Rezervă bilete către capitala Regatului Unit și explorează istoria, teatrul și gastronomia sa remarcabilă.',
   },
@@ -195,7 +200,8 @@ export const bestDestinations = [
     title: 'Roma',
     price: 44,
     img: roma,
-    code: 'BCN',
+    city_code: 'roma_it',
+    code: 'FCO',
     description:
       'Admiră frumusețea Romei antice! Găsește bilete pentru această capitală istorică și bucură-te de artă, arhitectură și bucătăria delicioasă.',
   },
@@ -203,7 +209,7 @@ export const bestDestinations = [
     title: 'Franța',
     price: 44,
     img: par,
-    code: 'BCN',
+    code: 'BVA',
     description:
       'Descoperă farmecul Franței! Rezervă bilete către Paris sau alte orașe franțuzești și bucură-te de artă, cultură și gastronomie de neegalat.',
   },
@@ -211,7 +217,7 @@ export const bestDestinations = [
     title: 'Dublin',
     price: 44,
     img: dub,
-    code: 'BCN',
+    code: 'DUB',
     description:
       'Zbor direct spre Dublin! Găsește bilete către capitala Irlandei și descoperă atmosfera sa prietenoasă, muzica tradițională și pub-urile autentice.',
   },

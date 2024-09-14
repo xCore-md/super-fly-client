@@ -1,12 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import axs from '@/lib/axios'
 import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
 import { bestDestinations as list } from '../data/data'
@@ -58,11 +59,37 @@ const Offers = () => {
     },
     { scope: container }
   )
-  const [currentOpenedAccortion, setCurrentOpenedAccortion] = useState(
+  const [currentOpenedAccordion, setCurrentOpenedAccordion] = useState(
     list[0].title
   )
+  const [bestOffers, setBestOffers] = useState<any>([])
 
-  const isOpen = (title: string) => title === currentOpenedAccortion
+  const getBestDestinations = () => {
+    axs
+      .get('/best-destinations')
+      .then((res) => {
+        setBestOffers(res.data)
+      })
+      .catch((err) => {
+        console.log(err.response.data)
+      })
+  }
+
+  useEffect(() => {
+    getBestDestinations()
+  }, [])
+
+  const bestDestinationsList = list.map((item: any) => ({
+    ...item,
+    price:
+      bestOffers.find((b: any) => b.city_code === item.city_code)?.price ||
+      item.price,
+    date_from:
+      bestOffers.find((b: any) => b.city_code === item.city_code)?.date_from ||
+      item.date_from,
+  }))
+
+  const isOpen = (title: string) => title === currentOpenedAccordion
 
   const [activeSliderIndex, setActiveSliderIndex] = useState(0)
 
@@ -70,10 +97,7 @@ const Offers = () => {
   const swiper2: any = useRef(null)
 
   return (
-    <section
-      className="animation-trigger mt-24 overflow-x-hidden lg:mt-44"
-      ref={container}
-    >
+    <section className="animation-trigger mt-24 lg:mt-44" ref={container}>
       <h2 className="mb-6 text-2xl font-medium">
         Cele mai populare destinatii
       </h2>
@@ -97,7 +121,7 @@ const Offers = () => {
             }}
           >
             {list.map((offer, index) => (
-              <SwiperSlide key={index} className=" min-w-full">
+              <SwiperSlide key={index} className="min-w-full px-1">
                 <Card className="mb-4 rounded-xl">
                   <CardHeader className="pb-2">
                     <h3 className="text-xl font-medium">
@@ -126,7 +150,7 @@ const Offers = () => {
             onSlideChange={(e) => setActiveSliderIndex(e.activeIndex)}
           >
             {list.map((offer, index) => (
-              <SwiperSlide key={index} className="h-[280px] min-w-full">
+              <SwiperSlide key={index} className="h-[280px] min-w-full px-1">
                 <div className=" w-full ">
                   <Image
                     className="h-[280px] rounded-2xl object-cover"
@@ -140,11 +164,11 @@ const Offers = () => {
         </div>
 
         <div className="animate-left-to-right w-full lg:w-4/6">
-          {list.map((offer, index) => (
-            <div key={index}>
+          {bestDestinationsList.map((offer, index) => (
+            <div key={index} className="cursor-pointer">
               <CollapsibleBlock
                 isOpen={isOpen}
-                setIsOpen={(title: string) => setCurrentOpenedAccortion(title)}
+                setIsOpen={(title: string) => setCurrentOpenedAccordion(title)}
                 offer={offer}
               />
               {index !== 5 && (

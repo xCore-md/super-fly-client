@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import flyOne from '@/assets/img/fly-one.png'
+import logo from '@/assets/img/logo-blue.png'
 import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
 import {
@@ -17,12 +17,14 @@ const CollapsibleBlock = ({
   isOpen,
   setIsOpen,
 }: {
-  offer: { title: string }
+  offer: any
   // eslint-disable-next-line no-unused-vars
   isOpen: (title: string) => boolean
   // eslint-disable-next-line no-unused-vars
   setIsOpen: (title: string) => void
 }) => {
+  console.log({ offer })
+
   return (
     <div className="flex items-start gap-2">
       <div className="w-full">
@@ -56,17 +58,14 @@ const CollapsibleBlock = ({
             className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-4 pt-14 ${isOpen(offer.title) ? 'shadow-lg shadow-slate-200' : ''}`}
           >
             {/*desktop todo: check if the variation on mobile and desktop is right*/}
-            <div className="hidden grid-cols-4 lg:grid">
+            <div className="hidden grid-cols-5 items-center gap-8 p-6 lg:grid">
               <div className="text-left">
                 <div className="mb-5 text-xl font-normal">15 Apr, 2023</div>
                 <div className="text-sm text-gray-700">Chișinău</div>
               </div>
               <div className="col-span-2">
-                <div className="mb-1 flex items-center justify-center gap-2">
-                  <span className="text-sm text-gray-700">
-                    Airline : FlyOne Airlines
-                  </span>
-                  <Image src={flyOne} alt="fly-company" width={52} />
+                <div className="mb-3 flex items-center justify-center ">
+                  <Image src={logo} alt="fly-company" width={85} />
                 </div>
                 <div>
                   <span className="fly-line block h-[1px] w-full bg-blue-700" />
@@ -78,7 +77,15 @@ const CollapsibleBlock = ({
               </div>
               <div className="text-right">
                 <div className="mb-5 text-xl font-normal">20 Apr, 2023</div>
-                <div className="text-sm text-gray-700">Milano</div>
+                <div className="text-sm text-gray-700">{offer.title}</div>
+              </div>
+              <div className="mt-2">
+                <div className="mb-2 w-full text-center">
+                  <span className="text-lg">{Math.round(offer.price)} €</span>
+                </div>
+                <Button className="h-10 w-full rounded-full bg-blue-700 text-base font-light shadow-md shadow-slate-400">
+                  <span>Alege</span>
+                </Button>
               </div>
             </div>
 
@@ -103,7 +110,7 @@ const CollapsibleBlock = ({
             <div
               className={`flex h-[63px] items-center justify-center rounded-full px-4 ${isOpen(offer.title) ? 'bg-blue-700 text-white' : 'border border-gray-200 bg-white'}`}
             >
-              <span className="text-xl">MDL 2299</span>
+              <span className="text-xl">{offer.price} €</span>
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
