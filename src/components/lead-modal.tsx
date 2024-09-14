@@ -46,11 +46,11 @@ export default function LeadModal({ closable = false, delay }: IProps) {
       ? { phone }
       : {
           phone,
-          fly_from: flight?.fly_from?.code,
-          fly_to: flight?.fly_to?.code,
-          date_from: dayjs(flight?.date_from).format('DD/MM/YYYY'),
+          flight_from: flight?.fly_from?.code,
+          flight_to: flight?.fly_to?.code,
+          date_from: dayjs(flight?.date_from).format('DD.MM.YYYY'),
           return_to: flight?.return_to
-            ? dayjs(flight?.return_to).format('DD/MM/YYYY')
+            ? dayjs(flight?.return_to).format('DD.MM.YYYY')
             : '',
           adults: flight?.adults,
           children: flight?.children,

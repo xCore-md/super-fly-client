@@ -61,7 +61,7 @@ export default function Flights() {
         <FlightsTabs loading={loading} />
       </>
 
-      <LeadModal delay={firstLoad ? 10320 : 2000} />
+      <LeadModal delay={2000} />
     </div>
   )
 }

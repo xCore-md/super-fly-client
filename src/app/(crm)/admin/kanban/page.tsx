@@ -26,6 +26,7 @@ const initialColumns = Object.values(statusesColumns).map((obj) => ({
 
 export default function Kanban() {
   const [columns, setColumns] = useState<TColumnType[]>(initialColumns)
+  const [startColumnId, setStartColumnId] = useState<string | null>(null)
   const [api, contextHolder] = notification.useNotification()
   const storage = localStorage.getItem('userData')
   const token = storage ? JSON.parse(storage).token : ''
@@ -154,14 +155,11 @@ export default function Kanban() {
     const overId = over ? String(over.id) : null
     const activeColumn = findColumn(activeId)
     const overColumn = findColumn(overId)
-
     if (!activeColumn || !overColumn || activeColumn !== overColumn) {
       return null
     }
     const activeIndex = activeColumn.cards.findIndex((i) => i.id === activeId)
     const overIndex = overColumn.cards.findIndex((i) => i.id === overId)
-
-    changeLeadStatus(activeId, overColumn.id)
 
     if (activeIndex !== overIndex) {
       setColumns((prevState) => {
@@ -176,6 +174,10 @@ export default function Kanban() {
           }
         })
       })
+    }
+
+    if (startColumnId !== overColumn.id) {
+      changeLeadStatus(activeId, overColumn.id)
     }
   }
 
@@ -192,6 +194,9 @@ export default function Kanban() {
       collisionDetection={closestCorners}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
+      onDragStart={(e) =>
+        setStartColumnId(String(e.active.data.current?.sortable.containerId))
+      }
     >
       {contextHolder}
       <div className="mt-8 grid grid-cols-4 gap-4">
