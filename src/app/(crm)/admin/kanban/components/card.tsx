@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import { FC } from 'react'
+import { EditOutlined } from '@ant-design/icons'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { Button } from 'antd'
 import dayjs from 'dayjs'
 import crossDrag from '@/assets/img/crm/cross-drag.svg'
 import messages from '@/assets/img/crm/messages.svg'
@@ -10,12 +11,15 @@ import users from '@/assets/img/crm/users.svg'
 export type TCardType = {
   id: string
   lead: any
+  openModal: () => void
+  closeModal: () => void
 }
 
-export const DndCard: FC<TCardType> = ({ id, lead }) => {
+export const DndCard = ({ id, lead, openModal }: any) => {
   const { attributes, listeners, setNodeRef, transform } = useSortable({
     id,
   })
+
   return (
     <div
       ref={setNodeRef}
@@ -32,8 +36,8 @@ export const DndCard: FC<TCardType> = ({ id, lead }) => {
                   ? `${lead.flight_from} ${lead.return_to ? '<->' : '-'} ${lead.flight_to}`
                   : 'No flight info'}
               </span>
-              <span className="rounded-lg bg-green-300 px-1 py-0.5 text-xs font-normal">
-                {lead.return_to ? 'tur|retur' : 'tur'}
+              <span className="rounded-lg bg-green-300 px-1 py-0.5 text-xxs font-normal">
+                {lead.return_to ? 'tur-retur' : 'tur'}
               </span>
             </div>
             <div>
@@ -47,11 +51,16 @@ export const DndCard: FC<TCardType> = ({ id, lead }) => {
               )}
             </div>
           </div>
+          <Button
+            icon={<EditOutlined />}
+            type="default"
+            onMouseDown={() => openModal(lead)}
+          />
         </div>
         <span className="my-2 flex text-base font-medium tracking-wide text-black">
           {lead.phone}
         </span>
-        <div className="flex justify-between">
+        <div className="flex items-center justify-between">
           {lead.flight_from ? (
             <span className="flex items-center gap-2">
               <span className="flex items-center gap-2">
