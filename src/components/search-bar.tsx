@@ -218,6 +218,8 @@ export const SearchBar = ({
       })
       return
     }
+    console.log({ formik: formik.values })
+
     setFlight(formik.values)
     localStorage.setItem('flight', JSON.stringify(formik.values))
 

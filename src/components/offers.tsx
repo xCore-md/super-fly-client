@@ -89,6 +89,29 @@ const Offers = () => {
       item.date_from,
   }))
 
+  const [currentCountry, setCurrentCountry] = useState({})
+
+  const getCurrentCityByIp = () => {
+    axs
+      .get('/current-city')
+      .then((res) => {
+        const { locations } = res.data
+        const { city, code, airport_int_id } = locations[0]
+        setCurrentCountry({
+          key: airport_int_id,
+          country: city.country.name,
+          city: city.name,
+          code: code,
+          cityId: city.id,
+        })
+      })
+      .catch((err) => console.log({ err }))
+  }
+
+  useEffect(() => {
+    getCurrentCityByIp()
+  }, [])
+
   const isOpen = (title: string) => title === currentOpenedAccordion
 
   const [activeSliderIndex, setActiveSliderIndex] = useState(0)
@@ -170,6 +193,7 @@ const Offers = () => {
                 isOpen={isOpen}
                 setIsOpen={(title: string) => setCurrentOpenedAccordion(title)}
                 offer={offer}
+                currentCountry={currentCountry}
               />
               {index !== 5 && (
                 <div className="flex justify-center">
