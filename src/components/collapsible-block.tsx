@@ -38,9 +38,9 @@ const CollapsibleBlock = ({
     fly_to: {
       code: offer.code,
       key: 1,
-      city: '',
-      country: '',
-      cityId: '0',
+      city: offer.city,
+      country: offer.country,
+      cityId: offer.cityId,
     },
     adults: 1,
     children: 0,
@@ -55,6 +55,7 @@ const CollapsibleBlock = ({
 
     router.push('/flights')
   }, [offer, router, setFlight])
+
   return (
     <div className="flex items-start gap-2">
       <div className="w-full">

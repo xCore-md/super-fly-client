@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useCallback, useState } from 'react'
 import fbOriginal from '@/assets/img/fb-original.svg'
 import instaOriginal from '@/assets/img/insta-original.svg'
 import logo from '@/assets/img/logo-footer.png'
@@ -17,78 +18,85 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@components/ui/accordion'
-
-interface FooterList {
-  title: string
-  items: { label: string; href: string }[]
-}
+import { Button } from 'antd'
+import { ChevronDown } from 'lucide-react'
 
 export const Footer = () => {
   const pathname = usePathname()
 
-  const list: FooterList[] = [
+  const list = [
     {
       title: 'Țările de Top',
+      expanded: false,
       items: [
-        { label: 'Philippines', href: '#' },
-        { label: 'Italy', href: '#' },
-        { label: 'United Kingdom', href: '#' },
-        { label: 'Spain', href: '#' },
-        { label: 'Nigeria', href: '#' },
-        { label: 'France', href: '#' },
+        'Italia',
+        'Londra',
+        'Germania',
+        'Israel',
+        'Franta',
+        'Belgia',
+        'Irlanda',
+        'Statele Unite ale Americii',
+        'Rusia',
+        'Spania',
+        'China',
+        'Japonia',
+        'Canada',
       ],
     },
     {
       title: 'Orașe de Top',
+      expanded: false,
       items: [
-        { label: 'London', href: '#' },
-        { label: 'Paris', href: '#' },
-        { label: 'Rome', href: '#' },
-        { label: 'Dubai', href: '#' },
-        { label: 'Manila', href: '#' },
-        { label: 'Lagos', href: '#' },
+        'Milano',
+        'Bove',
+        'Venetia',
+        'Charles de Gaulle',
+        'Bologna',
+        'Tel Aviv',
+        'Barcelona',
+        'Chisinau',
+        'Dublin',
+        'Roma',
+        'Munich',
+        'Brussels',
+        'Frankfurt',
+        'Berlin',
+        'Moscova',
+        'New York',
+        'Tokyo',
       ],
     },
     {
       title: 'Companii Aeriene',
       items: [
-        // { label: 'Blue Air', href: '#' },
-        // { label: 'Ryan Air', href: '#' },
-        // { label: 'Tarom', href: '#' },
-        // { label: 'EasyJet', href: '#' },
-        // { label: 'LOT', href: '#' },
-        // { label: 'Air France', href: '#' },
-        // { label: 'Air Moldova', href: '#' },
-        { label: 'Turkish Airlines', href: '#' },
-        { label: 'FlyOne', href: '#' },
-        { label: 'HiSky', href: '#' },
-        { label: 'Wizz Air', href: '#' },
-        { label: 'Lufthansa', href: '#' },
-        { label: 'Air Arabia', href: '#' },
-        { label: 'United Airlines', href: '#' },
+        'Hisky',
+        'Wizz air',
+        'Turkish Airlines',
+        'TAROM',
+        'EasyJet',
+        'LOT Polish',
+        'Lufthansa',
+        'Flyone',
+        'Aegian',
+        'Pegasus',
       ],
     },
+  ]
+
+  const listWithLinks = [
     {
-      title: 'Ajutor & Support',
+      title: 'SUPERFLY.MD',
       items: [
-        { label: 'Rezervările mele', href: '#' },
-        { label: 'Support Clienți', href: '#' },
-        { label: 'Taxe pentru Bagaje', href: '#' },
+        { label: 'Rezervările mele', href: '/manage-reservations' },
+        { label: 'Support Clienți', href: '/contacts' },
+        { label: 'Taxe pentru Bagaje', href: '/blog/2' },
         { label: 'Informații utile', href: '/blog' },
-        { label: 'Întrebări frecvente', href: '#' },
-      ],
-    },
-    {
-      title: 'Despre Noi',
-      items: [
-        { label: 'Întrebări frecvente', href: '#' },
-        { label: 'Rezervările mele', href: '#' },
-        { label: 'Support Clienți', href: '#' },
-        { label: 'Informații utile', href: '#' },
-        { label: 'Contactează-ne', href: '#' },
-        { label: 'Despre Noi', href: '#' },
-        { label: 'Politica de Confidențialitate', href: '#' },
-        { label: 'Termeni și Condiții', href: '#' },
+        { label: 'Întrebări frecvente', href: '/#questions' },
+        { label: 'Contactează-ne', href: '/contacts' },
+        { label: 'Despre Noi', href: '/about' },
+        { label: 'Politica de Confidențialitate', href: '/policy' },
+        { label: 'Termeni și Condiții', href: '/terms' },
       ],
     },
   ]
@@ -97,7 +105,7 @@ export const Footer = () => {
   return (
     <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14 max-[1440px]:px-5">
       <div className="container mx-auto px-0">
-        <FooterColumns list={list} />
+        <FooterColumns list={list} listWithLinks={listWithLinks} />
 
         <hr className="my-8" />
 
@@ -164,20 +172,66 @@ export const Footer = () => {
   )
 }
 
-const FooterColumns = ({ list }: { list: FooterList[] }) => {
+const FooterColumns = ({ list, listWithLinks }: any) => {
+  const [listItems, setListItems] = useState<any[]>(list)
+
+  const updateExpanded = useCallback(
+    (index: number) => {
+      const newList = listItems.map((item, i) => {
+        if (i === index) {
+          return {
+            ...item,
+            expanded: !item.expanded,
+          }
+        }
+        return item
+      })
+      setListItems(newList)
+    },
+    [listItems]
+  )
+
   return (
     <>
-      <div className="hidden grid-cols-5 lg:grid">
-        {list.map(({ title, items }) => (
+      <div className="hidden grid-cols-4 lg:grid">
+        {listItems.map(({ title, items, expanded }: any, index) => (
           <div key={title}>
             <h4 className="mb-3 text-lg font-medium text-blue-700">{title}</h4>
             <ul key={title}>
-              {items.map(({ label, href }) => (
+              {items
+                .slice(0, expanded ? items.length : 9)
+                .map((item: string, index: number) => (
+                  <li
+                    key={index}
+                    className="mb-2 text-gray-500 transition-all hover:cursor-default hover:text-gray-900"
+                  >
+                    {item}
+                  </li>
+                ))}
+            </ul>
+            {index !== 2 && (
+              <Button
+                className="flex items-center px-0 text-gray-500"
+                type="text"
+                icon={<ChevronDown size={16} />}
+                onClick={() => updateExpanded(index)}
+              >
+                mai mult
+              </Button>
+            )}
+          </div>
+        ))}
+
+        {listWithLinks.map(({ title, items }: any) => (
+          <div key={title} className="col-span-1">
+            <h4 className="mb-3 text-lg font-medium text-blue-700">{title}</h4>
+            <ul>
+              {items.map(({ label, href }: any) => (
                 <li
                   key={label}
-                  className="mb-2 text-gray-500 transition-all hover:text-gray-900"
+                  className="mb-3 text-gray-500 hover:cursor-pointer hover:text-blue-700"
                 >
-                  <a href={href}>{label}</a>
+                  <Link href={href}>{label}</Link>
                 </li>
               ))}
             </ul>
@@ -186,18 +240,35 @@ const FooterColumns = ({ list }: { list: FooterList[] }) => {
       </div>
 
       <Accordion type="single" collapsible className="w-full lg:hidden">
-        {list.map(({ title, items }) => (
+        {list.map(({ title, items }: any) => (
           <AccordionItem key={title} value={title} className="border-0">
-            <AccordionTrigger className="hover:no-underline active:no-underline">
+            <AccordionTrigger className="py-2 hover:no-underline active:no-underline">
               <h4 className="text-lg font-medium text-blue-700">{title}</h4>
             </AccordionTrigger>
             <AccordionContent>
               <ul key={title}>
-                {items.map(({ label, href }) => (
+                {items.map((item: any) => (
                   <li
-                    key={label}
+                    key={item}
                     className="mb-3 text-gray-500 transition-all hover:text-gray-900"
                   >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+
+        {listWithLinks.map(({ title, items }: any) => (
+          <AccordionItem key={title} value={title} className="border-0">
+            <AccordionTrigger className="py-2 hover:no-underline active:no-underline">
+              <h4 className="text-lg font-medium text-blue-700">{title}</h4>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul>
+                {items.map(({ label, href }: any) => (
+                  <li key={label} className="mb-3 text-gray-500">
                     <a href={href}>{label}</a>
                   </li>
                 ))}

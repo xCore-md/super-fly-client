@@ -64,8 +64,8 @@ const Offers = () => {
   )
   const [bestOffers, setBestOffers] = useState<any>([])
 
-  const getBestDestinations = () => {
-    axs
+  const getBestDestinations = async () => {
+    await axs
       .get('/best-destinations')
       .then((res) => {
         setBestOffers(res.data)
@@ -82,10 +82,10 @@ const Offers = () => {
   const bestDestinationsList = list.map((item: any) => ({
     ...item,
     price:
-      bestOffers.find((b: any) => b.city_code === item.city_code)?.price ||
+      bestOffers.find((b: any) => b.city_code === item.cityId)?.price ||
       item.price,
     date_from:
-      bestOffers.find((b: any) => b.city_code === item.city_code)?.date_from ||
+      bestOffers.find((b: any) => b.city_code === item.cityId)?.date_from ||
       item.date_from,
   }))
 
@@ -118,6 +118,8 @@ const Offers = () => {
 
   const swiper1: any = useRef(null)
   const swiper2: any = useRef(null)
+
+  if (!bestOffers.length) return null
 
   return (
     <section className="animation-trigger mt-24 lg:mt-44" ref={container}>

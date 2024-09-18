@@ -123,6 +123,10 @@ html {
   box-shadow: 0 0 12px 0 rgba(0 0 0 / 10%);
 }
 
+#questions {
+  scroll-margin-top: 100px;
+}
+
 .fly-line {
   position: relative;
 
@@ -281,6 +285,19 @@ html {
 
 .blue-bg {
   background: #3f4ed6 !important;
+}
+
+.btn-primary {
+  background: #3f4ed6;
+  color: #fff;
+  border: none;
+  min-height: 40px !important;
+
+  &:hover {
+    background: #3f4ed6 !important;
+    color: #fff !important;
+    opacity: 0.7 !important;
+  }
 }
 
 .green-button {

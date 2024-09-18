@@ -71,7 +71,10 @@ const Questions = () => {
     )
   })
   return (
-    <section className="flex flex-col pb-10 pt-16 lg:flex-row lg:pb-20">
+    <section
+      className="flex flex-col pb-10 pt-16 lg:flex-row lg:pb-20"
+      id="questions"
+    >
       <div className="animate-right-to-left-Questions lg:w-1/3">
         <h3 className="mb-2 text-lg font-medium lg:text-xl">
           Întrebări frecvente
