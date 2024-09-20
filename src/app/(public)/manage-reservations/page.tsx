@@ -1,26 +1,47 @@
 'use client'
 
 import React, { useCallback } from 'react'
-import { Button } from 'antd'
+import { Button, notification } from 'antd'
 import { Formik, Form, ErrorMessage } from 'formik'
+import axs from '@/lib/axios'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 
 export default function ManageReservations() {
   const [isConfirmed, setIsConfirmed] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
+  const [api, contextHolder] = notification.useNotification()
 
-  const confirmReservation = useCallback(() => {
-    setLoading(true)
+  const confirmReservation = useCallback(
+    ({ email, code: sale_id }: any) => {
+      setLoading(true)
 
-    setTimeout(() => {
-      setLoading(false)
-      setIsConfirmed(true)
-    }, 2000)
-  }, [setLoading, setIsConfirmed])
+      axs
+        .post('/check-fly', { email, sale_id })
+        .then(() => {
+          setIsConfirmed(true)
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log({ error })
+
+          setIsConfirmed(false)
+          setLoading(false)
+          api.error({
+            message: 'Error',
+            description: 'Invalid code or email',
+            placement: 'bottomRight',
+            duration: 2,
+            closable: true,
+          })
+        })
+    },
+    [setLoading, setIsConfirmed, api]
+  )
 
   return (
     <section className="mx-auto mb-24 mt-16 w-full max-w-[737px] animate-fade-up rounded-2xl bg-white p-7 shadow-md fill-mode-forwards">
+      {contextHolder}
       {!isConfirmed ? (
         <FormComponent confirm={confirmReservation} loading={loading} />
       ) : (
@@ -52,8 +73,7 @@ const FormComponent = ({ confirm, loading }: any) => {
       <Formik
         initialValues={{ code: '', email: '' }}
         onSubmit={(values) => {
-          console.log(values)
-          confirm()
+          confirm(values)
         }}
         validate={(values) => {
           const errors: any = {}

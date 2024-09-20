@@ -175,8 +175,8 @@ export const bestDestinations = [
     cityId: 'moscova_ru',
     city: 'Moscova',
     country: 'Rusia',
-    date_from: dayjs().add(3, 'months').format('DD.MM.YYYY'),
-    code: 'VKO',
+    date_from: dayjs().add(20, 'days').format('YYYY-MM-DD'),
+    code: 'DME',
     description:
       'Descoperă splendoarea Moscovei! Rezervă acum bilete către capitala Rusiei și explorează istoria și cultura sa bogată.',
   },
