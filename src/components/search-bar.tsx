@@ -434,7 +434,7 @@ export const SearchBar = ({
                   placeholder="Alege data"
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
-                  aria-readonly="true"
+                  inputReadOnly
                   onKeyDown={handleCalendarKeyDown}
                   onClick={() => setOpenSpecificField('departure')}
                   onChange={(date) => {
@@ -481,6 +481,7 @@ export const SearchBar = ({
                   allowClear={true}
                   disabledDate={disableNextDate}
                   popupClassName="datePickerPopUp"
+                  inputReadOnly
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
                   aria-readonly="true"
