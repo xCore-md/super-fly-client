@@ -123,7 +123,7 @@ const Offers = () => {
 
   return (
     <section className="animation-trigger mt-24 lg:mt-44" ref={container}>
-      <h2 className="mb-6 text-2xl font-medium">
+      <h2 className="mb-6 text-lg font-medium md:text-2xl">
         Cele mai populare destinatii
       </h2>
 
@@ -198,7 +198,7 @@ const Offers = () => {
                 currentCountry={currentCountry}
               />
               {index !== 5 && (
-                <div className="flex justify-center">
+                <div className="flex h-3 justify-center">
                   <hr className="my-3 h-0 w-[90%] border-t-0 border-t-gray-200 lg:border-t" />
                 </div>
               )}

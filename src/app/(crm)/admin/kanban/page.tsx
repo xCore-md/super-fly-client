@@ -30,12 +30,20 @@ export default function Kanban() {
   const [api, contextHolder] = notification.useNotification()
   const storage = localStorage.getItem('userData')
   const token = storage ? JSON.parse(storage).token : ''
+  const [operators, setOperators] = useState<any[]>([])
 
   const headers = {
     Authorization: 'Bearer ' + token,
   }
 
+  const getOperators = () => {
+    axs.get('/crm/user/list').then((res) => {
+      setOperators(res.data.data)
+    })
+  }
+
   useEffect(() => {
+    getOperators()
     axs
       .get('/crm/leads', { headers })
       .then((res) => {
@@ -201,7 +209,7 @@ export default function Kanban() {
       {contextHolder}
       <div className="mt-8 grid grid-cols-4 gap-4">
         {columns.map((section: TColumnType) => (
-          <Column key={section.id} {...section} />
+          <Column key={section.id} {...section} operators={operators} />
         ))}
       </div>
     </DndContext>

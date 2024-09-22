@@ -1,19 +1,21 @@
 import { useCallback, useState } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, rectSortingStrategy } from '@dnd-kit/sortable'
-import { Avatar, Modal } from 'antd'
-import { DndCard, TCardType } from './card'
+import { Input, Modal, Select } from 'antd'
 import dayjs from 'dayjs'
+import { useFormik } from 'formik'
+import { DndCard, TCardType } from './card'
 
 export type TColumnType = {
   id: string
   title: string
   cards: TCardType[]
   circleColor: string
+  operators?: any[]
 }
 
-const Column = (section: TColumnType) => {
-  const { id, cards, title, circleColor } = section
+const Column = (props: TColumnType) => {
+  const { id, cards, title, circleColor, operators } = props
   const { setNodeRef } = useDroppable({ id })
   const [isOpenModal, setIsOpenModal] = useState(false)
   const [lead, setLead] = useState<any>(null)
@@ -28,6 +30,22 @@ const Column = (section: TColumnType) => {
     setIsOpenModal(true)
   }, [])
 
+  const operatorsOptions = operators?.map((operator) => ({
+    label: <span>{operator.name}</span>,
+    value: operator.name,
+  }))
+
+  const formik = useFormik({
+    initialValues: {
+      operator: {} as any,
+      name: '',
+      comment: '',
+    },
+    onSubmit: (values) => {
+      console.log(values)
+    },
+  })
+
   return (
     <SortableContext id={id} items={cards} strategy={rectSortingStrategy}>
       <Modal
@@ -35,13 +53,18 @@ const Column = (section: TColumnType) => {
         onCancel={closeModal}
         onClose={closeModal}
         centered
+        title={`Lead ${lead?.name || lead?.id}`}
+        okText="Save"
       >
         {lead && (
-          <div className="py-4">
-            <div className="flex justify-between">
-              <div className="flex flex-col">
-                <span className="text-base font-semibold">Lead {lead.id}</span>
-                <div className="flex items-center gap-2 ">
+          <form
+            className="py-4"
+            onChange={formik.handleChange}
+            onSubmit={formik.handleSubmit}
+          >
+            <div className="mb-2 flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 font-medium">
                   {lead.flight_from ? (
                     <span>
                       {lead.flight_from} - {lead.flight_to}
@@ -62,12 +85,53 @@ const Column = (section: TColumnType) => {
                   </div>
                 )}
               </div>
-              <div className="flex gap-2 pr-8">
-                <Avatar src="https://i.pravatar.cc/300" />
-                <span>{lead.user?.name}</span>
+              <div className="flex flex-col items-end gap-1">
+                <label>Assigned</label>
+                <Select
+                  className="w-full min-w-44"
+                  placeholder="operators"
+                  showSearch
+                  value={formik.values.operator.id}
+                  options={operatorsOptions}
+                  onChange={formik.handleChange}
+                />
               </div>
             </div>
-          </div>
+            <div className="flex flex-col gap-2">
+              <div>
+                <label>Lead name</label>
+                <Input
+                  name="name"
+                  className="mt-1 w-full"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                />
+              </div>
+              <div>
+                {lead.comments?.length > 0 ? (
+                  <div>
+                    <label className="text-xs font-medium uppercase">
+                      Comments
+                    </label>
+                    <ul>
+                      <li></li>
+                    </ul>
+                  </div>
+                ) : (
+                  <span className=" italic">No comments yet</span>
+                )}
+              </div>
+              <div className="w-full">
+                <label className="text-sm">Comment</label>
+                <Input.TextArea
+                  name="comment"
+                  className="mt-1 min-h-56 w-full"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                />
+              </div>
+            </div>
+          </form>
         )}
       </Modal>
       <div
@@ -86,11 +150,12 @@ const Column = (section: TColumnType) => {
         <hr className="mb-3 mt-2 border-t-[1px]" />
 
         <div className="scroll-small flex max-h-[520px] min-h-[500px] flex-col gap-2 overflow-y-scroll">
-          {section.cards.map((lead, index) => (
+          {cards.map((lead, index) => (
             <DndCard
               key={index}
               id={lead.id}
               lead={lead}
+              operators={operators}
               openModal={openModal}
               closeModal={closeModal}
             />

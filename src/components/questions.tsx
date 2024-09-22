@@ -72,7 +72,7 @@ const Questions = () => {
   })
   return (
     <section
-      className="flex flex-col pb-10 pt-16 lg:flex-row lg:pb-20"
+      className="flex flex-col pb-10 pt-8 md:pt-16 lg:flex-row lg:pb-20"
       id="questions"
     >
       <div className="animate-right-to-left-Questions lg:w-1/3">

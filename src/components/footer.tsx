@@ -213,7 +213,7 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
               <Button
                 className="flex items-center px-0 text-gray-500"
                 type="text"
-                icon={<ChevronDown size={16} />}
+                icon={<ChevronDown size={20} />}
                 onClick={() => updateExpanded(index)}
               >
                 mai mult

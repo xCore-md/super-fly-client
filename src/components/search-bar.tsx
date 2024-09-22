@@ -446,7 +446,7 @@ export const SearchBar = ({
                     }
                     setOpenSpecificField('departure')
                   }}
-                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
+                  className="aria-readonly h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
               </div>
               <Button
@@ -500,7 +500,7 @@ export const SearchBar = ({
                   }}
                   placeholder="Alege data"
                   onOpenChange={() => setOpenSpecificField('arrival')}
-                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
+                  className="aria-readonly h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
               </div>
               <Button

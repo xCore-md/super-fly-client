@@ -87,7 +87,7 @@ export const BlogList = (props: IBlogListProps) => {
         ))}
       </div>
       <div
-        className={`hidden items-center lg:flex ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+        className={`flex items-center ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>
@@ -95,7 +95,7 @@ export const BlogList = (props: IBlogListProps) => {
         {buttonTitle && (
           <Link
             href={buttonUrl}
-            className="flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400"
+            className="flex h-9 w-full items-center justify-center rounded-full bg-blue-700 px-8 text-sm font-light text-white shadow-md shadow-slate-400 md:h-11 md:w-fit md:text-base"
           >
             <span>{buttonTitle.trim()}</span>
           </Link>
