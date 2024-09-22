@@ -434,6 +434,7 @@ export const SearchBar = ({
                   placeholder="Alege data"
                   disabledDate={disabledDate}
                   popupClassName="datePickerPopUp"
+                  aria-readonly="true"
                   onKeyDown={handleCalendarKeyDown}
                   onClick={() => setOpenSpecificField('departure')}
                   onChange={(date) => {
@@ -446,7 +447,7 @@ export const SearchBar = ({
                     }
                     setOpenSpecificField('departure')
                   }}
-                  className="aria-readonly h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
+                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
               </div>
               <Button
@@ -482,6 +483,7 @@ export const SearchBar = ({
                   popupClassName="datePickerPopUp"
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
+                  aria-readonly="true"
                   onClick={() => setOpenSpecificField('arrival')}
                   defaultPickerValue={
                     isLastDayOfMonth(formik.values.date_from)
@@ -500,7 +502,7 @@ export const SearchBar = ({
                   }}
                   placeholder="Alege data"
                   onOpenChange={() => setOpenSpecificField('arrival')}
-                  className="aria-readonly h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
+                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
                 />
               </div>
               <Button
