@@ -257,8 +257,19 @@ html {
   display: none;
 }
 
-.autocompleteSelectPopUp {
-  min-width: 280px !important;
+.autocompleteSelectPopUpFrom,
+.autocompleteSelectPopUpTo {
+  min-width: 268px !important;
+  padding-top: 50px;
+  z-index: 1 !important;
+}
+
+.autocompleteSelectPopUpFrom {
+  inset: 475px auto auto 17.8% !important;
+}
+
+.autocompleteSelectPopUpTo {
+  inset: 475px auto auto 33.4% !important;
 }
 
 .rc-virtual-list-scrollbar {

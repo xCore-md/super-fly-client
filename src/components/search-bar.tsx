@@ -309,7 +309,7 @@ export const SearchBar = ({
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
-      <div className="flex w-full max-w-[1152px] items-center rounded-full lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
+      <div className="z-10 flex w-full max-w-[1152px] items-center rounded-full shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
         <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
           <div className="flex flex-row gap-4 max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
             <div className="relative flex w-full items-center gap-4 rounded-t-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
@@ -326,8 +326,8 @@ export const SearchBar = ({
                   showSearch
                   id="departure"
                   placeholder="ZBOR DIN"
-                  popupClassName="autocompleteSelectPopUp"
-                  className="autocompleteSelect h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
+                  popupClassName="autocompleteSelectPopUpFrom"
+                  className="autocompleteSelect relative h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_from.city || null}
                   open={openFields.flyFrom}
                   onClick={() => setOpenSpecificField('flyFrom')}
@@ -384,8 +384,8 @@ export const SearchBar = ({
                   showSearch
                   open={openFields.flyTo}
                   placeholder="ATERIZARE ÎN"
-                  popupClassName="autocompleteSelectPopUp"
-                  className="autocompleteSelect h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
+                  popupClassName="autocompleteSelectPopUpTo"
+                  className="autocompleteSelect h-8 min-w-[200px] border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_to.city || null}
                   filterOption={() => true}
                   onClick={() => setOpenSpecificField('flyTo')}
