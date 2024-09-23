@@ -1,8 +1,9 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+
 import { Input } from 'antd'
 import Image from 'next/image'
 import departure from '@/assets/img/departure.svg'
 import arrive from '@/assets/img/arrive.svg'
-import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function InputComponent({
   field,
