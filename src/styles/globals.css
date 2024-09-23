@@ -217,6 +217,26 @@ html {
   line-height: 26px !important;
 }
 
+.drawerCalendar .ant-picker-cell-inner,
+.drawerCalendar .ant-picker-cell-inner::before {
+  border-radius: 40px !important;
+  min-width: 28px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+}
+
+.drawerCalendar {
+  padding-top: 40px;
+}
+
+.drawerCalendar .ant-picker-calendar-mode-switch {
+  display: none;
+}
+
+.drawerCalendar .ant-select {
+  height: 40px !important;
+}
+
 .scroll-small {
   scrollbar-width: 1px !important ;
 }
@@ -260,6 +280,29 @@ html {
 .autocompleteSelectPopUpFrom,
 .autocompleteSelectPopUpTo {
   min-width: 268px !important;
+}
+
+.search-drawer .ant-drawer-header {
+  padding: 16px 8px !important;
+  border-bottom: 0 !important;
+  z-index: 99999999;
+}
+
+.search-drawer {
+  background: #fafafa !important;
+}
+
+.search-drawer .ant-drawer-body {
+  padding: 8px 16px 16px !important;
+}
+
+.search-drawer .ant-drawer-header .ant-drawer-header-title {
+  display: flex;
+  justify-content: end;
+
+  .ant-drawer-close {
+    font-weight: 600;
+  }
 }
 
 .rc-virtual-list-scrollbar {

@@ -37,7 +37,7 @@ export const Banner = () => {
             fill
             className="banner-image h-full rounded-b-[50px] object-contain opacity-0"
             src={plane}
-            alt="'plane"
+            alt="plane"
             priority
           />
         </div>

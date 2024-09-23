@@ -11,7 +11,7 @@ import {
   useState,
 } from 'react'
 import { SwapOutlined } from '@ant-design/icons'
-import { DatePicker, Popover, Select, notification } from 'antd'
+import { DatePicker, Drawer, Popover, Select, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import arrive from '@/assets/img/arrive.svg'
@@ -32,6 +32,8 @@ import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { SearchFields, searchFields } from '@/lib/constants'
 import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
+import { useIsMobile } from '@/lib/hooks/usIsMobile'
+import { SearchComponents } from './search/search-components'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -50,6 +52,7 @@ export const SearchBar = ({
   setIsNoFlights,
   setActiveTab,
 }: ISearchBarProps) => {
+  const isMobile = useIsMobile()
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openFields, setOpenFields] = useState<ISearchField>({
@@ -86,6 +89,8 @@ export const SearchBar = ({
   }
 
   const setOpenSpecificField = (field: string) => {
+    if (isMobile) return null
+
     const newFields = { ...openFields }
     Object.keys(newFields).forEach((key) => {
       if (key !== field) {
@@ -105,15 +110,6 @@ export const SearchBar = ({
   }, [tab])
 
   const [passengersPopOverStatus, setPassengersPopOverStatus] = useState(false)
-
-  useEffect(() => setOptions(mockOptions), [])
-
-  useEffect(() => {
-    if (pathname !== '/flights') {
-      localStorage.removeItem('flight')
-      formik.resetForm()
-    }
-  }, [])
 
   const isHomePage = pathname === '/'
 
@@ -136,9 +132,26 @@ export const SearchBar = ({
         infants: storageFlight.infants,
       })
     }
+
+    if (pathname !== '/flights') {
+      localStorage.removeItem('flight')
+      formik.resetForm()
+    }
+
+    setOptions(mockOptions)
+    getCurrentCityByIp()
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAllFields()
+      }
+    })
   }, [])
 
+  const [searchLoading, setSearchLoading] = useState(false)
+
   const onSearch = (value: string) => {
+    setSearchLoading(true)
     if (value && value.length > 2) {
       axs
         .get(`/locations?locale=ro-RO&query=${value}`, {
@@ -156,6 +169,7 @@ export const SearchBar = ({
               cityId: loc.city.id,
             }))
           )
+          setSearchLoading(false)
         })
         .catch((err) => console.log({ err }))
     }
@@ -199,10 +213,6 @@ export const SearchBar = ({
       .catch((err) => console.log({ err }))
   }
 
-  useEffect(() => {
-    getCurrentCityByIp()
-  }, [])
-
   const submitSearch = () => {
     if (
       !formik.values.fly_from ||
@@ -218,7 +228,6 @@ export const SearchBar = ({
       })
       return
     }
-    console.log({ formik: formik.values })
 
     setFlight(formik.values)
     localStorage.setItem('flight', JSON.stringify(formik.values))
@@ -306,10 +315,41 @@ export const SearchBar = ({
     updateFormDates,
     updateFormValues,
   }))
+
+  const [drawerState, setDrawerState] = useState('')
+
+  const openDrawer = useCallback((field: string) => setDrawerState(field), [])
+  const closeDrawer = useCallback(() => setDrawerState(''), [])
+
+  const onClickField = (field: string) => {
+    if (isMobile) {
+      openDrawer(field)
+    } else {
+      setOpenSpecificField(field)
+    }
+  }
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
-      <div className="z-10 flex w-full max-w-[1152px] items-center rounded-full shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
+      <Drawer
+        open={!!drawerState}
+        onClose={closeDrawer}
+        placement="bottom"
+        height="100%"
+        zIndex={999999}
+        className="search-drawer"
+      >
+        <SearchComponents
+          field={drawerState}
+          onSearch={onSearch}
+          options={options}
+          loading={searchLoading}
+          formik={formik}
+          closeDrawer={closeDrawer}
+        />
+      </Drawer>
+      <div className="z-10 flex w-full max-w-[1152px] items-center md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
         <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
           <div className="flex flex-row gap-4 max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
             <div className="relative flex w-full items-center gap-4 rounded-t-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
@@ -330,7 +370,7 @@ export const SearchBar = ({
                   className="autocompleteSelect relative h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_from.city || null}
                   open={openFields.flyFrom}
-                  onClick={() => setOpenSpecificField('flyFrom')}
+                  onClick={() => onClickField('flyFrom')}
                   filterOption={() => true}
                   onClear={() => {
                     formik.setFieldValue('fly_from', '')
@@ -388,7 +428,7 @@ export const SearchBar = ({
                   className="autocompleteSelect h-8 min-w-[200px] border-0 bg-transparent p-0 text-sm font-semibold text-black"
                   value={formik.values.fly_to.city || null}
                   filterOption={() => true}
-                  onClick={() => setOpenSpecificField('flyTo')}
+                  onClick={() => onClickField('flyTo')}
                   optionRender={({ data }) => (
                     <span
                       className="flex justify-between gap-4"
@@ -436,7 +476,7 @@ export const SearchBar = ({
                   popupClassName="datePickerPopUp"
                   inputReadOnly
                   onKeyDown={handleCalendarKeyDown}
-                  onClick={() => setOpenSpecificField('departure')}
+                  onClick={() => onClickField('departure')}
                   onChange={(date) => {
                     formik.setFieldValue('date_from', date)
                     if (date === null) {
@@ -485,7 +525,7 @@ export const SearchBar = ({
                   value={formik.values.return_to}
                   onKeyDown={handleCalendarKeyDown}
                   aria-readonly="true"
-                  onClick={() => setOpenSpecificField('arrival')}
+                  onClick={() => onClickField('arrival')}
                   defaultPickerValue={
                     isLastDayOfMonth(formik.values.date_from)
                       ? dayjs(formik.values.date_from).add(1, 'month')
@@ -499,7 +539,7 @@ export const SearchBar = ({
                       setActiveTab?.('intors')
                       setTimeout(() => setOpenSpecificField('passengers'), 100)
                     }
-                    setOpenSpecificField('arrival')
+                    // setOpenSpecificField('arrival')
                   }}
                   placeholder="Alege data"
                   onOpenChange={() => setOpenSpecificField('arrival')}
@@ -551,7 +591,7 @@ export const SearchBar = ({
                 onOpenChange={(status) => setPassengersPopOverStatus(status)}
               >
                 <Button
-                  onClick={() => setOpenSpecificField('passengers')}
+                  onClick={() => onClickField('passengers')}
                   className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                 >
                   <span className="flex">
