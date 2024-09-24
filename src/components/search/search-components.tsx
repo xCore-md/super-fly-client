@@ -13,7 +13,7 @@ export function SearchComponents(props: any) {
   }
 
   if (field === 'passengers') {
-    return <PassengersComponent />
+    return <PassengersComponent {...props} />
   }
 
   return null

@@ -227,6 +227,8 @@ html {
 
 .drawerCalendar {
   padding-top: 40px;
+  overflow: hidden;
+  border-radius: 0 0 20px 20px !important;
 }
 
 .drawerCalendar .ant-picker-calendar-mode-switch {
@@ -329,6 +331,19 @@ html {
 
 .blue-bg {
   background: #3f4ed6 !important;
+}
+
+.bt-primary-custom {
+  background: #3f4ed6;
+  color: #fff;
+  border: none;
+  min-height: 32px !important;
+
+  &:hover {
+    background: #3f4ed6 !important;
+    color: #fff !important;
+    opacity: 0.7 !important;
+  }
 }
 
 .btn-primary {

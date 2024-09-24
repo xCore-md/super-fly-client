@@ -63,11 +63,6 @@ export const SearchBar = ({
     passengers: false,
   })
   const { setFlights, setInitialFlights } = useFlightsContext()
-  const [passengers, setPassengers] = useState({
-    adults: 1,
-    children: 0,
-    infants: 0,
-  })
 
   const router = useRouter()
   const pathname = usePathname()
@@ -112,6 +107,13 @@ export const SearchBar = ({
   const [passengersPopOverStatus, setPassengersPopOverStatus] = useState(false)
 
   const isHomePage = pathname === '/'
+  const passengersTypes = ['adults', 'children', 'infants']
+
+  const passengersObject = {
+    adults: formik.values.adults,
+    children: formik.values.children,
+    infants: formik.values.infants,
+  }
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -126,10 +128,8 @@ export const SearchBar = ({
           : '',
       })
 
-      setPassengers({
-        adults: storageFlight.adults,
-        children: storageFlight.children,
-        infants: storageFlight.infants,
+      passengersTypes.forEach((type) => {
+        formik.setFieldValue(type, storageFlight[type])
       })
     }
 
@@ -176,10 +176,6 @@ export const SearchBar = ({
   }
 
   const updatePassengersCount = (key: string, value: number) => {
-    setPassengers({
-      ...passengers,
-      [key]: value,
-    })
     formik.setFieldValue(key, value)
   }
 
@@ -347,6 +343,7 @@ export const SearchBar = ({
           loading={searchLoading}
           formik={formik}
           closeDrawer={closeDrawer}
+          submitSearch={submitSearch}
         />
       </Drawer>
       <div className="z-10 flex w-full max-w-[1152px] items-center md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
@@ -582,7 +579,7 @@ export const SearchBar = ({
                 className="w-full"
                 content={
                   <PopoverContent
-                    passengers={passengers}
+                    passengers={passengersObject}
                     updatePassengersCount={updatePassengersCount}
                   />
                 }
@@ -597,13 +594,15 @@ export const SearchBar = ({
                   <span className="flex">
                     <span
                       className={
-                        Object.values(passengers).reduce((a, b) => a + b) > 0
+                        Object.values(passengersObject).reduce(
+                          (a, b) => a + b
+                        ) > 0
                           ? 'flex w-4'
                           : ''
                       }
                     >
                       {Number(
-                        Object.values(passengers).reduce((a, b) => a + b)
+                        Object.values(passengersObject).reduce((a, b) => a + b)
                       ) || ''}
                     </span>{' '}
                     Passengers
