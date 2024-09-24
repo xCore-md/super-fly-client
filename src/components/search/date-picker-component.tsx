@@ -1,4 +1,4 @@
-import { Button, Calendar, Col, Input, Row } from 'antd'
+import { Button, Calendar, Input } from 'antd'
 import Image from 'next/image'
 import calendarBlue from '@/assets/img/calendar-blue.svg'
 import calendar from '@/assets/img/calendar.svg'
