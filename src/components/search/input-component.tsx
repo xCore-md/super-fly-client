@@ -25,10 +25,6 @@ export function InputComponent({
   const inputRef = useRef<any>(null)
 
   useEffect(() => {
-    if (inputRef.current) {
-      setTimeout(() => inputRef.current.focus(), 200)
-    }
-
     if (field === 'flyFrom' && formik.values.fly_from.city) {
       setInputValue(formik.values.fly_from.city)
     }
@@ -36,6 +32,12 @@ export function InputComponent({
       setInputValue(formik.values.fly_to.city)
     }
   }, [formik.values.fly_from.city, formik.values.fly_to.city, field])
+
+  useEffect(() => {
+    if (inputRef.current) {
+      setTimeout(() => inputRef.current.focus(), 200)
+    }
+  }, [])
 
   const handleSelect = (option: any) => {
     formik.setFieldValue(field === 'flyFrom' ? 'fly_from' : 'fly_to', option)
