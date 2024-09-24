@@ -52,7 +52,7 @@ export default function Flights() {
   }, [])
 
   return (
-    <div className="mt-14 pb-10 lg:mt-4">
+    <div className="mt-14 px-4 pb-10 lg:mt-4">
       <>
         <Header setLoading={setLoading} />
         <div className="animate-fade-down fill-mode-forwards">

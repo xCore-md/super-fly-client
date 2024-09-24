@@ -54,7 +54,7 @@ export const FlyContent = (props: any) => {
         ''
       ) : (
         <div
-          className={` flex flex-row items-start gap-6 lg:flex-col lg:items-center lg:justify-center lg:gap-0 lg:pb-0  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1 border-b lg:border-0`}
+          className={` flex flex-row items-start gap-6 lg:flex-col lg:items-center lg:justify-center lg:gap-0 lg:pb-0  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1`}
         >
           <img
             alt="airline"
@@ -74,7 +74,7 @@ export const FlyContent = (props: any) => {
       {flight && (
         <section
           className={cn(
-            'z-10 col-span-2 row-start-2 flex flex-col justify-center py-3 lg:col-span-3 lg:row-start-auto lg:py-6',
+            'z-10 col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 lg:col-span-3 lg:row-start-auto lg:py-6',
             {
               'lg:col-span-4': withoutAction,
             }
@@ -168,8 +168,10 @@ export const FlyContent = (props: any) => {
           {withoutFooter || isAdminPanel ? (
             ''
           ) : (
-            <footer className="mt-5 flex justify-evenly text-xs text-xxs lg:justify-center">
-              <div className="lg:min-w-auto mr-5 flex min-w-32 flex-row flex-wrap items-center">
+            <footer className="mt-5 flex items-start justify-evenly text-xs text-xxs lg:justify-center">
+              <div
+                className={`lg:min-w-auto mr-2 flex min-w-32 gap-2 ${flight.availability.seats ? 'flex-col items-start ' : 'items-center'}`}
+              >
                 <div className="flex items-center">
                   <Image
                     className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
@@ -178,13 +180,13 @@ export const FlyContent = (props: any) => {
                     src={backpackSvg}
                     alt={'backpack'}
                   />
-                  <p className="ml-1">Bagajul de mînă inclus</p>
+                  <p className="ml-2">Bagajul de mînă inclus</p>
                 </div>
 
                 {withoutFlightNumber ? (
                   ''
                 ) : (
-                  <p className="ml-[22px] text-left lg:hidden">
+                  <p className="text-left lg:hidden">
                     Nr. zbor: <span className="font-bold">6F4577</span>
                   </p>
                 )}
@@ -369,7 +371,7 @@ export const FlyContent = (props: any) => {
 
       {!withoutAction && (
         <>
-          <div className="col-span-1 flex flex-col items-end justify-center gap-3 border-b pb-1 lg:items-center lg:justify-normal lg:border-0 lg:pb-0">
+          <div className="col-span-1 flex flex-col items-end justify-center gap-3  pb-1 lg:items-center lg:justify-normal lg:pb-0">
             {pricePlacement === 'bottom' && (
               <p className="text-base font-medium lg:font-bold">€89.90</p>
             )}
