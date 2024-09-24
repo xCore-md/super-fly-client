@@ -46,13 +46,21 @@ export function InputComponent({
     <div>
       <div className="custom-shadow flex h-16 w-full items-center justify-between rounded-full bg-white py-2 pl-4 pr-2">
         <div className="flex items-center justify-start gap-4">
-          <Image src={imageSrc} alt="image" width={22} height={17} />
+          <Image
+            src={imageSrc}
+            className=" text-brand-blue"
+            alt="image"
+            width={22}
+            height={17}
+          />
 
           <div className="flex flex-col">
-            <span className="text-xs uppercase">{fieldTitle}</span>
+            <span className="pt-1 text-xs font-bold uppercase text-brand-blue">
+              {fieldTitle}
+            </span>
             <Input
               ref={inputRef}
-              className="border-none pl-0 outline-none focus:shadow-none"
+              className="border-none pl-0 font-semibold outline-none focus:shadow-none"
               type="text"
               placeholder="Barcelona"
               onChange={handleChange}

@@ -50,7 +50,7 @@ export function DatePickerComponent(props: any) {
         />
 
         <div className="flex flex-col pt-1">
-          <span className="text-xs font-semibold uppercase text-brand-blue">
+          <span className="pt-1 text-xs font-semibold uppercase text-brand-blue">
             PLECARE
           </span>
           <Input
