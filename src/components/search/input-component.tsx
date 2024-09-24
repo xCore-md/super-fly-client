@@ -26,7 +26,7 @@ export function InputComponent({
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.focus()
+      setTimeout(() => inputRef.current.focus(), 200)
     }
 
     if (field === 'flyFrom' && formik.values.fly_from.city) {
@@ -65,7 +65,7 @@ export function InputComponent({
               placeholder="Barcelona"
               onChange={handleChange}
               value={inputValue}
-              autoFocus
+              autoFocus={true}
             />
           </div>
         </div>
