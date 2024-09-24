@@ -35,7 +35,10 @@ export function InputComponent({
 
   useEffect(() => {
     if (inputRef.current) {
-      setTimeout(() => inputRef.current.focus(), 200)
+      setTimeout(() => {
+        inputRef.current.blur()
+        inputRef.current.focus()
+      }, 100)
     }
   }, [])
 
