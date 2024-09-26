@@ -4,11 +4,11 @@ import { PassengersComponent } from './passengers-components'
 
 export function SearchComponents(props: any) {
   const { field } = props
-  if (field === 'flyFrom' || field === 'flyTo') {
+  if (field === 'fly_from' || field === 'fly_to') {
     return <InputComponent {...props} />
   }
 
-  if (field === 'departure' || field === 'arrival') {
+  if (field === 'date_from' || field === 'return_to') {
     return <DatePickerComponent {...props} />
   }
 

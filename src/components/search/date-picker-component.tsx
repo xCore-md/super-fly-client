@@ -1,15 +1,11 @@
-import { Button, Calendar, Input } from 'antd'
+import { Button, Input } from 'antd'
 import Image from 'next/image'
 import calendarBlue from '@/assets/img/calendar-blue.svg'
 import calendar from '@/assets/img/calendar.svg'
 import dayjs from 'dayjs'
 import { useCallback, useState } from 'react'
-import {
-  LeftOutlined,
-  MinusOutlined,
-  PlusOutlined,
-  RightOutlined,
-} from '@ant-design/icons'
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { CustomCalendar } from '../customCalendar'
 
 export function DatePickerComponent(props: any) {
   const { formik, closeDrawer } = props
@@ -63,7 +59,7 @@ export function DatePickerComponent(props: any) {
         </div>
       </div>
 
-      <CustomHeaderCalendar
+      <CustomCalendar
         onChange={handleChangeFrom}
         fromDate={formik.values.date_from}
       />
@@ -109,7 +105,7 @@ export function DatePickerComponent(props: any) {
         </div>
 
         {showReturn && (
-          <CustomHeaderCalendar
+          <CustomCalendar
             onChange={handleChangeTo}
             fromDate={formik.values.date_from}
           />
@@ -125,62 +121,5 @@ export function DatePickerComponent(props: any) {
         </Button>
       </div>
     </div>
-  )
-}
-
-const CustomHeaderCalendar = ({ onChange, fromDate }: any) => {
-  const [currentDate, setCurrentDate] = useState(fromDate ? fromDate : dayjs())
-
-  const onPrevMonth = () => {
-    setCurrentDate(currentDate.subtract(1, 'month'))
-  }
-
-  const onNextMonth = () => {
-    setCurrentDate(currentDate.add(1, 'month'))
-  }
-
-  const monthName = currentDate.format('MMMM YYYY')
-
-  const handleChange = (value: any) => {
-    onChange(value)
-    setCurrentDate(value)
-  }
-
-  const customHeader = ({ value }: any) => {
-    return (
-      <div className="flex items-center justify-between p-4">
-        <Button
-          type="primary"
-          className="rounded-full border-0 shadow-none"
-          icon={<LeftOutlined />}
-          disabled={dayjs().isSame(value, 'month')}
-          onClick={onPrevMonth}
-        />
-        <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
-          {monthName}
-        </span>
-        <Button
-          type="primary"
-          className="rounded-full border-0 shadow-none"
-          icon={<RightOutlined />}
-          onClick={onNextMonth}
-        />
-      </div>
-    )
-  }
-
-  return (
-    <Calendar
-      headerRender={customHeader}
-      value={currentDate}
-      className="drawerCalendar custom-shadow z-10 -mt-8"
-      onPanelChange={setCurrentDate}
-      onChange={handleChange}
-      fullscreen={false}
-      disabledDate={(current: any) =>
-        current <= dayjs().subtract(1, 'day') ||
-        (fromDate && current < dayjs(fromDate))
-      }
-    />
   )
 }

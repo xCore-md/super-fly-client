@@ -74,7 +74,7 @@ export const FlyContent = (props: any) => {
       {flight && (
         <section
           className={cn(
-            'z-10 col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 lg:col-span-3 lg:row-start-auto lg:py-6',
+            'z-10 col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 md:border-0 lg:col-span-3 lg:row-start-auto lg:py-6',
             {
               'lg:col-span-4': withoutAction,
             }

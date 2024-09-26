@@ -33,7 +33,6 @@ const CollapsibleBlock = ({
 }) => {
   const router = useRouter()
   const { setFlight } = useFlightContext()
-  console.log({ offer, isOpen })
 
   const searchObj = {
     fly_from: {

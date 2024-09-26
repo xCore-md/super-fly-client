@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { Input } from 'antd'
 import Image from 'next/image'
@@ -12,8 +12,8 @@ export function InputComponent({
   formik,
   closeDrawer,
 }: any) {
-  const fieldTitle = field === 'flyFrom' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
-  const imageSrc = field === 'flyFrom' ? departure : arrive
+  const fieldTitle = field === 'fly_from' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
+  const imageSrc = field === 'fly_from' ? departure : arrive
 
   const [inputValue, setInputValue] = useState('')
 
@@ -22,28 +22,17 @@ export function InputComponent({
     setInputValue(e.target.value)
   }, [])
 
-  const inputRef = useRef<any>(null)
-
   useEffect(() => {
-    if (field === 'flyFrom' && formik.values.fly_from.city) {
+    if (field === 'fly_from' && formik.values.fly_from.city) {
       setInputValue(formik.values.fly_from.city)
     }
-    if (field === 'flyTo' && formik.values.fly_to.city) {
+    if (field === 'fly_to' && formik.values.fly_to.city) {
       setInputValue(formik.values.fly_to.city)
     }
   }, [formik.values.fly_from.city, formik.values.fly_to.city, field])
 
-  useEffect(() => {
-    if (inputRef.current) {
-      setTimeout(() => {
-        inputRef.current.blur()
-        inputRef.current.focus()
-      }, 100)
-    }
-  }, [])
-
   const handleSelect = (option: any) => {
-    formik.setFieldValue(field === 'flyFrom' ? 'fly_from' : 'fly_to', option)
+    formik.setFieldValue(field === 'fly_from' ? 'fly_from' : 'fly_to', option)
     closeDrawer()
   }
 
@@ -64,13 +53,11 @@ export function InputComponent({
               {fieldTitle}
             </span>
             <Input
-              ref={inputRef}
-              className="border-none pl-0 font-semibold outline-none focus:shadow-none"
+              className="w-full border-none pl-0 font-semibold outline-none focus:shadow-none"
               type="text"
               placeholder="Barcelona"
               onChange={handleChange}
               value={inputValue}
-              autoFocus={true}
             />
           </div>
         </div>

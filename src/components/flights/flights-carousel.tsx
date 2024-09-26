@@ -102,7 +102,7 @@ export const FlightsCarousel = () => {
   }, [flight, storageFlight])
 
   return (
-    <div className="relative mx-auto mt-28  w-full max-w-[780px] px-9 lg:mt-20 lg:px-0">
+    <div className="relative mx-auto  mt-28 w-full max-w-[780px] px-9 lg:mt-20 lg:px-0">
       {loading || !prices || !prices.length ? (
         <div className="h-[88px]">
           <Skeleton className="absolute bottom-0 left-0 right-0 top-4 h-[88px] w-full rounded-full " />

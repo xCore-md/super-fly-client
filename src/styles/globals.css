@@ -217,28 +217,46 @@ html {
   line-height: 26px !important;
 }
 
-.drawerCalendar .ant-picker-cell-inner,
-.drawerCalendar .ant-picker-cell-inner::before {
+.customCalendar .ant-picker-cell-inner,
+.customCalendar .ant-picker-cell-inner::before {
   border-radius: 40px !important;
   min-width: 28px !important;
   height: 28px !important;
   line-height: 28px !important;
 }
 
-.drawerCalendar {
+.customCalendar {
   padding-top: 40px;
   overflow: hidden;
   border-radius: 0 0 20px 20px !important;
 }
 
-.drawerCalendar .ant-picker-calendar-mode-switch {
+.customCalendar .ant-picker-calendar-mode-switch {
   display: none;
 }
 
-.drawerCalendar .ant-select {
+.customCalendar .ant-select {
   height: 40px !important;
 }
 
+.customCalendar
+  .ant-picker-date-panel
+  .ant-picker-cell:not(.ant-picker-cell-in-view)
+  .ant-picker-cell-inner {
+  display: none;
+}
+
+.customCalendar
+  .ant-picker-date-panel
+  .ant-picker-cell:not(.ant-picker-cell-in-view) {
+  pointer-events: none;
+}
+
+.customInput {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 .scroll-small {
   scrollbar-width: 1px !important ;
 }

@@ -10,30 +10,21 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { SwapOutlined } from '@ant-design/icons'
-import { DatePicker, Drawer, Popover, Select, notification } from 'antd'
+import { Drawer, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
-import arrive from '@/assets/img/arrive.svg'
-import calendarBlue from '@/assets/img/calendar-blue.svg'
-import calendar from '@/assets/img/calendar.svg'
-import departure from '@/assets/img/departure.svg'
-import humanBlue from '@/assets/img/human-blue.svg'
-import human from '@/assets/img/human.svg'
-import infantsBlue from '@/assets/img/infants-blue.svg'
-import infants from '@/assets/img/infants.svg'
-import kidsBlue from '@/assets/img/kids-blue.svg'
-import kids from '@/assets/img/kids.svg'
 import search from '@/assets/img/search.svg'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { SearchFields, searchFields } from '@/lib/constants'
-import { convertToSearchQuery, handleCalendarKeyDown } from '@/lib/utils'
+import { convertToSearchQuery } from '@/lib/utils'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { SearchComponents } from './search/search-components'
+import { SearchInput } from './search-components-desktop/search-input'
+import { SearchDatePicker } from './search-components-desktop/search-date-picker'
+import { SearchPassengers } from './search-components-desktop/search-passengers'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -46,6 +37,14 @@ interface ISearchField {
   [key: string]: boolean
 }
 
+const initialFieldsState = {
+  fly_from: false,
+  fly_to: false,
+  date_from: false,
+  return_to: false,
+  passengers: false,
+}
+
 export const SearchBar = ({
   setLoading,
   tab,
@@ -55,13 +54,7 @@ export const SearchBar = ({
   const isMobile = useIsMobile()
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
-  const [openFields, setOpenFields] = useState<ISearchField>({
-    flyFrom: false,
-    flyTo: false,
-    departure: false,
-    arrival: false,
-    passengers: false,
-  })
+  const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
   const { setFlights, setInitialFlights } = useFlightsContext()
 
   const router = useRouter()
@@ -74,13 +67,7 @@ export const SearchBar = ({
   })
 
   const closeAllFields = () => {
-    setOpenFields({
-      flyFrom: false,
-      flyTo: false,
-      departure: false,
-      arrival: false,
-      passengers: false,
-    })
+    setOpenFields(initialFieldsState)
   }
 
   const setOpenSpecificField = (field: string) => {
@@ -104,16 +91,8 @@ export const SearchBar = ({
     }
   }, [tab])
 
-  const [passengersPopOverStatus, setPassengersPopOverStatus] = useState(false)
-
   const isHomePage = pathname === '/'
   const passengersTypes = ['adults', 'children', 'infants']
-
-  const passengersObject = {
-    adults: formik.values.adults,
-    children: formik.values.children,
-    infants: formik.values.infants,
-  }
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -173,10 +152,6 @@ export const SearchBar = ({
         })
         .catch((err) => console.log({ err }))
     }
-  }
-
-  const updatePassengersCount = (key: string, value: number) => {
-    formik.setFieldValue(key, value)
   }
 
   const selectedFlight = useMemo(
@@ -264,30 +239,30 @@ export const SearchBar = ({
     closeAllFields()
   }
 
-  const today = dayjs().startOf('day')
+  // const today = dayjs().startOf('day')
 
-  const disabledDate = (current: dayjs.Dayjs) => {
-    return current && current < today
-  }
+  // const disabledDate = (current: dayjs.Dayjs) => {
+  //   return current && current < today
+  // }
 
-  const disableNextDate = (current: dayjs.Dayjs) => {
-    return (
-      (current && current < today) ||
-      (current &&
-        current.isBefore(
-          dayjs(formik.values.date_from).add(1, 'day').startOf('day')
-        ))
-    )
-  }
+  // const disableNextDate = (current: dayjs.Dayjs) => {
+  //   return (
+  //     (current && current < today) ||
+  //     (current &&
+  //       current.isBefore(
+  //         dayjs(formik.values.date_from).add(1, 'day').startOf('day')
+  //       ))
+  //   )
+  // }
 
   const switchCities = useCallback(() => {
     formik.setFieldValue('fly_from', formik.values.fly_to)
     formik.setFieldValue('fly_to', formik.values.fly_from)
   }, [formik])
 
-  const isLastDayOfMonth = (date: any) => {
-    return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
-  }
+  // const isLastDayOfMonth = (date: any) => {
+  //   return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
+  // }
 
   const updateFormValues = (newValues: SearchFields) => {
     formik.setValues((prevState) => ({
@@ -318,11 +293,18 @@ export const SearchBar = ({
   const closeDrawer = useCallback(() => setDrawerState(''), [])
 
   const onClickField = (field: string) => {
-    if (isMobile) {
+    if (window.innerWidth <= 768) {
       openDrawer(field)
     } else {
       setOpenSpecificField(field)
     }
+  }
+
+  const applyPassengers = (passengers: any) => {
+    formik.setValues((prevState) => ({
+      ...prevState,
+      ...passengers,
+    }))
   }
 
   return (
@@ -344,273 +326,48 @@ export const SearchBar = ({
           formik={formik}
           closeDrawer={closeDrawer}
           submitSearch={submitSearch}
+          onClickField={onClickField}
         />
       </Drawer>
-      <div className="z-10 flex w-full max-w-[1152px] items-center md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pl-6 lg:pr-2">
-        <div className="flex w-full flex-col items-center justify-between  lg:flex-row lg:gap-4">
-          <div className="flex flex-row gap-4 max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
-            <div className="relative flex w-full items-center gap-4 rounded-t-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
-              <Image src={departure} alt="image" width={22} height={17} />
-              <div className="grid max-w-sm items-center pt-2">
-                {/* <Label
-                  className=" text-xs uppercase text-gray-400"
-                  htmlFor="departure"
-                >
-                  ZBOR DIN
-                </Label> */}
-
-                <Select
-                  showSearch
-                  id="departure"
-                  placeholder="ZBOR DIN"
-                  popupClassName="autocompleteSelectPopUpFrom"
-                  className="autocompleteSelect relative h-8 min-w-36 border-0 bg-transparent p-0 text-sm font-semibold text-black"
-                  value={formik.values.fly_from.city || null}
-                  open={openFields.flyFrom}
-                  onClick={() => onClickField('flyFrom')}
-                  filterOption={() => true}
-                  onClear={() => {
-                    formik.setFieldValue('fly_from', '')
-                    formik.setFieldValue('fly_to', '')
-                  }}
-                  optionRender={({ data }) => (
-                    <span
-                      className="flex justify-between gap-4"
-                      onClick={() => {
-                        formik.setFieldValue('fly_from', data)
-                        if (formik.values.fly_from.code) {
-                          setTimeout(() => setOpenSpecificField('flyTo'), 100)
-                        }
-                      }}
-                    >
-                      <span>
-                        <span className="text-sm text-brand-blue">
-                          {data?.city}
-                        </span>
-                        ,
-                        <span className="pl-1 text-xs text-gray-500">
-                          {data?.country}
-                        </span>
-                      </span>
-                      <span>{data?.code}</span>
-                    </span>
-                  )}
-                  onSearch={onSearch}
-                  options={options}
-                />
-              </div>
-              <Button
-                variant="link"
-                onClick={switchCities}
-                className="bottom-0 right-4 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-[18px]"
-              >
-                <SwapOutlined className="text-xl" />
-              </Button>
-            </div>
-
-            <div className="flex w-full items-center gap-4 rounded-b-[27px] border-r-[1px] border-gray-300 bg-white pr-3 max-[1024px]:border-0 max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent">
-              <Image src={arrive} alt="image" width={22} height={17} />
-              <div className="grid max-w-sm items-center pt-2">
-                {/* <Label
-                  className=" text-xs uppercase text-gray-400"
-                  htmlFor="departure"
-                >
-                  ATERIZARE ÎN
-                </Label> */}
-                <Select
-                  showSearch
-                  open={openFields.flyTo}
-                  placeholder="ATERIZARE ÎN"
-                  popupClassName="autocompleteSelectPopUpTo"
-                  className="autocompleteSelect h-8 min-w-[200px] border-0 bg-transparent p-0 text-sm font-semibold text-black"
-                  value={formik.values.fly_to.city || null}
-                  filterOption={() => true}
-                  onClick={() => onClickField('flyTo')}
-                  optionRender={({ data }) => (
-                    <span
-                      className="flex justify-between gap-4"
-                      onClick={() => {
-                        formik.setFieldValue('fly_to', data)
-                        setTimeout(() => setOpenSpecificField('departure'), 100)
-                      }}
-                    >
-                      <span>
-                        <span className="text-sm text-brand-blue">
-                          {data?.city}
-                        </span>
-                        ,
-                        <span className="pl-1 text-xs text-gray-500">
-                          {data?.country}
-                        </span>
-                      </span>
-                      <span>{data?.code}</span>
-                    </span>
-                  )}
-                  onSearch={onSearch}
-                  options={options}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex w-full flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 md:w-auto lg:gap-4">
-            <div className="flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:border-0 max-[1024px]:p-0  md:w-auto">
-              <div className="grid max-w-sm items-center pt-2">
-                <Label
-                  className={` text-xs uppercase text-gray-400 ${openFields.flyTo ? 'text-brand-blue' : ''}`}
-                >
-                  PLECARE
-                </Label>
-
-                <DatePicker
-                  suffixIcon={null}
-                  format={'DD.MM.YYYY'}
-                  open={openFields.departure}
-                  allowClear={true}
-                  value={formik.values.date_from}
-                  placeholder="Alege data"
-                  disabledDate={disabledDate}
-                  popupClassName="datePickerPopUp"
-                  inputReadOnly
-                  onKeyDown={handleCalendarKeyDown}
-                  onClick={() => onClickField('departure')}
-                  onChange={(date) => {
-                    formik.setFieldValue('date_from', date)
-                    if (date === null) {
-                      setActiveTab?.('dus')
-                    }
-                    if (date && tab === 'intors') {
-                      setTimeout(() => setOpenSpecificField('arrival'), 100)
-                    }
-                    setOpenSpecificField('departure')
-                  }}
-                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
-                />
-              </div>
-              <Button
-                variant="link"
-                className="h-6 w-6 p-0 hover:bg-transparent"
-                onClick={() => setOpenSpecificField('departure')}
-              >
-                <Image
-                  className="w-7"
-                  src={openFields.departure ? calendarBlue : calendar}
-                  alt="image"
-                  width={28}
-                  height={28}
-                />
-              </Button>
-            </div>
-
-            <div
-              className={`flex w-full items-center gap-4 border-r-[1px] border-gray-300 pr-3 max-[1024px]:rounded-full max-[1024px]:border-0 max-[1024px]:p-0 md:w-auto ${formik.values.date_from ? '' : 'pointer-events-none opacity-50'}`}
-            >
-              <div className="grid max-w-sm items-center pt-2">
-                <Label
-                  className={` text-xs uppercase text-gray-400 ${openFields.arrival ? 'text-brand-blue' : ''}`}
-                >
-                  RETUR
-                </Label>
-                <DatePicker
-                  suffixIcon={null}
-                  format={'DD.MM.YYYY'}
-                  open={openFields.arrival}
-                  allowClear={true}
-                  disabledDate={disableNextDate}
-                  popupClassName="datePickerPopUp"
-                  inputReadOnly
-                  value={formik.values.return_to}
-                  onKeyDown={handleCalendarKeyDown}
-                  aria-readonly="true"
-                  onClick={() => onClickField('arrival')}
-                  defaultPickerValue={
-                    isLastDayOfMonth(formik.values.date_from)
-                      ? dayjs(formik.values.date_from).add(1, 'month')
-                      : dayjs(formik.values.date_from)
-                  }
-                  onChange={(date) => {
-                    formik.setFieldValue('return_to', date)
-                    if (date === null) {
-                      setActiveTab?.('dus')
-                    } else {
-                      setActiveTab?.('intors')
-                      setTimeout(() => setOpenSpecificField('passengers'), 100)
-                    }
-                    // setOpenSpecificField('arrival')
-                  }}
-                  placeholder="Alege data"
-                  onOpenChange={() => setOpenSpecificField('arrival')}
-                  className="h-8 border-0 bg-transparent p-0 text-sm font-semibold text-black outline-none focus-within:border-0 focus-within:shadow-none"
-                />
-              </div>
-              <Button
-                variant="link"
-                className="h-6 w-6 p-0 hover:bg-transparent"
-                onClick={() => setOpenSpecificField('arrival')}
-              >
-                <Image
-                  className="w-7"
-                  src={openFields.arrival ? calendarBlue : calendar}
-                  alt="image"
-                  width={28}
-                  height={28}
-                />
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 max-[1024px]:mt-2 max-[1024px]:w-full max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:py-2 max-[1024px]:pl-6">
-            <Image
-              className="max-[1024px]:h-8 max-[1024px]:w-3"
-              src={passengersPopOverStatus ? humanBlue : human}
-              alt="image"
-              width={14}
-              height={14}
+      <div className="z-10 flex w-full items-center md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pr-2">
+        <div className="flex w-full flex-col items-center justify-between lg:flex-row">
+          <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
+            <SearchInput
+              switchCities={switchCities}
+              formik={formik}
+              options={options}
+              field="fly_from"
+              onSearch={onSearch}
+              onClickField={onClickField}
+              openFields={openFields}
+              placeholder="ZBOR DIN"
             />
-            <div className="ml-1 flex w-full max-w-sm flex-col items-start justify-start pr-4 pt-2">
-              <Label
-                className={`pointer-events-none text-xs uppercase text-gray-400 ${passengersPopOverStatus ? 'text-brand-blue' : ''}`}
-                htmlFor="departure"
-              >
-                PASAGERI
-              </Label>
 
-              <Popover
-                className="w-full"
-                content={
-                  <PopoverContent
-                    passengers={passengersObject}
-                    updatePassengersCount={updatePassengersCount}
-                  />
-                }
-                placement="bottom"
-                open={openFields.passengers}
-                onOpenChange={(status) => setPassengersPopOverStatus(status)}
-              >
-                <Button
-                  onClick={() => onClickField('passengers')}
-                  className="flex h-8 w-full justify-start border-0 bg-transparent p-0  text-sm font-semibold text-slate-500 outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
-                >
-                  <span className="flex">
-                    <span
-                      className={
-                        Object.values(passengersObject).reduce(
-                          (a, b) => a + b
-                        ) > 0
-                          ? 'flex w-4'
-                          : ''
-                      }
-                    >
-                      {Number(
-                        Object.values(passengersObject).reduce((a, b) => a + b)
-                      ) || ''}
-                    </span>{' '}
-                    Passengers
-                  </span>
-                </Button>
-              </Popover>
-            </div>
+            <SearchInput
+              switchCities={switchCities}
+              formik={formik}
+              options={options}
+              field="fly_to"
+              onSearch={onSearch}
+              onClickField={onClickField}
+              openFields={openFields}
+              placeholder="ATERIZARE ÎN"
+            />
           </div>
+
+          <SearchDatePicker
+            formik={formik}
+            onClickField={onClickField}
+            openFields={openFields}
+            setActiveTab={setActiveTab}
+          />
+
+          <SearchPassengers
+            formik={formik}
+            onClickField={onClickField}
+            openFields={openFields}
+            applyPassengers={applyPassengers}
+          />
 
           <Button
             onClick={() => submitSearch()}
@@ -626,105 +383,6 @@ export const SearchBar = ({
     </form>
   )
 }
-
-type TPassengers = 'adults' | 'children' | 'infants'
-
-interface IPopoverContent {
-  passengers: {
-    adults: number
-    children: number
-    infants: number
-  }
-
-  updatePassengersCount: any
-}
-const PopoverContent = ({
-  passengers,
-  updatePassengersCount,
-}: IPopoverContent) => {
-  const handleUpdatePassengersCount = (key: TPassengers, value: number) => {
-    const currentCount = Object.values(passengers).reduce((a, b) => a + b)
-
-    if (value < 0 || (currentCount <= 1 && value === 0)) return
-
-    updatePassengersCount(key, value)
-  }
-
-  return (
-    <div className="w-full min-w-72 p-2">
-      <div className="flex flex-col gap-y-6">
-        {PopoverData.map(({ title, img, img2, description, key }) => (
-          <div className=" flex items-center justify-between" key={key}>
-            <div className="flex items-center gap-2">
-              <Image
-                src={
-                  passengers[key as keyof typeof passengers] > 0 ? img2 : img
-                }
-                alt="image"
-                className="h-8 w-6"
-              />
-              <div className="flex flex-col">
-                <h4 className="text-base font-semibold text-black">{title}</h4>
-                <span className="text-xs text-gray-500">{description}</span>
-              </div>
-            </div>
-            <div className="flex select-none items-center gap-2">
-              <Button
-                className="h-8 w-8 rounded-full bg-gray-200 text-black hover:bg-brand-blue hover:text-white"
-                onClick={() =>
-                  handleUpdatePassengersCount(
-                    key as TPassengers,
-                    passengers[key as TPassengers] - 1
-                  )
-                }
-              >
-                -
-              </Button>
-              <span className="w-4 text-center text-base text-black">
-                {passengers[key as TPassengers]}
-              </span>
-              <Button
-                className="h-8 w-8 rounded-full bg-gray-200 text-black hover:bg-brand-blue hover:text-white"
-                onClick={() =>
-                  handleUpdatePassengersCount(
-                    key as TPassengers,
-                    passengers[key as TPassengers] + 1
-                  )
-                }
-              >
-                +
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const PopoverData = [
-  {
-    title: 'Adulți',
-    description: 'Mai mult de 12 ani',
-    img: human,
-    img2: humanBlue,
-    key: 'adults',
-  },
-  {
-    title: 'Copii',
-    description: '2-12 ani',
-    img: kids,
-    img2: kidsBlue,
-    key: 'children',
-  },
-  {
-    title: 'Infanți',
-    description: 'Pînă la 2 ani, fără loc',
-    img: infants,
-    img2: infantsBlue,
-    key: 'infants',
-  },
-]
 
 const mockOptions = [
   {
