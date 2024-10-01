@@ -45,7 +45,7 @@ export const FlightsTabs = ({
 
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
-      <div className="mt-6 w-full max-w-[861px] lg:mt-14">
+      <div className="mt-6 w-full max-w-[992px] px-4 md:px-0 lg:mt-14">
         <Tabs className="text-center" defaultValue="rapid">
           <TabsList className="custom-shadow animate-fade rounded-full bg-white fill-mode-forwards">
             <TabsTrigger value="rapid" onClick={toggleSorting}>
