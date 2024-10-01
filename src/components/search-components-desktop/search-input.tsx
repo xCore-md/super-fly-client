@@ -74,6 +74,7 @@ export function SearchInput({
           placeholder={placeholder}
           name={field}
           value={inputValue}
+          autoComplete="off"
           onClick={() => onClickField(field)}
           onChange={handleChange}
           className="block h-8 w-full border-0 bg-transparent p-0 text-sm font-semibold text-black focus:shadow-none md:min-w-36"
@@ -83,14 +84,14 @@ export function SearchInput({
         <Button
           type="link"
           onClick={switchCities}
-          className="bottom-0.5 right-2 z-20 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-[18px]"
+          className="bottom-0.5 right-2 z-10 h-[36px] w-[36px] p-0 hover:bg-transparent max-[1024px]:absolute max-[1024px]:translate-y-[18px]"
         >
           <SwapOutlined className="text-xl" />
         </Button>
       )}
       {openFields[field] && (
-        <div className="custom-shadow absolute left-[1px] top-2 -z-10 h-auto w-full rounded-3xl bg-white pb-4 pt-12">
-          <ul className="flex h-fit max-h-72 flex-col overflow-scroll px-2">
+        <div className="dropdown-shadow absolute left-0 top-[52px] z-10 h-auto w-full rounded-b-3xl bg-white pb-4">
+          <ul className="searchDropDownShadow flex h-fit max-h-72 flex-col overflow-scroll rounded-b-3xl px-2 py-4">
             {options.map((option: any) => (
               <li
                 key={option.key}

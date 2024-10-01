@@ -1,15 +1,29 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
 import dayjs from 'dayjs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface IProps {
   onChange: any
-  fromDate: dayjs.Dayjs
+  fromDate?: dayjs.Dayjs
   date?: dayjs.Dayjs
+  className?: string
 }
-export function CustomCalendar({ onChange, fromDate, date }: IProps) {
-  const [currentDate, setCurrentDate] = useState(fromDate ? fromDate : dayjs())
+export function CustomCalendar({
+  onChange,
+  fromDate,
+  date,
+  className,
+}: IProps) {
+  const [currentDate, setCurrentDate] = useState(dayjs())
+
+  useEffect(() => {
+    if (fromDate && fromDate.isAfter(dayjs(), 'month')) {
+      setCurrentDate(fromDate)
+    } else {
+      setCurrentDate(date || dayjs())
+    }
+  }, [date, fromDate])
 
   const onPrevMonth = () => {
     setCurrentDate(currentDate.subtract(1, 'month'))
@@ -26,14 +40,14 @@ export function CustomCalendar({ onChange, fromDate, date }: IProps) {
     setCurrentDate(value)
   }
 
-  const customHeader = ({ value }: any) => {
+  const customHeader = () => {
     return (
       <div className="flex items-center justify-between p-4">
         <Button
           type="primary"
           className="rounded-full border-0 shadow-none"
           icon={<LeftOutlined />}
-          disabled={dayjs().isSame(value, 'month')}
+          disabled={dayjs().isSame(currentDate, 'month')}
           onClick={onPrevMonth}
         />
         <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
@@ -49,18 +63,22 @@ export function CustomCalendar({ onChange, fromDate, date }: IProps) {
     )
   }
 
+  const disabledDates = (current: any) => {
+    const today = dayjs().startOf('day')
+    const from = fromDate ? fromDate.startOf('day') : null
+
+    return current && (current < today || (from && current < from))
+  }
+
   return (
     <Calendar
       headerRender={customHeader}
-      value={date}
-      className="customCalendar custom-shadow z-10 -mt-8"
-      onPanelChange={setCurrentDate}
+      value={currentDate}
+      className={`customCalendar custom-shadow ${className}`}
+      onPanelChange={(newDate: any) => setCurrentDate(newDate)}
       onChange={handleChange}
       fullscreen={false}
-      disabledDate={(current: any) =>
-        current <= dayjs().subtract(1, 'day') ||
-        (fromDate && current < dayjs(fromDate))
-      }
+      disabledDate={disabledDates}
     />
   )
 }

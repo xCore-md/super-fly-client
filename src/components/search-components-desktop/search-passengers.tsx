@@ -54,6 +54,7 @@ export function SearchPassengers(props: IProps) {
   const submitPassengers = () => {
     applyPassengers(passengersObject)
     setShowDropdown(false)
+    onClickField('passengers')
   }
 
   return (
@@ -65,17 +66,17 @@ export function SearchPassengers(props: IProps) {
         width={14}
         height={14}
       />
-      <div className="ml-1 flex w-full max-w-sm flex-col items-start justify-start pr-4 pt-2">
+      <div
+        className="ml-1 flex w-full max-w-sm flex-col items-start justify-start pr-4 pt-2"
+        onClick={handleShowDropdown}
+      >
         <Label
           className={`pointer-events-none text-xs font-semibold uppercase  ${showDropdown ? 'text-brand-blue' : 'text-gray-400'}`}
         >
           PASAGERI
         </Label>
 
-        <span
-          onClick={handleShowDropdown}
-          className="flex h-8 w-full cursor-pointer select-none justify-start  py-1.5 text-sm font-semibold text-slate-500"
-        >
+        <span className="flex h-8 w-full cursor-pointer select-none justify-start  py-1.5 text-sm font-semibold text-slate-500">
           <span
             className={
               Object.values(passengersObject).reduce((a, b) => a + b) > 0
@@ -127,8 +128,10 @@ const PopoverContent = ({
   }
 
   return (
-    <div className="custom-shadow absolute left-[1px] top-2 -z-10 h-auto w-full min-w-[302px] rounded-3xl bg-white p-4 pb-4 pt-16 ">
-      <div className="flex w-full flex-col gap-y-6">
+    <div
+      className={`dropdown-shadow absolute left-0 top-[61px] z-10 h-auto w-full min-w-[304px] rounded-b-3xl bg-white`}
+    >
+      <div className="searchDropDownShadow flex w-full flex-col gap-y-6 p-4">
         {PopoverData.map(({ title, img, img2, description, key }) => (
           <div className="flex items-center justify-between" key={key}>
             <div className="flex items-center gap-2">
@@ -178,13 +181,15 @@ const PopoverContent = ({
         ))}
       </div>
 
-      <Button
-        type="primary"
-        className="mb-4 mt-6 w-full rounded-full bg-brand-blue"
-        onClick={() => submitPassengers()}
-      >
-        Confirmați
-      </Button>
+      <div className="mx-4 mb-4 mt-6">
+        <Button
+          type="primary"
+          className=" w-full rounded-full bg-brand-blue"
+          onClick={() => submitPassengers()}
+        >
+          Confirmați
+        </Button>
+      </div>
     </div>
   )
 }

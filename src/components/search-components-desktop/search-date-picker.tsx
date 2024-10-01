@@ -95,8 +95,10 @@ export function SearchDatePicker(props: IProps) {
     setActiveField('')
   }
 
+  console.log({ [activeField]: formik.values[activeField] })
+
   return (
-    <div className=" relative flex w-full flex-row gap-4 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 md:w-auto md:max-w-[387px] lg:gap-4">
+    <div className="relative flex w-full flex-row gap-4 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 md:w-auto md:max-w-[387px] lg:gap-4">
       <PickerField
         title="plecare"
         openFields={openFields}
@@ -117,10 +119,11 @@ export function SearchDatePicker(props: IProps) {
       />
 
       {openFields[activeField] && (
-        <div className="absolute -z-10 mt-12 w-full">
+        <div className="dropdown-shadow absolute top-[61px] z-10 w-full rounded-3xl">
           <CustomCalendar
             onChange={handleChangeCalendar}
             date={formik.values[activeField]}
+            className="searchDropDownShadow"
             fromDate={
               activeField === 'return_to' ? formik.values.date_from : ''
             }

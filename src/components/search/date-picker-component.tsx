@@ -36,7 +36,7 @@ export function DatePickerComponent(props: any) {
 
   return (
     <div className="pb-8">
-      <div className="custom-shadow relative z-50 flex items-center justify-start gap-4 rounded-full bg-white px-4 py-2">
+      <div className="custom-shadow relative z-50 flex items-center justify-start gap-4 rounded-t-3xl bg-white px-4 py-2">
         <Image
           src={calendarBlue}
           className=""
@@ -67,7 +67,7 @@ export function DatePickerComponent(props: any) {
       <div className="mt-8">
         <div
           onClick={() => setShowReturn(!showReturn)}
-          className="custom-shadow relative z-50 flex items-center justify-between gap-4 rounded-full bg-white px-4 py-2"
+          className={`custom-shadow relative z-50 flex items-center justify-between gap-4 ${showReturn ? 'rounded-t-3xl' : 'rounded-full'} bg-white px-4 py-2`}
         >
           <div className="flex items-center justify-start gap-4">
             <Image

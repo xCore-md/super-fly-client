@@ -43,7 +43,7 @@ export const Banner = () => {
         </div>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-20">
         <div className="mb-2 flex flex-col items-center lg:mb-14">
           <h1 className="banner-title mb-8 text-2xl  font-medium text-white opacity-0  lg:text-[44px]">
             Începe Călătoria Ta

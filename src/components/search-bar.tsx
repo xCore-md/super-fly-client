@@ -329,7 +329,9 @@ export const SearchBar = ({
           onClickField={onClickField}
         />
       </Drawer>
-      <div className="z-10 flex w-full items-center md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pr-2">
+      <div
+        className={`relative flex w-full items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pr-2`}
+      >
         <div className="flex w-full flex-col items-center justify-between lg:flex-row">
           <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
             <SearchInput
