@@ -4,7 +4,7 @@ import { Footer } from '@components/footer'
 import { Header } from '@components/header'
 
 export default function PublicLayout({
-  children, // will be a page or nested layout
+  children,
 }: {
   children: React.ReactNode
 }) {

@@ -90,8 +90,8 @@ export function SearchInput({
         </Button>
       )}
       {openFields[field] && (
-        <div className="dropdown-shadow absolute left-0 top-[52px] z-10 h-auto w-full rounded-b-3xl bg-white pb-4">
-          <ul className="searchDropDownShadow flex h-fit max-h-72 flex-col overflow-scroll rounded-b-3xl px-2 py-4">
+        <div className="dropdown-shadow absolute left-0 top-[52px] z-10 h-auto w-full rounded-b-3xl bg-white">
+          <ul className="searchDropDownShadow flex flex-col overflow-scroll rounded-b-3xl px-2 py-4">
             {options.map((option: any) => (
               <li
                 key={option.key}
