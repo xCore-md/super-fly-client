@@ -102,7 +102,7 @@ export const FlightsCarousel = () => {
   }, [flight, storageFlight])
 
   return (
-    <div className="relative mx-auto mt-8 w-full max-w-[780px] px-9 md:mt-16 lg:px-0">
+    <div className="relative z-10 mx-auto mt-8 w-full max-w-[780px] px-9 md:mt-16 lg:px-0">
       {loading || !prices || !prices.length ? (
         <div className="h-[88px]">
           <Skeleton className="absolute bottom-0 left-0 right-0 top-4 h-[88px] w-full rounded-full " />
@@ -128,7 +128,7 @@ export const FlightsCarousel = () => {
                 >
                   <section
                     className={cn(
-                      'relative flex h-10 flex-col items-center justify-center px-4  text-center transition-all duration-200 ease-out',
+                      'relative z-10 flex h-10 flex-col items-center justify-center px-4  text-center transition-all duration-200 ease-out',
                       {
                         '-translate-y-2 text-white [&_p]:text-white ':
                           isSeleted(index),

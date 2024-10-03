@@ -1,3 +1,5 @@
+'use client'
+
 import { offers, usefulInfo } from '@/data/data'
 import { Banner } from '@components/banner'
 import { BlogList } from '@components/blog-list'
@@ -7,9 +9,17 @@ import Questions from '@components/questions'
 import { WhyUs } from '@components/why-us'
 
 export default function Home() {
+  const params = Object.fromEntries(new URLSearchParams(window.location.search))
+
+  const isCompanyExist = params.hasOwnProperty('company')
+
   return (
-    <div className="mt-28 overflow-x-hidden pb-10 max-[1024px]:mt-10 lg:overflow-x-auto lg:max-[1440px]:px-5">
-      <div className="container mx-auto p-5 lg:px-0">
+    <div
+      className={`${isCompanyExist ? 'mt-0' : 'mt-4'} overflow-x-hidden pb-10 md:mt-28 lg:overflow-x-auto lg:max-[1440px]:px-5`}
+    >
+      <div
+        className={`container mx-auto lg:px-0 ${isCompanyExist ? 'px-5 py-3' : 'p-5'}`}
+      >
         <Banner />
       </div>
       <ItemsCarousel

@@ -428,12 +428,12 @@ export const FlyContent = (props: any) => {
             >
               Sună acum
             </Link>
-            <Link
-              href="/reservation"
+            <button
+              onClick={handleReservation}
               className="flex h-9 w-40 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
             >
               Rezerva
-            </Link>
+            </button>
           </footer>
         </>
       )}

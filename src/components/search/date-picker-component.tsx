@@ -61,7 +61,7 @@ export function DatePickerComponent(props: any) {
 
       <CustomCalendar
         onChange={handleChangeFrom}
-        fromDate={formik.values.date_from}
+        date={formik.values.date_from}
       />
 
       <div className="mt-8">
@@ -107,6 +107,7 @@ export function DatePickerComponent(props: any) {
         {showReturn && (
           <CustomCalendar
             onChange={handleChangeTo}
+            date={formik.values.return_to}
             fromDate={formik.values.date_from}
           />
         )}

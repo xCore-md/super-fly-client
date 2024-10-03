@@ -10,11 +10,11 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { Drawer, notification } from 'antd'
+import { Button, Drawer, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import search from '@/assets/img/search.svg'
-import { Button } from '@/components/ui/button'
+import searchBlack from '@/assets/img/search-black.svg'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
@@ -307,6 +307,13 @@ export const SearchBar = ({
     }))
   }
 
+  const params = Object.fromEntries(new URLSearchParams(window.location.search))
+
+  const isCompanyExist = params.hasOwnProperty('company')
+
+  const searchBtnIcon =
+    isCompanyExist && params.company === 'airMoldova' ? searchBlack : search
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
@@ -371,14 +378,29 @@ export const SearchBar = ({
             applyPassengers={applyPassengers}
           />
 
-          <Button
+          <button
             onClick={() => submitSearch()}
-            className="search-button-shadow flex h-[56px] w-[56px] items-center justify-center rounded-full bg-emerald-400 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full"
+            className={`search-button-shadow hidden h-[56px] w-[56px] items-center justify-center rounded-full bg-emerald-500 hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:flex`}
           >
             <span className="mr-3  font-medium text-white min-[1024px]:hidden">
               Caută
             </span>
             <Image src={search} alt="image" width={20} height={20} />
+          </button>
+          <Button
+            onClick={() => submitSearch()}
+            style={{
+              backgroundColor: isCompanyExist
+                ? colorsByCompany[params.company].bg
+                : '#10D2A4',
+              color: isCompanyExist
+                ? colorsByCompany[params.company].color
+                : '#fff',
+            }}
+            className="search-button-shadow flex  h-[56px] w-[56px] items-center justify-center rounded-full border-0 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:hidden"
+          >
+            <span className="mr-1 font-medium min-[1024px]:hidden">Caută</span>
+            <Image src={searchBtnIcon} alt="image" width={20} height={20} />
           </Button>
         </div>
       </div>
@@ -430,3 +452,22 @@ const mockOptions = [
     cityId: 'paris_fr',
   },
 ]
+
+const colorsByCompany: any = {
+  flyOne: {
+    bg: '#10D2A4',
+    color: '#fff',
+  },
+  hiSky: {
+    bg: '#F89923',
+    color: '#fff',
+  },
+  wizzAir: {
+    bg: '#CF3E97',
+    color: '#fff',
+  },
+  airMoldova: {
+    bg: '#FFED00',
+    color: '#2D2D2D',
+  },
+}
