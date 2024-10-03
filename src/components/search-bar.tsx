@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import {
   useCallback,
@@ -307,12 +307,11 @@ export const SearchBar = ({
     }))
   }
 
-  const params = Object.fromEntries(new URLSearchParams(window.location.search))
-
-  const isCompanyExist = params.hasOwnProperty('company')
+  const searchParams = useSearchParams()
+  const companyParams = searchParams.get('company')
 
   const searchBtnIcon =
-    isCompanyExist && params.company === 'airMoldova' ? searchBlack : search
+    companyParams && companyParams === 'airMoldova' ? searchBlack : search
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
@@ -390,11 +389,11 @@ export const SearchBar = ({
           <Button
             onClick={() => submitSearch()}
             style={{
-              backgroundColor: isCompanyExist
-                ? colorsByCompany[params.company].bg
+              backgroundColor: companyParams
+                ? colorsByCompany[companyParams].bg
                 : '#10D2A4',
-              color: isCompanyExist
-                ? colorsByCompany[params.company].color
+              color: companyParams
+                ? colorsByCompany[companyParams].color
                 : '#fff',
             }}
             className="search-button-shadow flex  h-[56px] w-[56px] items-center justify-center rounded-full border-0 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:hidden"

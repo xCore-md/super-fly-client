@@ -10,6 +10,7 @@ import wz from '@/assets/img/banner-assets/wz.png'
 import am from '@/assets/img/banner-assets/am.png'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 import LeadModal from './lead-modal'
+import { useSearchParams } from 'next/navigation'
 
 export const Banner = () => {
   gsap.registerPlugin(useGSAP)
@@ -33,14 +34,13 @@ export const Banner = () => {
     )
   })
 
-  const params = Object.fromEntries(new URLSearchParams(window.location.search))
-
-  const isCompanyExist = params.hasOwnProperty('company')
+  const searchParams = useSearchParams()
+  const companyParams = searchParams.get('company')
 
   return (
     <section className="mb-32 max-[1440px]:px-5 max-[1024px]:px-0 lg:mb-56">
       <div className="absolute left-0 top-0 z-0 h-full w-full rounded-b-[40px] bg-brand-blue lg:max-h-[650px]">
-        {!isCompanyExist && (
+        {!companyParams && (
           <div className="relative h-full w-full">
             <Image
               fill
@@ -54,18 +54,18 @@ export const Banner = () => {
       </div>
 
       <div className="relative z-20">
-        {isCompanyExist && (
+        {companyParams && (
           <div className="relative mb-4 h-40">
             <Image
               fill
               className="banner-image h-full object-contain"
-              src={companies[params.company]?.imageSrc || plane}
+              src={companies[companyParams]?.imageSrc || plane}
               alt="image"
               priority
             />
           </div>
         )}
-        {!isCompanyExist && (
+        {!companyParams && (
           <div className="mb-2 flex flex-col items-center lg:mb-14">
             <h1 className="banner-title mb-8 text-2xl  font-medium text-white opacity-0  lg:text-[44px]">
               Începe Călătoria Ta
