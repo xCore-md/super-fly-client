@@ -118,6 +118,28 @@
   box-shadow: 0 0 12px 0 rgba(0 0 0 / 10%);
 }
 
+.custom-light-shadow {
+  box-shadow: 0 0 20px 0 rgba(0 0 0 / 25%);
+}
+
+.link-hover-underline {
+  position: relative;
+
+  &:hover {
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -2px;
+      height: 1px;
+      width: 50%;
+      margin-left: 25%;
+      background: #fff;
+    }
+  }
+}
+
 #questions {
   scroll-margin-top: 100px;
 }
@@ -230,7 +252,17 @@
 }
 
 .dropdown-shadow {
-  box-shadow: 0 10px 10px 0 rgba(0 0 0 / 10%);
+  box-shadow: 0 4px 4px 0 rgba(0 0 0 / 10%);
+}
+
+.customCalendarNavBtn,
+.passengersPickerBtn {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.customCalendar .ant-picker-content {
+  font-size: 10px;
 }
 
 .customCalendar .ant-picker-calendar-mode-switch {
@@ -332,6 +364,9 @@
 
   .ant-drawer-close {
     font-weight: 600;
+    svg {
+      fill: #000;
+    }
   }
 }
 

@@ -10,35 +10,33 @@ export const SearchBarWithTabs = ({
   // eslint-disable-next-line
   setLoading?: (loading: boolean) => void
 }) => {
-  const [activeTab, setActiveTab] = useState('dus')
+  const [isReturnFlight, setIsReturnFlight] = useState(false)
 
-  const handleChangeTab = (tab: string) => {
-    setActiveTab(tab)
+  const handleChangeTab = (tab: boolean) => {
+    setIsReturnFlight(tab)
   }
 
   return (
     <div className="relative flex flex-col items-center justify-center gap-4">
       <div className="flex gap-2">
-        <Button
-          className={`h-[22px] rounded-xl p-4 text-sm font-semibold max-[1024px]:text-xs ${activeTab === 'dus' ? '' : 'text-white'}`}
-          variant={activeTab === 'dus' ? 'secondary' : 'ghost'}
-          onClick={() => handleChangeTab('dus')}
+        <button
+          className={`rounded-lg px-4 text-[8px]  font-semibold md:h-[22px] md:text-xxs ${isReturnFlight ? 'text-slate-400 md:text-white' : 'text-white md:bg-white md:text-black'}`}
+          onClick={() => handleChangeTab(false)}
         >
-          Tur
-        </Button>
-        <Button
-          className={`h-[22px] rounded-xl p-4 text-sm font-semibold max-[1024px]:text-xs ${activeTab === 'intors' ? '' : 'text-white'}`}
-          variant={activeTab === 'intors' ? 'secondary' : 'ghost'}
-          onClick={() => handleChangeTab('intors')}
+          Într-o direcție
+        </button>
+        <button
+          className={`rounded-lg px-4 text-[8px] font-semibold md:text-xxs ${isReturnFlight ? 'text-white md:bg-white md:text-black' : 'text-slate-400 md:text-white'}`}
+          onClick={() => handleChangeTab(true)}
         >
           Tur-Retur
-        </Button>
+        </button>
       </div>
 
       <SearchBar
         setLoading={setLoading}
-        setActiveTab={setActiveTab}
-        tab={activeTab}
+        setIsReturnFlight={handleChangeTab}
+        isReturnFlight={isReturnFlight}
       />
     </div>
   )

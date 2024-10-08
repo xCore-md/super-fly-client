@@ -43,10 +43,10 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
             {title}
           </span>
           <Button
-            className={`h h-8 min-h-8 w-8 min-w-8 rounded-full p-0 lg:h-[38px] lg:w-[38px] ${isOpen(title) ? 'bg-white' : 'bg-blue-700 shadow-md shadow-slate-400'}`}
+            className={`h h-8 min-h-8 w-8 min-w-8 rounded-full p-0 lg:h-[32px] lg:w-[32px] ${isOpen(title) ? 'bg-white' : 'custom-light-shadow bg-blue-700'}`}
           >
             <Image
-              className="hidden lg:block"
+              className=" hidden lg:block"
               src={isOpen(title) ? minus : plus}
               alt="plus-icon"
               width={18}
@@ -64,11 +64,9 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className={`-mt-10 rounded-b-[20px] bg-white px-4 pb-2 pt-10 md:px-5 md:pb-4 md:pt-14 ${isOpen(title) ? 'shadow-lg shadow-slate-200' : ''}`}
+        className={`-mt-10 rounded-b-[20px] bg-white px-4 pb-2 pt-10 md:px-8 md:pb-8 md:pt-16 ${isOpen(title) ? 'shadow-lg shadow-slate-200' : ''}`}
       >
-        <span className="md:text-md block px-2 py-3 text-sm text-gray-500">
-          {text}
-        </span>
+        <span className="md:text-md block text-sm text-gray-500">{text}</span>
       </CollapsibleContent>
     </Collapsible>
   ))

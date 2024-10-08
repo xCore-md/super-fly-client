@@ -58,7 +58,7 @@ export const WhyUs = ({ title }: { title: string }) => {
           rezervare.
         </p>
       </div>
-      <div className="animation grid grid-cols-3 gap-3">
+      <div className="animation grid grid-cols-3 gap-x-4 gap-y-4 md:gap-x-10">
         {items.map(({ image, title, text }) => (
           <Component key={title} image={image} title={title} text={text} />
         ))}
@@ -78,14 +78,14 @@ const Component = ({ title, image, text }: IComponentProps) => {
     <div>
       <div
         key={title}
-        className="hidden h-full flex-col items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex lg:flex-row lg:items-start lg:gap-6 lg:p-6"
+        className="hidden h-full flex-col items-center gap-3 rounded-2xl border border-gray-200 bg-white p-4 fill-mode-forwards lg:flex lg:flex-row lg:items-start lg:gap-6 lg:p-6"
       >
         <Image src={image} alt="icon" className="max-w-10 lg:max-w-none" />
         <div>
-          <h4 className="text-center text-xxs font-medium lg:mb-3 lg:text-left lg:text-xl">
+          <h4 className="text-center text-xxs font-medium text-[#323232] lg:mb-3 lg:text-left lg:text-[22px]">
             {title}
           </h4>
-          <span className="hidden text-sm text-gray-500 lg:block">{text}</span>
+          <span className="hidden text-sm text-[#6C6C6C] lg:block">{text}</span>
         </div>
       </div>
 

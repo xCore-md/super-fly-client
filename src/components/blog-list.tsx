@@ -42,42 +42,48 @@ export const BlogList = (props: IBlogListProps) => {
   return (
     <section
       className={cn(
-        'gsap-animate mb-14 fill-mode-forwards lg:mb-24',
+        'gsap-animate mb-14 fill-mode-forwards lg:mb-36',
         className
       )}
     >
       <h2
-        className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
+        className={`text-lg font-medium text-[#323232] lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
       >
         {title}
       </h2>
       {subtitle && (
         <span
-          className="mb-4 text-sm font-light"
+          className="mb-4 text-base font-light"
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 flex snap-x gap-x-3 gap-y-5 overflow-x-scroll lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12">
+      <div className="mt-6 flex snap-x gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12 lg:pr-0">
         {items?.map(({ title, text, img }, index) => (
           <Link
             className="snap-center [&_img]:hover:scale-110"
             key={index}
             href={`/blog/${index}`}
           >
-            <Card className="overflow-hidden rounded-t-[16px] pb-4 transition-[.5s] hover:shadow-lg">
+            <Card className="custom-shadow overflow-hidden rounded-t-[16px] transition-[.5s] hover:shadow-lg">
               <CardHeader className="max-h-[302px] overflow-hidden rounded-t-xl p-0">
                 <Image
-                  className="h-56 object-cover duration-300 ease-in-out"
+                  className="h-[177px] min-w-[171px] object-cover duration-300 ease-in-out md:h-[270px]"
                   src={img}
                   alt="card"
                 />
               </CardHeader>
-              <CardContent className={withDestinationsAndPrices ? '' : 'px-4'}>
-                <div className="min-w-44">
-                  <h3 className="mt-4 line-clamp-1 text-sm lg:text-xl">
+              <CardContent
+                className={
+                  withDestinationsAndPrices
+                    ? ''
+                    : 'px-[10px] pb-5 md:px-5 md:pb-10'
+                }
+              >
+                <div>
+                  <h3 className="mt-[14px] line-clamp-2 text-sm md:mt-5 lg:text-xl">
                     {title}
                   </h3>
-                  <p className="mt-4 line-clamp-3 text-base font-light max-[768px]:hidden">
+                  <p className="mt-3 line-clamp-3 text-sm font-light max-[768px]:hidden">
                     {text}
                   </p>
                 </div>
@@ -87,7 +93,7 @@ export const BlogList = (props: IBlogListProps) => {
         ))}
       </div>
       <div
-        className={`flex items-center ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+        className={`flex items-center pr-4 lg:pr-0 ${footerSubtitle ? 'justify-between' : 'justify-end'} md:mt-8`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>
@@ -95,7 +101,7 @@ export const BlogList = (props: IBlogListProps) => {
         {buttonTitle && (
           <Link
             href={buttonUrl}
-            className="flex h-9 w-full items-center justify-center rounded-full bg-blue-700 px-8 text-sm font-light text-white shadow-md shadow-slate-400 md:h-11 md:w-fit md:text-base"
+            className="custom-light-shadow flex h-9 w-full items-center justify-center rounded-full bg-blue-700 px-8 text-sm font-light text-white md:h-11 md:w-fit md:text-base"
           >
             <span>{buttonTitle.trim()}</span>
           </Link>

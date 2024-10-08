@@ -45,18 +45,18 @@ export function CustomCalendar({
       <div className="flex items-center justify-between p-4">
         <Button
           type="primary"
-          className="rounded-full border-0 shadow-none"
-          icon={<LeftOutlined />}
+          className="customCalendarNavBtn rounded-full border-0 shadow-none"
+          icon={<LeftOutlined style={{ width: 12, height: 20, padding: 0 }} />}
           disabled={dayjs().isSame(currentDate, 'month')}
           onClick={onPrevMonth}
         />
-        <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
+        <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
           {monthName}
         </span>
         <Button
           type="primary"
-          className="rounded-full border-0 shadow-none"
-          icon={<RightOutlined />}
+          className="customCalendarNavBtn rounded-full border-0 shadow-none"
+          icon={<RightOutlined style={{ width: 12, height: 20, padding: 0 }} />}
           onClick={onNextMonth}
         />
       </div>

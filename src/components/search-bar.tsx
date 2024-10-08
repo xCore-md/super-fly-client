@@ -28,9 +28,9 @@ import { SearchPassengers } from './search-components-desktop/search-passengers'
 
 interface ISearchBarProps {
   setLoading?: any
-  tab?: string
+  isReturnFlight?: boolean
   setIsNoFlights?: any
-  setActiveTab?: any
+  setIsReturnFlight?: any
 }
 
 interface ISearchField {
@@ -47,9 +47,9 @@ const initialFieldsState = {
 
 export const SearchBar = ({
   setLoading,
-  tab,
+  isReturnFlight,
   setIsNoFlights,
-  setActiveTab,
+  setIsReturnFlight,
 }: ISearchBarProps) => {
   const isMobile = useIsMobile()
   const [api, contextHolder] = notification.useNotification()
@@ -85,11 +85,11 @@ export const SearchBar = ({
   }
 
   useEffect(() => {
-    if (tab === 'dus') {
+    if (isReturnFlight) {
       formik.setFieldValue('return_to', '')
       closeAllFields()
     }
-  }, [tab])
+  }, [isReturnFlight])
 
   const isHomePage = pathname === '/'
   const passengersTypes = ['adults', 'children', 'infants']
@@ -336,7 +336,7 @@ export const SearchBar = ({
         />
       </Drawer>
       <div
-        className={`relative flex w-full items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} md:rounded-full md:shadow-lg lg:h-[68px] lg:w-auto lg:bg-white lg:pr-2`}
+        className={`relative flex w-full max-w-[861px] items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} md:h-[45px] md:rounded-full md:shadow-lg lg:w-auto lg:bg-white lg:pr-1`}
       >
         <div className="flex w-full flex-col items-center justify-between lg:flex-row">
           <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
@@ -367,7 +367,7 @@ export const SearchBar = ({
             formik={formik}
             onClickField={onClickField}
             openFields={openFields}
-            setActiveTab={setActiveTab}
+            setIsReturnFlight={setIsReturnFlight}
           />
 
           <SearchPassengers
@@ -379,27 +379,27 @@ export const SearchBar = ({
 
           <button
             onClick={() => submitSearch()}
-            className={`search-button-shadow hidden h-[56px] w-[56px] items-center justify-center rounded-full bg-emerald-500 hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:flex`}
+            className={`search-button-shadow ml-4 hidden h-[40px] w-[40px] min-w-[40px] items-center justify-center rounded-full bg-brand-green hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:flex`}
           >
             <span className="mr-3  font-medium text-white min-[1024px]:hidden">
               Caută
             </span>
-            <Image src={search} alt="image" width={20} height={20} />
+            <Image src={search} alt="image" width={10} height={10} />
           </button>
           <Button
             onClick={() => submitSearch()}
             style={{
               backgroundColor: companyParams
                 ? colorsByCompany[companyParams].bg
-                : '#10D2A4',
+                : '#11D2A4',
               color: companyParams
                 ? colorsByCompany[companyParams].color
                 : '#fff',
             }}
-            className="search-button-shadow flex  h-[56px] w-[56px] items-center justify-center rounded-full border-0 hover:opacity-90 max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:hidden"
+            className="search-button-shadow mt-3 flex h-[32px] w-full items-center justify-center rounded-full border-0 hover:opacity-90 md:mt-0 md:hidden md:w-auto"
           >
-            <span className="mr-1 font-medium min-[1024px]:hidden">Caută</span>
-            <Image src={searchBtnIcon} alt="image" width={20} height={20} />
+            <span className="text-xs  font-normal lg:hidden">Caută</span>
+            <Image src={searchBtnIcon} alt="image" width={12} height={12} />
           </Button>
         </div>
       </div>

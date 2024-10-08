@@ -69,7 +69,7 @@ export const ItemsCarousel = (props: IProps) => {
       </div>
       <Swiper
         slidesPerView={1}
-        loop={true}
+        loop={false}
         modules={[Autoplay]}
         breakpoints={{
           768: {
@@ -79,10 +79,7 @@ export const ItemsCarousel = (props: IProps) => {
             slidesPerView: 8,
           },
         }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        autoplay={false}
         className="w-full"
       >
         {items.map(
@@ -92,24 +89,24 @@ export const ItemsCarousel = (props: IProps) => {
           ) => (
             <SwiperSlide
               key={index}
-              className="relative ml-4 flex cursor-pointer select-none justify-center px-0 py-4 transition-all duration-200 ease-out"
+              className="relative ml-3 flex max-w-[112px] cursor-pointer select-none justify-center px-0 pt-4 transition-all duration-200 ease-out md:ml-4 md:max-w-full"
               onClick={() => handleGoToFlights({ code, cityId, country, city })}
             >
-              <Card className="group w-full overflow-hidden rounded-t-[16px] transition-[.5s] hover:shadow-lg">
-                <CardHeader className=" overflow-hidden rounded-t-xl p-0">
+              <Card className="group w-full overflow-hidden rounded-xl transition-[.5s] hover:shadow-lg">
+                <CardHeader className=" overflow-hidden p-0">
                   <Image
-                    className="h-[200px] object-cover duration-300 ease-in-out group-hover:scale-110 lg:h-[300px]"
+                    className="h-32 object-cover duration-300 ease-in-out group-hover:scale-110 md:h-[300px]"
                     src={img}
                     alt="card"
                   />
                 </CardHeader>
-                <CardContent>
-                  <div className="h-[70px]">
-                    <p className="mt-3 text-base font-medium">{title}</p>
-                    <p className="text-xs font-medium text-[#888888]">
+                <CardContent className="p-3">
+                  <div className="md:h-[70px]">
+                    <p className="text-xs font-medium md:mt-3">{title}</p>
+                    <p className="text-[8px] font-medium text-[#888888] md:text-xs">
                       {subtitle}
                     </p>
-                    <p className="mt-2 text-sm">
+                    <p className="mt-2 text-xxs md:text-sm">
                       De la <span className="font-medium">€{price}</span>
                     </p>
                   </div>
@@ -128,7 +125,7 @@ export const ItemsCarousel = (props: IProps) => {
         {buttonUrl && buttonTitle && (
           <Link
             href={buttonUrl}
-            className="flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400"
+            className="custom-light-shadow flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white "
           >
             <span>{buttonTitle.trim()}</span>
           </Link>

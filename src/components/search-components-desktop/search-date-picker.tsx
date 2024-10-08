@@ -10,12 +10,12 @@ import { useIsMobile } from '@/lib/hooks/usIsMobile'
 interface IProps {
   formik: any
   openFields: any
-  setActiveTab?: any
+  setIsReturnFlight?: any
   onClickField: any
 }
 
 export function SearchDatePicker(props: IProps) {
-  const { formik, openFields, setActiveTab, onClickField } = props
+  const { formik, openFields, setIsReturnFlight, onClickField } = props
 
   const [activeField, setActiveField] = useState('')
 
@@ -80,7 +80,7 @@ export function SearchDatePicker(props: IProps) {
     } else {
       setToValue('')
       formik.setFieldValue('return_to', '')
-      setActiveTab?.('dus')
+      setIsReturnFlight?.(false)
     }
   }
 
@@ -89,16 +89,14 @@ export function SearchDatePicker(props: IProps) {
       handleCalendarChangeFrom(value)
     } else {
       handleCalendarChangeTo(value)
-      setActiveTab?.('intors')
+      setIsReturnFlight?.(true)
     }
     onClickField(activeField)
     setActiveField('')
   }
 
-  console.log({ [activeField]: formik.values[activeField] })
-
   return (
-    <div className="relative flex w-full flex-row gap-4 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-6 md:w-auto md:max-w-[387px] lg:gap-4">
+    <div className="relative flex w-full flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-5 md:w-auto md:max-w-[387px] lg:gap-3">
       <PickerField
         title="plecare"
         openFields={openFields}
@@ -119,7 +117,7 @@ export function SearchDatePicker(props: IProps) {
       />
 
       {openFields[activeField] && (
-        <div className="dropdown-shadow absolute top-[61px] z-10 w-full rounded-3xl">
+        <div className="dropdown-shadow absolute top-[40.5px] z-10 w-full rounded-3xl">
           <CustomCalendar
             onChange={handleChangeCalendar}
             date={formik.values[activeField]}
@@ -153,17 +151,17 @@ const PickerField = (props: IPickerField) => {
 
   return (
     <div
-      className={`flex w-full items-center gap-2 border-r-[1px] border-gray-300 ${field === 'date_from' ? 'pl-4' : ''} pr-3 max-[1024px]:border-0 max-[1024px]:p-0  md:w-auto`}
+      className={`flex w-full items-center gap-2 border-r-[1px] border-gray-300 pt-1 ${field === 'date_from' ? 'pl-3' : ''} pr-3 max-[1024px]:border-0 max-[1024px]:p-0 md:max-w-36 `}
     >
-      <div className="grid max-w-sm items-center pt-2">
+      <div className="flex w-full flex-col items-start">
         <span
-          className={`text-xs font-semibold uppercase  ${openFields[field] ? 'text-brand-blue' : 'text-gray-400'}`}
+          className={`text-[8px] font-semibold uppercase  ${openFields[field] ? 'text-brand-blue' : 'text-gray-400'}`}
         >
           {title}
         </span>
 
         <Input
-          className="customInput w-full border-none pl-0 font-semibold text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none"
+          className="customInput relative h-5 w-full min-w-full border-none pl-0 text-xs font-semibold text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
           type="text"
           value={value}
           readOnly={isMobile}
@@ -180,7 +178,7 @@ const PickerField = (props: IPickerField) => {
         onClick={onFieldClick}
       >
         <Image
-          className="min-w-6"
+          className="min-w-4"
           src={openFields[field] ? calendarBlue : calendar}
           alt="image"
           width={28}

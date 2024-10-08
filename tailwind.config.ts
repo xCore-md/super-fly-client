@@ -58,11 +58,11 @@ const config = {
           'light-blue': '#F0F2FF',
           yellow: '#FFE959',
           gray: '#F4F4F4',
-          green: '#10D2A4',
+          green: '#11D2A4',
         },
       },
       fontSize: {
-        xxs: '0.6875em',
+        xxs: '10px',
       },
       borderRadius: {
         lg: 'var(--radius)',

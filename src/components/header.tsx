@@ -37,54 +37,62 @@ export const Header = ({ menu }: IHeaderProps) => {
 
   return (
     <div
-      className={`sticky left-0 top-0 z-40 shadow-md ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
+      className={`sticky left-0 top-0 z-40 flex justify-center ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
     >
       <div
-        className={`  max-[1440px]:px-5 ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
+        className={`w-[1280px] max-w-[1280px] px-5 md:px-0 xl:max-w-[1440px] ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
       >
         <div
-          className={`container  z-10 mx-auto flex h-20 items-center justify-between p-0 ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
+          className={`relative z-10 flex h-20 w-full items-center justify-between ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
-          <Link className="w-[88px] lg:w-[152px]" href="/">
-            <Image src={isSimpleHeader ? logoBlue : logoWhite} alt="logo" />
+          <Link className="w-[88px] md:w-[148px]" href="/">
+            <Image
+              src={isSimpleHeader ? logoBlue : logoWhite}
+              alt="logo"
+              width={148}
+            />
           </Link>
 
           <nav className="hidden pl-32 lg:block">
             <NavList menu={menu} isSimpleHeader={isSimpleHeader} />
           </nav>
 
-          <div className="flex items-center">
-            <div>
-              <Link
-                href={`tel:${tel}`}
-                className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
-              >
-                <span className="text-right text-xxs lg:text-sm">
-                  Contacteaza-ne
-                </span>
-                <span className="text-xs font-medium lg:text-base">{tel}</span>
-              </Link>
-            </div>
-            <div className="relative">
-              <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
-                <iframe
-                  src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
-                  width="58"
-                  height="58"
-                  className=" -translate-x-2 -translate-y-2"
-                ></iframe>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center">
+              <div>
+                <Link
+                  href={`tel:${tel}`}
+                  className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
+                >
+                  <span className="text-right text-[8px] md:text-xxs">
+                    Contacteaza-ne
+                  </span>
+                  <span className="text-xs font-medium md:text-base">
+                    {tel}
+                  </span>
+                </Link>
               </div>
-              <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
-            </div>
-            {/* <div
+              <div className="relative">
+                <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
+                  <iframe
+                    src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
+                    width="58"
+                    height="58"
+                    className="-translate-x-2 -translate-y-2"
+                  ></iframe>
+                </div>
+                <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
+              </div>
+              {/* <div
               className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
             >
               ro
             </div> */}
-          </div>
+            </div>
 
-          <div className="lg:hidden">
-            <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
+            <div className="lg:hidden">
+              <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +114,7 @@ const NavList = ({
       className={`flex flex-col items-start gap-4 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
       {menu.map(({ title, href }) => (
-        <li key={title} className="">
+        <li key={title} className="link-hover-underline pb-1 text-xs">
           <Link
             href={href}
             onClick={() => {

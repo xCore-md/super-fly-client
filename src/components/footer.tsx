@@ -119,7 +119,7 @@ export const Footer = () => {
               className="w-full md:w-auto"
             />
           </Link>
-          <p className="text-xs text-gray-500 md:pr-6 lg:col-span-4">
+          <p className="text-xxs text-gray-500 md:pr-6 lg:col-span-4">
             Misiunea noastră este de a oferi clienților noștri o experiență de
             călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
             mândrim cu faptul că suntem o agentie de bilete avia de încredere,
@@ -143,14 +143,14 @@ export const Footer = () => {
               className="mb-2 flex items-center gap-1"
             >
               <Image src={phone} alt="icon" width={20} height={20} />
-              <span className="text-xs">+(373) 60 456 654</span>
+              <span className="text-xs text-[#636363]">+(373) 60 456 654</span>
             </Link>
             <Link
               href="mailto:info@superfly.md"
               className="flex items-center gap-1"
             >
               <Image src={mail} alt="icon" width={20} height={20} />
-              <span className="text-xs">info@superfly.md</span>
+              <span className="text-xs text-[#636363]">info@superfly.md</span>
             </Link>
           </div>
 

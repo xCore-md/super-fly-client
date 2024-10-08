@@ -9,6 +9,7 @@ import kidsBlue from '@/assets/img/kids-blue.svg'
 import infants from '@/assets/img/infants.svg'
 import infantsBlue from '@/assets/img/infants-blue.svg'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
+import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 
 interface IProps {
   onClickField: any
@@ -57,37 +58,32 @@ export function SearchPassengers(props: IProps) {
     onClickField('passengers')
   }
 
+  const passengersCount = Object.values(passengersObject).reduce(
+    (a, b) => a + b
+  )
+
   return (
-    <div className="relative flex items-center gap-2 pl-4 max-[1024px]:mt-2 max-[1024px]:w-full max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:py-2 max-[1024px]:pl-6 md:min-w-[240px]">
+    <div className="relative flex min-w-28 items-center gap-1 pl-5 max-[1024px]:mt-2 max-[1024px]:w-full max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:py-2 md:pl-2">
       <Image
-        className="max-[1024px]:h-8 max-[1024px]:w-3"
+        className="h-4 w-3 md:h-6 md:w-4"
         src={showDropdown ? humanBlue : human}
         alt="image"
         width={14}
         height={14}
       />
       <div
-        className="ml-1 flex w-full max-w-sm flex-col items-start justify-start pr-4 pt-2"
+        className="ml-1 flex w-full flex-col items-start justify-start gap-0.5"
         onClick={handleShowDropdown}
       >
         <Label
-          className={`pointer-events-none text-xs font-semibold uppercase  ${showDropdown ? 'text-brand-blue' : 'text-gray-400'}`}
+          className={`pointer-events-none text-[8px] font-semibold uppercase  ${showDropdown ? 'text-brand-blue' : 'text-gray-400'}`}
         >
           PASAGERI
         </Label>
 
-        <span className="flex h-8 w-full cursor-pointer select-none justify-start  py-1.5 text-sm font-semibold text-slate-500">
-          <span
-            className={
-              Object.values(passengersObject).reduce((a, b) => a + b) > 0
-                ? 'flex w-4'
-                : ''
-            }
-          >
-            {Number(Object.values(passengersObject).reduce((a, b) => a + b)) ||
-              ''}
-          </span>
-          <span> Passengers</span>
+        <span className="flex w-full cursor-pointer select-none justify-start gap-1 text-xs font-semibold text-slate-500 md:text-xxs">
+          <span>{passengersCount || ''}</span>
+          <span> Pasager{passengersCount > 1 ? 'i' : ''}</span>
         </span>
       </div>
 
@@ -129,28 +125,32 @@ const PopoverContent = ({
 
   return (
     <div
-      className={`dropdown-shadow absolute left-0 top-[61px] z-10 h-auto w-full min-w-[304px] rounded-b-3xl bg-white`}
+      className={`dropdown-shadow absolute left-0 top-[37px] z-10 h-auto w-full min-w-[172px] rounded-b-3xl bg-white`}
     >
-      <div className="searchDropDownShadow flex w-full flex-col gap-y-6 p-4">
+      <div className="searchDropDownShadow flex w-full flex-col gap-y-6 px-2 py-4">
         {PopoverData.map(({ title, img, img2, description, key }) => (
           <div className="flex items-center justify-between" key={key}>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Image
                 src={
                   passengers[key as keyof typeof passengers] > 0 ? img2 : img
                 }
                 alt="image"
-                className="h-8 w-6"
+                className="h-5 w-4"
               />
               <div className="flex flex-col">
-                <h4 className="text-base font-semibold text-black">{title}</h4>
-                <span className="text-xs text-gray-500">{description}</span>
+                <h4 className="text-xxs font-bold text-black">{title}</h4>
+                <span className="text-[6px] text-gray-500">{description}</span>
               </div>
             </div>
-            <div className="flex select-none items-center gap-2">
+            <div className="flex select-none items-center gap-1">
               <Button
                 type="primary"
-                className={`h-8 w-8 rounded-full text-black ${passengers[key as TPassengers] === 0 ? 'text-black' : 'text-white'}`}
+                shape="circle"
+                size="small"
+                style={{ width: 16, height: 16, minWidth: 16 }}
+                icon={<LeftOutlined style={{ width: 8 }} />}
+                className={` text-black ${passengers[key as TPassengers] === 0 ? 'text-black' : 'text-white'}`}
                 disabled={passengers[key as TPassengers] === 0}
                 onClick={() =>
                   handleUpdatePassengersCount(
@@ -158,33 +158,34 @@ const PopoverContent = ({
                     passengers[key as TPassengers] - 1
                   )
                 }
-              >
-                -
-              </Button>
-              <span className="w-4 text-center text-base text-black">
+              />
+
+              <span className="w-3 text-center text-sm text-black">
                 {passengers[key as TPassengers]}
               </span>
               <Button
                 type="primary"
-                className="h-8 w-8 rounded-full "
+                size="small"
+                style={{ width: 16, height: 16, minWidth: 16 }}
+                shape="circle"
+                icon={<RightOutlined style={{ width: 8 }} />}
+                className=""
                 onClick={() =>
                   handleUpdatePassengersCount(
                     key as TPassengers,
                     passengers[key as TPassengers] + 1
                   )
                 }
-              >
-                +
-              </Button>
+              />
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mx-4 mb-4 mt-6">
+      <div className="my-5 flex justify-center">
         <Button
           type="primary"
-          className=" w-full rounded-full bg-brand-blue"
+          className="w-[98px] rounded-full bg-brand-blue text-xxs font-semibold"
           onClick={() => submitPassengers()}
         >
           Confirmați

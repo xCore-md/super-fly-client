@@ -149,12 +149,14 @@ const Offers = () => {
               <SwiperSlide key={index} className="min-w-full px-1">
                 <Card className="mb-4 rounded-xl">
                   <CardHeader className="pb-2">
-                    <h3 className="text-xl font-medium">
+                    <h3 className="text-[22px] font-medium">
                       Chisinau - {offer.title}
                     </h3>
                   </CardHeader>
                   <CardContent className="min-h-[120px]">
-                    <p className="text-base font-light">{offer.description}</p>
+                    <p className="text-base font-light text-[#4A4A4A]">
+                      {offer.description}
+                    </p>
                   </CardContent>
                 </Card>
               </SwiperSlide>
@@ -175,10 +177,10 @@ const Offers = () => {
             onSlideChange={(e) => setActiveSliderIndex(e.activeIndex)}
           >
             {list.map((offer, index) => (
-              <SwiperSlide key={index} className="h-[280px] min-w-full px-1">
+              <SwiperSlide key={index} className="h-[240px] min-w-full px-1">
                 <div className=" w-full ">
                   <Image
-                    className="h-[280px] rounded-2xl object-cover"
+                    className="h-[240px] rounded-2xl object-cover"
                     src={offer.img}
                     alt="image"
                   />
