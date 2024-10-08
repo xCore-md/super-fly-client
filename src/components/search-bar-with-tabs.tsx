@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { SearchBar } from '@components/search-bar'
-import { Button } from '@components/ui/button'
 
 export const SearchBarWithTabs = ({
   setLoading,
