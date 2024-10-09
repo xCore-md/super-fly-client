@@ -69,7 +69,7 @@ export const ItemsCarousel = (props: IProps) => {
       </div>
       <Swiper
         slidesPerView={1}
-        loop={false}
+        loop={true}
         modules={[Autoplay]}
         breakpoints={{
           768: {
@@ -79,7 +79,10 @@ export const ItemsCarousel = (props: IProps) => {
             slidesPerView: 8,
           },
         }}
-        autoplay={false}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         className="w-full"
       >
         {items.map(
