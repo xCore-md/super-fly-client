@@ -15,9 +15,7 @@ export default function Home() {
   const companyParams = searchParams.get('company')
 
   return (
-    <div
-      className={`${companyParams ? 'mt-0' : ''} overflow-x-hidden pb-10 lg:overflow-x-auto`}
-    >
+    <div className={`${companyParams ? 'mt-0' : ''} overflow-x-hidden pb-10`}>
       <div className={`mx-auto lg:px-0`}>
         <Banner />
       </div>
