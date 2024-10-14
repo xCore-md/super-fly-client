@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
-import { Tooltip, Divider } from 'antd'
+import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
 import mastercard from '@/assets/img/mastercard.svg'
@@ -48,7 +48,7 @@ export default function ConfirmReservationPage() {
   console.log({ res })
 
   return (
-    <section className="flex justify-center pb-20 pt-5 lg:pt-14">
+    <section className="flex justify-center px-5 pb-20 pt-5 lg:pt-14">
       <div className="flex w-full flex-col gap-2 lg:max-w-[1152px] lg:flex-row lg:gap-20">
         <div className="lg:w-2/3">
           <div className="mr-14 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-blue px-5 py-2 text-white lg:h-[63px] lg:flex-row lg:items-center lg:gap-0">
