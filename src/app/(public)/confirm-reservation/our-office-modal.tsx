@@ -23,7 +23,7 @@ const OurOfficeModal = () => {
     <div>
       <Button
         variant="ghost"
-        className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+        className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
         onClick={showModal}
       >
         <span className="hidden text-xxs text-brand-blue lg:block">

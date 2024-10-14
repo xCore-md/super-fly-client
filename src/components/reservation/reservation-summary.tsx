@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { ReactNode, useMemo } from 'react'
 import { Divider } from 'antd'
@@ -12,9 +11,11 @@ export const CHECK_IN_PRICE = 8.99
 export const ReservationSummary = ({
   reservation,
   formik,
+  submitReservation,
 }: {
   reservation: any
   formik?: any
+  submitReservation?: any
 }) => {
   const { flight } = useFlightContext()
   const router = useRouter()
@@ -58,24 +59,24 @@ export const ReservationSummary = ({
   return (
     <section className="flex flex-1 flex-col">
       <div className="lg:sticky lg:top-32">
-        <div className="hidden flex-col gap-7 lg:flex">
+        <div className="hidden flex-col gap-5 lg:flex">
           <SectionLightBlue>
             <div>
-              <h6 className="text-sm font-semibold text-[#121C5E]">
+              <h6 className="text-xxs font-semibold leading-snug text-[#121C5E]">
                 {cityFrom} - {cityTo}
               </h6>
-              <p className="mt-1 text-xs text-gray-500">
+              <span className="text-[8px] font-medium leading-snug text-[#9D9D9D]">
                 {flightType} - {adults > 0 && `${adults} Adulți`}
                 {children > 0 && `, ${children} Copii`}
                 {infants > 0 && `, ${infants} Infanți`}
-              </p>
+              </span>
             </div>
             <Button
-              className="rounded-full border-brand-blue bg-transparent text-sm text-brand-blue"
+              className="flex h-[26px] w-[71px] items-center justify-center rounded-full border-brand-blue bg-transparent p-0 text-xs font-medium text-brand-blue"
               variant="outline"
               onClick={() => router.push('/flights')}
             >
-              Editează
+              <span>Editează</span>
             </Button>
           </SectionLightBlue>
 
@@ -97,7 +98,7 @@ export const ReservationSummary = ({
             </div>
           </div> */}
 
-          <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
+          <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
             <h6>Bagaje</h6>
           </SectionLightBlue>
           <div className="flex flex-col">
@@ -106,7 +107,7 @@ export const ReservationSummary = ({
                 return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
                   <div key={index}>
                     <div className="grid grid-cols-4 gap-4">
-                      <p className="col-span-1 text-sm uppercase">
+                      <p className="col-span-1 text-xs uppercase">
                         {passenger.first_name} {passenger.last_name}
                       </p>
                       <div className="col-span-2 grid grid-cols-3 gap-4">
@@ -148,7 +149,7 @@ export const ReservationSummary = ({
           </div>
 
           <div>
-            <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
+            <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
               <h6>Servicii</h6>
               {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
             </SectionLightBlue>
@@ -162,10 +163,10 @@ export const ReservationSummary = ({
                   return (
                     <div key={index}>
                       <div className="grid grid-cols-4 items-center gap-4">
-                        <p className="col-span-1 text-sm uppercase">
+                        <p className="col-span-2 text-xs uppercase">
                           {passenger.first_name} {passenger.last_name}
                         </p>
-                        <div className="col-span-3 gap-4">
+                        <div className="col-span-2 gap-4">
                           <p className="text-xs text-gray-500">
                             Online Check In
                           </p>
@@ -189,7 +190,7 @@ export const ReservationSummary = ({
           </div>
         </div>
 
-        <div className="mt-4 rounded-md bg-brand-blue px-4 py-3 text-base text-white lg:mt-11">
+        <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
           <span className="font-light">Total:</span>
           <span className="ml-2 font-semibold">
             {reservation.price + baggagePrice + checkInPrice} €
@@ -198,12 +199,12 @@ export const ReservationSummary = ({
 
         <ReservationTimer />
 
-        <Link
-          href="/confirm-reservation"
-          className="mt-8 flex h-11 items-center justify-center rounded-full bg-brand-green px-8 font-light text-white shadow-md shadow-slate-400 lg:hidden"
+        <Button
+          onClick={() => submitReservation()}
+          className="custom-light-shadow mt-8 flex h-11 w-full items-center justify-center rounded-full bg-brand-green px-8 font-light text-white lg:hidden"
         >
           Rezervă acum
-        </Link>
+        </Button>
       </div>
     </section>
   )
@@ -234,7 +235,7 @@ const SectionLightBlue = ({ children, className }: ISectionLightBlueProps) => {
   return (
     <div
       className={cn(
-        'flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-base',
+        'flex items-center justify-between rounded-lg bg-[#F0F2FF] p-3 text-base',
         className
       )}
     >

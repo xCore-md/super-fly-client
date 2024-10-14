@@ -1,16 +1,16 @@
 'use client'
 
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import plane from '@/assets/img/plane.png'
+import am from '@/assets/img/banner-assets/am.png'
 import fo from '@/assets/img/banner-assets/fo.png'
 import hs from '@/assets/img/banner-assets/hs.png'
 import wz from '@/assets/img/banner-assets/wz.png'
-import am from '@/assets/img/banner-assets/am.png'
+import plane from '@/assets/img/plane.png'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 import LeadModal from './lead-modal'
-import { useSearchParams } from 'next/navigation'
 
 export const Banner = () => {
   gsap.registerPlugin(useGSAP)
@@ -39,7 +39,7 @@ export const Banner = () => {
 
   return (
     <section
-      className={`relative px-5 pb-[340px] pt-[74px] md:pt-44 ${companyParams ? 'px-5 py-3' : ''}`}
+      className={`relative px-5 pb-[340px] pt-[74px] md:pb-[240px] md:pt-44 ${companyParams ? 'px-5 py-3' : ''}`}
     >
       <div className="absolute left-0 top-0 z-0 h-[760px] w-full rounded-b-[40px] bg-brand-blue md:h-[650px] md:max-h-[650px]">
         {!companyParams && (

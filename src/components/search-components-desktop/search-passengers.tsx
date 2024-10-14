@@ -125,9 +125,9 @@ const PopoverContent = ({
 
   return (
     <div
-      className={`dropdown-shadow absolute left-0 top-[37px] z-10 h-auto w-full min-w-[172px] rounded-b-3xl bg-white`}
+      className={`dropdown-shadow absolute left-0 top-[37px] z-20 h-auto w-full min-w-[172px] rounded-b-3xl bg-white`}
     >
-      <div className="searchDropDownShadow flex w-full flex-col gap-y-6 px-2 py-4">
+      <div className="searchDropDownShadow flex w-full flex-col gap-y-4 px-2 py-4">
         {PopoverData.map(({ title, img, img2, description, key }) => (
           <div className="flex items-center justify-between" key={key}>
             <div className="flex items-center gap-1">
@@ -160,7 +160,7 @@ const PopoverContent = ({
                 }
               />
 
-              <span className="w-3 text-center text-sm text-black">
+              <span className="w-3 pt-0.5 text-center text-sm font-bold text-black">
                 {passengers[key as TPassengers]}
               </span>
               <Button
@@ -182,10 +182,10 @@ const PopoverContent = ({
         ))}
       </div>
 
-      <div className="my-5 flex justify-center">
+      <div className="mb-5 mt-1 flex justify-center">
         <Button
           type="primary"
-          className="w-[98px] rounded-full bg-brand-blue text-xxs font-semibold"
+          className="custom-light-shadow h-6 w-[98px] rounded-full bg-[#596AD9] text-xxs font-semibold"
           onClick={() => submitPassengers()}
         >
           Confirmați

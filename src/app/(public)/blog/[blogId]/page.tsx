@@ -29,10 +29,10 @@ export default function SingleBlog() {
   return (
     <section>
       <Header img={data.img} title={data.title} />
-      <div className="container mx-auto px-0 pb-36 pt-80 text-gray-600 lg:pt-[450px]">
+      <div className="custom-container px-0 pb-36 pt-6 lg:pt-[76px]">
         <div>
           <p
-            className="mb-6"
+            className="mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]"
             dangerouslySetInnerHTML={{ __html: data.text }}
           ></p>
           {/* <p>
@@ -91,7 +91,7 @@ export default function SingleBlog() {
           />
           <div className="z-10 flex flex-col items-center justify-center text-white">
             <h4 className="mb-3 text-lg lg:text-2xl">Nu rata ocazia</h4>
-            <span className="mb-11 px-10 text-center text-sm font-light lg:px-0 lg:text-base">
+            <span className="mb-11 px-10 text-center text-sm font-light lg:px-0 lg:text-[18px]">
               Descoperă acum Oferte de Top, și rezervă rapid bilete la cel mai
               bun preț!
             </span>
@@ -107,14 +107,14 @@ export default function SingleBlog() {
 
 const Header = ({ img, title }: any) => {
   return (
-    <div className="absolute left-0 top-[80px] z-0 block h-72 w-full rounded-b-[50px] ">
+    <div className="relative h-[400px] w-full">
       <Image
-        className="absolute left-0 top-0 z-0  w-full object-cover lg:h-[400px]"
+        className="absolute left-0 top-0 z-0 h-full w-full rounded-b-[30px] object-cover "
         src={img}
         alt="banner-image"
       />
       <div className="absolute z-10 flex h-full w-full items-center justify-center">
-        <p className="px-9 pt-0 text-center text-base uppercase tracking-wider text-white lg:pt-32 lg:text-4xl lg:leading-10">
+        <p className="text-center text-base uppercase tracking-wider text-white lg:text-4xl lg:leading-10">
           {title}
         </p>
       </div>

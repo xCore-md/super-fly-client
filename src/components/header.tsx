@@ -37,11 +37,9 @@ export const Header = ({ menu }: IHeaderProps) => {
 
   return (
     <div
-      className={`sticky left-0 top-0 z-40 flex justify-center ${isSimpleHeader ? 'bg-white text-black ' : 'bg-brand-blue text-white'}`}
+      className={`sticky left-0 top-0 z-40 flex justify-center ${isSimpleHeader ? 'bg-white text-black shadow-lg' : 'bg-brand-blue text-white'}`}
     >
-      <div
-        className={`w-[1280px] max-w-[1280px] px-5 md:px-0 xl:max-w-[1440px] ${isSimpleHeader ? 'shadow-lg shadow-gray-300' : ''}`}
-      >
+      <div className="custom-container w-full">
         <div
           className={`relative z-10 flex h-20 w-full items-center justify-between ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
@@ -111,10 +109,13 @@ const NavList = ({
 }) => {
   return (
     <ul
-      className={`flex flex-col items-start gap-4 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
+      className={`flex flex-col items-center gap-4 pt-2 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
       {menu.map(({ title, href }) => (
-        <li key={title} className="link-hover-underline pb-1 text-xs">
+        <li
+          key={title}
+          className={`${isSimpleHeader ? 'nav-link-hover-dark' : 'nav-link-hover'} pb-1 text-xs`}
+        >
           <Link
             href={href}
             onClick={() => {

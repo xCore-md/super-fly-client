@@ -56,6 +56,8 @@ export const SearchBar = ({
   const [options, setOptions] = useState([] as any)
   const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
   const { setFlights, setInitialFlights } = useFlightsContext()
+  const openDrawer = useCallback((field: string) => setDrawerState(field), [])
+  const closeDrawer = useCallback(() => setDrawerState(''), [])
 
   const router = useRouter()
   const pathname = usePathname()
@@ -228,6 +230,7 @@ export const SearchBar = ({
           setFlights(data)
           setInitialFlights(data)
           setLoading?.(false)
+          closeDrawer()
           if (res.data.data.length === 0) {
             setIsNoFlights?.(true)
           } else {
@@ -288,9 +291,6 @@ export const SearchBar = ({
   }))
 
   const [drawerState, setDrawerState] = useState('')
-
-  const openDrawer = useCallback((field: string) => setDrawerState(field), [])
-  const closeDrawer = useCallback(() => setDrawerState(''), [])
 
   const onClickField = (field: string) => {
     if (window.innerWidth <= 768) {

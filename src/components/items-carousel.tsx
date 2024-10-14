@@ -60,9 +60,9 @@ export const ItemsCarousel = (props: IProps) => {
 
   return (
     <section className=" animate-fade-up fill-mode-forwards ">
-      <div className="container mx-auto px-5 lg:px-0">
+      <div className="custom-container">
         <h2
-          className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
+          className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-2 lg:mb-6'}`}
         >
           {title}
         </h2>
@@ -92,7 +92,7 @@ export const ItemsCarousel = (props: IProps) => {
           ) => (
             <SwiperSlide
               key={index}
-              className="relative ml-3 flex max-w-[112px] cursor-pointer select-none justify-center px-0 pt-4 transition-all duration-200 ease-out md:ml-4 md:max-w-full"
+              className="relative ml-3 flex max-w-[112px] cursor-pointer select-none justify-center px-0 pb-4 pt-4 transition-all duration-200 ease-out md:ml-4 md:max-w-full"
               onClick={() => handleGoToFlights({ code, cityId, country, city })}
             >
               <Card className="group w-full overflow-hidden rounded-xl transition-[.5s] hover:shadow-lg">
@@ -120,7 +120,7 @@ export const ItemsCarousel = (props: IProps) => {
         )}
       </Swiper>
       <div
-        className={`container mx-auto hidden items-center px-5 lg:flex lg:px-0 ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-8`}
+        className={`custom-container hidden items-center lg:flex ${footerSubtitle ? 'justify-between' : 'justify-end'} mt-4`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>

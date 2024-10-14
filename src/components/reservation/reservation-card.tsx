@@ -12,7 +12,7 @@ export const ReservationCard = (props: IReservationCardProps) => {
     <div
       {...props}
       className={cn(
-        'custom-shadow mt-4 rounded-2xl bg-white px-3 py-6 lg:p-10',
+        'custom-shadow mt-2 rounded-2xl bg-white px-3 py-6 lg:mt-4 lg:p-10',
         props.className
       )}
     >

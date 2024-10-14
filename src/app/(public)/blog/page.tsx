@@ -3,7 +3,7 @@ import { BlogList } from '@components/blog-list'
 
 export default function Blog() {
   return (
-    <section className="container mx-auto animate-fade-up p-0 fill-mode-forwards">
+    <section className="custom-container animate-fade-up p-0 fill-mode-forwards">
       <div className="mb-4 mt-5 flex justify-center lg:mt-20">
         <div className="flex w-[1000px] flex-col  items-center">
           <h3 className="mb-2 text-xl font-semibold text-brand-blue lg:text-2xl">

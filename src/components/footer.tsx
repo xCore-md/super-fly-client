@@ -103,11 +103,11 @@ export const Footer = () => {
   if (pathname.includes('admin')) return null
 
   return (
-    <div className="rounded-t-[40px] border-t-2 bg-white px-0 py-14 max-[1440px]:px-5">
-      <div className="container mx-auto px-0">
+    <div className=" max-w-[1280px] rounded-t-[40px] border-t-[1px] bg-white px-5 pb-14 pt-8 lg:pt-[76px] 2xl:max-w-none 2xl:px-[90px]">
+      <div className="mx-auto max-w-[1280px] px-0">
         <FooterColumns list={list} listWithLinks={listWithLinks} />
 
-        <hr className="my-8" />
+        <hr className="mb-10 mt-6" />
 
         <div className="mb-10 grid grid-cols-1 items-center justify-center justify-items-center gap-4 lg:grid-cols-12 lg:justify-items-start lg:gap-0">
           <Link href="/">
@@ -119,7 +119,7 @@ export const Footer = () => {
               className="w-full md:w-auto"
             />
           </Link>
-          <p className="text-xxs text-gray-500 md:pr-6 lg:col-span-4">
+          <p className="text-center text-xxs text-gray-500 md:pr-6 md:text-left lg:col-span-4">
             Misiunea noastră este de a oferi clienților noștri o experiență de
             călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
             mândrim cu faptul că suntem o agentie de bilete avia de încredere,
@@ -211,12 +211,12 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
             </ul>
             {index !== 2 && (
               <Button
-                className="flex items-center px-0 text-gray-500"
+                className="flex items-center pl-0  text-gray-500"
                 type="text"
                 icon={<ChevronDown size={20} />}
                 onClick={() => updateExpanded(index)}
               >
-                mai mult
+                {expanded ? 'mai puțin' : 'mai mult'}
               </Button>
             )}
           </div>
@@ -242,7 +242,7 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
       <Accordion type="single" collapsible className="w-full lg:hidden">
         {list.map(({ title, items }: any) => (
           <AccordionItem key={title} value={title} className="border-0">
-            <AccordionTrigger className="py-2 hover:no-underline active:no-underline">
+            <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
               <h4 className="text-lg font-medium text-blue-700">{title}</h4>
             </AccordionTrigger>
             <AccordionContent>
@@ -262,7 +262,7 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
 
         {listWithLinks.map(({ title, items }: any) => (
           <AccordionItem key={title} value={title} className="border-0">
-            <AccordionTrigger className="py-2 hover:no-underline active:no-underline">
+            <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
               <h4 className="text-lg font-medium text-blue-700">{title}</h4>
             </AccordionTrigger>
             <AccordionContent>

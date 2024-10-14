@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { Tooltip, Divider, Button } from 'antd'
@@ -12,8 +12,9 @@ import { useReservationContext } from '@/context/reservation-context'
 import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 
 export const FlyContent = (props: any) => {
+  const pathname = usePathname()
+
   const {
-    pricePlacement,
     withoutAction,
     withoutFooter,
     withoutFlightNumber,
@@ -26,8 +27,6 @@ export const FlyContent = (props: any) => {
   const startDirection = flight?.route?.filter(
     (route: any) => route.return === 0
   )
-
-  // I need to sum direction flight time
 
   const startDirectionTime = getFlightTime(
     startDirection?.[0].local_departure,
@@ -45,6 +44,8 @@ export const FlyContent = (props: any) => {
     setReservation(flight)
     router.push('/reservation')
   }, [flight, setReservation])
+
+  const isReservationPage = pathname === '/reservation'
 
   if (!flight?.route?.length) return null
 
@@ -74,7 +75,7 @@ export const FlyContent = (props: any) => {
       {flight && (
         <section
           className={cn(
-            'col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 md:border-0 lg:col-span-3 lg:row-start-auto lg:py-6',
+            `${isReservationPage ? '' : 'flightCardContentLine'} col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 md:border-0 lg:col-span-3 lg:row-start-auto lg:py-1`,
             {
               'lg:col-span-4': withoutAction,
             }
@@ -86,22 +87,25 @@ export const FlyContent = (props: any) => {
                 <ArrowRightOutlined />
               </span>
             )}
-            <main className="grid w-full grid-cols-4">
-              <div className="mr-2 text-right">
-                <div className="mb-2 text-xl font-normal">
+            <main className="grid w-full grid-cols-5 md:grid-cols-4">
+              <div className="mr-4 pt-2 text-center md:mr-2 md:pt-0 md:text-right">
+                <div className="text-base font-normal md:mb-1 md:-translate-y-1 md:text-[22px]">
                   {getTimeFromDate(startDirection[0].local_departure)}
                 </div>
-                <div className="text-xs text-gray-700">
+                <div className="hidden text-xxs text-gray-700 lg:block">
                   {startDirection[0].flyFrom}
+                </div>
+                <div className="text-xxs text-gray-700 lg:hidden">
+                  {startDirection[0].cityFrom}
                 </div>
               </div>
 
-              <div className="col-span-2 mt-2">
+              <div className="col-span-3 mt-2 md:col-span-2">
                 <div className="mb-1 flex items-center justify-center gap-2">
-                  <span className="hidden text-xs text-gray-400 lg:inline">
+                  <span className="hidden text-xxs text-gray-400 lg:inline">
                     Durata de zbor:
                   </span>
-                  <p className="text-xs text-gray-700">{startDirectionTime}</p>
+                  <p className="text-xxs text-gray-700">{startDirectionTime}</p>
                 </div>
 
                 <div className="fly-line block h-[1px] w-full bg-blue-700">
@@ -141,7 +145,7 @@ export const FlyContent = (props: any) => {
                   </div>
                 </div>
 
-                <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
+                <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xxs text-brand-blue">
                   {startDirection.length > 1
                     ? `Escale: ${startDirection.slice(1).length}`
                     : `Direct`}
@@ -152,14 +156,17 @@ export const FlyContent = (props: any) => {
                 {/*  <span className="text-xs text-gray-600">BGY</span>*/}
                 {/*</div>*/}
               </div>
-              <div className="ml-2 text-left">
-                <div className="mb-2 text-xl font-normal">
+              <div className="ml-4 pt-2 text-center md:ml-2 md:pt-0 md:text-left">
+                <div className="text-base font-normal md:mb-1 md:-translate-y-1 md:text-[22px]">
                   {getTimeFromDate(
                     startDirection[startDirection.length - 1].local_arrival
                   )}
                 </div>
-                <div className="text-xs text-gray-700">
+                <div className="hidden text-xxs text-gray-700 lg:block">
                   {startDirection[startDirection.length - 1].flyTo}
+                </div>
+                <div className="text-xxs text-gray-700 lg:hidden">
+                  {startDirection[startDirection.length - 1].cityTo}
                 </div>
               </div>
             </main>
@@ -168,7 +175,7 @@ export const FlyContent = (props: any) => {
           {withoutFooter || isAdminPanel ? (
             ''
           ) : (
-            <footer className="mt-5 flex items-start justify-evenly text-xs text-xxs lg:justify-center">
+            <footer className="mt-5 flex items-start justify-evenly text-xs text-xxs text-[#4A4A4A] lg:justify-center">
               <div
                 className={`lg:min-w-auto mr-2 flex min-w-32 gap-2 ${flight.availability.seats ? 'flex-col items-start ' : 'items-center'}`}
               >
@@ -185,10 +192,15 @@ export const FlyContent = (props: any) => {
 
                 {withoutFlightNumber ? (
                   ''
-                ) : (
+                ) : flight.route.length === 1 ? (
                   <p className="text-left lg:hidden">
-                    Nr. zbor: <span className="font-bold">6F4577</span>
+                    Nr. zbor:{' '}
+                    <span className="font-bold">
+                      {flight.route[0].flight_no}
+                    </span>
                   </p>
+                ) : (
+                  ''
                 )}
               </div>
 
@@ -202,20 +214,12 @@ export const FlyContent = (props: any) => {
                       src={seatSvg}
                       alt={'seat'}
                     />
-                    <p className="flex items-center">
+                    <p
+                      className={`flex items-center ${flight.availability.seats < 5 ? 'text-[#F82F2F]' : 'text-[#4A4A4A]'}`}
+                    >
                       Locuri disponibile: {flight.availability.seats}
                     </p>
                   </div>
-                  {withoutFlightNumber
-                    ? ''
-                    : flight.route.length === 1 && (
-                        <p className="text-left lg:hidden">
-                          Nr. zbor:{' '}
-                          <span className="font-bold">
-                            {flight.route[0].flight_no}
-                          </span>
-                        </p>
-                      )}
                 </div>
               )}
             </footer>
@@ -235,10 +239,10 @@ export const FlyContent = (props: any) => {
                 )}
                 <main className="grid w-full grid-cols-4">
                   <div className="mr-2 text-right">
-                    <div className="mb-2 text-xl font-normal">
+                    <div className="mb-2 text-[22px] font-normal">
                       {getTimeFromDate(endDirection?.[0].local_departure)}
                     </div>
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xxs text-gray-700">
                       {endDirection?.[0].flyFrom}
                     </div>
                   </div>
@@ -247,7 +251,7 @@ export const FlyContent = (props: any) => {
                       <span className="hidden text-xs text-gray-400 lg:inline">
                         Durata de zbor:
                       </span>
-                      <p className="text-xs text-gray-700">
+                      <p className="text-xxs text-gray-700">
                         {endDirectionTime}
                       </p>
                     </div>
@@ -261,6 +265,7 @@ export const FlyContent = (props: any) => {
                               .map((route: any, index: number) => (
                                 <Tooltip
                                   key={index}
+                                  trigger="hover"
                                   title={
                                     <span className=" flex flex-col gap-2 p-2 text-xs">
                                       <span className="flex gap-4">
@@ -301,12 +306,12 @@ export const FlyContent = (props: any) => {
                     {/*</div>*/}
                   </div>
                   <div className="ml-2 text-left">
-                    <div className="mb-2 text-xl font-normal">
+                    <div className="mb-2 text-[22px] font-normal">
                       {getTimeFromDate(
                         endDirection[endDirection.length - 1].local_arrival
                       )}
                     </div>
-                    <div className="text-xs text-gray-700">
+                    <div className="text-xxs text-gray-700">
                       {endDirection[endDirection.length - 1].flyTo}
                     </div>
                   </div>
@@ -328,14 +333,6 @@ export const FlyContent = (props: any) => {
                       />
                       <p className="ml-1">Bagajul de mînă inclus</p>
                     </div>
-
-                    {withoutFlightNumber ? (
-                      ''
-                    ) : (
-                      <p className="ml-[22px] text-left lg:hidden">
-                        Nr. zbor: <span className="font-bold">6F4577</span>
-                      </p>
-                    )}
                   </div>
 
                   {flight.availability.seats && (
@@ -372,30 +369,26 @@ export const FlyContent = (props: any) => {
       {!withoutAction && (
         <>
           <div className="col-span-1 flex flex-col items-end justify-center gap-3  pb-1 lg:items-center lg:justify-normal lg:pb-0">
-            {pricePlacement === 'bottom' && (
-              <p className="text-base font-medium lg:font-bold">€89.90</p>
-            )}
-
-            <p className="pt-5 text-base font-medium lg:pt-0">
+            <p className="pt-3 text-base font-semibold lg:pt-0">
               € {flight.price}
             </p>
             {isAdminPanel ? (
               <Button
                 onClick={() => handleAdminPanelSetSelectedFlight(flight)}
-                className={`hidden h-11 w-40 items-center justify-center ${endDirection.length > 0 ? 'mb-8' : ''} rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex`}
+                className={`hidden h-[37px] w-[133px] items-center justify-center ${endDirection.length > 0 ? 'mb-8' : ''} custom-light-shadow rounded-full bg-brand-blue px-8 font-light text-white lg:flex`}
               >
                 Rezerva
               </Button>
             ) : (
               <button
                 onClick={handleReservation}
-                className=" hidden h-11 w-40 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 lg:flex"
+                className=" custom-light-shadow hidden h-[37px] w-[133px] items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white lg:flex"
               >
                 Rezerva
               </button>
             )}
             {!isAdminPanel && (
-              <div className="hidden justify-between gap-5 text-xs lg:flex">
+              <div className="hidden justify-between gap-5 text-xxs lg:flex">
                 <Link href="https://wa.me/37360456654" className="flex">
                   <Image
                     className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-jump-in"
@@ -424,13 +417,13 @@ export const FlyContent = (props: any) => {
           <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
             <Link
               href="tel:+(373) 60 456 654"
-              className="flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
+              className="custom-light-shadow flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 text-sm font-light text-white lg:flex lg:text-base"
             >
               Sună acum
             </Link>
             <button
               onClick={handleReservation}
-              className="flex h-9 w-40 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white shadow-md shadow-slate-400 lg:flex lg:text-base"
+              className="custom-light-shadow flex h-9 w-40 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white lg:flex lg:text-base"
             >
               Rezerva
             </button>

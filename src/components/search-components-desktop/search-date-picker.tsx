@@ -161,7 +161,7 @@ const PickerField = (props: IPickerField) => {
         </span>
 
         <Input
-          className="customInput relative h-5 w-full min-w-full border-none pl-0 text-xs font-semibold text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
+          className="customInput relative h-5 w-full min-w-full border-none pl-0 pr-1 text-xs font-black text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
           type="text"
           value={value}
           readOnly={isMobile}

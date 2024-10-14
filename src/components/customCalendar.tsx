@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
 
 interface IProps {
   onChange: any
@@ -42,7 +42,7 @@ export function CustomCalendar({
 
   const customHeader = () => {
     return (
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between px-4 pb-2 pt-4">
         <Button
           type="primary"
           className="customCalendarNavBtn rounded-full border-0 shadow-none"

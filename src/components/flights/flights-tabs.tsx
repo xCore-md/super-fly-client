@@ -45,9 +45,9 @@ export const FlightsTabs = ({
 
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
-      <div className="mt-6 w-full max-w-[992px] px-4 md:px-0 lg:mt-14">
+      <div className="mt-6 w-full max-w-[861px] px-5 md:px-0 lg:mt-14">
         <Tabs className="text-center" defaultValue="rapid">
-          <TabsList className="custom-shadow animate-fade rounded-full bg-white fill-mode-forwards">
+          <TabsList className="custom-shadow mb-3 animate-fade rounded-full bg-white fill-mode-forwards">
             <TabsTrigger value="rapid" onClick={toggleSorting}>
               Cel mai rapid
             </TabsTrigger>
@@ -129,7 +129,7 @@ function FlightListComponent({
         <>
           {flightsToShow === 10 && (
             <Button
-              className="mt-8 w-full rounded-full border-brand-blue bg-transparent text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:w-auto"
+              className="mb-[84px] mt-8 h-[38px] w-full rounded-full border-[2px] border-brand-blue bg-transparent p-0 text-sm text-brand-blue hover:bg-brand-blue hover:text-white md:mb-14 md:h-11 md:text-base md:font-semibold lg:w-[234px]"
               type="default"
               onClick={() =>
                 flights.length > 10 && setFlightsToShow(flightsToShow + 10)

@@ -72,7 +72,7 @@ const Questions = () => {
   })
   return (
     <section
-      className="flex flex-col pb-10 pt-8 md:pt-16 lg:flex-row lg:pb-20"
+      className="flex flex-col pb-10 pt-8 md:pt-0 lg:flex-row lg:pb-20"
       id="questions"
     >
       <div className="animate-right-to-left-Questions lg:w-1/3">
@@ -88,7 +88,7 @@ const Questions = () => {
       </div>
 
       <div className="animate-left-to-right-Questions lg:w-2/3">
-        <div className="flex flex-col gap-4">
+        <div className="flex w-full max-w-[824px] flex-col items-end gap-4 2xl:max-w-full">
           <CollapsibleComponent items={items} />
         </div>
       </div>

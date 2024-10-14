@@ -13,8 +13,10 @@ export default function About() {
     <div className="mt-4 pb-20">
       <Header />
       <div className="mb-8 mt-5 flex justify-center lg:mt-20">
-        <div className="mb-14 flex w-[1000px] flex-col  items-center">
-          <h3 className="mb-6 text-xl font-medium lg:text-2xl">Despre noi</h3>
+        <div className="mb-14 flex w-[1000px] flex-col items-center">
+          <h3 className="mb-6 text-xl font-medium text-[#323232] lg:text-2xl">
+            Despre noi
+          </h3>
           <p className="mb-6 text-center text-sm font-light text-gray-700 lg:text-base">
             Superfly.md este o agenție de bilete avia care oferă bilete de avion
             și servicii de călătorie la prețuri avantajoase. Ne străduim să
@@ -48,131 +50,139 @@ export default function About() {
         </div>
       </div>
 
-      <Image className="rounded-[20px]" src={aboutBanner} alt="image" />
+      <div className="custom-container">
+        <Image
+          className="custom-light-shadow h-[189px] rounded-[20px] object-cover xl:h-auto"
+          src={aboutBanner}
+          alt="image"
+        />
 
-      <section className=" my-[60px]">
-        <WhyUs title="6 Motive să rezervați cu noi!" />
-      </section>
-      <hr className="  border-t-gray-200" />
+        <hr className="my-[60px] border-[.5px] border-t-[#E8E8E8]" />
 
-      <div className="mt-[60px]">
-        <div className="mb-14 flex flex-col items-center">
-          <h3 className="mb-2 text-xl font-normal lg:text-2xl">
-            Succesele noastre
-          </h3>
-          <p className="text-center text-sm font-light text-gray-700 lg:text-base">
-            {/*todo: content needed */}
-            Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
-            pellentesque tincidunt quam
-          </p>
-        </div>
-        <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="lg:w-1/3">
-            <div className="mb-4 hidden rounded-lg border border-brand-gray bg-white px-6 pb-8 pt-6 lg:block">
-              <h3 className="mb-2 text-xl font-normal">
-                Descoperă Succesele Noastre
-              </h3>
-              <p className="text-justify text-base font-normal text-gray-700">
-                La Superfly, suntem mândri să împărtășim cu tine povestea
-                noastră de succes. De-a lungul anilor, am călătorit alături de
-                mii de clienți înspre destinații exotice, orașe vibrante și
-                aventuri captivante. Cu fiecare călătorie, am adunat experiențe
-                neprețuite și am creat amintiri de neuitat pentru fiecare
-                pasager.
-              </p>
+        <section className="mb-[60px]">
+          <WhyUs title="6 Motive să rezervați cu noi!" />
+        </section>
+        <hr className="  border-t-gray-200" />
+
+        <div className="mt-[60px]">
+          <div className="mb-14 flex flex-col items-center">
+            <h3 className="mb-2 text-xl font-normal lg:text-2xl">
+              Succesele noastre
+            </h3>
+            <p className="text-center text-sm font-light text-gray-700 lg:text-base">
+              {/*todo: content needed */}
+              Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
+              pellentesque tincidunt quam
+            </p>
+          </div>
+          <div className="flex flex-col gap-6 lg:flex-row">
+            <div className="lg:w-1/3">
+              <div className="mb-4 hidden rounded-lg border border-brand-gray bg-white px-6 pb-8 pt-6 lg:block">
+                <h3 className="mb-2 text-[22px] font-medium text-[#323232]">
+                  Descoperă Succesele Noastre
+                </h3>
+                <p className="text-justify text-base font-normal text-[#4A4A4A]">
+                  La Superfly, suntem mândri să împărtășim cu tine povestea
+                  noastră de succes. De-a lungul anilor, am călătorit alături de
+                  mii de clienți înspre destinații exotice, orașe vibrante și
+                  aventuri captivante. Cu fiecare călătorie, am adunat
+                  experiențe neprețuite și am creat amintiri de neuitat pentru
+                  fiecare pasager.
+                </p>
+              </div>
+              <Image src={people} alt="image" />
+              <Link
+                href="/"
+                className="custom-light-shadow mt-6 hidden h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white hover:bg-blue-600 lg:flex"
+              >
+                <span>Rezervă acum</span>
+              </Link>
             </div>
-            <Image src={people} alt="image" />
+            <div className="lg:w-2/3">
+              <ul className="flex flex-col gap-6 text-sm lg:text-base">
+                <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
+                  <div className="flex flex-col items-center gap-4 lg:flex-row">
+                    <Image
+                      className="min-w-[89px] max-w-24 lg:max-w-none"
+                      width={230}
+                      height={95}
+                      src={fourteen}
+                      alt="icon"
+                    />
+                    <p className="ml-2 font-normal text-gray-600">
+                      Fiecare dintre cei peste 40 de mii de pasageri mulțumiți
+                      este pentru noi o poveste de succes. De la călătoriile de
+                      afaceri până la vacanțele în familie sau aventurile solo,
+                      am avut privilegiul să fim alături de clienții noștri în
+                      fiecare etapă a călătoriei lor. Alătură-te și tu
+                      comunității noastre de pasageri mulțumiți și descoperă de
+                      ce Superfly este alegerea preferată pentru călătoriile
+                      tale. Te invităm să explorezi lumea alături de noi și să
+                      devii parte din familia Superfly!
+                    </p>
+                  </div>
+                </li>
+                <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
+                  <div className="flex flex-col items-center gap-4 lg:flex-row">
+                    <Image
+                      className="min-w-[89px] max-w-24 lg:max-w-none"
+                      width={230}
+                      height={73}
+                      src={thirteen}
+                      alt="icon"
+                    />
+                    <p className="ml-2 font-normal text-gray-600">
+                      Indiferent dacă călătorești pentru afaceri sau pentru
+                      plăcere, căutăm mereu cele mai bune opțiuni de zbor pentru
+                      nevoile tale. Cu parteneriate solide cu operatori aerieni
+                      de renume, putem oferi tarife competitive, oferte
+                      exclusive și servicii personalizate pentru fiecare
+                      călătorie. Fie că visezi să explorezi orașele vibrante ale
+                      Europei, să te relaxezi pe plajele exotice ale insulelor
+                      tropicale sau să te aventuri în locuri îndepărtate și
+                      misterioase, colaborarea noastră cu peste 600 de operatori
+                      aerieni îți oferă libertatea de a-ți îndeplini fiecare vis
+                      de călătorie. Alătură-te nouă și profită de avantajele
+                      colaborării noastre extinse cu operatorii aerieni din
+                      întreaga lume. Descoperă lumea alături de Superfly și
+                      transformă fiecare călătorie într-o experiență de neuitat!
+                    </p>
+                  </div>
+                </li>
+                <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
+                  <div className="flex flex-col items-center gap-4 lg:flex-row">
+                    <Image
+                      className="min-w-[89px] max-w-24 lg:max-w-none"
+                      width={230}
+                      height={69}
+                      src={hundred}
+                      alt="icon"
+                    />
+                    <p className="ml-2 font-normal text-gray-600">
+                      La Superfly, ne străduim să facem procesul de achiziție a
+                      biletelor de avion cât mai ușor și mai convenabil pentru
+                      clienții noștri. De aceea, suntem mândri să oferim o gamă
+                      variată de opțiuni de plată, astfel încât să poți alege
+                      metoda care ți se potrivește cel mai bine. Cu peste 6
+                      tipuri de plăți securizate disponibile, ne asigurăm că
+                      fiecare călător are libertatea de a-și achita biletele în
+                      modul dorit. Indiferent de metoda de plată aleasă, la
+                      Superfly ne angajăm să asigurăm că fiecare tranzacție este
+                      sigură, eficientă și transparentă. Alegeți opțiunea care
+                      vi se potrivește și bucurați-vă de experiența noastră de
+                      rezervare a biletelor de avion fără griji!
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <Link
               href="#"
-              className="mt-6 hidden h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:flex"
+              className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:hidden"
             >
               <span>Rezervă acum</span>
             </Link>
           </div>
-          <div className="lg:w-2/3">
-            <ul className="flex flex-col gap-6 text-sm lg:text-base">
-              <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <Image
-                    className="min-w-[89px] max-w-24 lg:max-w-none"
-                    width={230}
-                    height={95}
-                    src={fourteen}
-                    alt="icon"
-                  />
-                  <p className="ml-2 font-normal text-gray-600">
-                    Fiecare dintre cei peste 40 de mii de pasageri mulțumiți
-                    este pentru noi o poveste de succes. De la călătoriile de
-                    afaceri până la vacanțele în familie sau aventurile solo, am
-                    avut privilegiul să fim alături de clienții noștri în
-                    fiecare etapă a călătoriei lor. Alătură-te și tu comunității
-                    noastre de pasageri mulțumiți și descoperă de ce Superfly
-                    este alegerea preferată pentru călătoriile tale. Te invităm
-                    să explorezi lumea alături de noi și să devii parte din
-                    familia Superfly!
-                  </p>
-                </div>
-              </li>
-              <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <Image
-                    className="min-w-[89px] max-w-24 lg:max-w-none"
-                    width={230}
-                    height={73}
-                    src={thirteen}
-                    alt="icon"
-                  />
-                  <p className="ml-2 font-normal text-gray-600">
-                    Indiferent dacă călătorești pentru afaceri sau pentru
-                    plăcere, căutăm mereu cele mai bune opțiuni de zbor pentru
-                    nevoile tale. Cu parteneriate solide cu operatori aerieni de
-                    renume, putem oferi tarife competitive, oferte exclusive și
-                    servicii personalizate pentru fiecare călătorie. Fie că
-                    visezi să explorezi orașele vibrante ale Europei, să te
-                    relaxezi pe plajele exotice ale insulelor tropicale sau să
-                    te aventuri în locuri îndepărtate și misterioase,
-                    colaborarea noastră cu peste 600 de operatori aerieni îți
-                    oferă libertatea de a-ți îndeplini fiecare vis de călătorie.
-                    Alătură-te nouă și profită de avantajele colaborării noastre
-                    extinse cu operatorii aerieni din întreaga lume. Descoperă
-                    lumea alături de Superfly și transformă fiecare călătorie
-                    într-o experiență de neuitat!
-                  </p>
-                </div>
-              </li>
-              <li className="rounded-lg border border-brand-gray bg-white p-7 shadow-md shadow-slate-200">
-                <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <Image
-                    className="min-w-[89px] max-w-24 lg:max-w-none"
-                    width={230}
-                    height={69}
-                    src={hundred}
-                    alt="icon"
-                  />
-                  <p className="ml-2 font-normal text-gray-600">
-                    La Superfly, ne străduim să facem procesul de achiziție a
-                    biletelor de avion cât mai ușor și mai convenabil pentru
-                    clienții noștri. De aceea, suntem mândri să oferim o gamă
-                    variată de opțiuni de plată, astfel încât să poți alege
-                    metoda care ți se potrivește cel mai bine. Cu peste 6 tipuri
-                    de plăți securizate disponibile, ne asigurăm că fiecare
-                    călător are libertatea de a-și achita biletele în modul
-                    dorit. Indiferent de metoda de plată aleasă, la Superfly ne
-                    angajăm să asigurăm că fiecare tranzacție este sigură,
-                    eficientă și transparentă. Alegeți opțiunea care vi se
-                    potrivește și bucurați-vă de experiența noastră de rezervare
-                    a biletelor de avion fără griji!
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <Link
-            href="#"
-            className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:hidden"
-          >
-            <span>Rezervă acum</span>
-          </Link>
         </div>
       </div>
     </div>

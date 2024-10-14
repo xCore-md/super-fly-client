@@ -45,26 +45,28 @@ export default function ConfirmReservationPage() {
 
   const { adults, children, infants } = flight
 
+  console.log({ res })
+
   return (
     <section className="flex justify-center pb-20 pt-5 lg:pt-14">
       <div className="flex w-full flex-col gap-2 lg:max-w-[1152px] lg:flex-row lg:gap-20">
         <div className="lg:w-2/3">
-          <div className="mr-14 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-blue px-5 py-2 text-white lg:h-[63px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-lg">
+          <div className="mr-14 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-blue px-5 py-2 text-white lg:h-[63px] lg:flex-row lg:items-center lg:gap-0">
             <div>
-              <span className="mr-2 text-xs lg:font-medium">
+              <span className="mr-2 text-xxs lg:font-medium">
                 Confirmarea rezervării:
               </span>
-              <span className="text-sm font-medium lg:text-base lg:font-light">
+              <span className="text-xs font-medium lg:text-sm lg:font-light">
                 MPGP75
               </span>
             </div>
-            <div className="hidden text-xs lg:block">
+            <div className="hidden text-xxs lg:block">
               <span className="mr-2 lg:font-medium">Statusul rezervării:</span>
               <span className="font-medium lg:font-light">
                 Se așteaptă plata
               </span>
             </div>
-            <div className="text-xs">
+            <div className="text-xxs">
               <span className="mr-2 lg:font-medium">Email:</span>
               <span className="font-medium lg:font-light">
                 {t?.passengers?.[0]?.email}
@@ -80,35 +82,36 @@ export default function ConfirmReservationPage() {
           </div>
 
           <div className="custom-shadow mt-6 w-full gap-5 rounded-2xl bg-white px-5 py-7 lg:px-10">
-            <div className="mb-5 flex flex-wrap justify-between lg:mb-10">
+            <div className="mb-5 flex flex-wrap justify-between lg:mb-[30px]">
               <div className="mb-4 flex flex-col max-[768px]:w-1/2">
-                <span className="mb-1 text-xxs text-gray-400">
+                <span className="mb-1 text-[8px] text-gray-400">
                   Numele/Prenumele
                 </span>
                 <span className="text-xs font-medium text-gray-700">
-                  {t.passengers?.[0]?.first_name} {t.passengers?.[0]?.last_name}
+                  {t?.passengers?.[0]?.first_name}{' '}
+                  {t?.passengers?.[0]?.last_name}
                 </span>
               </div>
               <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
-                <span className="mb-1 text-xxs text-gray-400">
+                <span className="mb-1 text-[8px] text-gray-400">
                   Naționalitate
                 </span>
                 <span className="text-xs font-medium text-gray-700">
-                  {t.passengers?.[0]?.passport_country}
+                  {t?.passengers?.[0]?.passport_country}
                 </span>
               </div>
               <div className="mb-4 flex flex-col max-[768px]:w-1/2">
-                <span className="mb-1  text-xxs text-gray-400">
+                <span className="mb-1  text-[8px] text-gray-400">
                   Numărul (carte de identitate/pașaport)
                 </span>
                 <span className="text-xs font-medium text-gray-700">
-                  {t.passengers?.[0]?.passport_number}
+                  {t?.passengers?.[0]?.passport_number}
                 </span>
               </div>
               <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
-                <span className="mb-1 text-xxs text-gray-400">Expiră</span>
+                <span className="mb-1 text-[8px] text-gray-400">Expiră</span>
                 <span className="text-xs font-medium text-gray-700">
-                  {dayjs(t.passengers?.[0]?.passport_expires_at).format(
+                  {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
                     'DD/MM/YYYY'
                   )}
                 </span>
@@ -119,26 +122,34 @@ export default function ConfirmReservationPage() {
             <div className="col-span-3 hidden flex-col justify-center lg:flex">
               <div className="grid grid-cols-3">
                 <div className="mr-2 text-right">
-                  <div className="text-2xl font-bold">
-                    {startDirection[0].cityFrom}
+                  <div className="relative">
+                    <span className="absolute -top-4 right-10 text-xxs text-[#4A4A4A]">
+                      Nr.zbor:{' '}
+                      <span className="font-bold">
+                        {startDirection[0].flight_no}
+                      </span>
+                    </span>
+                    <span className="text-[22px] font-bold">
+                      {startDirection[0].cityFrom}
+                    </span>
                   </div>
-                  <div className="text-xs text-gray-700">
+                  <div className="text-[8px] text-gray-700">
                     {startDirection[0].flyFrom}
                   </div>
                   <div className="flex items-center justify-end gap-2">
-                    <span className="text-xs text-gray-700">
+                    <span className="text-xxs text-gray-700">
                       {dayjs(startDirection[0].local_departure).format(
                         'DD MMM'
                       )}
                     </span>
-                    <span className="text-xl font-normal">
+                    <span className="text-[20px] font-normal">
                       {getTimeFromDate(startDirection[0].local_departure)}
                     </span>
                   </div>
                 </div>
-                <div className=" mt-2">
+                <div className="mt-2">
                   <div className="mb-1 flex items-center justify-center gap-2">
-                    <p className="text-xs text-gray-700">
+                    <p className="text-[10px] text-gray-700">
                       {startDirectionTime}
                     </p>
                   </div>
@@ -155,7 +166,9 @@ export default function ConfirmReservationPage() {
                                 title={
                                   <span className=" flex flex-col gap-2 p-2 text-xs">
                                     <span className="flex gap-4">
-                                      <span className="">Escale:</span>{' '}
+                                      <span className="text-[10px]">
+                                        Escale:
+                                      </span>{' '}
                                       <span className="ml-2 font-semibold">
                                         {route.cityFrom} - {route.cityTo}
                                       </span>
@@ -180,7 +193,7 @@ export default function ConfirmReservationPage() {
                     </div>
                   </div>
 
-                  <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xs text-brand-blue">
+                  <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue">
                     {startDirection.length > 1
                       ? `Escale: ${startDirection.slice(1).length}`
                       : `Direct`}
@@ -192,19 +205,19 @@ export default function ConfirmReservationPage() {
                   {/*</div>*/}
                 </div>
                 <div className="ml-2 text-left">
-                  <div className="text-2xl font-bold">
+                  <div className="text-[22px] font-bold">
                     {startDirection[startDirection.length - 1].cityTo}
                   </div>
-                  <div className="text-xs text-gray-700">
+                  <div className="text-[8px] text-gray-700">
                     {startDirection[startDirection.length - 1].flyTo}
                   </div>
                   <div className="flex items-center justify-start gap-2">
-                    <span className="text-xl font-normal">
+                    <span className="text-[20px] font-normal">
                       {getTimeFromDate(
                         startDirection[startDirection.length - 1].local_arrival
                       )}
                     </span>
-                    <span className="text-xs text-gray-700">
+                    <span className="text-xxs text-gray-700">
                       {dayjs(
                         startDirection[startDirection.length - 1].local_arrival
                       ).format('DD MMM')}
@@ -320,11 +333,11 @@ export default function ConfirmReservationPage() {
 
           {/* RES CONTENT */}
 
-          <div className="custom-shadow mt-4 rounded-lg bg-white p-4 text-sm text-gray-400 lg:bg-[#F0F2FF]">
+          <div className="custom-shadow mt-2 rounded-lg bg-white p-4 text-[8px] text-[#7E7E7E] lg:bg-[#F0F2FF]">
             <div className="flex">
               <svg
-                width="18"
-                height="18"
+                width="12"
+                height="12"
                 viewBox="0 0 12 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -336,28 +349,28 @@ export default function ConfirmReservationPage() {
                   fill="#23CFA6"
                 />
               </svg>
-              <span className="ml-2 font-semibold text-slate-500">
+              <span className="ml-2 font-semibold ">
                 Rezervarea efectuată cu succes
               </span>
             </div>
-            <p className="my-4 text-xs">
+            <p className="my-4 ">
               Atenție prețul pentru această rezervare se poate modifica în orice
               moment, agenția nu poate garanta păstrarea prețului. Pentru a
               evita majorări de tarif, vă rugăm sa faceți plata cît mai repede
               posibil.
             </p>
-            <p className=" text-xs">
+            <p className="">
               Vă rugăm să verificați cu atenție datele de contact, informațiile
               despre pasageri, detaliile de zbor și serviciile selectate.
             </p>
           </div>
 
-          <div className="custom-shadow mt-4 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
-            <h4 className="mb-6 text-lg">Selectați metoda de plată</h4>
+          <div className="custom-shadow mt-8 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
+            <h4 className="mb-6 text-base">Selectați metoda de plată</h4>
             <div className="flex w-full gap-5">
               <Button
                 variant="ghost"
-                className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Card bancar
@@ -395,7 +408,7 @@ export default function ConfirmReservationPage() {
               </Button>
               <Button
                 variant="ghost"
-                className="flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Plată electronică
@@ -423,20 +436,20 @@ export default function ConfirmReservationPage() {
           </div>
         </div>
         <div className="lg:w-1/3">
-          <div className="hidden flex-col gap-7 lg:flex">
+          <div className="hidden flex-col gap-[18px] lg:flex">
             <SectionLightBlue>
               <div>
-                <h6 className="text-sm font-semibold text-[#121C5E]">
+                <h6 className="text-xxs font-semibold text-[#121C5E]">
                   {res.cityFrom} - {res.cityTo}
                 </h6>
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-[8px] text-gray-500">
                   {flightType} - {adults > 0 && `${adults} Adulți`}
                   {children > 0 && `, ${children} Copii`}
                   {infants > 0 && `, ${infants} Infanți`}
                 </p>
               </div>
               <Button
-                className="rounded-full border-brand-blue bg-transparent text-sm text-brand-blue"
+                className="h-[26px] rounded-full border-brand-blue bg-transparent text-xs text-brand-blue"
                 variant="outline"
                 onClick={() => router.push('/flights')}
               >
@@ -444,10 +457,10 @@ export default function ConfirmReservationPage() {
               </Button>
             </SectionLightBlue>
 
-            <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
+            <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
               <h6>Bagaje</h6>
             </SectionLightBlue>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               {t.passengers?.map((passenger: any, index: number) => {
                 return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
                   <div key={index}>
@@ -489,7 +502,7 @@ export default function ConfirmReservationPage() {
                   ''
                 )
               })}
-            </div>
+            </div> */}
 
             <div>
               {/* <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
@@ -497,7 +510,7 @@ export default function ConfirmReservationPage() {
               {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
             </SectionLightBlue> */}
 
-              <div className="flex flex-col py-4">
+              {/* <div className="flex flex-col py-4">
                 {t.passengers?.map((passenger: any, index: number) => {
                   if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
                     return ''
@@ -523,7 +536,7 @@ export default function ConfirmReservationPage() {
                     </div>
                   )
                 })}
-              </div>
+              </div> */}
 
               {/*{flightData.map((flight) => (*/}
               {/*  <FlightInfo key={flight.route} {...flight} />*/}
@@ -531,9 +544,11 @@ export default function ConfirmReservationPage() {
             </div>
           </div>
 
-          <div className="mt-4 rounded-md bg-brand-blue px-4 py-3 text-base text-white lg:mt-11">
-            <span className="font-light">Total:</span>
-            <span className="ml-2 font-semibold">{res.price} €</span>
+          <div className="mt-4 flex h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11">
+            <div>
+              <span className="font-light">Total:</span>
+              <span className="ml-2 font-semibold">{res.price} €</span>
+            </div>
           </div>
         </div>
       </div>
@@ -550,7 +565,7 @@ const SectionLightBlue = ({ children, className }: ISectionLightBlueProps) => {
   return (
     <div
       className={cn(
-        'flex justify-between rounded-lg bg-[#F0F2FF] p-3 text-base',
+        'flex items-center justify-between rounded-lg bg-[#F0F2FF] p-3',
         className
       )}
     >

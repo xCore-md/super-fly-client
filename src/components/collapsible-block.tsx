@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import dayjs from 'dayjs'
@@ -17,6 +16,7 @@ import {
 } from '@/components/ui/collapsible'
 import { useFlightContext } from '@/context/flight-context'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 const CollapsibleBlock = ({
   offer,
@@ -69,7 +69,7 @@ const CollapsibleBlock = ({
         >
           <CollapsibleTrigger asChild className="w-full">
             <div
-              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 md:h-[63px] md:px-4 md:pr-4 ${isOpen(offer.title) ? 'bg-blue-700' : 'border border-gray-200 bg-white'}`}
+              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 md:h-[63px] md:px-4 md:pr-4 ${isOpen(offer.title) ? 'bg-brand-blue' : 'border border-gray-200 bg-white'}`}
             >
               <div className="flex flex-col">
                 <span
@@ -119,11 +119,10 @@ const CollapsibleBlock = ({
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
-            className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-5 pt-14 md:pt-10 ${isOpen(offer.title) ? 'custom-shadow border-x-[1px] border-b-[1px]' : ''}`}
+            className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-5 pt-10 ${isOpen(offer.title) ? 'custom-shadow-2 border-x-[1px] border-b-[1px]' : ''}`}
           >
-            {/*desktop todo: check if the variation on mobile and desktop is right*/}
-            <div className="grid-cols-5 items-center gap-8 lg:grid">
-              <div className="flex justify-between">
+            <div className="grid-cols-7 items-center gap-4 pt-[18px] lg:grid">
+              <div className="col-span-2 flex justify-between">
                 <div className="text-left">
                   <div className="mb-2 text-base font-normal md:mb-4 md:text-[22px]">
                     {dayjs().format('DD MMM, YYYY')}
@@ -141,19 +140,19 @@ const CollapsibleBlock = ({
                   </div>
                 </div>
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <div className="mb-3 flex items-center justify-center ">
                   <Image src={logo} alt="fly-company" width={85} />
                 </div>
                 <div>
-                  <span className="fly-line block h-[1px] w-full bg-blue-700" />
+                  <span className="fly-line block h-[1px] w-full bg-brand-blue" />
                   <div className="mt-2 flex justify-between">
                     <span className="text-xxs text-gray-600">KIV</span>
                     <span className="text-xxs text-gray-600">{offer.code}</span>
                   </div>
                 </div>
               </div>
-              <div className="hidden text-right md:block">
+              <div className="col-span-2 hidden text-right md:block">
                 <div className="mb-2 text-base font-normal md:mb-4 md:text-[22px]">
                   {dayjs(offer.date_from).format('DD MMM, YYYY')}
                 </div>
@@ -162,12 +161,7 @@ const CollapsibleBlock = ({
                 </div>
               </div>
               {offer.date_from && (
-                <div className="mt-4 flex flex-row justify-center gap-2 md:mt-5 md:flex-col md:px-0">
-                  <div className="hidden w-full text-center md:block">
-                    <span className="text-[22px]">
-                      {Math.round(offer.price)} €
-                    </span>
-                  </div>
+                <div className="mt-4 flex flex-row justify-center gap-2 md:mt-5 md:flex-col md:px-0 lg:hidden">
                   <Link
                     href="tel:+37360456654"
                     className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white md:hidden md:w-full md:justify-center  md:px-0"
@@ -176,7 +170,7 @@ const CollapsibleBlock = ({
                   </Link>
                   <Button
                     onClick={handleSearch}
-                    className="custom-shadow flex h-8 w-full items-center gap-4 rounded-full bg-blue-700 px-4 text-sm font-light md:h-[46px] md:w-full md:justify-center md:px-0  md:text-lg"
+                    className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-blue-700 px-4 text-sm font-light md:h-[46px] md:w-full md:justify-center md:px-0  md:text-lg"
                   >
                     <span>Alege</span>
                     <div className="text-center md:hidden">
@@ -191,25 +185,25 @@ const CollapsibleBlock = ({
           </CollapsibleContent>
         </Collapsible>
       </div>
-      <div className="hidden lg:w-1/5">
+      <div className="hidden lg:block lg:w-1/4">
         <Collapsible
           open={isOpen(offer.title)}
           onOpenChange={() => setIsOpen(offer.title)}
-          className="rounded-full bg-white"
+          className="rounded-full"
         >
           <CollapsibleTrigger className="w-full">
             <div
-              className={`flex h-[63px] items-center justify-center rounded-full px-4 ${isOpen(offer.title) ? 'bg-blue-700 text-white' : 'border border-gray-200 bg-white'}`}
+              className={`flex h-[63px] items-center justify-center rounded-full px-4 ${isOpen(offer.title) ? 'bg-brand-blue text-white' : 'border border-gray-200  bg-white'}`}
             >
-              <span className="text-xl">{offer.price} €</span>
+              <span className="text-[22px]">{offer.price} €</span>
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
-            className={`-mt-10 rounded-b-[20px] bg-white px-6 pb-1 pt-16 ${isOpen(offer.title) ? 'shadow-lg shadow-slate-200' : ''}`}
+            className={`-mt-10 flex items-center justify-center pb-1 ${isOpen(offer.title) ? 'custom-shadow-2 rounded-b-[20px] border-x-[1px] border-b-[1px] pt-16' : ' rounded-full'}`}
           >
             <Button
               onClick={handleSearch}
-              className="mb-6 h-[46px] w-full rounded-full bg-blue-700 px-4 text-lg font-light shadow-md shadow-slate-400"
+              className="mb-6 h-[46px] w-[116px] rounded-full bg-brand-blue px-4 text-lg font-light shadow-md shadow-slate-400"
             >
               <span>Alege</span>
             </Button>

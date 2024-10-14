@@ -35,7 +35,7 @@ export const FlightsCarousel = () => {
 
   const isDisabled = (price: number | undefined) => price === undefined
 
-  const isSeleted = (index: number) =>
+  const isSelected = (index: number) =>
     index ===
       prices?.findIndex((p) =>
         dayjs(p.date).isSame(
@@ -102,7 +102,7 @@ export const FlightsCarousel = () => {
   }, [flight, storageFlight])
 
   return (
-    <div className="relative z-10 mx-auto mt-8 w-full max-w-[780px] px-9 md:mt-16 lg:px-0">
+    <div className="relative z-10 mx-auto mt-8 w-full max-w-[780px] px-9 md:mt-24 lg:px-0">
       {loading || !prices || !prices.length ? (
         <div className="h-[88px]">
           <Skeleton className="absolute bottom-0 left-0 right-0 top-4 h-[88px] w-full rounded-full " />
@@ -123,15 +123,16 @@ export const FlightsCarousel = () => {
                   key={index}
                   onClick={() => handleCarouselSelect(flight)}
                   className={cn(
-                    `relative ml-4 flex basis-1/4 cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out lg:basis-1/7`
+                    `relative flex basis-1/4 cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out lg:basis-1/7`,
+                    { carouselSelectorItem: !isSelected(index) }
                   )}
                 >
                   <section
                     className={cn(
-                      'relative z-10 flex h-10 flex-col items-center justify-center px-4  text-center transition-all duration-200 ease-out',
+                      'relative z-10 flex h-10 flex-col items-center justify-center text-center transition-all duration-200 ease-out',
                       {
                         '-translate-y-2 text-white [&_p]:text-white ':
-                          isSeleted(index),
+                          isSelected(index),
                         'cursor-not-allowed': isDisabled(
                           flight.ratedPrice.price.amount
                         ),
@@ -164,7 +165,7 @@ export const FlightsCarousel = () => {
                     className={cn(
                       `absolute -bottom-0.5 -top-2 left-0 right-0 rounded-t-xl bg-transparent transition-all duration-200 ease-out`,
                       {
-                        '-translate-y-0.5 bg-brand-blue': isSeleted(index),
+                        '-translate-y-0.5 bg-brand-blue': isSelected(index),
                       }
                     )}
                   />

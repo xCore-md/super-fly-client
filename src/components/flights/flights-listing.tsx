@@ -62,7 +62,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
       <div
         key={index}
         ref={(el) => setRef(el, index)}
-        className={`custom-shadow group my-3 grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
+        className={`custom-shadow group mb-[18px] grid w-full grid-cols-2 items-center rounded-2xl bg-white p-4 md:mb-11 lg:grid-cols-5 lg:gap-5 ${props.margin}`}
       >
         <FlyContent
           {...props}

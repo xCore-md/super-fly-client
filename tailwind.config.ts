@@ -11,12 +11,16 @@ const config = {
   purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   prefix: '',
   theme: {
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1440px',
+    },
     container: {
       center: true,
       padding: '2rem',
-      screens: {
-        '2xl': '1400px',
-      },
     },
     extend: {
       colors: {

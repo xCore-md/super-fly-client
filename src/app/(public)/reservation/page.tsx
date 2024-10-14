@@ -24,7 +24,7 @@ export default function Reservation() {
   const [api, contextHolder] = notification.useNotification()
 
   const formik = useFormik({
-    initialValues: {},
+    initialValues: {} as any,
     onSubmit: () => {},
   })
 
@@ -83,13 +83,15 @@ export default function Reservation() {
             'reservation',
             JSON.stringify({ ...reservation, confirmedReservation: res.data })
           )
+
           router.push('/confirm-reservation')
         })
         .catch((err) => {
           setLoading(false)
           api.error({
             message: 'Error',
-            description: err.response.data.message,
+            description:
+              'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
             placement: 'bottomRight',
             duration: 3,
             closable: true,
@@ -105,7 +107,7 @@ export default function Reservation() {
     <div className="mt-4 flex flex-col px-5 pb-10 pt-12 lg:flex-row lg:px-10 ">
       {contextHolder}
       <section className="flex flex-col lg:w-2/3">
-        <h2 className="mb-4 text-lg font-medium">Informații zbor:</h2>
+        <h2 className="mb-4 text-xs font-medium">Informații zbor:</h2>
 
         <div
           className={
@@ -123,17 +125,17 @@ export default function Reservation() {
         />
 
         <div className="ml-3 mt-4 flex items-center justify-between space-x-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-start gap-2">
             <Checkbox id="terms" />
             <label
               htmlFor="terms"
               className="cursor-pointer select-none text-xs font-normal md:text-sm"
             >
-              Sunt de acord cu{' '}
-              <Link className="text-[#596AD9]" href="/policy">
+              <span className="mr-1">Sunt de acord cu</span>
+              <Link className="mr-1 text-[#596AD9]" href="/policy">
                 Politica de confidentialitate
               </Link>
-              și cu{' '}
+              <span className="mr-1">și cu</span>
               <Link className="text-[#596AD9]" href="/terms">
                 Termenii si conditiile
               </Link>
@@ -149,7 +151,11 @@ export default function Reservation() {
         </div>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">
-        <ReservationSummary reservation={reservation} formik={formik} />
+        <ReservationSummary
+          reservation={reservation}
+          formik={formik}
+          submitReservation={handleSubmit}
+        />
       </aside>
     </div>
   )

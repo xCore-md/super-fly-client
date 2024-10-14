@@ -97,6 +97,10 @@
   }
 }
 
+body {
+  background: #fafafa;
+}
+
 .block {
   display: flex;
   gap: 89px;
@@ -114,15 +118,32 @@
   box-shadow: 0 0 7px 0 rgba(0 0 0 / 45%);
 }
 
+.baggage-card-shadow {
+  box-shadow: 0 0 15px 0 rgba(0 0 0 / 4%);
+}
+
 .custom-shadow {
   box-shadow: 0 0 12px 0 rgba(0 0 0 / 10%);
+}
+
+.reservation-button-shadow {
+  box-shadow: 0 2px 8px 0 rgba(0 0 0 / 4%);
 }
 
 .custom-light-shadow {
   box-shadow: 0 0 20px 0 rgba(0 0 0 / 25%);
 }
 
-.link-hover-underline {
+.custom-shadow-2 {
+  box-shadow: 0 0 12px 4px rgba(0 0 0 / 4%);
+}
+
+.padding-right-none {
+  padding-right: 0 !important;
+}
+
+.nav-link-hover,
+.nav-link-hover-dark {
   position: relative;
 
   &:hover {
@@ -135,7 +156,24 @@
       height: 1px;
       width: 50%;
       margin-left: 25%;
+    }
+  }
+}
+
+.nav-link-hover {
+  &:hover {
+    &::after {
       background: #fff;
+    }
+  }
+}
+
+.nav-link-hover-dark {
+  &:hover {
+    color: #3f4ed6;
+
+    &::after {
+      background: #596ad9;
     }
   }
 }
@@ -234,17 +272,81 @@
   line-height: 26px !important;
 }
 
+.ant-picker-cell-disabled {
+  color: #aaaaaa !important;
+}
+
+.ant-picker-cell-disabled::before {
+  background: transparent !important;
+}
+
+.customCalendar .ant-picker-panel {
+  border-top: 0 !important;
+  padding: 8px 20px 0;
+}
+
 .customCalendar .ant-picker-cell-inner,
 .customCalendar .ant-picker-cell-inner::before {
   border-radius: 40px !important;
-  min-width: 28px !important;
-  height: 28px !important;
-  line-height: 28px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  line-height: 24px !important;
+}
+
+.customCalendarNavBtn:disabled {
+  background: #e0e0e0 !important;
+  svg {
+    fill: #000;
+  }
+}
+
+.customCalendar .ant-picker-calendar-date-value {
+  font-size: 10px;
+}
+
+.ant-picker-cell-selected.ant-picker-cell-inner {
+  background: #596ad9 !important;
+}
+
+.customCalendar .ant-picker-body {
+  border-top: 1px solid #bdbdbd;
+}
+
+.customCalendar .ant-picker-content {
+  height: 177px;
+}
+
+.customCalendar .ant-picker-cell {
+  padding: 0;
+  height: 2px !important;
 }
 
 .customCalendar {
   overflow: hidden;
   border-radius: 0 0 20px 20px !important;
+}
+
+@media (max-width: 768px) {
+  .customCalendar .ant-picker-calendar-date-value {
+    font-size: 18px;
+  }
+
+  .customCalendar .ant-picker-cell-inner,
+  .customCalendar .ant-picker-cell-inner::before {
+    border-radius: 40px !important;
+    min-width: 32px !important;
+    height: 32px !important;
+    line-height: 32px !important;
+  }
+
+  .customCalendar .ant-picker-cell {
+    padding: 0;
+    height: 4px !important;
+  }
+
+  .customCalendar .ant-picker-content {
+    height: 228px;
+  }
 }
 
 .searchDropDownShadow {
@@ -337,6 +439,10 @@
 }
 .autocompleteSelect .ant-select-arrow {
   display: none;
+}
+
+.ant-select-selector {
+  border-radius: 8px !important;
 }
 
 .autocompleteSelectPopUpFrom,
@@ -450,9 +556,53 @@
   display: none !important;
 }
 
+.carouselSelectorItem {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 0;
+    width: 1px;
+    height: 60%;
+    background: #ececec;
+  }
+}
+
+.flightCardContentLine {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 12px;
+    width: 1px;
+    height: 100%;
+    background: #ececec;
+  }
+}
+
+.custom-container {
+  max-width: 1280px;
+  padding-inline: 20px;
+}
+
+@media (min-width: 1440px) {
+  .custom-container {
+    max-width: none;
+    padding-inline: 90px;
+  }
+}
+
 @media (max-width: 768px) {
   .swiper-slide {
     width: 190px !important;
+  }
+
+  .flightCardContentLine {
+    &::after {
+      display: none;
+    }
   }
 
   .ant-notification-notice-description {

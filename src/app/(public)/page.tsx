@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { offers, usefulInfo } from '@/data/data'
 import { Banner } from '@components/banner'
 import { BlogList } from '@components/blog-list'
@@ -7,8 +8,6 @@ import { ItemsCarousel } from '@components/items-carousel'
 import Offers from '@components/offers'
 import Questions from '@components/questions'
 import { WhyUs } from '@components/why-us'
-
-import { useSearchParams } from 'next/navigation'
 
 export default function Home() {
   const searchParams = useSearchParams()
@@ -31,13 +30,11 @@ export default function Home() {
           </span>
         }
       />
-      <div className="container mx-auto p-5 lg:px-0">
+      <div className="custom-container">
         <Offers />
         <section className="mb-14 mt-20 lg:mb-36">
           <WhyUs title="Rezervați cu noi" />
         </section>
-      </div>
-      <div className="py-5 pl-5 lg:px-5">
         <BlogList
           title="Informație utilă"
           subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
@@ -45,9 +42,6 @@ export default function Home() {
           buttonUrl="/blog"
           items={usefulInfo}
         />
-      </div>
-
-      <div className="container mx-auto p-5 lg:px-0">
         <Questions />
       </div>
     </div>

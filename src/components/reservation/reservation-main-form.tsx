@@ -25,6 +25,13 @@ import { Checkbox } from '@components/ui/checkbox'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import 'react-phone-input-2/lib/style.css'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import minus from '@/assets/img/minus.svg'
+import plus from '@/assets/img/plus.svg'
 
 interface IMainFormProps {
   showBaggage?: boolean
@@ -53,6 +60,11 @@ export const ReservationMainForm = ({
     value: country.cca2,
   }))
 
+  const bagsPrice =
+    Object.keys(reservation?.bags_price).length > 1
+      ? reservation?.bags_price
+      : { ...reservation?.bags_price, 2: reservation?.bags_price['1'] * 2 }
+
   const items = Array.from({ length: passengersCount }).map((_, index) => ({
     key: `index-${index}`,
     label: `Pasager ${index + 1}`,
@@ -65,13 +77,13 @@ export const ReservationMainForm = ({
         formik={formik}
         setLoading={setLoading}
         loading={loading}
-        bagsPrice={reservation?.bags_price}
+        bagsPrice={bagsPrice}
       />
     ),
   }))
 
   return (
-    <div className="mt-4">
+    <div className="lg:mt-4">
       {passengersCount === 1 && (
         <PassengerForm
           countriesOptions={countriesOptions}
@@ -80,7 +92,7 @@ export const ReservationMainForm = ({
           loading={loading}
           setLoading={setLoading}
           index={0}
-          bagsPrice={reservation?.bags_price}
+          bagsPrice={bagsPrice}
         />
       )}
       {passengersCount > 1 && <Tabs items={items} defaultActiveKey={'0'} />}
@@ -101,6 +113,7 @@ const PassengerForm = ({
 
   const [api, contextHolder] = notification.useNotification()
   const [files, setFiles] = useState<any>([])
+  const [visibleAdditionalInfo, setVisibleAdditionalInfo] = useState(false)
 
   const uploadProps: UploadProps = {
     name: 'passport',
@@ -143,14 +156,17 @@ const PassengerForm = ({
     <>
       <ReservationCard>
         {contextHolder}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:gap-5">
           <div>
-            <Label htmlFor="first-name" className="mb-1 ml-1 lg:hidden">
+            <Label
+              htmlFor="first-name"
+              className="mb-1 ml-1 text-[10px] lg:hidden"
+            >
               Prenume
             </Label>
             <Input
               autoFocus
-              className="h-10"
+              className="h-10 rounded-lg"
               name={formik.values.passengers?.[index]?.first_name}
               type="text"
               disabled={loading}
@@ -167,7 +183,7 @@ const PassengerForm = ({
           <div>
             <Label
               htmlFor="reservation-form-last-name"
-              className="mb-1 ml-1 mt-3 lg:hidden"
+              className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
             >
               Nume
             </Label>
@@ -180,15 +196,21 @@ const PassengerForm = ({
               }
               disabled={loading}
               name={formik.values.passengers?.[index]?.last_name}
-              className="h-10"
+              className="h-10 rounded-lg"
               type="text"
               placeholder="Nume*"
             />
           </div>
           <div>
+            <Label
+              htmlFor="reservation-form-gen"
+              className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
+            >
+              Gen
+            </Label>
             <Select
               placeholder="Gen"
-              className="h-10 w-full"
+              className="h-10 w-full rounded-lg"
               disabled={loading}
               onChange={(value) =>
                 formik.setFieldValue(`passengers[${index}].gender`, value)
@@ -200,17 +222,17 @@ const PassengerForm = ({
           </div>
         </div>
 
-        <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-3 lg:mt-5">
+        <div className="mt-3 grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:mt-5 lg:gap-5">
           <div>
             <Label
               htmlFor="reservation-form-country-code"
-              className="mb-1 ml-1 lg:hidden"
+              className="mb-1 ml-1 text-[10px] lg:hidden"
             >
               Nationalitate
             </Label>
             <Select
               placeholder="Nationalitate"
-              className="h-10 w-full"
+              className="h-10 w-full rounded-lg"
               options={countriesOptions}
               disabled={loading}
               showSearch
@@ -225,7 +247,7 @@ const PassengerForm = ({
           <div>
             <Label
               htmlFor="reservation-form-phone-number"
-              className="mb-1 ml-1 mt-3 lg:hidden"
+              className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
             >
               Numar de telefon
             </Label>
@@ -238,6 +260,7 @@ const PassengerForm = ({
                 width: '100%',
                 height: '40px',
                 border: '1px solid #E7E7E7',
+                borderRadius: 8,
               }}
               country={'md'}
             />
@@ -245,12 +268,12 @@ const PassengerForm = ({
           <div className="flex flex-col lg:gap-5">
             <Label
               htmlFor="reservation-form-email"
-              className="mb-1 ml-1 lg:hidden"
+              className="mb-1 ml-1 text-[10px] lg:hidden"
             >
               Adresa de email
             </Label>
             <Input
-              className="h-10"
+              className="h-10 rounded-lg"
               type="text"
               name={formik.values.passengers?.[index]?.email}
               placeholder="Adresa de email*"
@@ -265,110 +288,145 @@ const PassengerForm = ({
           </div>
         </div>
 
-        <div className="mt-3 rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3 text-sm lg:mt-7">
-          Adaugă datele pașaportului
-        </div>
-
-        <div className="mt-3 grid grid-cols-1 md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
-          <div>
-            <Label className="mb-1 ml-1 mt-3 lg:hidden">Data nașterii</Label>
-            <DatePicker
-              onKeyDown={handleCalendarKeyDown}
-              format={'DD.MM.YYYY'}
-              name={`passengers[${index}].date_of_birth`}
-              className="h-10 w-full"
-              placeholder="Data nașterii"
-              disabled={loading}
-              onChange={(d) => {
-                formik.setFieldValue(
-                  `passengers[${index}].date_of_birth`,
-                  d ? d.format('DD.MM.YYYY') : ''
-                )
-                return d
-              }}
-            />
-          </div>
-          <div>
-            <Label className="mb-1 ml-1 mt-3 lg:hidden">
-              Data eliberării pașaportului
-            </Label>
-            <DatePicker
-              onKeyDown={handleCalendarKeyDown}
-              name={`passengers[${index}].passport_issued_at`}
-              format={'DD.MM.YYYY'}
-              className="h-10 w-full"
-              placeholder="Data eliberării pașaportului"
-              disabled={loading}
-              onChange={(d) => {
-                formik.setFieldValue(
-                  `passengers[${index}].passport_issued_at`,
-                  d ? d.format('DD.MM.YYYY') : ''
-                )
-                return d
-              }}
-            />
-          </div>
-          <div>
-            <Label className="mb-1 ml-1 mt-3 lg:hidden">
-              Data expirării pașaportului
-            </Label>
-            <DatePicker
-              onKeyDown={handleCalendarKeyDown}
-              format={'DD.MM.YYYY'}
-              name={`passengers[${index}].passport_expires_at`}
-              className="h-10 w-full"
-              placeholder="Data expirării pașaportului"
-              disabled={loading}
-              onChange={(d) => {
-                formik.setFieldValue(
-                  `passengers[${index}].passport_expires_at`,
-                  d ? d.format('DD.MM.YYYY') : ''
-                )
-                return d
-              }}
-            />
-          </div>
-          <div className="flex flex-col lg:gap-5">
-            <Label
-              htmlFor="reservation-form-email"
-              className="mb-1 ml-1 lg:hidden"
-            >
-              Numărul pașaportului
-            </Label>
-            <Input
-              className="h-10"
-              type="text"
-              name={`passengers[${index}].passport_number`}
-              disabled={loading}
-              placeholder="Numărul pașaportului*"
-              onChange={formik.handleChange}
-            />
-          </div>
-          <div>
-            <Upload {...uploadProps}>
+        <Collapsible>
+          <CollapsibleTrigger
+            className="w-full"
+            onClick={() => setVisibleAdditionalInfo(!visibleAdditionalInfo)}
+          >
+            <div className="mt-3 flex cursor-pointer items-center justify-between rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3  lg:mt-7">
+              <span className="text-sm">Adaugă datele pașaportului</span>
               <Button
-                type="primary"
-                disabled={loading}
-                className="flex h-10 min-w-full items-center justify-center rounded-lg px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-brand-blue"
+                className={`h h-8 min-h-8 w-8 min-w-8 rounded-full p-0 lg:h-[32px] lg:w-[32px] ${visibleAdditionalInfo ? 'bg-white' : 'bg-brand-blue'}`}
               >
-                <span className="mr-2">Poza pașaport</span>
-                <Image src={passportSvg} alt={'passport image'} />
+                <Image
+                  src={visibleAdditionalInfo ? minus : plus}
+                  alt="plus-icon"
+                  width={12}
+                  height={12}
+                />
               </Button>
-            </Upload>
-          </div>
-          {formik.values.passengers?.[index]?.passport_id && (
-            <div className="flex justify-between">
-              <p className="flex flex-col text-xs">
-                <span className="mb-2 text-gray-500">Document încărcat:</span>{' '}
-                <span className=" w-60 overflow-hidden text-ellipsis whitespace-nowrap">
-                  {files[index].split('/').pop()}
-                </span>
-              </p>
             </div>
-          )}
-        </div>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="mt-3 grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
+              <div>
+                <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
+                  Data nașterii
+                </Label>
+                <DatePicker
+                  onKeyDown={handleCalendarKeyDown}
+                  format={'DD.MM.YYYY'}
+                  name={`passengers[${index}].date_of_birth`}
+                  className="h-10 w-full rounded-lg"
+                  placeholder="Data nașterii"
+                  disabled={loading}
+                  onChange={(d) => {
+                    formik.setFieldValue(
+                      `passengers[${index}].date_of_birth`,
+                      d ? d.format('DD.MM.YYYY') : ''
+                    )
+                    return d
+                  }}
+                />
+              </div>
+              <div>
+                <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
+                  Data eliberării pașaportului
+                </Label>
+                <DatePicker
+                  onKeyDown={handleCalendarKeyDown}
+                  name={`passengers[${index}].passport_issued_at`}
+                  format={'DD.MM.YYYY'}
+                  className="h-10 w-full rounded-lg"
+                  placeholder="Data eliberării pașaportului"
+                  disabled={loading}
+                  onChange={(d) => {
+                    formik.setFieldValue(
+                      `passengers[${index}].passport_issued_at`,
+                      d ? d.format('DD.MM.YYYY') : ''
+                    )
+                    return d
+                  }}
+                />
+              </div>
+              <div>
+                <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
+                  Data expirării pașaportului
+                </Label>
+                <DatePicker
+                  onKeyDown={handleCalendarKeyDown}
+                  format={'DD.MM.YYYY'}
+                  name={`passengers[${index}].passport_expires_at`}
+                  className="h-10 w-full rounded-lg"
+                  placeholder="Data expirării pașaportului"
+                  disabled={loading}
+                  onChange={(d) => {
+                    formik.setFieldValue(
+                      `passengers[${index}].passport_expires_at`,
+                      d ? d.format('DD.MM.YYYY') : ''
+                    )
+                    return d
+                  }}
+                />
+              </div>
+              <div className="flex flex-col lg:gap-5">
+                <Label
+                  htmlFor="reservation-form-email"
+                  className="mb-1 ml-1 text-[10px] lg:hidden"
+                >
+                  Numărul pașaportului
+                </Label>
+                <Input
+                  className="h-10 rounded-lg"
+                  type="text"
+                  name={`passengers[${index}].passport_number`}
+                  disabled={loading}
+                  placeholder="Numărul pașaportului*"
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div className="mt-4 lg:mt-0">
+                <Upload {...uploadProps}>
+                  <Button
+                    type="primary"
+                    disabled={loading}
+                    className="custom-light-shadow flex h-10 min-w-full items-center justify-between rounded-lg bg-brand-blue px-4 font-light text-white hover:bg-brand-blue lg:justify-center lg:px-8"
+                  >
+                    <span className="mr-2">Poza pașaport</span>
+                    <Image src={passportSvg} alt={'passport image'} />
+                  </Button>
+                </Upload>
+              </div>
+              {formik.values.passengers?.[index]?.passport_id && (
+                <div className="relative flex flex-col items-start gap-2 lg:flex-row">
+                  <p className="flex flex-col text-xs">
+                    <span className="mb-2 text-gray-500">
+                      Document încărcat:
+                    </span>{' '}
+                    <span className="w-44 overflow-hidden text-ellipsis whitespace-nowrap">
+                      {files[index].split('/').pop()}
+                    </span>
+                  </p>
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      formik.setFieldValue(
+                        `passengers[${index}].passport_id`,
+                        ''
+                      )
+                      setFiles([])
+                    }}
+                    className="h-4 p-0 text-xs text-red-500 lg:text-xxs"
+                  >
+                    Șterge poza
+                  </Button>
+                </div>
+              )}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
 
-        <Separator className="my-8" />
+        <Separator className="mb-[10px] mt-6 bg-[#E7E7E7] lg:my-8" />
 
         {showBaggage && (
           <BaggageSection formik={formik} index={index} bagsPrice={bagsPrice} />
@@ -406,21 +464,23 @@ const BaggageSection = ({
   ]
 
   return (
-    <section className="grid gap-2 lg:grid-cols-4 lg:gap-6">
+    <section className="grid gap-[10px] lg:grid-cols-4 lg:gap-6">
       <div>
-        <Card className="mb-4 flex h-[244px] justify-between rounded-xl text-center lg:flex-col">
-          <CardHeader className="flex max-w-72 flex-1 flex-col items-center justify-center px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1  lg:justify-end lg:p-6">
+        <Card className="baggage-card-shadow flex justify-between rounded-xl text-center lg:mb-4 lg:h-[244px] lg:flex-col">
+          <CardHeader className="flex max-w-72 flex-1 flex-row items-center justify-center gap-5 px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:gap-0">
             <Image
               src={eightKgSvg}
               alt="bag"
               height={75}
-              className="mb-3 w-12 select-none lg:mr-0 lg:w-16"
+              className="w-[34px] select-none lg:mb-3 lg:mr-0 lg:w-16"
             />
 
-            <div className="w-full text-center lg:text-center">
+            <div className="w-full text-left lg:text-center">
               <span className="text-xs text-[#757575]">20 x 30 x 40 cm</span>
               <div className="w-full lg:hidden">
-                <h6 className="text-sm font-medium">Obiect personal</h6>
+                <h6 className="text-xs font-medium lg:text-sm">
+                  Obiect personal
+                </h6>
               </div>
             </div>
           </CardHeader>
@@ -436,16 +496,16 @@ const BaggageSection = ({
       </div>
       {bags.map((bag, bagIndex) => (
         <div key={bag.id}>
-          <Card className="mb-4 flex h-[244px] justify-between rounded-xl text-center lg:flex-col">
-            <CardHeader className="flex max-w-72 flex-1 flex-col items-center justify-center px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1  lg:justify-end lg:p-6">
+          <Card className="baggage-card-shadow flex justify-between rounded-xl text-center lg:mb-4 lg:h-[244px] lg:flex-col">
+            <CardHeader className="padding-right-none flex max-w-72 flex-1 flex-row items-center justify-center gap-5 py-3 pl-5 lg:min-h-[169px] lg:max-w-none lg:flex-col lg:justify-end lg:gap-0 lg:px-5">
               <Image
                 src={bag.imageUrl}
                 alt="bag"
                 height={75}
-                className="mb-3 w-12 select-none lg:mr-0 lg:w-16"
+                className="w-[34px] select-none lg:mb-3 lg:mr-0 lg:w-16"
               />
 
-              <div className="w-full text-center lg:text-center">
+              <div className="w-full border-r-[1px] border-[#E7E7E7] text-left lg:border-0 lg:text-center">
                 <span className="text-xs text-[#757575]">{bag.size}</span>
                 <div className="w-full lg:hidden">
                   <BagTypeAndPrice
@@ -458,7 +518,7 @@ const BaggageSection = ({
             </CardHeader>
 
             {/*mobile*/}
-            <CardContent className="flex-2 flex w-28 items-center border-l-2 px-5 py-3 lg:hidden lg:p-6">
+            <CardContent className="flex-2 flex w-28 items-center px-5 py-3 lg:hidden ">
               {bag.hideInput ? (
                 <p className="mt-0.5 text-xs text-green-600">
                   {bagsPrice[index + 1]}
@@ -519,13 +579,13 @@ const BagTypeAndPrice = ({
 }) => {
   return (
     <>
-      <h6 className="text-sm font-medium">{bag.name}</h6>
+      <h6 className="text-xs font-medium lg:text-sm">{bag.name}</h6>
       <p
-        className={cn('mt-0.5 text-xs text-green-600 lg:block', {
+        className={cn('mt-0.5 text-[10px] text-green-600 lg:block lg:text-xs', {
           hidden: bag.hideInput,
         })}
       >
-        {bagsPrice[index + 1]} €
+        {Math.round(bagsPrice[index + 1])} €
       </p>
     </>
   )

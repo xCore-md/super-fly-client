@@ -192,7 +192,7 @@ const Offers = () => {
 
         <div className="animate-left-to-right w-full lg:w-4/6">
           {bestDestinationsList.map((offer, index) => (
-            <div key={index} className="cursor-pointer">
+            <div key={index} className="cursor-pointer md:mb-4">
               <CollapsibleBlock
                 isOpen={isOpen}
                 setIsOpen={(title: string) => setCurrentOpenedAccordion(title)}
@@ -201,7 +201,7 @@ const Offers = () => {
               />
               {index !== 5 && (
                 <div className="flex h-3 justify-center">
-                  <hr className="my-3 h-0 w-[90%] border-t-0 border-t-gray-200 lg:border-t" />
+                  <hr className="my-3 h-0 w-[90%] border-t-0 border-t-gray-200 lg:border-t-[1px]" />
                 </div>
               )}
             </div>
