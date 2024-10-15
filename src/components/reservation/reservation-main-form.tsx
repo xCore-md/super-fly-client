@@ -10,7 +10,6 @@ import {
   Upload,
   UploadProps,
   Divider,
-  Badge,
 } from 'antd'
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
