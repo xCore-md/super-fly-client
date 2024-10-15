@@ -416,7 +416,7 @@ export const FlyContent = (props: any) => {
 
           <footer className="col-span-2 row-span-3 mt-4 flex gap-3 lg:hidden">
             <Link
-              href="tel:+(373) 60 456 654"
+              href="tel:+(373) 60 851 555"
               className="custom-light-shadow flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 text-sm font-light text-white lg:flex lg:text-base"
             >
               Sună acum

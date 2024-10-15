@@ -79,11 +79,6 @@ const Questions = () => {
         <h3 className="mb-2 text-lg font-medium text-[#323232] lg:text-2xl">
           Întrebări frecvente
         </h3>
-        <p className="mb-8 text-sm font-light text-[#4A4A4A] lg:text-base">
-          Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
-          pellentesque tincidunt quam
-        </p>
-
         <DoYouNeedHelp className="hidden lg:flex" />
       </div>
 

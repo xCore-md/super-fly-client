@@ -139,11 +139,11 @@ export const Footer = () => {
 
           <div className="flex flex-col items-center lg:col-span-2">
             <Link
-              href="tel:+(373) 60 456 654"
+              href="tel:+(373) 60 851 555"
               className="mb-2 flex items-center gap-1"
             >
               <Image src={phone} alt="icon" width={20} height={20} />
-              <span className="text-xs text-[#636363]">+(373) 60 456 654</span>
+              <span className="text-xs text-[#636363]">+(373) 60 851 555</span>
             </Link>
             <Link
               href="mailto:info@superfly.md"

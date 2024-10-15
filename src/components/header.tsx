@@ -24,7 +24,7 @@ interface IHeaderProps {
 }
 export const Header = ({ menu }: IHeaderProps) => {
   const [isSimpleHeader, setIsSimpleHeader] = useState(false)
-  const tel = '+(373) 60 456 654'
+  const tel = '+(373) 60 851 555'
   const pathname = usePathname()
 
   useEffect(() => {
@@ -139,7 +139,7 @@ const MobileMenu = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
-  const tel = '+(373) 60 456 654'
+  const tel = '+(373) 60 851 555'
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

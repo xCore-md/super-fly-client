@@ -13,7 +13,7 @@ export default function About() {
     <div className="mt-4 pb-20">
       <Header />
       <div className="mb-8 mt-5 flex justify-center lg:mt-20">
-        <div className="mb-14 flex w-[1000px] flex-col items-center">
+        <div className="mx-5 mb-14 flex w-[1000px] flex-col items-center">
           <h3 className="mb-6 text-xl font-medium text-[#323232] lg:text-2xl">
             Despre noi
           </h3>
@@ -69,11 +69,6 @@ export default function About() {
             <h3 className="mb-2 text-xl font-normal lg:text-2xl">
               Succesele noastre
             </h3>
-            <p className="text-center text-sm font-light text-gray-700 lg:text-base">
-              {/*todo: content needed */}
-              Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium
-              pellentesque tincidunt quam
-            </p>
           </div>
           <div className="flex flex-col gap-6 lg:flex-row">
             <div className="lg:w-1/3">

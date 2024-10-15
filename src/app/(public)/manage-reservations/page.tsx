@@ -66,10 +66,6 @@ const FormComponent = ({ confirm, loading }: any) => {
         Gestionarea rezervărilor
       </h2>
 
-      <p className="mt-4 text-center text-base text-[#828282]">
-        Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
-        tincidunt quam. Lorem ipsum dolor sit amet consectetur.
-      </p>
       <Formik
         initialValues={{ code: '', email: '' }}
         onSubmit={(values) => {

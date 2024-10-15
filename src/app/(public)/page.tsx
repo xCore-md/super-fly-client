@@ -37,7 +37,6 @@ export default function Home() {
         </section>
         <BlogList
           title="Informație utilă"
-          subtitle="Lorem ipsum dolor sit amet consectetur. <br /> Mattis pretium pellentesque tincidunt quam"
           buttonTitle="Vezi Toate"
           buttonUrl="/blog"
           items={usefulInfo}

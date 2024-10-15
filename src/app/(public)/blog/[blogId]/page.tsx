@@ -35,53 +35,7 @@ export default function SingleBlog() {
             className="mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]"
             dangerouslySetInnerHTML={{ __html: data.text }}
           ></p>
-          {/* <p>
-            Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
-            tincidunt quam. Lorem ipsum dolor sit amet consectetur. Mattis
-            pretium pellentesque tincidunt quam. Lorem ipsum dolor sit amet
-            consectetur. Mattis pretium pellentesque tincidunt quam. Lorem ipsum
-            dolor sit amet consectetur. Mattis pretium pellentesque tincidunt
-            quam. Lorem ipsum dolor sit amet consectetur. Mattis pretium
-            pellentesque tincidunt quam.
-          </p> */}
         </div>
-        {/* <div className="my-9 flex flex-col items-start gap-10 lg:flex-row">
-          <Image src={blogImage} alt="image" />
-          <div>
-            <h4 className="mb-4">
-              Lorem ipsum dolor sit amet consectetur. Mattis pretium
-              pellentesque tincidunt quam.{' '}
-            </h4>
-            <ul className=" ml-6 flex flex-col gap-6">
-              <li>
-                <span className="mr-4">1.</span>Lorem ipsum dolor sit, amet
-                consectetur adipisicing elit. Asperiores voluptatum mollitia
-                vitae distinctio. Vel pariatur delectus cumque aliquid. Dolor
-                exercitationem minima expedita, perferendis illum dolore
-                cupiditate quos! Nostrum, a qui.
-              </li>
-              <li>
-                <span className="mr-4">2.</span>Lorem ipsum dolor sit, amet
-                consectetur adipisicing elit. Asperiores voluptatum mollitia
-                vitae distinctio. Vel pariatur delectus cumque aliquid. Dolor
-                exercitationem minima expedita, perferendis illum dolore
-                cupiditate quos! Nostrum, a qui.
-              </li>
-              <li>
-                <span className="mr-4">3.</span>Lorem ipsum dolor sit, amet
-                consectetur adipisicing elit. Asperiores voluptatum mollitia
-                vitae distinctio. Vel pariatur delectus cumque aliquid. Dolor
-                exercitationem minima expedita, perferendis illum dolore
-                cupiditate quos! Nostrum, a qui.
-              </li>
-            </ul>
-          </div>
-        </div> */}
-        {/* <p className="mb-9">
-          Lorem ipsum dolor sit amet consectetur. Mattis pretium pellentesque
-          tincidunt quam.
-        </p>
-        <p>Lorem ipsum dolor.</p> */}
 
         <div className="relative mt-16 flex h-full flex-col items-center justify-center px-6 py-8 lg:h-[254px] lg:px-0 lg:py-0">
           <Image

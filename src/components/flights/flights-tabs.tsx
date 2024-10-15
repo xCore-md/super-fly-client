@@ -84,14 +84,14 @@ export const FlightsTabs = ({
       {/* <div className="absolute right-12 top-1/2 max-[1330px]:hidden">
         <Link
           className="custom-shadow flex h-[64px] w-fit items-center justify-center rounded-full border border-gray-200 px-2"
-          href="tel:+(373) 60 456 654"
+          href="tel:+(373) 60 851 555"
         >
           <span className="flex flex-col text-black">
             <span className="text-right text-xxs text-gray-600">
               Contacteaza-ne
             </span>
             <span className="text-xs font-semibold text-brand-blue">
-              +(373) 60 456 654
+              +(373) 60 851 555
             </span>
           </span>
           <div className="relative">

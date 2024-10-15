@@ -42,7 +42,7 @@ export const BlogList = (props: IBlogListProps) => {
   return (
     <section
       className={cn(
-        'gsap-animate mb-14 fill-mode-forwards lg:mb-[140px]',
+        'gsap-animate mb-14 fill-mode-forwards lg:mb-[140px] lg:px-[90px]',
         className
       )}
     >
@@ -57,7 +57,7 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className="mt-6 flex snap-x gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12 lg:pr-0">
+      <div className=" mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12">
         {items?.map(({ title, text, img }, index) => (
           <Link
             className="snap-center [&_img]:hover:scale-110"

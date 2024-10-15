@@ -50,7 +50,7 @@ export function CustomCalendar({
           disabled={dayjs().isSame(currentDate, 'month')}
           onClick={onPrevMonth}
         />
-        <span style={{ fontSize: '12px', fontWeight: 'bold' }}>
+        <span style={{ fontSize: '10px', fontWeight: 'bold' }}>
           {monthName}
         </span>
         <Button

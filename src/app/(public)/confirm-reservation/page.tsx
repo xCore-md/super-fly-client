@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
-import { Tooltip } from 'antd'
+import { Divider, Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
 import mastercard from '@/assets/img/mastercard.svg'
@@ -82,7 +82,7 @@ export default function ConfirmReservationPage() {
           </div>
 
           <div className="custom-shadow mt-6 w-full gap-5 rounded-2xl bg-white px-5 py-7 lg:px-10">
-            <div className="mb-5 flex flex-wrap justify-between lg:mb-[30px]">
+            <div className="mb-[18px] flex flex-wrap justify-between lg:mb-[30px]">
               <div className="mb-4 flex flex-col max-[768px]:w-1/2">
                 <span className="mb-1 text-[8px] text-gray-400">
                   Numele/Prenumele
@@ -92,7 +92,7 @@ export default function ConfirmReservationPage() {
                   {t?.passengers?.[0]?.last_name}
                 </span>
               </div>
-              <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
+              <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
                 <span className="mb-1 text-[8px] text-gray-400">
                   Naționalitate
                 </span>
@@ -108,7 +108,7 @@ export default function ConfirmReservationPage() {
                   {t?.passengers?.[0]?.passport_number}
                 </span>
               </div>
-              <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-end">
+              <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
                 <span className="mb-1 text-[8px] text-gray-400">Expiră</span>
                 <span className="text-xs font-medium text-gray-700">
                   {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
@@ -119,11 +119,11 @@ export default function ConfirmReservationPage() {
             </div>
 
             {/*desktop*/}
-            <div className="col-span-3 hidden flex-col justify-center lg:flex">
-              <div className="grid grid-cols-3">
-                <div className="mr-2 text-right">
+            <div className="col-span-3  flex flex-col justify-center">
+              <div className="grid grid-cols-5 lg:grid-cols-3">
+                <div className="mr-2 hidden text-right lg:block">
                   <div className="relative">
-                    <span className="absolute -top-4 right-10 text-xxs text-[#4A4A4A]">
+                    <span className="absolute -top-4 right-8 hidden text-xxs text-[#4A4A4A] lg:block">
                       Nr.zbor:{' '}
                       <span className="font-bold">
                         {startDirection[0].flight_no}
@@ -147,7 +147,22 @@ export default function ConfirmReservationPage() {
                     </span>
                   </div>
                 </div>
-                <div className="mt-2">
+                <div className="col-span-1 mr-3 flex justify-end lg:hidden">
+                  <div className="flex flex-col items-center justify-center">
+                    <span className="text-[8px] text-[#979797]">
+                      {dayjs(startDirection[0].local_departure).format(
+                        'dd, DD MMM'
+                      )}
+                    </span>
+                    <span className="text-base font-normal">
+                      {getTimeFromDate(startDirection[0].local_departure)}
+                    </span>
+                    <span className="text-[#4A4A4A text-[8px]">
+                      {startDirection[0].cityFrom}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-3 flex flex-col items-center justify-center lg:col-span-1 lg:mt-2">
                   <div className="mb-1 flex items-center justify-center gap-2">
                     <p className="text-[10px] text-gray-700">
                       {startDirectionTime}
@@ -204,7 +219,7 @@ export default function ConfirmReservationPage() {
                   {/*  <span className="text-xs text-gray-600">BGY</span>*/}
                   {/*</div>*/}
                 </div>
-                <div className="ml-2 text-left">
+                <div className="ml-2 hidden text-left lg:block">
                   <div className="text-[22px] font-bold">
                     {startDirection[startDirection.length - 1].cityTo}
                   </div>
@@ -221,6 +236,24 @@ export default function ConfirmReservationPage() {
                       {dayjs(
                         startDirection[startDirection.length - 1].local_arrival
                       ).format('DD MMM')}
+                    </span>
+                  </div>
+                </div>
+                <div className="col-span-1 flex justify-end lg:hidden">
+                  <div className="flex flex-col items-center justify-center">
+                    <span className="text-[8px] text-[#979797]">
+                      {dayjs(
+                        startDirection[startDirection.length - 1].local_arrival
+                      ).format('dd, DD MMM')}
+                    </span>
+                    <span className="text-base font-normal">
+                      {getTimeFromDate(
+                        startDirection[startDirection.length - 1]
+                          .local_departure
+                      )}
+                    </span>
+                    <span className="text-[8px] text-[#4A4A4A]">
+                      {startDirection[startDirection.length - 1].cityTo}
                     </span>
                   </div>
                 </div>
@@ -333,7 +366,7 @@ export default function ConfirmReservationPage() {
 
           {/* RES CONTENT */}
 
-          <div className="custom-shadow mt-2 rounded-lg bg-white p-4 text-[8px] text-[#7E7E7E] lg:bg-[#F0F2FF]">
+          <div className="custom-shadow mt-5 rounded-lg bg-white p-4 text-[8px] text-[#7E7E7E] lg:mt-2 lg:bg-[#F0F2FF]">
             <div className="flex">
               <svg
                 width="12"
@@ -365,12 +398,21 @@ export default function ConfirmReservationPage() {
             </p>
           </div>
 
+          <div className="mt-4 flex h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:hidden">
+            <div>
+              <span className="font-light">Total:</span>
+              <span className="ml-2 font-semibold">{res.price} €</span>
+            </div>
+          </div>
+
           <div className="custom-shadow mt-8 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
-            <h4 className="mb-6 text-base">Selectați metoda de plată</h4>
-            <div className="flex w-full gap-5">
+            <h4 className="mb-[18px] text-base lg:mb-6">
+              Selectați metoda de plată
+            </h4>
+            <div className="flex w-full gap-2 lg:gap-5">
               <Button
                 variant="ghost"
-                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-2 lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Card bancar
@@ -408,7 +450,7 @@ export default function ConfirmReservationPage() {
               </Button>
               <Button
                 variant="ghost"
-                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green lg:bg-brand-light-blue"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-0 lg:bg-brand-light-blue lg:px-2"
               >
                 <span className="hidden text-xxs text-brand-blue lg:inline">
                   Plată electronică
@@ -460,12 +502,12 @@ export default function ConfirmReservationPage() {
             <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
               <h6>Bagaje</h6>
             </SectionLightBlue>
-            {/* <div className="flex flex-col">
+            <div className="flex flex-col">
               {t.passengers?.map((passenger: any, index: number) => {
                 return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
                   <div key={index}>
-                    <div className="grid grid-cols-4 gap-4">
-                      <p className="col-span-1 text-sm uppercase">
+                    <div className="grid grid-cols-5 gap-2">
+                      <p className="col-span-2 text-xs uppercase">
                         {passenger.first_name} {passenger.last_name}
                       </p>
                       <div className="col-span-3 grid grid-cols-3 gap-4">
@@ -473,7 +515,7 @@ export default function ConfirmReservationPage() {
                           (bag: any, bagIndex: number) => {
                             return Number(bag?.count) > 0 ? (
                               <div key={bagIndex}>
-                                <p className="mb-1 text-sm font-semibold text-[#171717]">
+                                <p className="mb-1 text-xs font-semibold text-[#171717]">
                                   {bag.type}
                                 </p>
                                 <p className="text-xs text-gray-500">
@@ -502,15 +544,14 @@ export default function ConfirmReservationPage() {
                   ''
                 )
               })}
-            </div> */}
+            </div>
 
             <div>
-              {/* <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
-              <h6>Servicii</h6>
-              {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
-            </SectionLightBlue> */}
+              <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
+                <h6>Servicii</h6>
+              </SectionLightBlue>
 
-              {/* <div className="flex flex-col py-4">
+              <div className="flex flex-col py-4">
                 {t.passengers?.map((passenger: any, index: number) => {
                   if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
                     return ''
@@ -536,15 +577,11 @@ export default function ConfirmReservationPage() {
                     </div>
                   )
                 })}
-              </div> */}
-
-              {/*{flightData.map((flight) => (*/}
-              {/*  <FlightInfo key={flight.route} {...flight} />*/}
-              {/*))}*/}
+              </div>
             </div>
           </div>
 
-          <div className="mt-4 flex h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11">
+          <div className="mt-4 hidden h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:flex">
             <div>
               <span className="font-light">Total:</span>
               <span className="ml-2 font-semibold">{res.price} €</span>

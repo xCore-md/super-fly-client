@@ -161,11 +161,11 @@ const PickerField = (props: IPickerField) => {
         </span>
 
         <Input
-          className="customInput relative h-5 w-full min-w-full border-none pl-0 pr-1 text-xs font-black text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
+          className="customInput relative h-5 w-full min-w-full border-none pb-0 pl-0 pr-1 pt-0 text-xs font-bold text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
           type="text"
           value={value}
           readOnly={isMobile}
-          placeholder="Alege data"
+          placeholder={title === 'retur' ? '+ Adauga retur' : 'Alege data'}
           onClick={onFieldClick}
           onChange={onChange}
           onClear={onClear}

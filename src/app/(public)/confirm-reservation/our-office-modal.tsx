@@ -29,7 +29,7 @@ const OurOfficeModal = () => {
         <span className="hidden text-xxs text-brand-blue lg:block">
           Achitare la oficiul nostru
         </span>
-        <span className="block text-xxs text-white lg:hidden">
+        <span className="block text-xxs font-light text-white lg:hidden">
           Oficiul nostru
         </span>
       </Button>
@@ -47,12 +47,12 @@ const OurOfficeModal = () => {
           <ul className="flex flex-col gap-6">
             <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <Link
-                href="tel:+(373) 60 456 654"
+                href="tel:+(373) 60 851 555"
                 className="flex items-center gap-4"
               >
                 <span className="text-sm font-semibold">Telefon:</span>
                 <span className="text-sm font-medium text-gray-600">
-                  +(373) 60 456 654
+                  +(373) 60 851 555
                 </span>
               </Link>
               <Image src={phone} alt="icon" />

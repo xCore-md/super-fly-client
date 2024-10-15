@@ -10,6 +10,7 @@ import {
   Upload,
   UploadProps,
   Divider,
+  Badge,
 } from 'antd'
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
@@ -293,10 +294,17 @@ const PassengerForm = ({
             className="w-full"
             onClick={() => setVisibleAdditionalInfo(!visibleAdditionalInfo)}
           >
-            <div className="mt-3 flex cursor-pointer items-center justify-between rounded-md border border-[#E7E7E7] bg-[#F0F2FF] p-3  lg:mt-7">
-              <span className="text-sm">Adaugă datele pașaportului</span>
+            <div className="mt-3 flex cursor-pointer items-center justify-between rounded-xl border border-[#E7E7E7] bg-[#F0F2FF] p-3 lg:mt-7">
+              <div>
+                <span className="text-xxs lg:text-sm">
+                  Adaugă datele pașaportului
+                </span>
+                <span className="ml-4 rounded-lg bg-brand-blue px-2 py-1 text-xxs text-white">
+                  Optional
+                </span>
+              </div>
               <Button
-                className={`h h-8 min-h-8 w-8 min-w-8 rounded-full p-0 lg:h-[32px] lg:w-[32px] ${visibleAdditionalInfo ? 'bg-white' : 'bg-brand-blue'}`}
+                className={`h-6 w-6 rounded-full p-0 lg:h-[32px] lg:w-[32px] ${visibleAdditionalInfo ? 'bg-white' : 'bg-brand-blue'}`}
               >
                 <Image
                   src={visibleAdditionalInfo ? minus : plus}
@@ -464,10 +472,10 @@ const BaggageSection = ({
   ]
 
   return (
-    <section className="grid gap-[10px] lg:grid-cols-4 lg:gap-6">
+    <section className="grid gap-[10px] lg:grid-cols-3 lg:justify-center lg:gap-6">
       <div>
         <Card className="baggage-card-shadow flex justify-between rounded-xl text-center lg:mb-4 lg:h-[244px] lg:flex-col">
-          <CardHeader className="flex max-w-72 flex-1 flex-row items-center justify-center gap-5 px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:gap-0">
+          <CardHeader className="flex flex-1 flex-row items-center justify-center gap-5 space-y-0 px-5 py-3 lg:min-h-[169px] lg:max-w-none lg:flex-1 lg:flex-col lg:justify-end lg:gap-0">
             <Image
               src={eightKgSvg}
               alt="bag"
@@ -482,6 +490,9 @@ const BaggageSection = ({
                   Obiect personal
                 </h6>
               </div>
+            </div>
+            <div className="block whitespace-nowrap text-xxs font-medium text-[#288E3E] lg:hidden">
+              Inclus Gratuit
             </div>
           </CardHeader>
 
@@ -634,17 +645,17 @@ const OnlineCheckinSection = ({
 
         <ul className="select-none text-sm font-normal text-[#7E7E7E]">
           <li className="mt-3 flex items-center">
-            <CheckMark className="mt-0.5" />
+            <CheckMark className="mt-1 w-3 lg:mt-0.5" />
             Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
             check-in-ul independent
           </li>
           <li className="mt-2 flex items-center">
-            <CheckMark className="mt-0.5" />
+            <CheckMark className="mt-1 w-3 lg:mt-0.5" />
             Economisești timp și bani: check-in-ul direct la aeroport poate
             genera cheltuieli suplimentare sau întârzieri
           </li>
           <li className="mt-2 flex items-center">
-            <CheckMark className="mt-0.5" />
+            <CheckMark className="mt-1 w-3 lg:mt-0.5" />
             Emitem cărțile de îmbarcare la timp
           </li>
         </ul>

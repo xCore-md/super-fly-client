@@ -129,6 +129,10 @@ body {
 .reservation-button-shadow {
   box-shadow: 0 2px 8px 0 rgba(0 0 0 / 4%);
 }
+.flag-dropdown {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
 
 .custom-light-shadow {
   box-shadow: 0 0 20px 0 rgba(0 0 0 / 25%);
@@ -136,10 +140,6 @@ body {
 
 .custom-shadow-2 {
   box-shadow: 0 0 12px 4px rgba(0 0 0 / 4%);
-}
-
-.padding-right-none {
-  padding-right: 0 !important;
 }
 
 .nav-link-hover,
@@ -349,12 +349,20 @@ body {
   }
 }
 
+.ant-picker-calendar-date-today {
+  background: #3f4ed6 !important;
+}
+
 .searchDropDownShadow {
   box-shadow: inset 0 4px 4px 0 rgba(0 0 0 / 10%);
 }
 
 .dropdown-shadow {
   box-shadow: 0 4px 4px 0 rgba(0 0 0 / 10%);
+}
+
+.customCalendarNavBtn {
+  background: #3f4ed6 !important;
 }
 
 .customCalendarNavBtn,
@@ -587,6 +595,14 @@ body {
   padding-inline: 20px;
 }
 
+.padding-none {
+  padding: 0 !important;
+}
+
+.btn-primary-custom {
+  background: #3f4ed6;
+}
+
 @media (min-width: 1440px) {
   .custom-container {
     max-width: none;
@@ -603,6 +619,10 @@ body {
     &::after {
       display: none;
     }
+  }
+
+  .padding-right-none {
+    padding-right: 0 !important;
   }
 
   .ant-notification-notice-description {

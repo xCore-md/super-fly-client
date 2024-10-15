@@ -92,7 +92,7 @@ export default function LeadModal({ closable = false, delay }: IProps) {
       open={openModal}
       maskClosable={closable}
       closable={closable}
-      height={closable ? 400 : 570}
+      height={closable ? 400 : 600}
       className={`home-drawer rounded-tl-[20px] rounded-tr-[20px] ${closable ? '' : 'blue-bg'}`}
     >
       {contextHolder}

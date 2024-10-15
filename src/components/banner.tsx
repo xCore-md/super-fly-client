@@ -69,14 +69,9 @@ export const Banner = () => {
         )}
         {!companyParams && (
           <div className="mb-2 flex flex-col items-center lg:mb-14">
-            <h1 className="banner-title mb-20 text-[22px] font-medium text-white opacity-0 md:mb-8 md:text-[44px]">
+            <h1 className="banner-title mb-20 text-[22px] font-medium text-white opacity-0 md:mb-24 md:text-[44px]">
               Începe Călătoria Ta
             </h1>
-            <p className="banner-sub hidden w-[386px] text-center text-sm font-light text-white opacity-0 lg:block">
-              Lorem ipsum dolor sit amet consectetur. Interdum non ultrices
-              tortor faucibus dis eget. Urna porttitor eget tincidunt sagittis
-              est ac aliquet.
-            </p>
           </div>
         )}
 
