@@ -122,6 +122,7 @@ export function SearchDatePicker(props: IProps) {
             onChange={handleChangeCalendar}
             date={formik.values[activeField]}
             className="searchDropDownShadow"
+            desktop
             fromDate={
               activeField === 'return_to' ? formik.values.date_from : ''
             }
@@ -149,6 +150,8 @@ const PickerField = (props: IPickerField) => {
   const onFieldClick = useCallback(() => onClickField(), [onClickField])
   const isMobile = useIsMobile()
 
+  const placeholder = isMobile ? '+ Adauga retur' : 'Alege data'
+
   return (
     <div
       className={`flex w-full items-center gap-2 border-r-[1px] border-gray-300 pt-1 ${field === 'date_from' ? 'pl-3' : ''} pr-3 max-[1024px]:border-0 max-[1024px]:p-0 md:max-w-36 `}
@@ -165,7 +168,7 @@ const PickerField = (props: IPickerField) => {
           type="text"
           value={value}
           readOnly={isMobile}
-          placeholder={title === 'retur' ? '+ Adauga retur' : 'Alege data'}
+          placeholder={title === 'retur' ? placeholder : 'Alege data'}
           onClick={onFieldClick}
           onChange={onChange}
           onClear={onClear}

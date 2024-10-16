@@ -8,12 +8,14 @@ interface IProps {
   fromDate?: dayjs.Dayjs
   date?: dayjs.Dayjs
   className?: string
+  desktop?: boolean
 }
 export function CustomCalendar({
   onChange,
   fromDate,
   date,
   className,
+  desktop,
 }: IProps) {
   const [currentDate, setCurrentDate] = useState(dayjs())
 
@@ -45,16 +47,18 @@ export function CustomCalendar({
       <div className="flex items-center justify-between px-4 pb-2 pt-4">
         <Button
           type="primary"
+          style={{ width: desktop ? 26 : 32, height: desktop ? 26 : 32 }}
           className="customCalendarNavBtn rounded-full border-0 shadow-none"
           icon={<LeftOutlined style={{ width: 12, height: 20, padding: 0 }} />}
           disabled={dayjs().isSame(currentDate, 'month')}
           onClick={onPrevMonth}
         />
-        <span style={{ fontSize: '10px', fontWeight: 'bold' }}>
+        <span style={{ fontSize: desktop ? 10 : 12, fontWeight: 'bold' }}>
           {monthName}
         </span>
         <Button
           type="primary"
+          style={{ width: desktop ? 26 : 32, height: desktop ? 26 : 32 }}
           className="customCalendarNavBtn rounded-full border-0 shadow-none"
           icon={<RightOutlined style={{ width: 12, height: 20, padding: 0 }} />}
           onClick={onNextMonth}

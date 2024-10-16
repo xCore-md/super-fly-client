@@ -54,7 +54,7 @@ export function getFlightTime(startDate: string, endDate: string) {
   const hours = Math.floor(diff / 1000 / 60 / 60)
   const minutes = Math.floor((diff / 1000 / 60) % 60)
 
-  return `${hours} h ${minutes} min`
+  return `${hours ? hours + ' h' : ''} ${minutes ? minutes + ' min' : ''} `
 }
 
 export function getPassengerAge(dateOfBirth: string) {

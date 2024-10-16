@@ -55,7 +55,7 @@ export function InputComponent({
             <Input
               className="w-full border-none pl-0 font-semibold outline-none focus:shadow-none"
               type="text"
-              placeholder="Barcelona"
+              placeholder="ex. Chisinau (RMO)"
               onChange={handleChange}
               value={inputValue}
             />

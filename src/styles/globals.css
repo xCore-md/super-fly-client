@@ -349,8 +349,10 @@ body {
   }
 }
 
-.ant-picker-calendar-date-today {
+.ant-picker-calendar-date-today,
+.ant-picker-cell-selected .ant-picker-calendar-date {
   background: #3f4ed6 !important;
+  color: #fff !important;
 }
 
 .searchDropDownShadow {
@@ -365,10 +367,14 @@ body {
   background: #3f4ed6 !important;
 }
 
-.customCalendarNavBtn,
 .passengersPickerBtn {
   width: 26px !important;
   height: 26px !important;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #3f4ed6 !important;
+  border-color: #3f4ed6 !important;
 }
 
 .customCalendar .ant-picker-content {
@@ -544,6 +550,11 @@ body {
     background: #11d2a4 !important;
     color: #fff !important;
     opacity: 0.7 !important;
+  }
+
+  &:disabled {
+    background: #e0e0e0 !important;
+    color: #fff !important;
   }
 }
 

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Select,
   Input,
@@ -10,18 +10,19 @@ import {
   Upload,
   UploadProps,
   Divider,
+  Checkbox,
 } from 'antd'
 import PhoneInput from 'react-phone-input-2'
 import tenKgSvg from '@/assets/img/bags/10kg.svg'
 import twentyKgSvg from '@/assets/img/bags/20kg.svg'
 import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
+import minus from '@/assets/img/minus.svg'
 import passportSvg from '@/assets/img/passport.svg'
 import { cn, handleCalendarKeyDown } from '@/lib/utils'
 import { BagNumberInput } from '@components/form/bag-number-input'
 import { ReservationCard } from '@components/reservation/reservation-card'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
-import { Checkbox } from '@components/ui/checkbox'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import 'react-phone-input-2/lib/style.css'
@@ -30,7 +31,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
-import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
 
 interface IMainFormProps {
@@ -57,7 +57,8 @@ export const ReservationMainForm = ({
         {country.name.common} ({country.cca2})
       </span>
     ),
-    value: country.cca2,
+    value: country.name.common,
+    code: country.cca2,
   }))
 
   const bagsPrice =
@@ -115,6 +116,10 @@ const PassengerForm = ({
   const [files, setFiles] = useState<any>([])
   const [visibleAdditionalInfo, setVisibleAdditionalInfo] = useState(false)
 
+  useEffect(() => {
+    formik.setFieldValue(`passengers[${index}].isOnlineCheckIn`, true)
+  }, [])
+
   const uploadProps: UploadProps = {
     name: 'passport',
     action: `${process.env.NEXT_PUBLIC_API_URL}/files/upload`,
@@ -157,7 +162,7 @@ const PassengerForm = ({
       <ReservationCard>
         {contextHolder}
         <div className="grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:gap-5">
-          <div>
+          <div className="relative">
             <Label
               htmlFor="first-name"
               className="mb-1 ml-1 text-[10px] lg:hidden"
@@ -178,9 +183,15 @@ const PassengerForm = ({
                 )
               }
             />
+            {formik.errors?.passengers?.[index]?.first_name &&
+              formik.touched?.passengers?.[index]?.first_name && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.first_name}
+                </span>
+              )}
           </div>
 
-          <div>
+          <div className="relative">
             <Label
               htmlFor="reservation-form-last-name"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
@@ -200,8 +211,14 @@ const PassengerForm = ({
               type="text"
               placeholder="Nume*"
             />
+            {formik.errors?.passengers?.[index]?.last_name &&
+              formik.touched?.passengers?.[index]?.last_name && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.last_name}
+                </span>
+              )}
           </div>
-          <div>
+          <div className="relative">
             <Label
               htmlFor="reservation-form-gen"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
@@ -219,11 +236,17 @@ const PassengerForm = ({
               <Option value="M">Masculin</Option>
               <Option value="F">Feminin</Option>
             </Select>
+            {formik.errors?.passengers?.[index]?.gender &&
+              formik.touched?.passengers?.[index]?.gender && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.gender}
+                </span>
+              )}
           </div>
         </div>
 
         <div className="mt-3 grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:mt-5 lg:gap-5">
-          <div>
+          <div className="relative">
             <Label
               htmlFor="reservation-form-country-code"
               className="mb-1 ml-1 text-[10px] lg:hidden"
@@ -236,15 +259,21 @@ const PassengerForm = ({
               options={countriesOptions}
               disabled={loading}
               showSearch
-              onChange={(value) =>
+              onChange={(_, country: any) =>
                 formik.setFieldValue(
                   `passengers[${index}].passport_country`,
-                  value
+                  country?.code
                 )
               }
             />
+            {formik.errors?.passengers?.[index]?.passport_country &&
+              formik.touched?.passengers?.[index]?.passport_country && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.passport_country}
+                </span>
+              )}
           </div>
-          <div>
+          <div className="relative">
             <Label
               htmlFor="reservation-form-phone-number"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
@@ -264,8 +293,14 @@ const PassengerForm = ({
               }}
               country={'md'}
             />
+            {formik.errors?.passengers?.[index]?.phone &&
+              formik.touched?.passengers?.[index]?.phone && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.phone}
+                </span>
+              )}
           </div>
-          <div className="flex flex-col lg:gap-5">
+          <div className="relative">
             <Label
               htmlFor="reservation-form-email"
               className="mb-1 ml-1 text-[10px] lg:hidden"
@@ -285,6 +320,12 @@ const PassengerForm = ({
                 )
               }
             />
+            {formik.errors?.passengers?.[index]?.email &&
+              formik.touched?.passengers?.[index]?.email && (
+                <span className="absolute -bottom-4 left-0 text-xxs text-red-500">
+                  {formik.errors?.passengers?.[index]?.email}
+                </span>
+              )}
           </div>
         </div>
 
@@ -440,7 +481,7 @@ const PassengerForm = ({
         )}
       </ReservationCard>
 
-      <OnlineCheckinSection index={index} formik={formik} />
+      <OnlineCheckinSection formik={formik} index={index} />
     </>
   )
 }
@@ -601,34 +642,9 @@ const BagTypeAndPrice = ({
   )
 }
 
-const OnlineCheckinSection = ({
-  formik,
-  index,
-}: {
-  formik: any
-  index: number
-}) => {
-  const isOnlineCheckIn = React.useMemo(
-    () => formik.values?.passengers?.[index]?.isOnlineCheckIn,
-    [formik, index]
-  )
-
-  const handleAddCheckInOnline = () => {
-    formik.setFieldValue(
-      `passengers[${index}].isOnlineCheckIn`,
-      !isOnlineCheckIn
-    )
-  }
-
-  React.useEffect(() => {
-    handleAddCheckInOnline()
-  }, [])
-
+const OnlineCheckinSection = ({ formik, index }: any) => {
   return (
-    <ReservationCard
-      className="relative cursor-pointer"
-      onClick={handleAddCheckInOnline}
-    >
+    <ReservationCard className="relative cursor-pointer">
       <main className="flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
@@ -639,7 +655,12 @@ const OnlineCheckinSection = ({
               Popular
             </span>
           </div>
-          <Checkbox className="ml-auto" checked={isOnlineCheckIn} />
+          <Checkbox
+            className="ml-auto"
+            name={`passengers[${index}].isOnlineCheckIn`}
+            onChange={formik.handleChange}
+            checked={formik.values?.passengers?.[index]?.isOnlineCheckIn}
+          />
         </div>
 
         <ul className="select-none text-sm font-normal text-[#7E7E7E]">

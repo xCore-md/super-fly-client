@@ -14,6 +14,7 @@ export default function Flights() {
   const [loading, setLoading] = useState(true)
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [firstLoad, setFirstLoad] = useState(true)
+  const [country, setCountry] = useState([])
 
   useEffect(() => {
     if (firstLoad) {
@@ -48,6 +49,17 @@ export default function Flights() {
           setLoading(false)
         })
         .catch((err) => console.log({ err }))
+
+      axs
+        .get(
+          `https://restcountries.com/v3.1/alpha/${flight?.fly_to?.cityId?.slice(-2)}?fields=name,cca2,flags`
+        )
+        .then((res) => {
+          setCountry(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }, [])
 
@@ -61,7 +73,7 @@ export default function Flights() {
         <FlightsTabs loading={loading} />
       </>
 
-      <LeadModal delay={2000} />
+      <LeadModal delay={2000} country={country} />
     </div>
   )
 }

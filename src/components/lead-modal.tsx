@@ -3,7 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { Drawer, Button, notification, Grid } from 'antd'
 import dayjs from 'dayjs'
 import PhoneInput from 'react-phone-input-2'
-import leadSecondModal from '@/assets/img/lead-second-modal.png'
+import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
+import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
@@ -14,9 +15,14 @@ const { useBreakpoint } = Grid
 interface IProps {
   closable?: boolean
   delay?: number
+  country?: any
 }
 
-export default function LeadModal({ closable = false, delay }: IProps) {
+export default function LeadModal({
+  closable = false,
+  delay,
+  country,
+}: IProps) {
   const screens = useBreakpoint()
   const [openModal, setOpenModal] = useState(false)
   const [phone, setPhone] = useState('')
@@ -97,7 +103,7 @@ export default function LeadModal({ closable = false, delay }: IProps) {
     >
       {contextHolder}
       <div
-        className={`flex flex-col items-center text-center ${closable ? '' : 'pt-14'}`}
+        className={`flex flex-col items-center text-center ${closable ? '' : 'pt-[50px]'}`}
       >
         {closable ? (
           <div className="flex flex-col items-center text-center">
@@ -129,11 +135,46 @@ export default function LeadModal({ closable = false, delay }: IProps) {
               {flight?.fly_to?.city || 'Italia'} obține reducere la primul zbor
               de -30%, și chek-in gratuit!
             </p>
-            <Image
-              src={leadSecondModal}
-              alt="modal-banner"
-              className="mb-6 mt-8 w-full"
-            />
+            <div className="mb-6 mt-8 flex w-full items-center justify-center">
+              <div className="relative">
+                <div className=" absolute right-[100px] top-0 flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-br-none bg-[#11D2A4] text-xxs text-white shadow-lg">
+                  <span>-30% reducere</span>
+                </div>
+                <div className="absolute left-[105px] top-6 flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-bl-none bg-[#11D2A4] text-xxs text-white shadow-lg">
+                  <span>Zbor direct!</span>
+                </div>
+                <div className=" absolute right-[70px] top-[110px] flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-tr-none bg-[#11D2A4] text-xxs text-white shadow-lg">
+                  <span>Check-in gratuit!</span>
+                </div>
+                <img
+                  className="h-[120px] w-[120px] rounded-full"
+                  src={country?.flags?.png}
+                  alt="flag"
+                />
+                {/* <Image
+                  src={leadSecondModal}
+                  alt="modal-banner"
+                  className="mb-6 mt-8 w-full"
+                /> */}
+              </div>
+            </div>
+            <div className="mb-2 mt-8">
+              <Image className="px-4" src={leadModalCompanies} alt="img" />
+            </div>
+
+            <div className="mb-1 mt-4 flex w-full items-start gap-2">
+              <Image
+                width={20}
+                height={20}
+                className="h-5 w-5"
+                src={checkIconLeadModal}
+                alt="check-icon"
+              />
+              <span className="text-left text-xxs text-white">
+                Beneficiază de oferte exclusive care <br /> nu sunt plasate
+                online!
+              </span>
+            </div>
           </div>
         )}
         <PhoneInput

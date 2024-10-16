@@ -49,25 +49,56 @@ export const FlyContent = (props: any) => {
 
   if (!flight?.route?.length) return null
 
+  const Escalation = ({ data }: { data: any }) => {
+    const list = [...data]
+
+    return list
+      .filter((_, i) => i !== 0)
+      .map((r, index) => (
+        <div className="mb-1 flex items-end gap-2">
+          <div className="flex flex-col items-center justify-center gap-0.5">
+            <span className="h-2 w-px bg-[#E7E7E7]"></span>
+            <span className="h-[6px] w-3 rounded-full bg-[#FFE959]"></span>
+          </div>
+          <span className="whitespace-nowrap text-xxs leading-[10px] text-[#4A4A4A]">
+            <span className="mr-1"> Escala {r.cityFrom}</span>
+            <span>
+              {getFlightTime(
+                list[index === 0 ? 0 : index - 1].local_arrival,
+                r.local_departure
+              )}
+            </span>
+          </span>
+        </div>
+      ))
+  }
+
   return (
     <>
       {props.withoutHeader ? (
         ''
       ) : (
         <div
-          className={` flex flex-row items-start gap-6 lg:flex-col lg:items-center lg:justify-center lg:gap-0 lg:pb-0  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1`}
+          className={` flex flex-col justify-center gap-0 pb-0 pl-3 lg:pl-6  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1`}
         >
-          <img
-            alt="airline"
-            src={`https://images.kiwi.com/airlines/128x128/${startDirection?.[0].airline}.png`}
-            className={`w-12 ${endDirection?.length > 0 ? 'lg:w-16 lg:-translate-y-14' : 'lg:w-24'}`}
-          />
-          {endDirection?.length > 0 && (
+          <div className="flex-row items-start gap-6">
             <img
               alt="airline"
-              src={`https://images.kiwi.com/airlines/128x128/${endDirection?.[0].airline}.png`}
-              className="w-12 lg:w-16 lg:translate-y-4"
+              src={`https://images.kiwi.com/airlines/128x128/${startDirection?.[0].airline}.png`}
+              className={`w-12 ${endDirection?.length > 0 ? 'lg:w-16 lg:-translate-y-14' : 'lg:w-16'}`}
             />
+            {endDirection?.length > 0 && (
+              <img
+                alt="airline"
+                src={`https://images.kiwi.com/airlines/128x128/${endDirection?.[0].airline}.png`}
+                className="w-12 lg:w-16 lg:translate-y-4"
+              />
+            )}
+          </div>
+          {startDirection.length > 1 && (
+            <div className="mt-2">
+              <Escalation data={startDirection} />
+            </div>
           )}
         </div>
       )}
@@ -89,7 +120,7 @@ export const FlyContent = (props: any) => {
             )}
             <main className="grid w-full grid-cols-5 md:grid-cols-4">
               <div className="mr-4 pt-2 text-center md:mr-2 md:pt-0 md:text-right">
-                <div className="text-base font-normal md:mb-1 md:-translate-y-1 md:text-[22px]">
+                <div className="text-base font-normal md:mb-1 md:pb-1 md:text-[22px]">
                   {getTimeFromDate(startDirection[0].local_departure)}
                 </div>
                 <div className="hidden text-xxs text-gray-700 lg:block">
@@ -157,7 +188,7 @@ export const FlyContent = (props: any) => {
                 {/*</div>*/}
               </div>
               <div className="ml-4 pt-2 text-center md:ml-2 md:pt-0 md:text-left">
-                <div className="text-base font-normal md:mb-1 md:-translate-y-1 md:text-[22px]">
+                <div className="text-base font-normal md:mb-1 md:pb-1 md:text-[22px]">
                   {getTimeFromDate(
                     startDirection[startDirection.length - 1].local_arrival
                   )}
@@ -368,10 +399,8 @@ export const FlyContent = (props: any) => {
 
       {!withoutAction && (
         <>
-          <div className="col-span-1 flex flex-col items-end justify-center gap-3  pb-1 lg:items-center lg:justify-normal lg:pb-0">
-            <p className="pt-3 text-base font-semibold lg:pt-0">
-              € {flight.price}
-            </p>
+          <div className="col-span-1 flex h-full flex-col items-end justify-start gap-3 pb-1 lg:items-center lg:justify-normal lg:pb-0">
+            <p className=" text-base font-semibold lg:pt-0">€ {flight.price}</p>
             {isAdminPanel ? (
               <Button
                 onClick={() => handleAdminPanelSetSelectedFlight(flight)}

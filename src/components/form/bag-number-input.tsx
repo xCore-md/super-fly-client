@@ -35,6 +35,7 @@ export const BagNumberInput = ({
   return (
     <div className="flex select-none items-center justify-center">
       <Button
+        type="button"
         className="btn-extended flex h-[22px] w-[22px] items-center justify-center rounded-full bg-gray-200 p-0 text-center text-xl font-normal text-black hover:bg-gray-200/80 "
         onClick={onChange('minus')}
       >
@@ -46,6 +47,7 @@ export const BagNumberInput = ({
       </span>
 
       <Button
+        type="button"
         className="btn-extended flex h-[22px] w-[22px] items-center justify-center rounded-full bg-brand-blue p-0 text-center text-xl font-normal text-white hover:bg-brand-blue/80 "
         onClick={onChange('plus')}
         disabled={isPlusDisabled}
