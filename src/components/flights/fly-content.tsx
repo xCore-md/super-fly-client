@@ -55,7 +55,7 @@ export const FlyContent = (props: any) => {
     return list
       .filter((_, i) => i !== 0)
       .map((r, index) => (
-        <div className="mb-1 flex items-end gap-2">
+        <div key={index} className="mb-1 flex items-end gap-2">
           <div className="flex flex-col items-center justify-center gap-0.5">
             <span className="h-2 w-px bg-[#E7E7E7]"></span>
             <span className="h-[6px] w-3 rounded-full bg-[#FFE959]"></span>
