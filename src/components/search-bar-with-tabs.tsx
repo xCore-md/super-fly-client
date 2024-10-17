@@ -32,11 +32,7 @@ export const SearchBarWithTabs = ({
         </button>
       </div>
 
-      <SearchBar
-        setLoading={setLoading}
-        setIsReturnFlight={handleChangeTab}
-        isReturnFlight={isReturnFlight}
-      />
+      <SearchBar setLoading={setLoading} setIsReturnFlight={handleChangeTab} />
     </div>
   )
 }
