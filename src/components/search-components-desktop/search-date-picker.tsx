@@ -85,9 +85,10 @@ export function SearchDatePicker(props: IProps) {
   }
 
   const handleChangeCalendar = (value: any) => {
-    if (activeField === 'date_from') {
+    if (openFields['date_from']) {
       handleCalendarChangeFrom(value)
-    } else {
+    }
+    if (openFields['return_to']) {
       handleCalendarChangeTo(value)
       setIsReturnFlight?.(true)
     }

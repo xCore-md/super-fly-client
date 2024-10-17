@@ -97,7 +97,7 @@ export const offers = [
   },
   {
     title: 'Luton',
-    subtitle: 'Mare Britanie',
+    subtitle: 'Marea Britanie',
     price: 55,
     img: luton,
     code: 'LTN',

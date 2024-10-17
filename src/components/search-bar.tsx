@@ -86,13 +86,6 @@ export const SearchBar = ({
     setOpenFields(newFields)
   }
 
-  useEffect(() => {
-    if (isReturnFlight) {
-      formik.setFieldValue('return_to', '')
-      closeAllFields()
-    }
-  }, [isReturnFlight])
-
   const isHomePage = pathname === '/'
   const passengersTypes = ['adults', 'children', 'infants']
 
