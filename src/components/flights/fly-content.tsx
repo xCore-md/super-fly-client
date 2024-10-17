@@ -91,8 +91,9 @@ export const FlyContent = (props: any) => {
         >
           <div className="flex flex-col items-start">
             <div className="flex gap-2">
-              {startDirection.map((r: any) => (
+              {startDirection.map((r: any, index: number) => (
                 <img
+                  key={r.airline + index}
                   alt="airline"
                   src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                   style={{
@@ -111,8 +112,9 @@ export const FlyContent = (props: any) => {
           {endDirection?.length > 0 && (
             <div className="mt-4 hidden flex-col items-start lg:block">
               <div className="flex gap-2">
-                {endDirection.map((r: any) => (
+                {endDirection.map((r: any, index: number) => (
                   <img
+                    key={r.airline + index}
                     alt="airline"
                     src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                     style={{
@@ -309,8 +311,9 @@ export const FlyContent = (props: any) => {
               {endDirection?.length > 0 && (
                 <div className="flex flex-col items-start lg:hidden">
                   <div className="flex gap-2">
-                    {endDirection.map((r: any) => (
+                    {endDirection.map((r: any, index: number) => (
                       <img
+                        key={r.airline + index}
                         alt="airline"
                         src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                         style={{

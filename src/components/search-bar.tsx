@@ -28,7 +28,6 @@ import { SearchPassengers } from './search-components-desktop/search-passengers'
 
 interface ISearchBarProps {
   setLoading?: any
-  isReturnFlight?: boolean
   setIsNoFlights?: any
   setIsReturnFlight?: any
 }
@@ -47,7 +46,6 @@ const initialFieldsState = {
 
 export const SearchBar = ({
   setLoading,
-  isReturnFlight,
   setIsNoFlights,
   setIsReturnFlight,
 }: ISearchBarProps) => {
