@@ -101,7 +101,7 @@ export const BlogList = (props: IBlogListProps) => {
         {buttonTitle && (
           <Link
             href={buttonUrl}
-            className="custom-light-shadow flex h-[38px] w-full items-center justify-center rounded-full bg-blue-700 px-8 text-sm font-light text-white md:h-11 md:w-fit md:text-base"
+            className="custom-light-shadow flex h-[38px] w-full items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white md:h-11 md:w-fit md:text-base"
           >
             <span>{buttonTitle.trim()}</span>
           </Link>

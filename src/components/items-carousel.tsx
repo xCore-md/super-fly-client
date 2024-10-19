@@ -129,7 +129,7 @@ export const ItemsCarousel = (props: IProps) => {
         {buttonUrl && buttonTitle && (
           <Link
             href={buttonUrl}
-            className="custom-light-shadow flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white "
+            className="custom-light-shadow flex h-11 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white "
           >
             <span>{buttonTitle.trim()}</span>
           </Link>

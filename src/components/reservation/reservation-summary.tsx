@@ -56,6 +56,14 @@ export const ReservationSummary = ({
     [formik?.values?.passengers]
   )
 
+  const baggageCountPrice = (bagCount: number, index: number) => {
+    const price = reservation.bags_price?.[index]
+
+    const bagsPrice =
+      bagCount * (price || reservation.bags_price?.[index - 1] * 2)
+    return Math.round(bagsPrice)
+  }
+
   return (
     <section className="flex flex-1 flex-col">
       <div className="lg:sticky lg:top-32">
@@ -101,52 +109,51 @@ export const ReservationSummary = ({
           <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
             <h6>Bagaje</h6>
           </SectionLightBlue>
-          <div className="flex flex-col">
-            {formik?.values?.passengers?.map(
-              (passenger: any, index: number) => {
-                return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
-                  <div key={index}>
-                    <div className="grid grid-cols-4 gap-4">
-                      <p className="col-span-1 text-xs uppercase">
-                        {passenger.first_name} {passenger.last_name}
-                      </p>
-                      <div className="col-span-2 grid grid-cols-3 gap-4">
-                        {passenger?.baggage?.map(
-                          (bag: any, bagIndex: number) => {
-                            return Number(bag?.count) > 0 ? (
-                              <div key={bagIndex}>
-                                <p className="mb-1 text-sm font-semibold text-[#171717]">
-                                  {bag.type}
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                  {bag.count} x{' '}
-                                  {Math.round(
-                                    bag.count *
-                                      reservation.bags_price?.[bagIndex + 1]
-                                  )}{' '}
-                                  €
-                                </p>
-                              </div>
-                            ) : (
-                              ''
-                            )
-                          }
-                        )}
+          {formik.values?.passengers?.[0]?.first_name && (
+            <div className="flex flex-col">
+              {formik?.values?.passengers?.map(
+                (passenger: any, index: number) => {
+                  return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
+                    <div key={index}>
+                      <div className="grid grid-cols-4 gap-4">
+                        <p className="col-span-1 text-xs uppercase">
+                          {passenger.first_name} {passenger.last_name}
+                        </p>
+                        <div className="col-span-2 grid grid-cols-3 gap-4">
+                          {passenger?.baggage?.map(
+                            (bag: any, bagIndex: number) => {
+                              return Number(bag?.count) > 0 ? (
+                                <div key={bagIndex}>
+                                  <p className="mb-1 text-sm font-semibold text-[#171717]">
+                                    {bag.type}
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    {bag.count} x{' '}
+                                    {baggageCountPrice(bag.count, bagIndex + 1)}{' '}
+                                    €
+                                  </p>
+                                </div>
+                              ) : (
+                                ''
+                              )
+                            }
+                          )}
+                        </div>
                       </div>
+                      {formik.values.passengers.length > 0 &&
+                      index !== formik.values.passengers.length - 1 ? (
+                        <Divider />
+                      ) : (
+                        ''
+                      )}
                     </div>
-                    {formik.values.passengers.length > 0 &&
-                    index !== formik.values.passengers.length - 1 ? (
-                      <Divider />
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                ) : (
-                  ''
-                )
-              }
-            )}
-          </div>
+                  ) : (
+                    ''
+                  )
+                }
+              )}
+            </div>
+          )}
 
           <div>
             <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">

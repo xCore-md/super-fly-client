@@ -173,7 +173,7 @@ export const FlyContent = (props: any) => {
                     </p>
                   </div>
 
-                  <div className="fly-line block h-[1px] w-full bg-blue-700">
+                  <div className="fly-line block h-[1px] w-full bg-brand-blue">
                     <div className="flex w-full justify-center">
                       {startDirection.length > 1 && (
                         <div className="flex w-1/2 items-center justify-center gap-10">
@@ -362,7 +362,7 @@ export const FlyContent = (props: any) => {
                         </p>
                       </div>
 
-                      <div className="fly-line block h-[1px] w-full bg-blue-700">
+                      <div className="fly-line block h-[1px] w-full bg-brand-blue">
                         <div className="flex w-full justify-center">
                           {endDirection?.length > 1 && (
                             <div className="flex w-1/2 items-center justify-center gap-10">

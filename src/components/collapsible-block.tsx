@@ -99,7 +99,7 @@ const CollapsibleBlock = ({
                 </div>
               )}
               <Button
-                className={`h-[38px] w-[38px] rounded-full p-0 ${isOpen(offer.title) ? 'bg-white' : 'custom-light-shadow bg-blue-700'}`}
+                className={`h-[38px] w-[38px] rounded-full p-0 ${isOpen(offer.title) ? 'bg-white' : 'custom-light-shadow bg-brand-blue'}`}
               >
                 <Image
                   src={isOpen(offer.title) ? minus : plus}
@@ -170,7 +170,7 @@ const CollapsibleBlock = ({
                   </Link>
                   <Button
                     onClick={handleSearch}
-                    className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-blue-700 px-4 text-sm font-light md:h-[46px] md:w-full md:justify-center md:px-0  md:text-lg"
+                    className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-brand-blue px-4 text-sm font-light md:h-[46px] md:w-full md:justify-center md:px-0  md:text-lg"
                   >
                     <span>Alege</span>
                     <div className="text-center md:hidden">

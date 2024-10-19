@@ -31,7 +31,9 @@ export const BagNumberInput = ({
     }
   }
 
-  const isPlusDisabled = value === 99
+  const isPlusDisabled =
+    formik.values.passengers?.[passengerIndex]?.first_name === '' ||
+    value === 99
   return (
     <div className="flex select-none items-center justify-center">
       <Button

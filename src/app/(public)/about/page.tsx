@@ -88,7 +88,7 @@ export default function About() {
               <Image src={people} alt="image" />
               <Link
                 href="/"
-                className="custom-light-shadow mt-6 hidden h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white hover:bg-blue-600 lg:flex"
+                className="custom-light-shadow mt-6 hidden h-11 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white hover:opacity-90 lg:flex"
               >
                 <span>Rezervă acum</span>
               </Link>
@@ -173,7 +173,7 @@ export default function About() {
             </div>
             <Link
               href="#"
-              className="mt-6 flex h-11 items-center justify-center rounded-full bg-blue-700 px-8 font-light text-white shadow-md shadow-slate-400 hover:bg-blue-600 lg:hidden"
+              className="mt-6 flex h-11 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 hover:opacity-90 lg:hidden"
             >
               <span>Rezervă acum</span>
             </Link>
