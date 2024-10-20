@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ReactNode, useEffect, useMemo, useState } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { Divider, Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
@@ -17,16 +17,13 @@ import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
 import { CHECK_IN_PRICE } from '@/lib/constants'
-import axs from '@/lib/axios'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
   const { reservation: res } = useReservationContext()
-  const [countries, setCountries] = useState([])
+  // const [countries, setCountries] = useState([])
 
   const router = useRouter()
-
-  if (!Object.keys(res).length) return router.push('/flights')
 
   const startDirection = res?.route?.filter((route: any) => route.return === 0)
 
@@ -81,21 +78,21 @@ export default function ConfirmReservationPage() {
           )
         })
         .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
-    [res.passengers, res.confirmedReservation.bags_price]
+    [res.passengers, res.bags_price]
   )
 
-  useEffect(() => {
-    axs
-      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
-      .then((res) => {
-        setCountries(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
+  // useEffect(() => {
+  //   axs
+  //     .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+  //     .then((res) => {
+  //       setCountries(res.data)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // }, [])
 
-  console.log({ countries })
+  if (!Object.keys(res).length) return router.push('/flights')
 
   return (
     <section className="flex justify-center px-5 pb-20 pt-5 lg:pt-14">

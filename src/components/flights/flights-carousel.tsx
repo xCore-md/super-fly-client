@@ -180,11 +180,6 @@ export const FlightsCarousel = () => {
     </div>
   )
 }
-// utils, todo: extract
-const currencyFormatter = new Intl.NumberFormat(undefined, {
-  style: 'currency',
-  currency: 'EUR',
-})
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
