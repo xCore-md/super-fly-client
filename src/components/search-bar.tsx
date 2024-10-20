@@ -30,6 +30,7 @@ interface ISearchBarProps {
   setLoading?: any
   setIsNoFlights?: any
   setIsReturnFlight?: any
+  isReturnFlight?: boolean
 }
 
 interface ISearchField {
@@ -48,12 +49,14 @@ export const SearchBar = ({
   setLoading,
   setIsNoFlights,
   setIsReturnFlight,
+  isReturnFlight,
 }: ISearchBarProps) => {
   const isMobile = useIsMobile()
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
   const { setFlights, setInitialFlights } = useFlightsContext()
+  const [drawerState, setDrawerState] = useState('')
   const openDrawer = useCallback((field: string) => setDrawerState(field), [])
   const closeDrawer = useCallback(() => setDrawerState(''), [])
 
@@ -83,6 +86,12 @@ export const SearchBar = ({
     })
     setOpenFields(newFields)
   }
+
+  useEffect(() => {
+    if (!isReturnFlight) {
+      formik.setFieldValue('return_to', '')
+    }
+  }, [isReturnFlight])
 
   const isHomePage = pathname === '/'
   const passengersTypes = ['adults', 'children', 'infants']
@@ -136,7 +145,7 @@ export const SearchBar = ({
             res.data?.locations?.map((loc: any) => ({
               key: loc.int_id,
               country: loc.city.country.name,
-              city: loc.city.name,
+              city: loc.name,
               code: loc.code,
               cityId: loc.city.id,
             }))
@@ -233,30 +242,10 @@ export const SearchBar = ({
     closeAllFields()
   }
 
-  // const today = dayjs().startOf('day')
-
-  // const disabledDate = (current: dayjs.Dayjs) => {
-  //   return current && current < today
-  // }
-
-  // const disableNextDate = (current: dayjs.Dayjs) => {
-  //   return (
-  //     (current && current < today) ||
-  //     (current &&
-  //       current.isBefore(
-  //         dayjs(formik.values.date_from).add(1, 'day').startOf('day')
-  //       ))
-  //   )
-  // }
-
   const switchCities = useCallback(() => {
     formik.setFieldValue('fly_from', formik.values.fly_to)
     formik.setFieldValue('fly_to', formik.values.fly_from)
   }, [formik])
-
-  // const isLastDayOfMonth = (date: any) => {
-  //   return dayjs(date).isSame(dayjs(date).endOf('month'), 'day')
-  // }
 
   const updateFormValues = (newValues: SearchFields) => {
     formik.setValues((prevState) => ({
@@ -280,8 +269,6 @@ export const SearchBar = ({
     updateFormDates,
     updateFormValues,
   }))
-
-  const [drawerState, setDrawerState] = useState('')
 
   const onClickField = (field: string) => {
     if (window.innerWidth <= 768) {
@@ -322,8 +309,11 @@ export const SearchBar = ({
           loading={searchLoading}
           formik={formik}
           closeDrawer={closeDrawer}
+          openDrawer={openDrawer}
           submitSearch={submitSearch}
           onClickField={onClickField}
+          setIsReturnFlight={setIsReturnFlight}
+          isReturnFlight={isReturnFlight}
         />
       </Drawer>
       <div
@@ -340,6 +330,8 @@ export const SearchBar = ({
               onClickField={onClickField}
               openFields={openFields}
               placeholder="ZBOR DIN"
+              setOpenFields={setOpenFields}
+              initialFieldsState={initialFieldsState}
             />
 
             <SearchInput
@@ -359,6 +351,7 @@ export const SearchBar = ({
             onClickField={onClickField}
             openFields={openFields}
             setIsReturnFlight={setIsReturnFlight}
+            isReturnFlight={isReturnFlight}
           />
 
           <SearchPassengers
@@ -401,45 +394,66 @@ export const SearchBar = ({
 const mockOptions = [
   {
     key: 1,
-    country: 'Republica Moldova',
-    city: 'Chisinau',
-    code: 'RMO',
-    cityId: 'chisinau_md',
+    country: 'Israel',
+    city: 'Tel Aviv',
+    code: 'TLV',
+    cityId: 'tel-aviv_il',
   },
   {
     key: 2,
-    country: 'Italia',
-    city: 'Roma',
-    code: 'FCO',
-    cityId: 'rome_it',
+    country: 'Irlanda',
+    city: 'Dublin',
+    code: 'DUB',
+    cityId: 'dublin_ie',
   },
   {
     key: 3,
-    country: 'Spania',
-    city: 'Barcelona',
-    code: 'BCN',
-    cityId: 'barcelona_es',
+    country: 'Franța',
+    city: 'Paris',
+    code: 'CDG',
+    cityId: 'paris_fr',
   },
   {
     key: 4,
-    country: 'United Kingdom',
+    country: 'Regatul Unit',
     city: 'Londra',
     code: 'LTN',
     cityId: 'london_gb',
   },
   {
     key: 5,
-    country: 'Germany',
-    city: 'Munchen',
-    code: 'MUC',
-    cityId: 'munich_de',
+    country: 'Germania',
+    city: 'Frankfurt pe Main',
+    code: 'FRA',
+    cityId: 'frankfurt_de',
   },
   {
     key: 6,
-    country: 'France',
-    city: 'Paris',
-    code: 'CDG',
-    cityId: 'paris_fr',
+    country: 'Spania',
+    city: 'Barcelona',
+    code: 'BCN',
+    cityId: 'barcelona_es',
+  },
+  {
+    key: 7,
+    country: 'Portugalia',
+    city: 'Lisabona',
+    code: 'LIS',
+    cityId: 'lisbon_pt',
+  },
+  {
+    key: 8,
+    country: 'Russia',
+    city: 'Moscova',
+    code: 'DME',
+    cityId: 'moscow_cf_ru',
+  },
+  {
+    key: 9,
+    country: 'Italia',
+    city: 'Milano',
+    code: 'LTN',
+    cityId: 'milan_it',
   },
 ]
 

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { Button, notification } from 'antd'
+import { Button, notification, Checkbox } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -13,7 +13,6 @@ import { useReservationContext } from '@/context/reservation-context'
 import axs from '@/lib/axios'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
 import { ReservationSummary } from '@components/reservation/reservation-summary'
-import { Checkbox } from '@components/ui/checkbox'
 
 const validationSchema = Yup.object().shape({
   passengers: Yup.array().of(
@@ -44,6 +43,7 @@ export default function Reservation() {
   const [countries, setCountries] = useState([])
   const [loading, setLoading] = useState(false)
   const [api, contextHolder] = notification.useNotification()
+  const [isTermsChecked, setIsTermsChecked] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -102,10 +102,18 @@ export default function Reservation() {
           .post('/sale/create', obj)
           .then((res) => {
             setLoading(false)
-            setReservation({ ...reservation, confirmedReservation: res.data })
+            setReservation({
+              ...reservation,
+              ...obj,
+              confirmedReservation: res.data,
+            })
             localStorage.setItem(
               'reservation',
-              JSON.stringify({ ...reservation, confirmedReservation: res.data })
+              JSON.stringify({
+                ...reservation,
+                ...obj,
+                confirmedReservation: res.data,
+              })
             )
 
             router.push('/confirm-reservation')
@@ -168,28 +176,35 @@ export default function Reservation() {
           passengersCount={passengersCount}
           formik={formik}
           reservation={reservation}
+          isTermsChecked={isTermsChecked}
         />
 
-        <div className="ml-3 mt-4 flex items-center justify-between space-x-2">
+        <div className="ml-3 mt-4 flex items-center justify-between">
           <div className="flex items-start gap-2">
-            <Checkbox id="terms" />
             <label
               htmlFor="terms"
               className="cursor-pointer select-none text-xs font-normal md:text-sm"
             >
+              <Checkbox
+                onClick={() => setIsTermsChecked(!isTermsChecked)}
+                className="mr-2"
+                id="terms"
+                checked={isTermsChecked}
+              />
+
               <span className="mr-1">Sunt de acord cu</span>
-              <Link className="mr-1 text-[#596AD9]" href="/policy">
+              <Link className="mr-1 text-brand-blue" href="/policy">
                 Politica de confidentialitate
               </Link>
               <span className="mr-1">și cu</span>
-              <Link className="text-[#596AD9]" href="/terms">
+              <Link className="text-brand-blue" href="/terms">
                 Termenii si conditiile
               </Link>
             </label>
           </div>
           <Button
             htmlType="submit"
-            disabled={!formik.isValid}
+            disabled={!formik.isValid || !isTermsChecked}
             loading={loading}
             className="custom-shadow green-button hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
           >
@@ -198,7 +213,11 @@ export default function Reservation() {
         </div>
       </section>
       <aside className="flex lg:ml-20 lg:w-1/3">
-        <ReservationSummary reservation={reservation} formik={formik} />
+        <ReservationSummary
+          reservation={reservation}
+          formik={formik}
+          isTermsChecked={isTermsChecked}
+        />
       </aside>
     </form>
   )

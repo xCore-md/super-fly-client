@@ -39,6 +39,7 @@ interface IMainFormProps {
   passengersCount: number
   formik: any
   reservation: any
+  isTermsChecked?: boolean
 }
 
 export const ReservationMainForm = ({
@@ -644,7 +645,15 @@ const BagTypeAndPrice = ({
 
 const OnlineCheckinSection = ({ formik, index }: any) => {
   return (
-    <ReservationCard className="relative cursor-pointer">
+    <ReservationCard
+      className="relative cursor-pointer"
+      onClick={() =>
+        formik.setFieldValue(
+          `passengers[${index}].isOnlineCheckIn`,
+          !formik.values?.passengers?.[index]?.isOnlineCheckIn
+        )
+      }
+    >
       <main className="flex flex-col justify-between">
         <div className="flex items-center justify-between">
           <div className="flex gap-2">

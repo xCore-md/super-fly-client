@@ -10,7 +10,7 @@ export function InputComponent({
   onSearch,
   options,
   formik,
-  closeDrawer,
+  openDrawer,
 }: any) {
   const fieldTitle = field === 'fly_from' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
   const imageSrc = field === 'fly_from' ? departure : arrive
@@ -33,7 +33,12 @@ export function InputComponent({
 
   const handleSelect = (option: any) => {
     formik.setFieldValue(field === 'fly_from' ? 'fly_from' : 'fly_to', option)
-    closeDrawer()
+    if (field === 'fly_from') {
+      openDrawer('fly_to')
+    }
+    if (field === 'fly_to') {
+      openDrawer('date_from')
+    }
   }
 
   return (

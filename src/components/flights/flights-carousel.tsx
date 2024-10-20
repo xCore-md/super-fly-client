@@ -39,7 +39,8 @@ export const FlightsCarousel = () => {
     index ===
       prices?.findIndex((p) =>
         dayjs(p.date).isSame(
-          dayjs(flight.date_from || dayjs(storageFlight?.date_from).format())
+          dayjs(flight.date_from) || dayjs(storageFlight?.date_from).format(),
+          'day'
         )
       ) || 0
 
@@ -152,9 +153,8 @@ export const FlightsCarousel = () => {
 
                     <p className="mt-auto flex justify-center text-sm font-semibold text-[#3F4ED6]">
                       {!isDisabled(flight.ratedPrice.price.amount) ? (
-                        currencyFormatter.format(
-                          Number(flight.ratedPrice.price.amount)
-                        )
+                        Math.round(Number(flight.ratedPrice.price.amount)) +
+                        ' €'
                       ) : (
                         <Image src={crossSvg} alt={'no flight available'} />
                       )}

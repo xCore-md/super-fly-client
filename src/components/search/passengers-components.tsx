@@ -10,7 +10,7 @@ import Image from 'next/image'
 
 type TPassengers = 'adults' | 'children' | 'infants'
 
-export function PassengersComponent({ formik, submitSearch }: any) {
+export function PassengersComponent({ formik, closeDrawer }: any) {
   const passengers = {
     adults: formik.values.adults || 0,
     children: formik.values.children || 0,
@@ -107,9 +107,9 @@ export function PassengersComponent({ formik, submitSearch }: any) {
         size="large"
         disabled={!ableToSubmit}
         className="btn-primary mt-4 flex w-full items-center justify-center gap-1 rounded-full font-light"
-        onClick={() => submitSearch()}
+        onClick={() => closeDrawer()}
       >
-        <span className="tracking-wide text-white">Confirmă și caută</span>
+        <span className="tracking-wide text-white">Confirmă</span>
         <SearchOutlined style={{ color: '#fff' }} />
       </Button>
     </div>

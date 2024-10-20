@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { Divider, Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
@@ -16,10 +16,13 @@ import { useReservationContext } from '@/context/reservation-context'
 import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
+import { CHECK_IN_PRICE } from '@/lib/constants'
+import axs from '@/lib/axios'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
   const { reservation: res } = useReservationContext()
+  const [countries, setCountries] = useState([])
 
   const router = useRouter()
 
@@ -45,7 +48,54 @@ export default function ConfirmReservationPage() {
 
   const { adults, children, infants } = flight
 
-  console.log({ res })
+  const baggageCountPrice = (bagCount: number, index: number) => {
+    const price = res.bags_price?.[index]
+
+    const bagsPrice = bagCount * (price || res.bags_price?.[index - 1] * 2)
+    return Math.round(bagsPrice)
+  }
+
+  const checkInPrice = useMemo(
+    () =>
+      res.passengers
+        ?.map((passenger: any) => {
+          return passenger?.isOnlineCheckIn ? CHECK_IN_PRICE : 0
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
+    [res.passengers]
+  )
+
+  const baggagePrice = useMemo(
+    () =>
+      res.passengers
+        ?.map((passenger: any) => {
+          const baggagePrice = passenger?.baggage?.map(
+            (bag: any, bagIndex: number) => {
+              return baggageCountPrice(bag.count, bagIndex + 1)
+            }
+          )
+
+          return baggagePrice?.reduce(
+            (acc: number, curr: number) => acc + curr,
+            0
+          )
+        })
+        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
+    [res.passengers, res.confirmedReservation.bags_price]
+  )
+
+  useEffect(() => {
+    axs
+      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .then((res) => {
+        setCountries(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  console.log({ countries })
 
   return (
     <section className="flex justify-center px-5 pb-20 pt-5 lg:pt-14">
@@ -401,7 +451,9 @@ export default function ConfirmReservationPage() {
           <div className="mt-4 flex h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:hidden">
             <div>
               <span className="font-light">Total:</span>
-              <span className="ml-2 font-semibold">{res.price} €</span>
+              <span className="ml-2 font-semibold">
+                {Math.round(res.price + baggagePrice + checkInPrice)} €
+              </span>
             </div>
           </div>
 
@@ -520,10 +572,7 @@ export default function ConfirmReservationPage() {
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {bag.count} x{' '}
-                                  {Math.round(
-                                    bag.count * res.bags_price?.[bagIndex + 1]
-                                  )}{' '}
-                                  €
+                                  {baggageCountPrice(bag.count, bagIndex + 1)} €
                                 </p>
                               </div>
                             ) : (
@@ -552,23 +601,28 @@ export default function ConfirmReservationPage() {
               </SectionLightBlue>
 
               <div className="flex flex-col py-4">
-                {t.passengers?.map((passenger: any, index: number) => {
+                {res.passengers?.map((passenger: any, index: number) => {
                   if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
                     return ''
                   }
                   return (
                     <div key={index}>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <p className="col-span-1 text-sm uppercase">
+                      <div className="grid grid-cols-5 items-center gap-4">
+                        <p className="col-span-2 text-sm uppercase">
                           {passenger.first_name} {passenger.last_name}
                         </p>
-                        <div className="col-span-3 gap-4">
+                        <div className="col-span-2">
                           <p className="text-xs text-gray-500">
                             Online Check In
                           </p>
                         </div>
+                        <div className="col-span-1">
+                          <p className="text-xs font-semibold">
+                            {CHECK_IN_PRICE} €
+                          </p>
+                        </div>
                       </div>
-                      {t.passengers.length > 0 &&
+                      {res.passengers.length > 0 &&
                       index !== t.passengers.length - 1 ? (
                         <Divider />
                       ) : (
@@ -584,7 +638,9 @@ export default function ConfirmReservationPage() {
           <div className="mt-4 hidden h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:flex">
             <div>
               <span className="font-light">Total:</span>
-              <span className="ml-2 font-semibold">{res.price} €</span>
+              <span className="ml-2 font-semibold">
+                {Math.round(res.price + baggagePrice + checkInPrice)} €
+              </span>
             </div>
           </div>
         </div>

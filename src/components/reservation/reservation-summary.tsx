@@ -7,15 +7,18 @@ import { useFlightContext } from '@/context/flight-context'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { ReservationTimer } from './reservation-timer'
-export const CHECK_IN_PRICE = 8.99
+import { CHECK_IN_PRICE } from '@/lib/constants'
+
 export const ReservationSummary = ({
   reservation,
   formik,
   submitReservation,
+  isTermsChecked,
 }: {
   reservation: any
   formik?: any
   submitReservation?: any
+  isTermsChecked?: boolean
 }) => {
   const { flight } = useFlightContext()
   const router = useRouter()
@@ -25,15 +28,21 @@ export const ReservationSummary = ({
   const isRoundTrip = route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
 
+  const baggageCountPrice = (bagCount: number, index: number) => {
+    const price = reservation.bags_price?.[index]
+
+    const bagsPrice =
+      bagCount * (price || reservation.bags_price?.[index - 1] * 2)
+    return Math.round(bagsPrice)
+  }
+
   const baggagePrice = useMemo(
     () =>
       formik?.values?.passengers
         ?.map((passenger: any) => {
           const baggagePrice = passenger?.baggage?.map(
             (bag: any, bagIndex: number) => {
-              return Number(bag?.count) > 0
-                ? Math.round(bag.count * reservation.bags_price?.[bagIndex + 1])
-                : 0
+              return baggageCountPrice(bag.count, bagIndex + 1)
             }
           )
 
@@ -55,14 +64,6 @@ export const ReservationSummary = ({
         .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
     [formik?.values?.passengers]
   )
-
-  const baggageCountPrice = (bagCount: number, index: number) => {
-    const price = reservation.bags_price?.[index]
-
-    const bagsPrice =
-      bagCount * (price || reservation.bags_price?.[index - 1] * 2)
-    return Math.round(bagsPrice)
-  }
 
   return (
     <section className="flex flex-1 flex-col">
@@ -87,24 +88,6 @@ export const ReservationSummary = ({
               <span>Editează</span>
             </Button>
           </SectionLightBlue>
-
-          {/* <div>
-            <SectionLightBlue className="text-sm font-bold text-[#121C5E]">
-              <h6>Nume și Prenume</h6>
-            </SectionLightBlue>
-            <div className="mx-4 mt-2 flex gap-5">
-              <Input
-                className="h-9 px-3 text-xs"
-                type="text"
-                placeholder="Prenume"
-              />
-              <Input
-                className="h-9 px-3 text-xs"
-                type="text"
-                placeholder="Nume"
-              />
-            </div>
-          </div> */}
 
           <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
             <h6>Bagaje</h6>
@@ -170,10 +153,10 @@ export const ReservationSummary = ({
                   return (
                     <div key={index}>
                       <div className="grid grid-cols-4 items-center gap-4">
-                        <p className="col-span-2 text-xs uppercase">
+                        <p className="col-span-1 text-xs uppercase">
                           {passenger.first_name} {passenger.last_name}
                         </p>
-                        <div className="col-span-2 gap-4">
+                        <div className="col-span-3 gap-4">
                           <p className="text-xs text-gray-500">
                             Online Check In
                           </p>
@@ -190,10 +173,6 @@ export const ReservationSummary = ({
                 }
               )}
             </div>
-
-            {/*{flightData.map((flight) => (*/}
-            {/*  <FlightInfo key={flight.route} {...flight} />*/}
-            {/*))}*/}
           </div>
         </div>
 
@@ -208,6 +187,7 @@ export const ReservationSummary = ({
 
         <Button
           onClick={() => submitReservation()}
+          disabled={!formik.isValid || !isTermsChecked}
           className="custom-light-shadow mt-8 flex h-11 w-full items-center justify-center rounded-full bg-brand-green px-8 font-light text-white lg:hidden"
         >
           Rezervă acum
@@ -216,22 +196,6 @@ export const ReservationSummary = ({
     </section>
   )
 }
-
-// interface IFlightInfoProps {
-//   route: string
-//   passenger: string
-//   fareType: string
-// }
-
-// const FlightInfo = ({ route, passenger, fareType }: IFlightInfoProps) => {
-//   return (
-//     <div className="ml-4 border-l border-gray-200 pl-3">
-//       <p className="mt-0 pt-2 text-xxs text-[#9D9D9D]">{route}</p>
-//       <p className="mt-1 text-xxs font-bold text-[#171717]">{passenger}</p>
-//       <p className="mt-1 text-xxs text-[#9D9D9D]">{fareType}</p>
-//     </div>
-//   )
-// }
 
 interface ISectionLightBlueProps {
   children: ReactNode

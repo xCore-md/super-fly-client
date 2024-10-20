@@ -1,5 +1,7 @@
 export const locale = 'ro_RO'
 
+export const CHECK_IN_PRICE = 8.99
+
 export interface Location {
   key: number
   city: string

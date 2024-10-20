@@ -16,6 +16,8 @@ interface IProps {
   onSearch: any
   onClickField: any
   openFields: any
+  setOpenFields?: any
+  initialFieldsState?: any
   placeholder?: string
 }
 
@@ -27,6 +29,8 @@ export function SearchInput({
   onSearch,
   onClickField,
   openFields,
+  setOpenFields,
+  initialFieldsState,
   placeholder,
 }: IProps) {
   const [inputValue, setInputValue] = useState(formik.values[field].city || '')
@@ -35,6 +39,9 @@ export function SearchInput({
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target
+      if (field === 'fly_from' && !openFields[field] && value.length > 3) {
+        setOpenFields?.({ ...initialFieldsState, fly_from: true })
+      }
       setInputValue(value)
       onSearch(value)
     },
@@ -57,6 +64,13 @@ export function SearchInput({
     }
   }
 
+  const handleInputClick = useCallback(() => {
+    if (field === 'fly_from' && !openFields[field] && !isMobile) {
+      return setOpenFields?.(initialFieldsState)
+    }
+    onClickField(field)
+  }, [onClickField, field])
+
   const mobileCondition = isMobile && field === 'fly_to'
 
   return (
@@ -75,7 +89,7 @@ export function SearchInput({
           name={field}
           value={inputValue}
           autoComplete="off"
-          onClick={() => onClickField(field)}
+          onClick={handleInputClick}
           onChange={handleChange}
           className="block h-8 w-full border-0 bg-transparent p-0 text-xs font-semibold text-black focus:shadow-none md:text-xxs"
         />
@@ -90,7 +104,7 @@ export function SearchInput({
         </Button>
       )}
       {openFields[field] && (
-        <div className="dropdown-shadow absolute left-0 top-[40.5px] z-10 h-auto w-full rounded-b-xl bg-white">
+        <div className="dropdown-shadow absolute left-0 top-[40.5px] z-10 h-auto w-full overflow-hidden rounded-b-xl bg-white">
           <ul className="searchDropDownShadow flex flex-col overflow-scroll rounded-b-3xl px-2 pb-2 pt-4">
             {options.map((option: any) => (
               <li
