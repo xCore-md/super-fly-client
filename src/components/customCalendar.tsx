@@ -78,7 +78,7 @@ export function CustomCalendar({
     <Calendar
       headerRender={customHeader}
       value={currentDate}
-      className={`customCalendar custom-shadow ${className}`}
+      className={`customCalendar custom-shadow ${className} ${currentDate && 'calendar-selected'} ${fromDate && 'disabled-today'}`}
       onPanelChange={(newDate: any) => setCurrentDate(newDate)}
       onChange={handleChange}
       fullscreen={false}

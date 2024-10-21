@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { Divider, Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/mastercard-white.svg'
@@ -17,11 +17,12 @@ import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
 import { CHECK_IN_PRICE } from '@/lib/constants'
+import axs from '@/lib/axios'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
   const { reservation: res } = useReservationContext()
-  // const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState([])
 
   const router = useRouter()
 
@@ -81,16 +82,23 @@ export default function ConfirmReservationPage() {
     [res.passengers, res.bags_price]
   )
 
-  // useEffect(() => {
-  //   axs
-  //     .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
-  //     .then((res) => {
-  //       setCountries(res.data)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //     })
-  // }, [])
+  useEffect(() => {
+    axs
+      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .then((res) => {
+        setCountries(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  const getCountryName = () => {
+    const country = countries.find(
+      (country: any) => country.cca2 === t?.passengers?.[0]?.passport_country
+    ) as any
+    return country?.name?.common
+  }
 
   if (!Object.keys(res).length) return router.push('/flights')
 
@@ -139,30 +147,35 @@ export default function ConfirmReservationPage() {
                   {t?.passengers?.[0]?.last_name}
                 </span>
               </div>
+
               <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
                 <span className="mb-1 text-[8px] text-gray-400">
                   Naționalitate
                 </span>
                 <span className="text-xs font-medium text-gray-700">
-                  {t?.passengers?.[0]?.passport_country}
+                  {getCountryName()}
                 </span>
               </div>
-              <div className="mb-4 flex flex-col max-[768px]:w-1/2">
-                <span className="mb-1  text-[8px] text-gray-400">
-                  Numărul (carte de identitate/pașaport)
-                </span>
-                <span className="text-xs font-medium text-gray-700">
-                  {t?.passengers?.[0]?.passport_number}
-                </span>
-              </div>
-              <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
-                <span className="mb-1 text-[8px] text-gray-400">Expiră</span>
-                <span className="text-xs font-medium text-gray-700">
-                  {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
-                    'DD/MM/YYYY'
-                  )}
-                </span>
-              </div>
+              {t?.passengers?.[0]?.passport_number && (
+                <div className="mb-4 flex flex-col max-[768px]:w-1/2">
+                  <span className="mb-1  text-[8px] text-gray-400">
+                    Numărul (carte de identitate/pașaport)
+                  </span>
+                  <span className="text-xs font-medium text-gray-700">
+                    {t?.passengers?.[0]?.passport_number}
+                  </span>
+                </div>
+              )}
+              {t?.passengers?.[0]?.passport_expires_at && (
+                <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
+                  <span className="mb-1 text-[8px] text-gray-400">Expiră</span>
+                  <span className="text-xs font-medium text-gray-700">
+                    {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
+                      'DD/MM/YYYY'
+                    )}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/*desktop*/}

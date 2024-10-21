@@ -137,7 +137,7 @@ export const FlyContent = (props: any) => {
       {flight && (
         <section
           className={cn(
-            `${isReservationPage ? '' : 'flightCardContentLine'} col-span-2 row-start-2 mt-2 flex flex-col justify-center border-t-[1px] py-3 md:border-0 lg:col-span-3 lg:row-start-auto lg:py-1`,
+            `${isReservationPage ? '' : 'flightCardContentLine'} col-span-2 row-start-2 mt-2 flex flex-col justify-center py-3 lg:col-span-3 lg:row-start-auto lg:py-1`,
             {
               'lg:col-span-4': withoutAction,
             }
@@ -239,9 +239,11 @@ export const FlyContent = (props: any) => {
               {withoutFooter || isAdminPanel ? (
                 ''
               ) : (
-                <footer className="mt-5 flex items-start justify-evenly text-xs text-xxs text-[#4A4A4A] lg:justify-center">
+                <footer
+                  className={`mt-5 flex w-full items-start justify-evenly text-xs text-xxs text-[#4A4A4A]  ${flight.availability.seats ? 'flex-col items-center' : 'lg:justify-center'}`}
+                >
                   <div
-                    className={`lg:min-w-auto mr-2 flex min-w-32 gap-2 ${flight.availability.seats ? 'flex-col items-start ' : 'items-center'}`}
+                    className={`lg:min-w-auto mr-2 flex min-w-32 items-center gap-2`}
                   >
                     <div className="flex items-center">
                       <Image
@@ -254,18 +256,12 @@ export const FlyContent = (props: any) => {
                       <p className="ml-2">Bagajul de mînă inclus</p>
                     </div>
 
-                    {withoutFlightNumber ? (
-                      ''
-                    ) : flight.route.length === 1 ? (
-                      <p className="text-left lg:hidden">
-                        Nr. zbor:{' '}
-                        <span className="font-bold">
-                          {flight.route[0].flight_no}
-                        </span>
-                      </p>
-                    ) : (
-                      ''
-                    )}
+                    <p className="text-left">
+                      Nr. zbor:{' '}
+                      <span className="font-bold">
+                        {flight.route[0].flight_no}
+                      </span>
+                    </p>
                   </div>
 
                   {flight.availability.seats && (
@@ -292,7 +288,7 @@ export const FlyContent = (props: any) => {
           </div>
 
           {endDirection?.length > 0 && (
-            <section
+            <div
               className={cn('flex w-full flex-col justify-center pt-0', {
                 'lg:col-span-4': withoutAction,
               })}
@@ -302,9 +298,7 @@ export const FlyContent = (props: any) => {
                   minWidth: '97%',
                   width: '97%',
                   marginBottom: 10,
-                  borderTop: isMobile
-                    ? '3px solid #E7E7E7'
-                    : '1px solid #E7E7E7',
+                  borderTop: '1px solid #E7E7E7',
                 }}
               />
 
@@ -330,13 +324,8 @@ export const FlyContent = (props: any) => {
                   )}
                 </div>
               )}
-              {isMobile && (
-                <Divider
-                  style={{ minWidth: '97%', width: '97%', margin: '5px 0' }}
-                />
-              )}
 
-              <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center pt-5">
                 <div className="flex w-full flex-col items-center">
                   <main className="grid w-full grid-cols-5 md:grid-cols-4">
                     <div className="mr-4 pt-2 text-center md:mr-2 md:pt-0 md:text-right">
@@ -473,7 +462,7 @@ export const FlyContent = (props: any) => {
                   )}
                 </div>
               </div>
-            </section>
+            </div>
           )}
         </section>
       )}

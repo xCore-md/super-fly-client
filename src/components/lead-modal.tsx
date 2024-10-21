@@ -84,8 +84,7 @@ export default function LeadModal({
         api.error({
           message: 'Eroare',
           description: 'A apărut o eroare, vă rugăm să încercați din nou!',
-          placement: 'bottomRight',
-          duration: 4,
+          placement: 'topRight',
           closable: true,
         })
       })
@@ -192,7 +191,7 @@ export default function LeadModal({
         />
         <Button
           onClick={handleSubmit}
-          className="green-button mt-6 h-10 w-full rounded-full  border-0 text-sm "
+          className="green-button  mt-6 h-10 w-full rounded-full  border-0 text-sm "
         >
           Obține ofertele
         </Button>

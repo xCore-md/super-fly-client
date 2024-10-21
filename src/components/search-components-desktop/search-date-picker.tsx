@@ -61,11 +61,18 @@ export function SearchDatePicker(props: IProps) {
     }
   }, [openFields])
 
-  const handleCalendarChangeFrom = useCallback((value: any) => {
-    setFromValue(dayjs(value).format('DD.MM.YYYY'))
-    onClickField('passengers')
-    formik.setFieldValue('date_from', value)
-  }, [])
+  const handleCalendarChangeFrom = useCallback(
+    (value: any) => {
+      setFromValue(dayjs(value).format('DD.MM.YYYY'))
+      if (isReturnFlight) {
+        onClickField('return_to')
+      } else {
+        onClickField('passengers')
+      }
+      formik.setFieldValue('date_from', value)
+    },
+    [openFields, isReturnFlight]
+  )
 
   const handleCalendarChangeTo = useCallback((value: any) => {
     setToValue(dayjs(value).format('DD.MM.YYYY'))

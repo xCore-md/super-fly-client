@@ -190,12 +190,12 @@ const MobileMenu = ({
                   </Link>
                 </div>
                 <div className="relative">
-                  <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
+                  <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] rounded-full ">
                     <iframe
                       src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
                       width="58"
                       height="58"
-                      className=" -translate-x-2 -translate-y-2"
+                      className=" -translate-x-2 -translate-y-2 rounded-full"
                     ></iframe>
                   </div>
                   <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>

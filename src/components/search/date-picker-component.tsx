@@ -40,13 +40,14 @@ export function DatePickerComponent(props: any) {
     if (isReturnFlight) {
       openDrawer('return_to')
     } else {
-      openDrawer('passengers')
+      setShowReturn(true)
     }
   }, [])
 
   const handleChangeTo = useCallback((value: any) => {
     setToValue(dayjs(value).format('DD.MM.YYYY'))
     formik.setFieldValue('return_to', value)
+    setIsReturnFlight(true)
     openDrawer('passengers')
   }, [])
 
@@ -60,8 +61,6 @@ export function DatePickerComponent(props: any) {
   const openReturnCalendar = useCallback(() => {
     setShowReturn(!showReturn)
   }, [showReturn])
-
-  console.log({ toValue })
 
   return (
     <div className="pb-8">

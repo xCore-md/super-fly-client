@@ -77,7 +77,7 @@ export function SearchInput({
     <div
       className={`relative flex w-full items-center justify-between gap-4 md:min-w-52 ${mobileCondition ? 'rounded-b-[27px]' : 'rounded-t-[27px]'} border-r-[1px] border-gray-300 bg-white pl-4 pr-1 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent`}
     >
-      <div className="flex w-auto items-center gap-2">
+      <div className="flex w-full items-center gap-2 overflow-hidden pr-2">
         <Image
           src={field === 'fly_from' ? departure : arrive}
           alt="image"
@@ -104,7 +104,7 @@ export function SearchInput({
         </Button>
       )}
       {openFields[field] && (
-        <div className="dropdown-shadow absolute left-0 top-[40.5px] z-10 h-auto w-full overflow-hidden rounded-b-xl bg-white">
+        <div className="dropdown-shadow no-scrollbar absolute left-0 top-[40.5px] z-10 h-auto w-full overflow-hidden rounded-b-xl bg-white">
           <ul className="searchDropDownShadow flex flex-col overflow-scroll rounded-b-3xl px-2 pb-2 pt-4">
             {options.map((option: any) => (
               <li

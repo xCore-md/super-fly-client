@@ -154,6 +154,8 @@ export default function Reservation() {
 
   const passengersCount = adults + children + infants
 
+  console.log(formik.values?.passengers?.[0])
+
   return (
     <form
       onSubmit={formik.handleSubmit}

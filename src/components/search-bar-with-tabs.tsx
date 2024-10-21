@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SearchBar } from '@components/search-bar'
 
 export const SearchBarWithTabs = ({
@@ -10,6 +10,17 @@ export const SearchBarWithTabs = ({
   setLoading?: (loading: boolean) => void
 }) => {
   const [isReturnFlight, setIsReturnFlight] = useState(false)
+
+  useEffect(() => {
+    const storage = localStorage.getItem('flight')
+
+    if (storage) {
+      const flight = JSON.parse(storage)
+      if (flight.return_to) {
+        setIsReturnFlight(true)
+      }
+    }
+  }, [])
 
   const handleChangeTab = (tab: boolean) => {
     setIsReturnFlight(tab)

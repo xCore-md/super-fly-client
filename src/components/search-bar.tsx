@@ -90,6 +90,7 @@ export const SearchBar = ({
   useEffect(() => {
     if (!isReturnFlight) {
       formik.setFieldValue('return_to', '')
+      setOpenFields(initialFieldsState)
     }
   }, [isReturnFlight])
 

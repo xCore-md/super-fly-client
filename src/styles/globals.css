@@ -81,6 +81,15 @@
     position: relative;
   }
 
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
   .btn-extended:after {
     --btn-extended-size: -4px;
 
@@ -614,6 +623,24 @@ body {
   background: #3f4ed6;
 }
 
+.calendar-selected .ant-picker-calendar-date-today {
+  background: #fff !important;
+  color: #000000e0 !important;
+
+  &::before {
+    border: none !important;
+  }
+}
+
+.disabled-today .ant-picker-calendar-date-today {
+  background: #fff !important;
+  color: #aaaaaa !important;
+
+  &::before {
+    border: none !important;
+  }
+}
+
 @media (min-width: 1440px) {
   .custom-container {
     max-width: none;
@@ -629,6 +656,12 @@ body {
   .flightCardContentLine {
     &::after {
       display: none;
+    }
+  }
+
+  .green-button {
+    &:hover {
+      opacity: 1 !important;
     }
   }
 
