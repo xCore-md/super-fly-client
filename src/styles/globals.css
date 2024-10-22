@@ -641,6 +641,26 @@ body {
   }
 }
 
+.home-search-phone .flag-dropdown {
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+  border: 0 !important;
+  padding-left: 12px !important;
+}
+
+.home-search-phone .flag-dropdown .open {
+  border-top-left-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+}
+
+.home-search-phone .form-control {
+  padding-left: 58px !important;
+}
+
+.home-search-phone .country-list {
+  margin: 0 0 0 10px !important;
+}
+
 @media (min-width: 1440px) {
   .custom-container {
     max-width: none;

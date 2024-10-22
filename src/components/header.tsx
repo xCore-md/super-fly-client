@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import logoBlue from '@/assets/img/logo-blue.png'
 import logoWhite from '@/assets/img/logo-white.png'
+import support from '@/assets/img/support.png'
 import {
   Sheet,
   SheetContent,
@@ -72,14 +73,9 @@ export const Header = ({ menu }: IHeaderProps) => {
               </div>
               <div className="relative">
                 <div className=" pointer-events-none relative ml-4 h-[41px] w-[42px] overflow-hidden rounded-full ">
-                  <iframe
-                    src="https://giphy.com/embed/3o6MblrTJN0gLi61Rm"
-                    width="58"
-                    height="58"
-                    className="-translate-x-2 -translate-y-2"
-                  ></iframe>
+                  <Image src={support} alt="icon" />
                 </div>
-                <span className=" absolute bottom-0 right-0 animate-pulse rounded-full bg-green-400 p-1.5"></span>
+                <span className=" absolute right-0 top-2 h-[6px] w-[6px] animate-pulse rounded-full bg-green-400"></span>
               </div>
               {/* <div
               className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}

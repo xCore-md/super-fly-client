@@ -158,8 +158,6 @@ const PassengerForm = ({
     },
   }
 
-  console.log(formik.values?.passengers?.[index]?.baggage)
-
   return (
     <>
       <ReservationCard>

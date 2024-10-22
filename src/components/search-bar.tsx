@@ -25,6 +25,8 @@ import { SearchComponents } from './search/search-components'
 import { SearchInput } from './search-components-desktop/search-input'
 import { SearchDatePicker } from './search-components-desktop/search-date-picker'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -361,6 +363,20 @@ export const SearchBar = ({
             openFields={openFields}
             applyPassengers={applyPassengers}
           />
+
+          {isHomePage && (
+            <PhoneInput
+              onChange={(p) => formik.setFieldValue(`passengers[0].phone`, p)}
+              inputStyle={{
+                width: '100%',
+                height: '46px',
+                border: 'transparent',
+                borderRadius: 50,
+              }}
+              country={'md'}
+              containerClass="home-search-phone mt-2"
+            />
+          )}
 
           <button
             onClick={() => submitSearch()}

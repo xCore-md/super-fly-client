@@ -54,6 +54,10 @@ export default function Reservation() {
         passport_country: '',
         phone: '',
         email: '',
+        baggage: [
+          { type: '10kg', count: 0 },
+          { type: '20kg', count: 0 },
+        ],
       }),
     },
     validateOnBlur: false,
@@ -85,6 +89,8 @@ export default function Reservation() {
           local_departure,
         } = reservation
 
+        const { passengers, ...restData } = formik.values
+
         const obj = {
           type: storageFlight.return_to ? 'tur_retur' : 'tur',
           airline: reservation?.airlines[0],
@@ -95,7 +101,14 @@ export default function Reservation() {
           date_from: dayjs(local_departure).format('DD.MM.YYYY'),
           date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
           extra: JSON.stringify(reservation),
-          ...formik.values,
+          passengers: passengers.map((passenger) => {
+            const { baggage, ...rest } = passenger
+            return {
+              baggage: baggage.filter((bag: any) => bag.count !== 0),
+              ...rest,
+            }
+          }),
+          ...restData,
         }
 
         axs
@@ -153,8 +166,6 @@ export default function Reservation() {
   }
 
   const passengersCount = adults + children + infants
-
-  console.log(formik.values?.passengers?.[0])
 
   return (
     <form

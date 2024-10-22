@@ -4,6 +4,7 @@ import { Input } from 'antd'
 import Image from 'next/image'
 import departure from '@/assets/img/departure.svg'
 import arrive from '@/assets/img/arrive.svg'
+import { useIsMobile } from '@/lib/hooks/usIsMobile'
 
 export function InputComponent({
   field,
@@ -14,6 +15,7 @@ export function InputComponent({
 }: any) {
   const fieldTitle = field === 'fly_from' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
   const imageSrc = field === 'fly_from' ? departure : arrive
+  const isMobile = useIsMobile()
 
   const [inputValue, setInputValue] = useState('')
 
@@ -68,7 +70,7 @@ export function InputComponent({
         </div>
       </div>
       <ul className="mt-6">
-        {inputValue.length > 0 && options.length > 0
+        {options.length > 0
           ? options.map((option: any) => (
               <li key={option.code} className="border-b-[1px] py-2">
                 <span

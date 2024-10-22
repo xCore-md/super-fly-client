@@ -39,8 +39,6 @@ export function DatePickerComponent(props: any) {
     formik.setFieldValue('date_from', value)
     if (isReturnFlight) {
       openDrawer('return_to')
-    } else {
-      setShowReturn(true)
     }
   }, [])
 
