@@ -364,7 +364,7 @@ export const SearchBar = ({
             applyPassengers={applyPassengers}
           />
 
-          {isHomePage && (
+          {isHomePage && isMobile && (
             <PhoneInput
               onChange={(p) => formik.setFieldValue(`passengers[0].phone`, p)}
               inputStyle={{
