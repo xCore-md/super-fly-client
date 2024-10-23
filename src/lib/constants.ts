@@ -18,6 +18,7 @@ export interface SearchFields {
   adults: number
   children: number
   infants: number
+  phone?: string
 }
 
 export const searchFields: SearchFields = {

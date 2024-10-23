@@ -209,6 +209,34 @@ export const SearchBar = ({
     localStorage.setItem('flight', JSON.stringify(formik.values))
 
     if (isHomePage) {
+      const {
+        fly_from,
+        fly_to,
+        date_from,
+        return_to,
+        adults,
+        children,
+        infants,
+        phone,
+      } = formik.values
+      const data = {
+        phone,
+        flight_from: fly_from?.code,
+        flight_to: fly_to?.code,
+        date_from: dayjs(date_from).format('DD.MM.YYYY'),
+        return_to: return_to ? dayjs(return_to).format('DD.MM.YYYY') : '',
+        adults,
+        children,
+        infants,
+      }
+      axs
+        .post('/create-lead', { ...data })
+        .then(() => {
+          localStorage.setItem('lead', JSON.stringify(data))
+        })
+        .catch((err) => {
+          console.log({ err })
+        })
       router.push('/flights')
     } else {
       setFlights([])
@@ -294,6 +322,11 @@ export const SearchBar = ({
   const searchBtnIcon =
     companyParams && companyParams === 'airMoldova' ? searchBlack : search
 
+  const { fly_to, adults, date_from } = formik.values
+
+  const isPhoneFieldVisible =
+    isHomePage && isMobile && !!fly_to.city && !!date_from && !!adults
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
@@ -364,9 +397,9 @@ export const SearchBar = ({
             applyPassengers={applyPassengers}
           />
 
-          {isHomePage && isMobile && (
+          {isPhoneFieldVisible && (
             <PhoneInput
-              onChange={(p) => formik.setFieldValue(`passengers[0].phone`, p)}
+              onChange={(p) => formik.setFieldValue(`phone`, p)}
               inputStyle={{
                 width: '100%',
                 height: '46px',
