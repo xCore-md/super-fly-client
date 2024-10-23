@@ -145,9 +145,9 @@ export const FlyContent = (props: any) => {
         >
           <div className="flex flex-row items-center">
             <div className="flex w-full flex-col items-center">
-              <main className="grid w-full grid-cols-5 md:grid-cols-4">
-                <div className="mr-4 pt-2 text-center md:mr-2 md:pt-0 md:text-right">
-                  <div className="text-base font-normal md:mb-2 md:text-[22px]">
+              <main className="grid w-full grid-cols-5 lg:grid-cols-4">
+                <div className="mr-4 pt-2 text-center lg:mr-2 lg:pt-0 lg:text-right">
+                  <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
                     {getTimeFromDate(startDirection[0].local_departure)}
                   </div>
                   <div className="hidden text-xxs text-gray-700 lg:block">
@@ -158,7 +158,7 @@ export const FlyContent = (props: any) => {
                   </div>
                 </div>
 
-                <div className="relative col-span-3 mt-2 md:col-span-2">
+                <div className="relative col-span-3 mt-2 lg:col-span-2">
                   {endDirection.length > 0 && (
                     <span className="absolute left-7 top-0 flex w-8">
                       <ArrowRightOutlined />
@@ -221,8 +221,8 @@ export const FlyContent = (props: any) => {
                   {/*  <span className="text-xs text-gray-600">BGY</span>*/}
                   {/*</div>*/}
                 </div>
-                <div className="ml-4 pt-2 text-center md:ml-2 md:pt-0 md:text-left">
-                  <div className="text-base font-normal md:mb-1 md:pb-1 md:text-[22px]">
+                <div className="ml-4 pt-2 text-center lg:ml-2 lg:pt-0 lg:text-left">
+                  <div className="text-base font-normal lg:mb-1 lg:pb-1 lg:text-[22px]">
                     {getTimeFromDate(
                       startDirection[startDirection.length - 1].local_arrival
                     )}
@@ -327,16 +327,16 @@ export const FlyContent = (props: any) => {
 
               <div className="flex flex-row items-center pt-5">
                 <div className="flex w-full flex-col items-center">
-                  <main className="grid w-full grid-cols-5 md:grid-cols-4">
-                    <div className="mr-4 pt-2 text-center md:mr-2 md:pt-0 md:text-right">
-                      <div className="text-base font-normal md:mb-2 md:text-[22px]">
+                  <main className="grid w-full grid-cols-5 lg:grid-cols-4">
+                    <div className="mr-4 pt-2 text-center lg:mr-2 lg:pt-0 lg:text-right">
+                      <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
                         {getTimeFromDate(endDirection?.[0].local_departure)}
                       </div>
                       <div className="text-xxs text-gray-700">
                         {endDirection?.[0].flyFrom}
                       </div>
                     </div>
-                    <div className="relative col-span-3 mt-2 md:col-span-2">
+                    <div className="relative col-span-3 mt-2 lg:col-span-2">
                       {endDirection?.length > 0 && (
                         <span className="absolute left-7 top-0 flex w-8">
                           <ArrowLeftOutlined />
@@ -400,8 +400,8 @@ export const FlyContent = (props: any) => {
                       {/*  <span className="text-xs text-gray-600">BGY</span>*/}
                       {/*</div>*/}
                     </div>
-                    <div className="ml-4 pt-2 text-center md:ml-2 md:pt-0 md:text-left">
-                      <div className="text-base font-normal md:mb-2 md:text-[22px]">
+                    <div className="ml-4 pt-2 text-center lg:ml-2 lg:pt-0 lg:text-left">
+                      <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
                         {getTimeFromDate(
                           endDirection[endDirection.length - 1].local_arrival
                         )}

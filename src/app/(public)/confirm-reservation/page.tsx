@@ -299,7 +299,7 @@ export default function ConfirmReservationPage() {
                     </span>
                   </div>
                 </div>
-                <div className="col-span-1 flex justify-end lg:hidden">
+                <div className="col-span-1 ml-3 flex justify-start lg:hidden">
                   <div className="flex flex-col items-center justify-center">
                     <span className="text-[8px] text-[#979797]">
                       {dayjs(

@@ -8,6 +8,7 @@ import {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import { Button, Drawer, notification } from 'antd'
@@ -20,13 +21,13 @@ import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { SearchFields, searchFields } from '@/lib/constants'
 import { convertToSearchQuery } from '@/lib/utils'
-import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { SearchComponents } from './search/search-components'
 import { SearchInput } from './search-components-desktop/search-input'
 import { SearchDatePicker } from './search-components-desktop/search-date-picker'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { useIsTablet } from '@/lib/hooks/usIsTablet'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -53,7 +54,7 @@ export const SearchBar = ({
   setIsReturnFlight,
   isReturnFlight,
 }: ISearchBarProps) => {
-  const isMobile = useIsMobile()
+  const isTablet = useIsTablet()
   const [api, contextHolder] = notification.useNotification()
   const [options, setOptions] = useState([] as any)
   const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
@@ -76,7 +77,7 @@ export const SearchBar = ({
   }
 
   const setOpenSpecificField = (field: string) => {
-    if (isMobile) return null
+    if (isTablet) return null
 
     const newFields = { ...openFields }
     Object.keys(newFields).forEach((key) => {
@@ -302,7 +303,7 @@ export const SearchBar = ({
   }))
 
   const onClickField = (field: string) => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
       openDrawer(field)
     } else {
       setOpenSpecificField(field)
@@ -325,7 +326,7 @@ export const SearchBar = ({
   const { fly_to, adults, date_from } = formik.values
 
   const isPhoneFieldVisible =
-    isHomePage && isMobile && !!fly_to.city && !!date_from && !!adults
+    isHomePage && isTablet && !!fly_to.city && !!date_from && !!adults
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
@@ -353,7 +354,7 @@ export const SearchBar = ({
         />
       </Drawer>
       <div
-        className={`relative flex w-full max-w-[861px] items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} md:h-[45px] md:rounded-full md:shadow-lg lg:w-auto lg:bg-white lg:pr-1`}
+        className={`relative flex w-full max-w-[861px] items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} lg:h-[45px] lg:w-auto lg:rounded-full lg:bg-white lg:pr-1 lg:shadow-lg`}
       >
         <div className="flex w-full flex-col items-center justify-between lg:flex-row">
           <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
@@ -406,6 +407,9 @@ export const SearchBar = ({
                 border: 'transparent',
                 borderRadius: 50,
               }}
+              inputProps={{
+                id: 'phoneInputRef',
+              }}
               country={'md'}
               containerClass="home-search-phone mt-2"
             />
@@ -413,11 +417,9 @@ export const SearchBar = ({
 
           <button
             onClick={() => submitSearch()}
-            className={`search-button-shadow ml-4 hidden h-[40px] w-[40px] min-w-[40px] items-center justify-center rounded-full bg-brand-green hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full md:flex`}
+            className={`search-button-shadow ml-4 hidden h-[40px] w-[40px] min-w-[40px] items-center justify-center rounded-full bg-brand-green hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full lg:flex`}
           >
-            <span className="mr-3  font-medium text-white min-[1024px]:hidden">
-              Caută
-            </span>
+            <span className="mr-3 font-medium text-white lg:hidden">Caută</span>
             <Image src={search} alt="image" width={10} height={10} />
           </button>
           <Button
@@ -430,7 +432,7 @@ export const SearchBar = ({
                 ? colorsByCompany[companyParams].color
                 : '#fff',
             }}
-            className="search-button-shadow mt-3 flex h-[32px] w-full items-center justify-center rounded-full border-0 hover:opacity-90 md:mt-0 md:hidden md:w-auto"
+            className="search-button-shadow mt-3 flex h-[32px] w-full items-center justify-center rounded-full border-0 hover:opacity-90 lg:mt-0 lg:hidden lg:w-auto"
           >
             <span className="text-xs  font-normal lg:hidden">Caută</span>
             <Image src={searchBtnIcon} alt="image" width={12} height={12} />

@@ -90,7 +90,8 @@ const Component = ({ title, image, text }: IComponentProps) => {
       </div>
 
       <Popover
-        className="lg:hidden"
+        className="z-30 lg:hidden"
+        overlayClassName="z-30"
         trigger="click"
         content={
           <div className=" max-w-52">

@@ -39,11 +39,11 @@ export const Banner = () => {
 
   return (
     <section
-      className={`relative px-5 pb-[340px] pt-[74px] md:pb-[240px] md:pt-44 ${companyParams ? 'px-5 py-3' : ''}`}
+      className={`relative px-5 pb-[340px] pt-[74px] lg:pb-[240px] lg:pt-44 ${companyParams ? 'px-5 py-3' : ''}`}
     >
-      <div className="absolute left-0 top-0 z-0 h-[760px] w-full rounded-b-[40px] bg-brand-blue md:h-[650px] md:max-h-[650px]">
+      <div className="absolute left-0 top-0 z-0 h-[760px] w-full rounded-b-[40px] bg-brand-blue lg:h-[650px]">
         {!companyParams && (
-          <div className="relative h-full w-full -translate-y-60 md:translate-y-0">
+          <div className="relative h-full w-full -translate-y-60 lg:translate-y-0">
             <Image
               fill
               className="banner-image h-full rounded-b-[50px] object-contain opacity-0"
@@ -55,9 +55,9 @@ export const Banner = () => {
         )}
       </div>
 
-      <div className="relative z-20">
+      <div className="relative z-20 h-auto">
         {companyParams && (
-          <div className=" relative mb-4 h-40 md:hidden">
+          <div className="relative mb-4 h-40 lg:hidden">
             <Image
               fill
               className="banner-image h-full object-contain"
@@ -69,7 +69,7 @@ export const Banner = () => {
         )}
         {!companyParams && (
           <div className="mb-2 flex flex-col items-center lg:mb-14">
-            <h1 className="banner-title mb-20 text-[22px] font-medium text-white opacity-0 md:mb-24 md:text-[44px]">
+            <h1 className="banner-title mb-20 text-[22px] font-medium text-white opacity-0 lg:mb-24 lg:text-[44px]">
               Începe Călătoria Ta
             </h1>
           </div>

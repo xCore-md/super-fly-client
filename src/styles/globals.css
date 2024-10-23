@@ -673,12 +673,6 @@ body {
     width: 190px !important;
   }
 
-  .flightCardContentLine {
-    &::after {
-      display: none;
-    }
-  }
-
   .green-button {
     &:hover {
       opacity: 1 !important;
@@ -697,5 +691,11 @@ body {
 @media (max-width: 1024px) {
   .search-button-shadow {
     box-shadow: none;
+  }
+
+  .flightCardContentLine {
+    &::after {
+      display: none;
+    }
   }
 }

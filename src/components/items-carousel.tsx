@@ -72,7 +72,7 @@ export const ItemsCarousel = (props: IProps) => {
         modules={[Autoplay]}
         breakpoints={{
           768: {
-            slidesPerView: 2,
+            slidesPerView: 5,
           },
           1024: {
             slidesPerView: 8,

@@ -6,7 +6,7 @@ import Image from 'next/image'
 import departure from '@/assets/img/departure.svg'
 import arrive from '@/assets/img/arrive.svg'
 import { useCallback, useEffect, useState } from 'react'
-import { useIsMobile } from '@/lib/hooks/usIsMobile'
+import { useIsTablet } from '@/lib/hooks/usIsTablet'
 
 interface IProps {
   switchCities: any
@@ -34,7 +34,7 @@ export function SearchInput({
   placeholder,
 }: IProps) {
   const [inputValue, setInputValue] = useState(formik.values[field].city || '')
-  const isMobile = useIsMobile()
+  const isTablet = useIsTablet()
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,17 +65,17 @@ export function SearchInput({
   }
 
   const handleInputClick = useCallback(() => {
-    if (field === 'fly_from' && !openFields[field] && !isMobile) {
+    if (field === 'fly_from' && !openFields[field] && !isTablet) {
       return setOpenFields?.(initialFieldsState)
     }
     onClickField(field)
   }, [onClickField, field])
 
-  const mobileCondition = isMobile && field === 'fly_to'
+  const tabletCondition = isTablet && field === 'fly_to'
 
   return (
     <div
-      className={`relative flex w-full items-center justify-between gap-4 md:min-w-52 ${mobileCondition ? 'rounded-b-[27px]' : 'rounded-t-[27px]'} border-r-[1px] border-gray-300 bg-white pl-4 pr-1 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent`}
+      className={`relative flex w-full items-center justify-between gap-4 md:min-w-52 ${tabletCondition ? 'rounded-b-[27px]' : 'rounded-t-[27px]'} border-r-[1px] border-gray-300 bg-white pl-4 pr-1 max-[1024px]:border-b-[1px] max-[1024px]:py-2 max-[1024px]:pl-4 max-[1024px]:pr-0 lg:w-auto lg:rounded-none lg:bg-transparent`}
     >
       <div className="flex w-full items-center gap-2 overflow-hidden pr-2">
         <Image
@@ -88,6 +88,7 @@ export function SearchInput({
           placeholder={placeholder}
           name={field}
           value={inputValue}
+          autoFocus={false}
           autoComplete="off"
           onClick={handleInputClick}
           onChange={handleChange}

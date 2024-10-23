@@ -69,22 +69,22 @@ const CollapsibleBlock = ({
         >
           <CollapsibleTrigger asChild className="w-full">
             <div
-              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 md:h-[63px] md:px-4 md:pr-4 ${isOpen(offer.title) ? 'bg-brand-blue' : 'border border-gray-200 bg-white'}`}
+              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 lg:h-[63px] lg:px-4 lg:pr-4 ${isOpen(offer.title) ? 'bg-brand-blue' : 'border border-gray-200 bg-white'}`}
             >
               <div className="flex flex-col">
                 <span
-                  className={`text-sm font-light md:text-lg ${isOpen(offer.title) ? 'text-white' : 'text-black'}`}
+                  className={`text-sm font-light lg:text-lg ${isOpen(offer.title) ? 'text-white' : 'text-black'}`}
                 >
                   Chișinău - {offer.title}
                 </span>
                 {!isOpen(offer.title) && (
-                  <span className=" text-xxs font-light text-red-500 md:hidden">
+                  <span className=" text-xxs font-light text-red-500 lg:hidden">
                     Zbor Direct
                   </span>
                 )}
               </div>
               {!isOpen(offer.title) && (
-                <div className="flex flex-col gap-0 md:hidden">
+                <div className="flex flex-col gap-0 lg:hidden">
                   <span className=" w-fit rounded-full bg-brand-green px-2 py-0.5 text-center text-xs text-white">
                     -20%
                   </span>
@@ -103,14 +103,14 @@ const CollapsibleBlock = ({
               >
                 <Image
                   src={isOpen(offer.title) ? minus : plus}
-                  className="hidden md:block"
+                  className="hidden lg:block"
                   alt="plus-icon"
                   width={18}
                   height={38}
                 />
                 <Image
                   src={isOpen(offer.title) ? chevronUp : chevronDown}
-                  className="block md:hidden"
+                  className="block lg:hidden"
                   alt="plus-icon"
                   width={14}
                   height={34}
@@ -124,18 +124,18 @@ const CollapsibleBlock = ({
             <div className="grid-cols-7 items-center gap-4 pt-[18px] lg:grid">
               <div className="col-span-2 flex justify-between">
                 <div className="text-left">
-                  <div className="mb-2 text-base font-normal md:mb-4 md:text-[22px]">
+                  <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
                     {dayjs().format('DD MMM, YYYY')}
                   </div>
-                  <div className="text-xs text-[#4A4A4A] md:text-sm">
+                  <div className="text-xs text-[#4A4A4A] lg:text-sm">
                     Chișinău
                   </div>
                 </div>
-                <div className=" text-right md:hidden">
-                  <div className="mb-2 text-base font-normal md:mb-4 md:text-[22px]">
+                <div className=" text-right lg:hidden">
+                  <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
                     {dayjs(offer.date_from).format('DD MMM, YYYY')}
                   </div>
-                  <div className="text-xs text-[#4A4A4A] md:text-sm">
+                  <div className="text-xs text-[#4A4A4A] lg:text-sm">
                     {offer.title}
                   </div>
                 </div>
@@ -152,28 +152,28 @@ const CollapsibleBlock = ({
                   </div>
                 </div>
               </div>
-              <div className="col-span-2 hidden text-right md:block">
-                <div className="mb-2 text-base font-normal md:mb-4 md:text-[22px]">
+              <div className="col-span-2 hidden text-right lg:block">
+                <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
                   {dayjs(offer.date_from).format('DD MMM, YYYY')}
                 </div>
-                <div className="text-xs text-gray-700 md:text-sm">
+                <div className="text-xs text-gray-700 lg:text-sm">
                   {offer.title}
                 </div>
               </div>
               {offer.date_from && (
-                <div className="mt-4 flex flex-row justify-center gap-2 md:mt-5 md:flex-col md:px-0 lg:hidden">
+                <div className="mt-4 flex flex-row justify-center gap-2 lg:mt-5 lg:hidden lg:flex-col lg:px-0">
                   <Link
                     href="tel:+37360456654"
-                    className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white md:hidden md:w-full md:justify-center  md:px-0"
+                    className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white lg:hidden lg:w-full lg:justify-center  lg:px-0"
                   >
                     <span>Sunǎ acum</span>
                   </Link>
                   <Button
                     onClick={handleSearch}
-                    className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-brand-blue px-4 text-sm font-light md:h-[46px] md:w-full md:justify-center md:px-0  md:text-lg"
+                    className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-brand-blue px-4 text-sm font-light lg:h-[46px] lg:w-full lg:justify-center lg:px-0  lg:text-lg"
                   >
                     <span>Alege</span>
-                    <div className="text-center md:hidden">
+                    <div className="text-center lg:hidden">
                       <span className="text-sm">
                         {Math.round(offer.price)} €
                       </span>

@@ -64,7 +64,7 @@ export default function Flights() {
   }, [])
 
   return (
-    <div className="md:mt-0">
+    <div className="lg:mt-0">
       <>
         <Header setLoading={setLoading} />
         <div className="relative z-0 animate-fade-down px-4 fill-mode-forwards">
@@ -80,7 +80,7 @@ export default function Flights() {
 
 const Header = ({ setLoading }: { setLoading: any }) => {
   return (
-    <div className="relative p-4 pt-16 md:px-10 md:pt-12">
+    <div className="relative p-4 pt-16 lg:px-10 lg:pt-12">
       <div className="absolute left-0 top-0 z-0 h-[380px] w-full rounded-b-[30px] bg-brand-blue lg:h-52"></div>
       <div className="relative z-20 animate-fade-up fill-mode-forwards">
         <SearchBarWithTabs setLoading={setLoading} />

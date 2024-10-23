@@ -1,6 +1,6 @@
 import { DatePickerComponent } from './date-picker-component'
 import { InputComponent } from './input-component'
-import { PassengersComponent } from './passengers-components'
+import { PassengersComponent } from './passengers-component'
 
 export function SearchComponents(props: any) {
   const { field } = props
