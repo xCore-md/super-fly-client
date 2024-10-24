@@ -79,8 +79,6 @@ export const FlyContent = (props: any) => {
       ))
   }
 
-  const airlineLogoSize = isMobile ? 70 : 110
-
   return (
     <>
       {props.withoutHeader ? (
@@ -97,8 +95,12 @@ export const FlyContent = (props: any) => {
                   alt="airline"
                   src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                   style={{
-                    width: airlineLogoSize / startDirection.length,
-                    minWidth: 35,
+                    minWidth: 45,
+                    maxWidth: isMobile
+                      ? 45
+                      : startDirection.length > 1
+                        ? 45
+                        : 112,
                   }}
                 />
               ))}
@@ -118,8 +120,12 @@ export const FlyContent = (props: any) => {
                     alt="airline"
                     src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                     style={{
-                      width: airlineLogoSize / endDirection.length,
-                      minWidth: 35,
+                      minWidth: 45,
+                      maxWidth: isMobile
+                        ? 45
+                        : endDirection.length > 1
+                          ? 45
+                          : 112,
                     }}
                   />
                 ))}
@@ -240,11 +246,9 @@ export const FlyContent = (props: any) => {
                 ''
               ) : (
                 <footer
-                  className={`mt-5 flex w-full items-start justify-evenly text-xs text-xxs text-[#4A4A4A]  ${flight.availability.seats ? 'flex-col items-center' : 'lg:justify-center'}`}
+                  className={`mt-5 flex w-full items-start justify-between gap-0 px-4 text-xs text-xxs text-[#4A4A4A] lg:justify-center lg:gap-4 lg:px-0`}
                 >
-                  <div
-                    className={`lg:min-w-auto mr-2 flex min-w-32 items-center gap-2`}
-                  >
+                  <div>
                     <div className="flex items-center">
                       <Image
                         className="w-[18px] rounded-sm bg-brand-gray p-1 lg:w-[20x]"
@@ -255,17 +259,15 @@ export const FlyContent = (props: any) => {
                       />
                       <p className="ml-2">Bagajul de mînă inclus</p>
                     </div>
-
-                    <p className="text-left">
+                    <p className="pt-2 text-left">
                       Nr. zbor:{' '}
                       <span className="font-bold">
                         {flight.route[0].flight_no}
                       </span>
                     </p>
                   </div>
-
                   {flight.availability.seats && (
-                    <div className="flex min-w-36 items-center justify-between">
+                    <div className="flex items-center justify-between">
                       <div className="flex gap-2">
                         <Image
                           className="w-[18px] rounded-sm bg-brand-gray p-0.5 lg:w-[20px]"
@@ -311,8 +313,12 @@ export const FlyContent = (props: any) => {
                         alt="airline"
                         src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
                         style={{
-                          width: airlineLogoSize / endDirection.length,
-                          minWidth: 35,
+                          minWidth: 45,
+                          maxWidth: isMobile
+                            ? 45
+                            : endDirection.length > 1
+                              ? 45
+                              : 112,
                         }}
                       />
                     ))}

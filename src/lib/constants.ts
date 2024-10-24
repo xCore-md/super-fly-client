@@ -1,3 +1,5 @@
+import dayjs, { Dayjs } from 'dayjs'
+
 export const locale = 'ro_RO'
 
 export const CHECK_IN_PRICE = 8.99
@@ -13,7 +15,7 @@ export interface Location {
 export interface SearchFields {
   fly_from: Location
   fly_to: Location
-  date_from: string
+  date_from: Dayjs
   return_to: string
   adults: number
   children: number
@@ -36,7 +38,7 @@ export const searchFields: SearchFields = {
     country: '',
     cityId: '',
   },
-  date_from: '',
+  date_from: dayjs(),
   return_to: '',
   adults: 1,
   children: 0,

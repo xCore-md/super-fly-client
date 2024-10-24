@@ -328,6 +328,18 @@ export const SearchBar = ({
   const isPhoneFieldVisible =
     isHomePage && isTablet && !!fly_to.city && !!date_from && !!adults
 
+  const phoneInputRef = useRef(null)
+
+  useEffect(() => {
+    if (isPhoneFieldVisible && phoneInputRef.current) {
+      setTimeout(() => {
+        const focusEvent = new Event('focus', { bubbles: true })
+        // @ts-ignore
+        phoneInputRef.current?.dispatchEvent(focusEvent)
+      }, 1000)
+    }
+  }, [isPhoneFieldVisible])
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
@@ -408,7 +420,7 @@ export const SearchBar = ({
                 borderRadius: 50,
               }}
               inputProps={{
-                id: 'phoneInputRef',
+                ref: phoneInputRef,
               }}
               country={'md'}
               containerClass="home-search-phone mt-2"

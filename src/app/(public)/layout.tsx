@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { Suspense } from 'react'
+import React from 'react'
 import { Footer } from '@components/footer'
 import { Header } from '@components/header'
 
@@ -14,7 +14,7 @@ export default function PublicLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Header menu={menu} />
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+      {children}
       <Footer />
     </>
   )

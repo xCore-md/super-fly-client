@@ -20,10 +20,10 @@ export function CustomCalendar({
   const [currentDate, setCurrentDate] = useState(dayjs())
 
   useEffect(() => {
-    if (fromDate && fromDate.isAfter(dayjs(), 'month')) {
+    if (fromDate && fromDate.isAfter(dayjs(), 'day')) {
       setCurrentDate(fromDate)
     } else {
-      setCurrentDate(date || dayjs())
+      setCurrentDate(date || dayjs()) // Default to today
     }
   }, [date, fromDate])
 
@@ -66,19 +66,35 @@ export function CustomCalendar({
       </div>
     )
   }
-
   const disabledDates = (current: any) => {
     const today = dayjs().startOf('day')
     const from = fromDate ? fromDate.startOf('day') : null
 
-    return current && (current < today || (from && current < from))
+    // Disable dates only before today or before `fromDate`, if it exists, but allow today to be selectable
+    return (
+      current &&
+      (from
+        ? current.isBefore(from, 'day') && !current.isSame(today, 'day') // Disable dates before `fromDate` but allow today
+        : current.isBefore(today, 'day')) // Disable dates before today
+    )
+  }
+
+  const selectedDateClass = () => {
+    const today = dayjs().startOf('day')
+
+    if (currentDate.format('DD.MM.YYYY') === today.format('DD.MM.YYYY')) {
+      return 'calendar-selected-today'
+    }
+    if (currentDate.isAfter(today)) {
+      return 'calendar-selected'
+    }
   }
 
   return (
     <Calendar
       headerRender={customHeader}
       value={currentDate}
-      className={`customCalendar custom-shadow ${className} ${currentDate && 'calendar-selected'} ${fromDate && 'disabled-today'}`}
+      className={`customCalendar custom-shadow ${className} ${selectedDateClass()} ${fromDate && 'disabled-today'}`}
       onPanelChange={(newDate: any) => setCurrentDate(newDate)}
       onChange={handleChange}
       fullscreen={false}

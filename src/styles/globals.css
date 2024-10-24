@@ -632,6 +632,15 @@ body {
   }
 }
 
+.calendar-selected-today .ant-picker-calendar-date-today {
+  background: #3f4ed6 !important;
+  color: #fff !important;
+
+  &::before {
+    border: #3f4ed6 !important;
+  }
+}
+
 .disabled-today .ant-picker-calendar-date-today {
   background: #fff !important;
   color: #aaaaaa !important;

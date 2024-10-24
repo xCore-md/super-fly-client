@@ -13,14 +13,11 @@ import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 export default function Flights() {
   const [loading, setLoading] = useState(true)
   const { setFlights, setInitialFlights } = useFlightsContext()
-  const [firstLoad, setFirstLoad] = useState(true)
   const [country, setCountry] = useState([])
 
   useEffect(() => {
-    if (firstLoad) {
-      setTimeout(() => setFirstLoad(false), 7320)
-    }
-  }, [firstLoad])
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')

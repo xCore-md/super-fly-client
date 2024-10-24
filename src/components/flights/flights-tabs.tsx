@@ -132,7 +132,7 @@ function FlightListComponent({
               className="mb-[84px] mt-8 h-[38px] w-full rounded-full border-[2px] border-brand-blue bg-transparent p-0 text-sm text-brand-blue hover:bg-brand-blue hover:text-white lg:mb-14 lg:h-11 lg:w-[234px] lg:text-base lg:font-semibold"
               type="default"
               onClick={() =>
-                flights.length > 10 && setFlightsToShow(flightsToShow + 10)
+                flights.length > 10 && setFlightsToShow(flightsToShow + 90)
               }
             >
               Vezi mai mult zboruri

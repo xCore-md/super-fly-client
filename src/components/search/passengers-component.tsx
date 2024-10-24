@@ -30,7 +30,6 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
 
   const submitPassengers = () => {
     closeDrawer()
-    setTimeout(() => document.getElementById('phoneInputRef')?.focus(), 500)
   }
 
   const ableToSubmit =
