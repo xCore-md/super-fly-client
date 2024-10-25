@@ -38,7 +38,7 @@ export const searchFields: SearchFields = {
     country: '',
     cityId: '',
   },
-  date_from: dayjs(),
+  date_from: dayjs() || '',
   return_to: '',
   adults: 1,
   children: 0,

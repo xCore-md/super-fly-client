@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Footer } from '@components/footer'
 import { Header } from '@components/header'
 
@@ -14,7 +14,7 @@ export default function PublicLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Header menu={menu} />
-      {children}
+      <Suspense fallback={''}>{children}</Suspense>
       <Footer />
     </>
   )

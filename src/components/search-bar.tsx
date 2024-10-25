@@ -165,7 +165,9 @@ export const SearchBar = ({
       ...formik.values,
       fly_from: formik.values?.fly_from.code,
       fly_to: formik.values?.fly_to.code,
-      date_from: dayjs(new Date(formik.values?.date_from)).format('DD/MM/YYYY'),
+      date_from: dayjs(
+        new Date(formik.values?.date_from.format('DD.MM.YYYY'))
+      ).format('DD/MM/YYYY'),
       return_to: formik.values?.return_to
         ? dayjs(new Date(formik.values?.return_to)).format('DD/MM/YYYY')
         : '',

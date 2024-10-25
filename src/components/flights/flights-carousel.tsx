@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import React from 'react'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import crossSvg from '@/assets/img/cross.svg'
 import { useFlightContext } from '@/context/flight-context'
 import { cn, setToGreenwichMidnight } from '@/lib/utils'
@@ -196,7 +196,7 @@ type FlightDates = {
 }
 
 const getFlightDates = (
-  date_from: string,
+  date_from: Dayjs | string,
   return_to?: string | null
 ): FlightDates => {
   const formatDate = (date: dayjs.Dayjs): string => {
