@@ -28,10 +28,6 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
     formik.setFieldValue(key, value)
   }
 
-  const submitPassengers = () => {
-    closeDrawer()
-  }
-
   const ableToSubmit =
     passengersCount > 0 &&
     formik.values.fly_from.city &&
@@ -111,7 +107,7 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
         size="large"
         disabled={!ableToSubmit}
         className="btn-primary mt-4 flex w-full items-center justify-center gap-1 rounded-full font-light"
-        onClick={() => submitPassengers()}
+        onClick={() => closeDrawer()}
       >
         <span className="tracking-wide text-white">Confirmă</span>
         <SearchOutlined style={{ color: '#fff' }} />

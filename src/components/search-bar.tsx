@@ -8,7 +8,6 @@ import {
   useEffect,
   useImperativeHandle,
   useMemo,
-  useRef,
   useState,
 } from 'react'
 import { Button, Drawer, notification } from 'antd'
@@ -60,8 +59,16 @@ export const SearchBar = ({
   const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [drawerState, setDrawerState] = useState('')
-  const openDrawer = useCallback((field: string) => setDrawerState(field), [])
-  const closeDrawer = useCallback(() => setDrawerState(''), [])
+  const openDrawer = useCallback((field: string) => {
+    const flyToField = document.getElementById(field)
+    flyToField?.blur()
+    setDrawerState(field)
+  }, [])
+  const closeDrawer = () => {
+    setDrawerState('')
+    const inputElement = document.getElementById('phoneInputRef')
+    inputElement?.focus()
+  }
 
   const router = useRouter()
   const pathname = usePathname()
@@ -306,6 +313,7 @@ export const SearchBar = ({
 
   const onClickField = (field: string) => {
     if (window.innerWidth <= 1024) {
+      document.body.focus()
       openDrawer(field)
     } else {
       setOpenSpecificField(field)
@@ -329,18 +337,6 @@ export const SearchBar = ({
 
   const isPhoneFieldVisible =
     isHomePage && isTablet && !!fly_to.city && !!date_from && !!adults
-
-  const phoneInputRef = useRef(null)
-
-  useEffect(() => {
-    if (isPhoneFieldVisible && phoneInputRef.current) {
-      setTimeout(() => {
-        const focusEvent = new Event('focus', { bubbles: true })
-        // @ts-ignore
-        phoneInputRef.current?.dispatchEvent(focusEvent)
-      }, 1000)
-    }
-  }, [isPhoneFieldVisible])
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
@@ -422,7 +418,7 @@ export const SearchBar = ({
                 borderRadius: 50,
               }}
               inputProps={{
-                ref: phoneInputRef,
+                id: 'phoneInputRef',
               }}
               country={'md'}
               containerClass="home-search-phone mt-2"

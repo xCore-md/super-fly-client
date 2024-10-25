@@ -87,8 +87,8 @@ export function SearchInput({
         <Input
           placeholder={placeholder}
           name={field}
+          id={field}
           value={inputValue}
-          autoFocus={false}
           autoComplete="off"
           onClick={handleInputClick}
           onChange={handleChange}

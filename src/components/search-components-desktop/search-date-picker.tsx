@@ -190,6 +190,7 @@ const PickerField = (props: IPickerField) => {
           type="text"
           value={value}
           readOnly
+          id={field}
           placeholder={title === 'retur' ? placeholder : 'Alege data'}
           onClick={onFieldClick}
           onChange={onChange}
