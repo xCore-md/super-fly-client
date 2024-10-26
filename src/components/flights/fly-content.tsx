@@ -93,7 +93,7 @@ export const FlyContent = (props: any) => {
                 <img
                   key={r.airline + index}
                   alt="airline"
-                  src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
+                  src={`https://api-superfly.xcore.md/logo/${r.airline}`}
                   style={{
                     minWidth: 45,
                     maxWidth: isMobile
@@ -118,7 +118,7 @@ export const FlyContent = (props: any) => {
                   <img
                     key={r.airline + index}
                     alt="airline"
-                    src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
+                    src={`https://api-superfly.xcore.md/logo/${r.airline}`}
                     style={{
                       minWidth: 45,
                       maxWidth: isMobile
@@ -311,7 +311,7 @@ export const FlyContent = (props: any) => {
                       <img
                         key={r.airline + index}
                         alt="airline"
-                        src={`https://images.kiwi.com/airlines/128x128/${r.airline}.png`}
+                        src={`https://api-superfly.xcore.md/logo/${r.airline}`}
                         style={{
                           minWidth: 45,
                           maxWidth: isMobile
