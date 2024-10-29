@@ -623,6 +623,21 @@ body {
   background: #3f4ed6;
 }
 
+.content-fields {
+  p {
+    padding: 16px 0;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 20px;
+    margin: 12px 0;
+  }
+  ul {
+    margin-left: 20px;
+  }
+}
+
 .calendar-selected .ant-picker-calendar-date-today {
   background: #fff !important;
   color: #000000e0 !important;

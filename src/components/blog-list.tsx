@@ -2,16 +2,18 @@
 
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useAnimationFadeIn } from '@/lib/hooks/useAnimationFadeIn'
 import { cn } from '@/lib/utils'
-import { usePathname } from 'next/navigation'
 
 interface IBlogListItemProps {
-  img: StaticImageData
+  header: string
   title: string
-  text?: string
+  shortText: string
+  text?: React.ReactNode
+  img: StaticImageData
 }
 
 interface IBlogListProps {
@@ -42,6 +44,10 @@ export const BlogList = (props: IBlogListProps) => {
 
   const pathname = usePathname()
 
+  const isBlogPage = pathname === '/blog'
+
+  const itemsForRender = isBlogPage ? items : items?.slice(0, 5)
+
   return (
     <section
       className={cn(
@@ -60,8 +66,10 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className=" mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12 lg:overflow-auto lg:pr-0">
-        {items?.map(({ title, text, img }, index) => (
+      <div
+        className={`mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid ${isBlogPage ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} lg:gap-x-5 lg:gap-y-12 lg:overflow-visible`}
+      >
+        {itemsForRender?.map(({ title, shortText, img }, index) => (
           <Link
             className="snap-center [&_img]:hover:scale-110"
             key={index}
@@ -87,7 +95,7 @@ export const BlogList = (props: IBlogListProps) => {
                     {title}
                   </h3>
                   <p className="mt-3 line-clamp-3 text-sm font-light text-[#4A4A4A] max-[768px]:hidden">
-                    {text}
+                    {shortText}
                   </p>
                 </div>
               </CardContent>

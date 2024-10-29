@@ -37,7 +37,10 @@ export default function LeadModal({
 
   useEffect(() => {
     const lead = localStorage.getItem('lead')
-    if (screens.xs && !lead) {
+    const isExpired =
+      lead && dayjs().diff(dayjs(JSON.parse(lead).time), 'minutes') > 180
+
+    if (screens.xs && (!lead || isExpired)) {
       setTimeout(() => {
         setOpenModal(true)
         document.body.style.overflow = 'hidden'
@@ -63,6 +66,7 @@ export default function LeadModal({
           adults: flight?.adults,
           children: flight?.children,
           infants: flight?.infants,
+          time: dayjs(),
         }
 
     axs

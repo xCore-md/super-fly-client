@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from 'next/image'
 import { usePathname } from 'next/navigation'
 // import blogBanner from '@/assets/img/blog-banner.jpg'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, ReactElement } from 'react'
 import blogFooter from '@/assets/img/blog-footer.png'
 // import blogImage from '@/assets/img/blog-image.jpg'
 import { usefulInfo } from '@/data/data'
@@ -11,8 +11,10 @@ import { getLastSegment } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 
 interface IProps {
+  header: string
   title: string
-  text: string
+  shortText: string
+  content: ReactElement
   img: StaticImageData
 }
 
@@ -28,13 +30,12 @@ export default function SingleBlog() {
 
   return (
     <section>
-      <Header img={data.img} title={data.title} />
+      <Header img={data.img} title={data.header} />
       <div className="custom-container px-0 pb-36 pt-6 lg:pt-[76px]">
         <div>
-          <p
-            className="mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]"
-            dangerouslySetInnerHTML={{ __html: data.text }}
-          ></p>
+          <p className="content-fields mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]">
+            {data.content}
+          </p>
         </div>
 
         <div className="relative mt-16 flex h-full flex-col items-center justify-center px-6 py-8 lg:h-[254px] lg:px-0 lg:py-0">
@@ -68,7 +69,7 @@ const Header = ({ img, title }: any) => {
         alt="banner-image"
       />
       <div className="absolute z-10 flex h-full w-full items-center justify-center">
-        <p className="text-center text-base uppercase tracking-wider text-white lg:text-4xl lg:leading-10">
+        <p className="text-center text-base uppercase tracking-wider text-white drop-shadow-md lg:text-4xl lg:leading-10">
           {title}
         </p>
       </div>
