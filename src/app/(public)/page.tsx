@@ -35,12 +35,16 @@ export default function Home() {
         <section className="mb-14 mt-20 lg:mb-36">
           <WhyUs title="Rezervați cu noi" />
         </section>
+      </div>
+      <div className="custom-container padding-right-none">
         <BlogList
           title="Informație utilă"
           buttonTitle="Vezi Toate"
           buttonUrl="/blog"
           items={usefulInfo}
         />
+      </div>
+      <div className="custom-container">
         <Questions />
       </div>
     </div>

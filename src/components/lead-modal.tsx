@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { Drawer, Button, notification, Grid } from 'antd'
 import dayjs from 'dayjs'
 import PhoneInput from 'react-phone-input-2'
-import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
+import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
@@ -31,6 +31,7 @@ export default function LeadModal({
 
   const onClose = () => {
     setOpenModal(false)
+    document.body.style.overflow = 'auto'
   }
   const showDelay = delay || 2000
 
@@ -39,6 +40,7 @@ export default function LeadModal({
     if (screens.xs && !lead) {
       setTimeout(() => {
         setOpenModal(true)
+        document.body.style.overflow = 'hidden'
       }, showDelay)
     }
   }, [screens, showDelay])
@@ -66,6 +68,7 @@ export default function LeadModal({
     axs
       .post('/create-lead', { ...data })
       .then(() => {
+        document.body.style.overflow = 'auto'
         setOpenModal(false)
         setPhone('')
         api.success({

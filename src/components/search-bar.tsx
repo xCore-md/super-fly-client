@@ -63,11 +63,13 @@ export const SearchBar = ({
     const flyToField = document.getElementById(field)
     flyToField?.blur()
     setDrawerState(field)
+    document.body.style.overflow = 'hidden'
   }, [])
   const closeDrawer = () => {
     setDrawerState('')
     const inputElement = document.getElementById('phoneInputRef')
     inputElement?.focus()
+    document.body.style.overflow = 'auto'
   }
 
   const router = useRouter()
@@ -172,11 +174,9 @@ export const SearchBar = ({
       ...formik.values,
       fly_from: formik.values?.fly_from.code,
       fly_to: formik.values?.fly_to.code,
-      date_from: dayjs(
-        new Date(formik.values?.date_from.format('DD.MM.YYYY'))
-      ).format('DD/MM/YYYY'),
+      date_from: dayjs(formik.values?.date_from).format('DD/MM/YYYY'),
       return_to: formik.values?.return_to
-        ? dayjs(new Date(formik.values?.return_to)).format('DD/MM/YYYY')
+        ? dayjs(formik.values?.return_to).format('DD/MM/YYYY')
         : '',
     }),
     [formik.values]

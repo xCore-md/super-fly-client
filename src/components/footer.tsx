@@ -103,8 +103,8 @@ export const Footer = () => {
   if (pathname.includes('admin')) return null
 
   return (
-    <div className=" max-w-[1280px] rounded-t-[40px] border-t-[1px] bg-white px-5 pb-14 pt-8 lg:pt-[76px] 2xl:max-w-none 2xl:px-[90px]">
-      <div className="mx-auto max-w-[1280px] px-0">
+    <div className=" max-w-[1280px] rounded-t-[40px] border-t-[1px] bg-white px-5 pb-14 pt-8 lg:max-w-none lg:px-[90px] lg:pt-[76px]">
+      <div className="mx-auto max-w-[1280px] px-0 lg:max-w-none">
         <FooterColumns list={list} listWithLinks={listWithLinks} />
 
         <hr className="mb-10 mt-6" />

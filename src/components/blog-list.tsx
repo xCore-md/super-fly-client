@@ -6,6 +6,7 @@ import React from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useAnimationFadeIn } from '@/lib/hooks/useAnimationFadeIn'
 import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
 interface IBlogListItemProps {
   img: StaticImageData
@@ -39,10 +40,12 @@ export const BlogList = (props: IBlogListProps) => {
 
   useAnimationFadeIn('.gsap-animate')
 
+  const pathname = usePathname()
+
   return (
     <section
       className={cn(
-        'gsap-animate mb-14 fill-mode-forwards lg:mb-[140px] lg:px-[90px]',
+        `gsap-animate mb-14 fill-mode-forwards lg:mb-[140px]  ${pathname === '/blog' ? 'lg:px-[90px]' : ''}`,
         className
       )}
     >
@@ -57,7 +60,7 @@ export const BlogList = (props: IBlogListProps) => {
           dangerouslySetInnerHTML={{ __html: subtitle }}
         />
       )}
-      <div className=" mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12">
+      <div className=" mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid lg:grid-cols-5 lg:gap-x-5 lg:gap-y-12 lg:overflow-auto lg:pr-0">
         {items?.map(({ title, text, img }, index) => (
           <Link
             className="snap-center [&_img]:hover:scale-110"
@@ -93,7 +96,7 @@ export const BlogList = (props: IBlogListProps) => {
         ))}
       </div>
       <div
-        className={`flex items-center pr-4 lg:pr-0 ${footerSubtitle ? 'justify-between' : 'justify-end'} lg:mt-8`}
+        className={`flex items-center  lg:pr-0 ${footerSubtitle ? 'justify-between' : 'justify-end'} lg:mt-8`}
       >
         {footerSubtitle && (
           <p className="text-sm font-light">{footerSubtitle}</p>
@@ -101,7 +104,7 @@ export const BlogList = (props: IBlogListProps) => {
         {buttonTitle && (
           <Link
             href={buttonUrl}
-            className="custom-light-shadow flex h-[38px] w-full items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white lg:h-11 lg:w-fit lg:text-base"
+            className={`custom-light-shadow flex h-[38px] w-full items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white lg:h-11 lg:w-fit lg:text-base ${pathname === '/' ? 'mr-4 lg:mr-0' : ''} `}
           >
             <span>{buttonTitle.trim()}</span>
           </Link>

@@ -9,14 +9,20 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <div className="relative">
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Header menu={menu} />
-      <Suspense fallback={''}>{children}</Suspense>
+      <Suspense
+        fallback={
+          <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
+        }
+      >
+        {children}
+      </Suspense>
       <Footer />
-    </>
+    </div>
   )
 }
 

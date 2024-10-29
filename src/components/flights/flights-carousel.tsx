@@ -39,7 +39,7 @@ export const FlightsCarousel = () => {
     index ===
       prices?.findIndex((p) =>
         dayjs(p.date).isSame(
-          dayjs(flight.date_from) && dayjs(storageFlight?.date_from),
+          dayjs(flight.date_from) || dayjs(storageFlight?.date_from),
           'day'
         )
       ) || 0
