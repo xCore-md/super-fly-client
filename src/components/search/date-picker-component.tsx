@@ -1,10 +1,10 @@
-import { Button, Input } from 'antd'
 import Image from 'next/image'
-import calendarBlue from '@/assets/img/calendar-blue.svg'
-import calendar from '@/assets/img/calendar.svg'
-import dayjs from 'dayjs'
 import { useCallback, useEffect, useState } from 'react'
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Input } from 'antd'
+import dayjs from 'dayjs'
+import calendarBlue from '@/assets/img/calendar-blue.svg'
+import calendar from '@/assets/img/calendar.svg'
 import { CustomCalendar } from '../customCalendar'
 
 export function DatePickerComponent(props: any) {

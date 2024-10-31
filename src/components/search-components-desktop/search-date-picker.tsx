@@ -1,11 +1,11 @@
-import { Button, Input } from 'antd'
 import Image from 'next/image'
-import calendar from '@/assets/img/calendar.svg'
-import calendarBlue from '@/assets/img/calendar-blue.svg'
-import dayjs from 'dayjs'
 import { useCallback, useEffect, useState } from 'react'
-import { CustomCalendar } from '../customCalendar'
+import { Button, Input } from 'antd'
+import dayjs from 'dayjs'
+import calendarBlue from '@/assets/img/calendar-blue.svg'
+import calendar from '@/assets/img/calendar.svg'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
+import { CustomCalendar } from '../customCalendar'
 
 interface IProps {
   formik: any

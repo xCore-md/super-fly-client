@@ -38,7 +38,7 @@ export default function LeadModal({
   useEffect(() => {
     const lead = localStorage.getItem('lead')
     const isExpired =
-      lead && dayjs().diff(dayjs(JSON.parse(lead).time), 'minutes') > 180
+      lead && dayjs().diff(dayjs(JSON.parse(lead).time), 'minutes') > 30
 
     if (screens.xs && (!lead || isExpired)) {
       setTimeout(() => {

@@ -125,7 +125,7 @@ export const SearchBar = ({
       passengersTypes.forEach((type) => {
         formik.setFieldValue(type, storageFlight[type])
       })
-      const isExpired = dayjs().diff(dayjs(storageFlight.time), 'minutes') > 180
+      const isExpired = dayjs().diff(dayjs(storageFlight.time), 'minutes') > 30
 
       if (isExpired) {
         localStorage.removeItem('flight')
