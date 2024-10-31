@@ -1,6 +1,7 @@
 'use client'
 
 import Image, { StaticImageData } from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 // import blogBanner from '@/assets/img/blog-banner.jpg'
 import { useEffect, useState, ReactElement } from 'react'
@@ -8,7 +9,6 @@ import blogFooter from '@/assets/img/blog-footer.png'
 // import blogImage from '@/assets/img/blog-image.jpg'
 import { usefulInfo } from '@/data/data'
 import { getLastSegment } from '@/lib/utils'
-import { Button } from '@components/ui/button'
 
 interface IProps {
   header: string
@@ -25,14 +25,19 @@ export default function SingleBlog() {
   useEffect(() => {
     if (pathname) {
       setData(usefulInfo[getLastSegment(pathname)])
+      document.title = data.title
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [pathname])
+  }, [pathname, data.title])
 
   return (
     <section>
       <Header img={data.img} title={data.header} />
       <div className="custom-container px-0 pb-36 pt-6 lg:pt-[76px]">
         <div>
+          <h2 className="mb-8 w-full text-center text-2xl font-semibold">
+            {data.title}
+          </h2>
           <p className="content-fields mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]">
             {data.content}
           </p>
@@ -50,9 +55,12 @@ export default function SingleBlog() {
               Descoperă acum Oferte de Top, și rezervă rapid bilete la cel mai
               bun preț!
             </span>
-            <Button className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-8 text-base font-light text-white lg:w-[460px] ">
+            <Link
+              href="/#best-offers"
+              className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-8 text-base font-light text-white lg:w-[460px] "
+            >
               Mergi la Oferte de Top
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

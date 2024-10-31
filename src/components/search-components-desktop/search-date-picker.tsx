@@ -136,6 +136,7 @@ export function SearchDatePicker(props: IProps) {
         field="return_to"
         onChange={handleChangeTo}
         onClear={handleClearField}
+        isReturnFlight={isReturnFlight}
       />
 
       {openFields[activeField] && (
@@ -163,16 +164,27 @@ interface IPickerField {
   onClickField: () => void
   onChange: any
   onClear: () => void
+  isReturnFlight?: boolean
 }
 
 const PickerField = (props: IPickerField) => {
-  const { value, title, openFields, onClickField, field, onChange, onClear } =
-    props
+  const {
+    value,
+    title,
+    openFields,
+    onClickField,
+    field,
+    onChange,
+    onClear,
+    isReturnFlight,
+  } = props
 
   const onFieldClick = useCallback(() => onClickField(), [onClickField])
   const isMobile = useIsMobile()
 
   const placeholder = isMobile ? '+ Adauga retur' : 'Alege data'
+
+  console.log({ isReturnFlight })
 
   return (
     <div
@@ -180,7 +192,7 @@ const PickerField = (props: IPickerField) => {
     >
       <div className="flex w-full flex-col items-start">
         <span
-          className={`text-[8px] font-semibold uppercase  ${openFields[field] ? 'text-brand-blue' : 'text-gray-400'}`}
+          className={`text-[8px] font-semibold uppercase  ${openFields[field] || isReturnFlight ? 'text-brand-blue' : 'text-gray-400'}`}
         >
           {title}
         </span>
@@ -205,7 +217,7 @@ const PickerField = (props: IPickerField) => {
       >
         <Image
           className="min-w-4"
-          src={openFields[field] ? calendarBlue : calendar}
+          src={openFields[field] || isReturnFlight ? calendarBlue : calendar}
           alt="image"
           width={28}
           height={28}

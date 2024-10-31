@@ -151,7 +151,6 @@ export default function Login() {
               </div>
               <Input
                 name="password"
-                placeholder="noreplay@mail.com"
                 type="password"
                 className="py-3"
                 onPressEnter={() => formik.handleSubmit()}

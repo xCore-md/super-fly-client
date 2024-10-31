@@ -25,6 +25,7 @@ export const FlightsCarousel = () => {
   const [prices, setPrices] = useState<CalendarPrice[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [storageFlight, setStorageFlight] = useState<any>(null)
+  const [selected, setSelected] = useState<boolean>(false)
 
   useEffect(() => {
     const storage = localStorage?.getItem('flight')
@@ -42,9 +43,13 @@ export const FlightsCarousel = () => {
           dayjs(flight.date_from) || dayjs(storageFlight?.date_from),
           'day'
         )
-      ) || 0
+      ) || false
 
-  const handleCarouselSelect = (selectedFlight: CalendarPrice) => {
+  const handleCarouselSelect = (
+    selectedFlight: CalendarPrice,
+    selected: boolean
+  ) => {
+    setSelected(selected)
     if (isDisabled(selectedFlight.ratedPrice.price.amount)) return
 
     searchBarRef.current?.updateFormDates(
@@ -114,7 +119,8 @@ export const FlightsCarousel = () => {
 
           <Carousel
             opts={{
-              align: 'start',
+              align: 'center',
+              active: selected,
             }}
             className="mx-auto max-w-[640px]"
           >
@@ -122,7 +128,9 @@ export const FlightsCarousel = () => {
               {prices?.map((flight, index) => (
                 <CarouselItem
                   key={index}
-                  onClick={() => handleCarouselSelect(flight)}
+                  onClick={() =>
+                    handleCarouselSelect(flight, isSelected(index))
+                  }
                   className={cn(
                     `relative flex basis-1/4 cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out lg:basis-1/7`,
                     { carouselSelectorItem: !isSelected(index) }

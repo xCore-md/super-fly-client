@@ -1,11 +1,10 @@
+import Image from 'next/image'
 import React from 'react'
-
+import { useCallback, useEffect, useState } from 'react'
 import { SwapOutlined } from '@ant-design/icons'
 import { Button, Input } from 'antd'
-import Image from 'next/image'
-import departure from '@/assets/img/departure.svg'
 import arrive from '@/assets/img/arrive.svg'
-import { useCallback, useEffect, useState } from 'react'
+import departure from '@/assets/img/departure.svg'
 import { useIsTablet } from '@/lib/hooks/usIsTablet'
 
 interface IProps {

@@ -59,7 +59,7 @@ export const ItemsCarousel = (props: IProps) => {
   }
 
   return (
-    <section className=" animate-fade-up fill-mode-forwards ">
+    <section className="animate-fade-up fill-mode-forwards">
       <div className="custom-container">
         <h2
           className={`text-lg font-medium lg:text-2xl ${subtitle ? 'mb-2' : 'mb-2 lg:mb-6'}`}

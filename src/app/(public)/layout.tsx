@@ -14,11 +14,7 @@ export default function PublicLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <Header menu={menu} />
-      <Suspense
-        fallback={
-          <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
-        }
-      >
+      <Suspense fallback={<div className="h-svh w-full bg-brand-blue"></div>}>
         {children}
       </Suspense>
       <Footer />

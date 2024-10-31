@@ -13,20 +13,20 @@ import {
 import { Button, Drawer, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
-import search from '@/assets/img/search.svg'
+import PhoneInput from 'react-phone-input-2'
 import searchBlack from '@/assets/img/search-black.svg'
+import search from '@/assets/img/search.svg'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { SearchFields, searchFields } from '@/lib/constants'
+import { useIsTablet } from '@/lib/hooks/usIsTablet'
 import { convertToSearchQuery } from '@/lib/utils'
 import { SearchComponents } from './search/search-components'
-import { SearchInput } from './search-components-desktop/search-input'
 import { SearchDatePicker } from './search-components-desktop/search-date-picker'
+import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import { useIsTablet } from '@/lib/hooks/usIsTablet'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -125,11 +125,12 @@ export const SearchBar = ({
       passengersTypes.forEach((type) => {
         formik.setFieldValue(type, storageFlight[type])
       })
-    }
+      const isExpired = dayjs().diff(dayjs(storageFlight.time), 'minutes') > 180
 
-    if (pathname !== '/flights') {
-      localStorage.removeItem('flight')
-      formik.resetForm()
+      if (isExpired) {
+        localStorage.removeItem('flight')
+        formik.resetForm()
+      }
     }
 
     setOptions(mockOptions)
@@ -145,7 +146,14 @@ export const SearchBar = ({
   const [searchLoading, setSearchLoading] = useState(false)
 
   const onSearch = (value: string) => {
+    if (value === '') {
+      setOptions(mockOptions)
+      setSearchLoading(false)
+      return
+    }
+
     setSearchLoading(true)
+    setOptions([])
     if (value && value.length > 2) {
       axs
         .get(`/locations?locale=ro-RO&query=${value}`, {
@@ -238,6 +246,7 @@ export const SearchBar = ({
         adults,
         children,
         infants,
+        time: dayjs(),
       }
       axs
         .post('/create-lead', { ...data })

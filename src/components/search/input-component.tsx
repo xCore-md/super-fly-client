@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react'
-
-import { Input } from 'antd'
 import Image from 'next/image'
-import departure from '@/assets/img/departure.svg'
+import React, { useCallback, useEffect, useState } from 'react'
+import { LoadingOutlined } from '@ant-design/icons'
+import { Input, Spin } from 'antd'
 import arrive from '@/assets/img/arrive.svg'
+import departure from '@/assets/img/departure.svg'
 
 export function InputComponent({
   field,
@@ -11,6 +11,7 @@ export function InputComponent({
   options,
   formik,
   openDrawer,
+  loading,
 }: any) {
   const fieldTitle = field === 'fly_from' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
   const imageSrc = field === 'fly_from' ? departure : arrive
@@ -67,29 +68,40 @@ export function InputComponent({
           </div>
         </div>
       </div>
-      <ul className="mt-6">
-        {options.length > 0
-          ? options.map((option: any) => (
-              <li key={option.code} className="border-b-[1px] py-2">
-                <span
-                  className="flex justify-between gap-4"
-                  onClick={() => handleSelect(option)}
-                >
-                  <span>
-                    <span className="text-sm text-brand-blue">
-                      {option.city}
-                    </span>
-                    ,
-                    <span className="pl-1 text-xs text-gray-500">
-                      {option.country}
-                    </span>
-                  </span>
-                  <span>{option.code}</span>
-                </span>
-              </li>
-            ))
-          : null}
-      </ul>
+      <List options={options} handleSelect={handleSelect} loading={loading} />
     </div>
+  )
+}
+
+const List = ({ options, handleSelect, loading }: any) => {
+  if (loading)
+    return (
+      <div className="flex items-center justify-center py-8">
+        <Spin indicator={<LoadingOutlined spin />} size="large" />
+      </div>
+    )
+
+  return (
+    <ul className="mt-6">
+      {options.length > 0
+        ? options.map((option: any) => (
+            <li key={option.code} className="border-b-[1px] py-2">
+              <span
+                className="flex justify-between gap-4"
+                onClick={() => handleSelect(option)}
+              >
+                <span>
+                  <span className="text-sm text-brand-blue">{option.city}</span>
+                  ,
+                  <span className="pl-1 text-xs text-gray-500">
+                    {option.country}
+                  </span>
+                </span>
+                <span>{option.code}</span>
+              </span>
+            </li>
+          ))
+        : null}
+    </ul>
   )
 }
