@@ -184,8 +184,6 @@ const PickerField = (props: IPickerField) => {
 
   const placeholder = isMobile ? '+ Adauga retur' : 'Alege data'
 
-  console.log({ isReturnFlight })
-
   return (
     <div
       className={`flex w-full items-center gap-2 border-r-[1px] border-gray-300 pt-1 ${field === 'date_from' ? 'pl-3' : ''} pr-3 max-[1024px]:border-0 max-[1024px]:p-0 md:max-w-36 `}

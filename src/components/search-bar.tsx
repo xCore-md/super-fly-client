@@ -99,6 +99,13 @@ export const SearchBar = ({
     setOpenFields(newFields)
   }
 
+  const setOpenField = (field: string, value: boolean) => {
+    setOpenFields((prevState) => ({
+      ...prevState,
+      [field]: value,
+    }))
+  }
+
   useEffect(() => {
     if (!isReturnFlight) {
       formik.setFieldValue('return_to', '')
@@ -125,7 +132,8 @@ export const SearchBar = ({
       passengersTypes.forEach((type) => {
         formik.setFieldValue(type, storageFlight[type])
       })
-      const isExpired = dayjs().diff(dayjs(storageFlight.time), 'minutes') > 30
+      const isExpired =
+        dayjs().diff(dayjs(storageFlight.expirationAt), 'minutes') > 30
 
       if (isExpired) {
         localStorage.removeItem('flight')
@@ -224,7 +232,10 @@ export const SearchBar = ({
     }
 
     setFlight(formik.values)
-    localStorage.setItem('flight', JSON.stringify(formik.values))
+    localStorage.setItem(
+      'flight',
+      JSON.stringify({ ...formik.values, expirationAt: dayjs() })
+    )
 
     if (isHomePage) {
       const {
@@ -246,7 +257,7 @@ export const SearchBar = ({
         adults,
         children,
         infants,
-        time: dayjs(),
+        expirationAt: dayjs(),
       }
       axs
         .post('/create-lead', { ...data })
@@ -387,6 +398,7 @@ export const SearchBar = ({
               openFields={openFields}
               placeholder="ZBOR DIN"
               setOpenFields={setOpenFields}
+              setOpenField={setOpenField}
               initialFieldsState={initialFieldsState}
             />
 
@@ -398,6 +410,7 @@ export const SearchBar = ({
               onSearch={onSearch}
               onClickField={onClickField}
               openFields={openFields}
+              setOpenField={setOpenField}
               placeholder="ATERIZARE ÎN"
             />
           </div>

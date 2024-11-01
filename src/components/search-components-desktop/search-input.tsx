@@ -16,6 +16,7 @@ interface IProps {
   onClickField: any
   openFields: any
   setOpenFields?: any
+  setOpenField?: any
   initialFieldsState?: any
   placeholder?: string
 }
@@ -29,6 +30,7 @@ export function SearchInput({
   onClickField,
   openFields,
   setOpenFields,
+  setOpenField,
   initialFieldsState,
   placeholder,
 }: IProps) {
@@ -38,13 +40,14 @@ export function SearchInput({
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target
-      if (field === 'fly_from' && !openFields[field] && value.length > 3) {
-        setOpenFields?.({ ...initialFieldsState, fly_from: true })
+
+      if (value.length >= 3) {
+        setOpenField?.(field, true)
       }
       setInputValue(value)
       onSearch(value)
     },
-    [setInputValue, onSearch]
+    [setInputValue, onSearch, setOpenField, field]
   )
 
   useEffect(() => {
