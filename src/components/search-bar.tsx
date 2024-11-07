@@ -139,10 +139,11 @@ export const SearchBar = ({
         localStorage.removeItem('flight')
         formik.resetForm()
       }
+    } else {
+      getCurrentCityByIp()
     }
 
     setOptions(mockOptions)
-    getCurrentCityByIp()
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {

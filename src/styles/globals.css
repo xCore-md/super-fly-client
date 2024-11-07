@@ -423,7 +423,15 @@ body {
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
+  &::placeholder {
+    color: #bdbdbd;
+  }
 }
+
+.activeCustomInput input::placeholder {
+  color: rgb(0 0 0 / 90%);
+}
+
 .scroll-small {
   scrollbar-width: 1px !important ;
 }
@@ -638,7 +646,7 @@ body {
   }
 }
 
-.calendar-selected .ant-picker-calendar-date-today {
+.ant-picker-cell-today .ant-picker-calendar-date-today {
   background: #fff !important;
   color: #000000e0 !important;
 
@@ -647,21 +655,40 @@ body {
   }
 }
 
-.calendar-selected-today .ant-picker-calendar-date-today {
+.ant-picker-calendar-date-today {
+  background: #fff !important;
+  color: #d6d6d6 !important;
+
+  &::before {
+    border: none !important;
+  }
+}
+
+.ant-picker-cell-selected.ant-picker-cell-today .ant-picker-calendar-date {
   background: #3f4ed6 !important;
   color: #fff !important;
 
   &::before {
-    border: #3f4ed6 !important;
+    border: none !important;
   }
 }
 
-.disabled-today .ant-picker-calendar-date-today {
+.not-current-month .ant-picker-cell-selected .ant-picker-calendar-date {
   background: #fff !important;
-  color: #aaaaaa !important;
+  color: #000000e0 !important;
 
   &::before {
     border: none !important;
+  }
+}
+
+.selected-from-date .ant-picker-cell-selected .ant-picker-calendar-date, 
+.selected-to-date .ant-picker-cell-selected .ant-picker-calendar-date  {
+  background: #3f4ed6;
+  color: #fff;
+
+  &::before {
+    border: none;
   }
 }
 

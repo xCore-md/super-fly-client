@@ -1,30 +1,56 @@
+import Image from 'next/image'
+import { MinusOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
+import { Button } from 'antd'
 import humanBlue from '@/assets/img/human-blue.svg'
 import human from '@/assets/img/human.svg'
 import infantsBlue from '@/assets/img/infants-blue.svg'
 import infants from '@/assets/img/infants.svg'
 import kidsBlue from '@/assets/img/kids-blue.svg'
 import kids from '@/assets/img/kids.svg'
-import { MinusOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons'
-import { Button } from 'antd'
-import Image from 'next/image'
+import { useState } from 'react'
 
 type TPassengers = 'adults' | 'children' | 'infants'
 
 export function PassengersComponent({ formik, closeDrawer }: any) {
-  const passengers = {
+  const passengersProp = {
     adults: formik.values.adults || 0,
     children: formik.values.children || 0,
     infants: formik.values.infants || 0,
   }
 
-  const passengersCount =
-    passengers.adults + passengers.children + passengers.infants
+  const [passengers, setPassengers] = useState(passengersProp)
 
-  const handleUpdatePassengersCount = (key: TPassengers, value: number) => {
-    const currentCount = Object.values(passengers).reduce((a, b) => a + b)
+  const passengersCount = passengers.adults + passengers.children
 
-    if (value < 0 || (currentCount <= 1 && value === 0)) return
+  const handleUpdatePassengersCount = (
+    key: TPassengers,
+    value: number,
+    minusBtn?: boolean,
+    field?: string
+  ) => {
+    // Condition 1: Disable update if passengersCount >= 9 and not reducing (except for infants)
+    if (passengersCount >= 9 && !minusBtn && field !== 'infants') return
 
+    // Condition 2: Reset infants count to 0 if adults count is changed and infants were more than adults
+    if (field === 'adults' && passengers.infants > value) {
+      setPassengers((prev) => ({ ...prev, infants: 0 }))
+      formik.setFieldValue('infants', 0)
+    }
+
+    // Condition 3: Infants cannot exceed the adults count
+    if (field === 'infants' && value > passengers.adults) return
+
+    // Handle the decrement cases
+    if (minusBtn) {
+      // Prevent decreasing infants below 0
+      if (field === 'infants' && passengers.infants === 0) return
+
+      // Prevent reducing passengers count to below 1 for adults and children
+      if (field !== 'infants' && passengersCount === 1) return
+    }
+
+    // Update the specific field
+    setPassengers((prev) => ({ ...prev, [key]: value }))
     formik.setFieldValue(key, value)
   }
 
@@ -72,7 +98,9 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
                 onClick={() =>
                   handleUpdatePassengersCount(
                     key as TPassengers,
-                    passengers[key as TPassengers] - 1
+                    passengers[key as TPassengers] - 1,
+                    true,
+                    key
                   )
                 }
                 icon={
@@ -95,7 +123,9 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
                 onClick={() =>
                   handleUpdatePassengersCount(
                     key as TPassengers,
-                    passengers[key as TPassengers] + 1
+                    passengers[key as TPassengers] + 1,
+                    false,
+                    key
                   )
                 }
               />

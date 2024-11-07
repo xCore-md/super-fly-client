@@ -30,13 +30,13 @@ export const SearchBarWithTabs = ({
     <div className="relative flex flex-col items-center justify-center gap-4">
       <div className="flex gap-2">
         <button
-          className={`rounded-lg px-4 text-[8px]  font-semibold lg:h-[22px] lg:text-xxs ${isReturnFlight ? 'text-slate-400 lg:text-white' : 'text-white lg:bg-white lg:text-black'}`}
+          className={`rounded-lg px-4 text-[10px]  font-semibold lg:h-[22px] lg:text-xxs ${isReturnFlight ? 'text-slate-400 lg:text-white' : 'text-white lg:bg-white lg:text-black'}`}
           onClick={() => handleChangeTab(false)}
         >
           Într-o direcție
         </button>
         <button
-          className={`rounded-lg px-4 text-[8px] font-semibold lg:text-xxs ${isReturnFlight ? 'text-white lg:bg-white lg:text-black' : 'text-slate-400 lg:text-white'}`}
+          className={`rounded-lg px-4 text-[10px] font-semibold lg:text-xxs ${isReturnFlight ? 'text-white lg:bg-white lg:text-black' : 'text-slate-400 lg:text-white'}`}
           onClick={() => handleChangeTab(true)}
         >
           Tur-Retur

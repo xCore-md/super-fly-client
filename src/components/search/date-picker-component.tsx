@@ -50,6 +50,9 @@ export function DatePickerComponent(props: any) {
   }, [])
 
   const handleConfirm = useCallback(() => {
+    if (!formik.values.date_from) {
+      formik.setFieldValue('date_from', dayjs().format('YYYY-MM-DD'))
+    }
     setToValue('')
     formik.setFieldValue('return_to', '')
     setIsReturnFlight(false)
@@ -80,7 +83,7 @@ export function DatePickerComponent(props: any) {
               PLECARE
             </span>
             <Input
-              className="border-none pl-0 font-semibold text-blue-950 outline-none focus:shadow-none"
+              className="border-none pl-0 font-semibold text-blue-950 outline-none focus:shadow-none focus:outline-none focus:ring-0"
               type="text"
               readOnly
               value={fromValue}
@@ -127,7 +130,7 @@ export function DatePickerComponent(props: any) {
                 RETUR
               </span>
               <Input
-                className={`border-none pl-0 outline-none focus:shadow-none ${showReturn && 'font-semibold text-blue-950'}`}
+                className={`border-none pl-0 outline-none focus:shadow-none focus:outline-none focus:ring-0 ${showReturn && 'font-semibold text-blue-950'}`}
                 type="text"
                 readOnly
                 value={toValue}

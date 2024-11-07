@@ -45,6 +45,12 @@ export default function LeadModal({
         setOpenModal(true)
         document.body.style.overflow = 'hidden'
       }, showDelay)
+
+      setTimeout(() => {
+        const inputElement = document.getElementById('leadPhoneInputRef')
+        inputElement?.blur()
+        inputElement?.focus()
+      }, showDelay + 200)
     }
   }, [screens, showDelay])
 
@@ -157,11 +163,6 @@ export default function LeadModal({
                   src={country?.flags?.png}
                   alt="flag"
                 />
-                {/* <Image
-                  src={leadSecondModal}
-                  alt="modal-banner"
-                  className="mb-6 mt-8 w-full"
-                /> */}
               </div>
             </div>
             <div className="mb-2 mt-8">
@@ -192,7 +193,7 @@ export default function LeadModal({
           country={'md'}
           value={phone}
           inputProps={{
-            autoFocus: true,
+            id: 'leadPhoneInputRef',
           }}
           onChange={handlePhoneChange}
         />

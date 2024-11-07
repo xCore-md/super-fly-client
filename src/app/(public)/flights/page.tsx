@@ -70,7 +70,7 @@ export default function Flights() {
         <FlightsTabs loading={loading} />
       </>
 
-      <LeadModal delay={2000} country={country} />
+      <LeadModal delay={1000} country={country} />
     </div>
   )
 }

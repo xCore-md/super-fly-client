@@ -127,6 +127,7 @@ export function SearchDatePicker(props: IProps) {
         field="date_from"
         onChange={handleChangeFrom}
         onClear={handleClearField}
+        isFirstField
       />
       <PickerField
         title="retur"
@@ -165,6 +166,7 @@ interface IPickerField {
   onChange: any
   onClear: () => void
   isReturnFlight?: boolean
+  isFirstField?: boolean
 }
 
 const PickerField = (props: IPickerField) => {
@@ -177,6 +179,7 @@ const PickerField = (props: IPickerField) => {
     onChange,
     onClear,
     isReturnFlight,
+    isFirstField,
   } = props
 
   const onFieldClick = useCallback(() => onClickField(), [onClickField])
@@ -190,13 +193,13 @@ const PickerField = (props: IPickerField) => {
     >
       <div className="flex w-full flex-col items-start">
         <span
-          className={`text-[8px] font-semibold uppercase  ${openFields[field] || isReturnFlight ? 'text-brand-blue' : 'text-gray-400'}`}
+          className={`text-[8px] font-semibold uppercase  ${openFields[field] || isFirstField || isReturnFlight ? 'text-brand-blue' : 'text-gray-400'}`}
         >
           {title}
         </span>
 
         <Input
-          className="customInput relative h-5 w-full min-w-full border-none pb-0 pl-0 pr-1 pt-0 text-xs font-bold text-blue-950 outline-none focus:border-0 focus:shadow-none focus:outline-none md:text-xxs"
+          className={`customInput ${isFirstField || isReturnFlight ? 'activeCustomInput' : ''} relative h-5 w-full min-w-full border-none pb-0 pl-0 pr-1 pt-0 text-xs font-bold text-blue-950 outline-none placeholder:text-slate-900 focus:border-0 focus:shadow-none focus:outline-none md:text-xxs`}
           type="text"
           value={value}
           readOnly
@@ -215,7 +218,11 @@ const PickerField = (props: IPickerField) => {
       >
         <Image
           className="min-w-4"
-          src={openFields[field] || isReturnFlight ? calendarBlue : calendar}
+          src={
+            openFields[field] || isFirstField || isReturnFlight
+              ? calendarBlue
+              : calendar
+          }
           alt="image"
           width={28}
           height={28}

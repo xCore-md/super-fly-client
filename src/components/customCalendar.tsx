@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
 import dayjs from 'dayjs'
+import { cn } from '@/lib/utils'
 
 interface IProps {
   onChange: any
@@ -20,12 +21,14 @@ export function CustomCalendar({
   const [currentDate, setCurrentDate] = useState(dayjs())
 
   useEffect(() => {
-    if (fromDate && fromDate.isAfter(dayjs(), 'day')) {
+    setCurrentDate(date || dayjs())
+  }, [date])
+
+  useEffect(() => {
+    if (fromDate && !date) {
       setCurrentDate(fromDate)
-    } else {
-      setCurrentDate(date || dayjs()) // Default to today
     }
-  }, [date, fromDate])
+  }, [])
 
   const onPrevMonth = () => {
     setCurrentDate(currentDate.subtract(1, 'month'))
@@ -79,22 +82,18 @@ export function CustomCalendar({
     )
   }
 
-  const selectedDateClass = () => {
-    const today = dayjs().startOf('day')
-
-    if (currentDate.format('DD.MM.YYYY') === today.format('DD.MM.YYYY')) {
-      return 'calendar-selected-today'
-    }
-    if (currentDate.isAfter(today)) {
-      return 'calendar-selected'
-    }
-  }
-
   return (
     <Calendar
       headerRender={customHeader}
       value={currentDate}
-      className={`customCalendar custom-shadow ${className} ${selectedDateClass()} ${fromDate && 'disabled-today'}`}
+      className={cn(
+        `customCalendar custom-shadow`,
+        className,
+        !currentDate.isSame(date, 'month') && 'not-current-month',
+        date && !fromDate && 'selected-from-date',
+        fromDate && date && 'selected-to-date',
+        fromDate && 'disabled-from-date'
+      )}
       onChange={handleChange}
       fullscreen={false}
       disabledDate={disabledDates}
