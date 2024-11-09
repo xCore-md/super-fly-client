@@ -67,11 +67,11 @@ export const BlogList = (props: IBlogListProps) => {
         />
       )}
       <div
-        className={`mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid ${isBlogPage ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} lg:gap-x-5 lg:gap-y-12 lg:overflow-visible lg:pr-0`}
+        className={`no-scrollbar -ml-5 mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid ${isBlogPage ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} lg:gap-x-5 lg:gap-y-12 lg:overflow-visible lg:pr-0`}
       >
         {itemsForRender?.map(({ title, shortText, img }, index) => (
           <Link
-            className="snap-center [&_img]:hover:scale-110"
+            className="snap-center first:pl-5 [&_img]:hover:scale-110"
             key={index}
             href={`/blog/${index}`}
           >
