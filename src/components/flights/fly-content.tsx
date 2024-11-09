@@ -9,8 +9,8 @@ import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useReservationContext } from '@/context/reservation-context'
-import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
+import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 
 export const FlyContent = (props: any) => {
   const pathname = usePathname()
@@ -494,7 +494,7 @@ export const FlyContent = (props: any) => {
             )}
             {!isAdminPanel && (
               <div className="hidden justify-between gap-5 text-xxs lg:flex">
-                <Link href="https://wa.me/37360456654" className="flex">
+                <Link href="https://wa.me/37360851555" className="flex">
                   <Image
                     className="object-contain animate-normal animate-duration-[1100ms] animate-fill-forwards animate-infinite animate-ease-in-out group-hover:animate-jump-in"
                     width={16}
@@ -505,7 +505,7 @@ export const FlyContent = (props: any) => {
                   <p className="pl-1">Whatsapp</p>
                 </Link>
 
-                <Link href="viber://chat/?number=+37360456654" className="flex">
+                <Link href="viber://chat/?number=+37360851555" className="flex">
                   <Image
                     className="object-contain animate-normal animate-duration-[1100ms] animate-infinite animate-ease-in-out group-hover:animate-jump-in"
                     width={16}
