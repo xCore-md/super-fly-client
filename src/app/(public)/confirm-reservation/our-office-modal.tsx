@@ -6,6 +6,7 @@ import clock from '@/assets/img/clock.svg'
 import mail from '@/assets/img/mail.svg'
 import marker from '@/assets/img/marker.svg'
 import phone from '@/assets/img/phone.svg'
+import wazeSvg from '@/assets/img/waze.svg'
 import { Button } from '@components/ui/button'
 
 const OurOfficeModal = () => {
@@ -43,7 +44,7 @@ const OurOfficeModal = () => {
         <h2 className="mt-4 text-center text-2xl font-semibold text-brand-blue">
           Contactează-ne
         </h2>
-        <div className="rounded-2xl bg-white p-12 shadow-md">
+        <div className="rounded-2xl bg-white p-12 px-4 shadow-md md:px-6">
           <ul className="flex flex-col gap-6">
             <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <Link
@@ -78,7 +79,7 @@ const OurOfficeModal = () => {
               </div>
               <Image src={marker} alt="icon" />
             </li>
-            <li className="flex w-full justify-between ">
+            <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <div className="flex items-center gap-4">
                 <span className="text-sm font-semibold">
                   Graficul de lucru:
@@ -88,6 +89,19 @@ const OurOfficeModal = () => {
                 </span>
               </div>
               <Image src={clock} alt="icon" />
+            </li>
+
+            <li className="flex w-full justify-between ">
+              <div className="flex w-full items-center gap-4">
+                <Link
+                  className="flex h-9 w-full items-center justify-center gap-1 rounded-full shadow-[0px_0px_10px_2px_#edf2f7] hover:shadow-[0px_0px_4px_2px_#edf2f7]"
+                  href="https://ul.waze.com/ul?place=ChIJgS247y18yUAROm5LSCzbOec&ll=47.01957610%2C28.82871940&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
+                  target={'_blank'}
+                >
+                  <div className="">Navighează cu Waze</div>
+                  <Image src={wazeSvg} alt={'waze'} width={18} />
+                </Link>
+              </div>
             </li>
           </ul>
         </div>
