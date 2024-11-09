@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import dayjs from 'dayjs'
@@ -16,7 +17,6 @@ import {
 } from '@/components/ui/collapsible'
 import { useFlightContext } from '@/context/flight-context'
 import { Button } from './ui/button'
-import Link from 'next/link'
 
 const CollapsibleBlock = ({
   offer,
@@ -163,7 +163,7 @@ const CollapsibleBlock = ({
               {offer.date_from && (
                 <div className="mt-4 flex flex-row justify-center gap-2 lg:mt-5 lg:hidden lg:flex-col lg:px-0">
                   <Link
-                    href="tel:+37360456654"
+                    href="tel:+37360851555"
                     className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white lg:hidden lg:w-full lg:justify-center  lg:px-0"
                   >
                     <span>Sunǎ acum</span>
