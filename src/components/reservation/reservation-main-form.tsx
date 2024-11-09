@@ -133,7 +133,7 @@ const PassengerForm = ({
         api.success({
           message: 'File uploaded successfully',
           description: `${info.file.name} file uploaded successfully`,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })
@@ -150,7 +150,7 @@ const PassengerForm = ({
         api.error({
           message: 'File upload failed',
           description: `${info.file.name} file upload failed.`,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })

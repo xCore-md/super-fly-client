@@ -30,7 +30,7 @@ export function ReservationCode({
     api.success({
       message: 'Success',
       description: 'Reservation code updated',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })

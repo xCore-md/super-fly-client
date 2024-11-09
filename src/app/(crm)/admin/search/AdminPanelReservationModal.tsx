@@ -32,7 +32,7 @@ export const AdminPanelReservationModal = ({
         api.success({
           message: 'Success',
           description: res.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -43,7 +43,7 @@ export const AdminPanelReservationModal = ({
         api.error({
           message: 'Eroare',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })

@@ -85,7 +85,7 @@ export default function LeadModal({
           message: '',
           description:
             'Vă mulțumim pentru interesul acordat! Operatorii noștri vă vor contacta în scurt timp!',
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 4,
           closable: true,
         })
@@ -96,7 +96,12 @@ export default function LeadModal({
         console.log({ err })
         api.error({
           message: 'Eroare',
-          description: 'A apărut o eroare, vă rugăm să încercați din nou!',
+          description: (
+            <div>
+              <h4 className="text-base font-medium">Atenție!</h4>
+              <p>Introduceți numărul de telefon corect ✅</p>
+            </div>
+          ),
           placement: 'topRight',
           closable: true,
         })
@@ -110,12 +115,12 @@ export default function LeadModal({
       open={openModal}
       maskClosable={closable}
       closable={closable}
-      height={closable ? 400 : 600}
+      height={closable ? 400 : 560}
       className={`home-drawer rounded-tl-[20px] rounded-tr-[20px] ${closable ? '' : 'blue-bg'}`}
     >
       {contextHolder}
       <div
-        className={`flex flex-col items-center text-center ${closable ? '' : 'pt-[50px]'}`}
+        className={`flex flex-col items-center text-center ${closable ? '' : 'pt-[30px]'}`}
       >
         {closable ? (
           <div className="flex flex-col items-center text-center">
@@ -169,7 +174,7 @@ export default function LeadModal({
               <Image className="px-4" src={leadModalCompanies} alt="img" />
             </div>
 
-            <div className="mb-1 mt-4 flex w-full items-start gap-2">
+            <div className="mb-1 mt-2 flex w-full items-start gap-2">
               <Image
                 width={20}
                 height={20}
@@ -185,7 +190,7 @@ export default function LeadModal({
           </div>
         )}
         <PhoneInput
-          containerClass="mt-4"
+          containerClass="mt-2"
           inputStyle={{
             width: '100%',
             border: '1px solid #E7E7E7',
@@ -199,7 +204,7 @@ export default function LeadModal({
         />
         <Button
           onClick={handleSubmit}
-          className="green-button  mt-6 h-10 w-full rounded-full  border-0 text-sm "
+          className="green-button  mt-4 h-10 w-full rounded-full  border-0 text-sm "
         >
           Obține ofertele
         </Button>

@@ -10,7 +10,7 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { Button, Drawer, notification } from 'antd'
+import { Button, Drawer, Input, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import PhoneInput from 'react-phone-input-2'
@@ -59,6 +59,7 @@ export const SearchBar = ({
   const [openFields, setOpenFields] = useState<ISearchField>(initialFieldsState)
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [drawerState, setDrawerState] = useState('')
+  const [phoneValue, setPhoneValue] = useState('')
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
@@ -70,6 +71,7 @@ export const SearchBar = ({
     const inputElement = document.getElementById('phoneInputRef')
     inputElement?.focus()
     document.body.style.overflow = 'auto'
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const router = useRouter()
@@ -225,7 +227,7 @@ export const SearchBar = ({
       api.error({
         message: 'Message',
         description: 'Toate campurile sunt obligatorii',
-        placement: 'bottomRight',
+        placement: 'topRight',
         duration: 3,
         closable: true,
       })
@@ -359,6 +361,16 @@ export const SearchBar = ({
   const isPhoneFieldVisible =
     isHomePage && isTablet && !!fly_to.city && !!date_from && !!adults
 
+  const handleChangePhoneNumber = useCallback((e: any) => {
+    const inputValue = e.target.value
+
+    // Allow only numbers and a single "+" at the start
+    if (/^(?:\+)?\d*$/.test(inputValue)) {
+      setPhoneValue(inputValue)
+      formik.setFieldValue('phone', inputValue)
+    }
+  }, [])
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
       {contextHolder}
@@ -388,7 +400,7 @@ export const SearchBar = ({
         className={`relative flex w-full max-w-[861px] items-center ${openFields.fly_from ? 'rounded-bottom-left-none' : ''} ${openFields.passengers ? 'rounded-bottom-right-none' : ''} lg:h-[45px] lg:w-auto lg:rounded-full lg:bg-white lg:pr-1 lg:shadow-lg`}
       >
         <div className="flex w-full flex-col items-center justify-between lg:flex-row">
-          <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col max-[1024px]:gap-0">
+          <div className="flex flex-row max-[1024px]:w-full max-[1024px]:flex-col">
             <SearchInput
               switchCities={switchCities}
               formik={formik}
@@ -432,19 +444,12 @@ export const SearchBar = ({
           />
 
           {isPhoneFieldVisible && (
-            <PhoneInput
-              onChange={(p) => formik.setFieldValue(`phone`, p)}
-              inputStyle={{
-                width: '100%',
-                height: '46px',
-                border: 'transparent',
-                borderRadius: 50,
-              }}
-              inputProps={{
-                id: 'phoneInputRef',
-              }}
-              country={'md'}
-              containerClass="home-search-phone mt-2"
+            <Input
+              id="phoneInputRef"
+              value={phoneValue}
+              placeholder="Introduceți numărul de telefon"
+              className="mt-2 h-[46px] w-full rounded-full border-none pl-4 font-semibold outline-none focus:shadow-none focus:outline-none focus:ring-0"
+              onChange={handleChangePhoneNumber}
             />
           )}
 

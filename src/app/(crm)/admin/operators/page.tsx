@@ -26,7 +26,7 @@ export default function Operators() {
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })
@@ -68,7 +68,7 @@ export default function Operators() {
           api.success({
             message: 'Message',
             description: `User ${res.data.name} created successfully`,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })
@@ -79,7 +79,7 @@ export default function Operators() {
           api.error({
             message: 'Error',
             description: err.response.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })

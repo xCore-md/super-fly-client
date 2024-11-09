@@ -41,7 +41,7 @@ export default function Login() {
           api.error({
             message: 'Error',
             description: err.response.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })
@@ -80,7 +80,7 @@ export default function Login() {
           api.success({
             message: 'Success',
             description: res.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 3,
             closable: true,
           })
@@ -90,7 +90,7 @@ export default function Login() {
           api.error({
             message: 'Error',
             description: err.response.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })

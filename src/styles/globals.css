@@ -750,3 +750,19 @@ body {
     }
   }
 }
+
+
+.ant-notification-notice-wrapper {
+  .ant-notification-notice  {
+    padding: 10px !important;
+  }
+  
+  .ant-notification-notice-close {
+    top: 10px !important;
+    right: 10px !important;
+  }
+  
+  .ant-notification-notice-description {
+    padding-right: 36px !important;
+  }
+}

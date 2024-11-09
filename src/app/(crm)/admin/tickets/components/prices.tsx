@@ -32,7 +32,7 @@ export const PricesContent = ({
     api.success({
       message: 'Success',
       description: 'Price updated',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })

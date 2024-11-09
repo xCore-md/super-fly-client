@@ -66,7 +66,7 @@ export const refetchPassengers = ({
       api.success({
         message: 'Lista de pasageri a fost actualizată cu succes',
         description: res.data.message,
-        placement: 'bottomRight',
+        placement: 'topRight',
         duration: 3,
         closable: true,
       })
@@ -76,7 +76,7 @@ export const refetchPassengers = ({
       api.error({
         message: 'Lista de pasageri nu a putut fi actualizată cu succes',
         description: err.response.data.message,
-        placement: 'bottomRight',
+        placement: 'topRight',
         duration: 2,
         closable: true,
       })
@@ -132,7 +132,7 @@ export const PassengersContent = ({
         api.success({
           message: 'Pasagerul a fost adăugat cu succes',
           description: res.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -147,7 +147,7 @@ export const PassengersContent = ({
         api.error({
           message: 'Nu s-a putut adăuga pasagerul',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })
@@ -162,7 +162,7 @@ export const PassengersContent = ({
         api.success({
           message: 'Pasagerul a fost șters cu succes',
           description: res.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -176,7 +176,7 @@ export const PassengersContent = ({
         api.error({
           message: 'Nu s-a putut șterge pasagerul',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })
@@ -294,7 +294,7 @@ const PassengerFields = ({
     api.success({
       message: 'Success',
       description: 'Pasagerul a fost actualizat cu succes',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })

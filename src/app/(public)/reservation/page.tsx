@@ -137,7 +137,7 @@ export default function Reservation() {
               message: 'Error',
               description:
                 'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
-              placement: 'bottomRight',
+              placement: 'topRight',
               duration: 3,
               closable: true,
             })

@@ -26,7 +26,7 @@ export const BaggageComponent = ({
     api.success({
       message: 'Success',
       description: 'Baggage updated successfully',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })
@@ -55,7 +55,7 @@ export const BaggageComponent = ({
     api.success({
       message: 'Success',
       description: 'Baggage added successfully',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })
@@ -68,7 +68,7 @@ export const BaggageComponent = ({
     api.success({
       message: 'Success',
       description: 'Baggage deleted successfully',
-      placement: 'bottomRight',
+      placement: 'topRight',
       duration: 3,
       closable: true,
     })

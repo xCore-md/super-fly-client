@@ -44,7 +44,7 @@ export const SearchTable = () => {
           api.error({
             message: 'Message',
             description: err.response.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 3,
             closable: true,
           })

@@ -53,7 +53,7 @@ export const UserCard = ({ user, setUsers }: any) => {
           api.success({
             message: 'Message',
             description: `User ${user.name} updated successfully`,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           }),
@@ -63,7 +63,7 @@ export const UserCard = ({ user, setUsers }: any) => {
           api.error({
             message: 'Error',
             description: err.response.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })
@@ -102,7 +102,7 @@ export const UserCard = ({ user, setUsers }: any) => {
           api.success({
             message: 'Message',
             description: res.data.message,
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })
@@ -112,7 +112,7 @@ export const UserCard = ({ user, setUsers }: any) => {
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })

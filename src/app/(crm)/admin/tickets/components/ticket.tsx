@@ -40,7 +40,7 @@ export const Ticket = ({
         api.success({
           message: 'Success',
           description: 'Comment updated',
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -49,7 +49,7 @@ export const Ticket = ({
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -65,7 +65,7 @@ export const Ticket = ({
           api.success({
             message: 'Success',
             description: 'User updated',
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 3,
             closable: true,
           })
@@ -84,7 +84,7 @@ export const Ticket = ({
         api.success({
           message: 'Success',
           description: 'User status updated',
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })
@@ -93,7 +93,7 @@ export const Ticket = ({
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 3,
           closable: true,
         })

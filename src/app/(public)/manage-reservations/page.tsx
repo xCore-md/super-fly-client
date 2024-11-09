@@ -30,7 +30,7 @@ export default function ManageReservations() {
           api.error({
             message: 'Error',
             description: 'Invalid code or email',
-            placement: 'bottomRight',
+            placement: 'topRight',
             duration: 2,
             closable: true,
           })

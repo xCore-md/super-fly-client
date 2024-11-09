@@ -66,7 +66,7 @@ export default function Kanban() {
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })
@@ -85,7 +85,7 @@ export default function Kanban() {
         api.error({
           message: 'Error',
           description: err.response.data.message,
-          placement: 'bottomRight',
+          placement: 'topRight',
           duration: 2,
           closable: true,
         })

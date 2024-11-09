@@ -102,7 +102,7 @@ export const CrmHeader = () => {
                 ],
               }}
               trigger={['click']}
-              placement="bottomRight"
+              placement="topRight"
             >
               <Button
                 type="primary"
