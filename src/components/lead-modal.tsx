@@ -32,6 +32,7 @@ export default function LeadModal({
   const onClose = () => {
     setOpenModal(false)
     document.body.style.overflow = 'auto'
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const showDelay = delay || 2000
 
@@ -45,14 +46,22 @@ export default function LeadModal({
         setOpenModal(true)
         document.body.style.overflow = 'hidden'
       }, showDelay)
-
-      setTimeout(() => {
-        const inputElement = document.getElementById('leadPhoneInputRef')
-        inputElement?.blur()
-        inputElement?.focus()
-      }, showDelay + 200)
     }
   }, [screens, showDelay])
+
+  const afterOpenChange = useCallback((open: boolean) => {
+    if (open) {
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur()
+      }
+
+      const leadPhoneInputRef = document.getElementById('leadPhoneInputRef')
+
+      if (leadPhoneInputRef) {
+        leadPhoneInputRef?.focus()
+      }
+    }
+  }, [])
 
   const handlePhoneChange = useCallback((phone: string) => {
     return setPhone(phone)
@@ -112,6 +121,7 @@ export default function LeadModal({
     <Drawer
       placement="bottom"
       onClose={onClose}
+      afterOpenChange={afterOpenChange}
       open={openModal}
       maskClosable={closable}
       closable={closable}

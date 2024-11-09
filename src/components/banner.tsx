@@ -79,7 +79,7 @@ export const Banner = () => {
           <SearchBarWithTabs />
         </div>
       </div>
-      <LeadModal closable />
+      <LeadModal delay={1000} closable />
     </section>
   )
 }

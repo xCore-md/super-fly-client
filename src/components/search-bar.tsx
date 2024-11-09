@@ -13,7 +13,6 @@ import {
 import { Button, Drawer, Input, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
-import PhoneInput from 'react-phone-input-2'
 import searchBlack from '@/assets/img/search-black.svg'
 import search from '@/assets/img/search.svg'
 import { useFlightContext } from '@/context/flight-context'
@@ -26,7 +25,6 @@ import { SearchComponents } from './search/search-components'
 import { SearchDatePicker } from './search-components-desktop/search-date-picker'
 import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
-import 'react-phone-input-2/lib/style.css'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -336,7 +334,6 @@ export const SearchBar = ({
 
   const onClickField = (field: string) => {
     if (window.innerWidth <= 1024) {
-      document.body.focus()
       openDrawer(field)
     } else {
       setOpenSpecificField(field)
