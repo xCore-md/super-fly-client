@@ -49,20 +49,6 @@ export default function LeadModal({
     }
   }, [screens, showDelay])
 
-  const afterOpenChange = useCallback((open: boolean) => {
-    if (open) {
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur()
-      }
-
-      const leadPhoneInputRef = document.getElementById('leadPhoneInputRef')
-
-      if (leadPhoneInputRef) {
-        leadPhoneInputRef?.focus()
-      }
-    }
-  }, [])
-
   const handlePhoneChange = useCallback((phone: string) => {
     return setPhone(phone)
   }, [])
@@ -117,12 +103,19 @@ export default function LeadModal({
       })
   }, [phone, api, closable])
 
+  const afterOpenChange = (open: boolean) => {
+    if (open) {
+      const inputElement = document.getElementById('leadPhoneInputRef')
+      inputElement?.focus()
+    }
+  }
+
   return (
     <Drawer
       placement="bottom"
       onClose={onClose}
-      afterOpenChange={afterOpenChange}
       open={openModal}
+      afterOpenChange={afterOpenChange}
       maskClosable={closable}
       closable={closable}
       height={closable ? 400 : 560}
@@ -207,8 +200,10 @@ export default function LeadModal({
           }}
           country={'md'}
           value={phone}
+          onFocus={() => document.getElementById('leadPhoneInputRef')?.focus()}
           inputProps={{
             id: 'leadPhoneInputRef',
+            tabIndex: 0,
           }}
           onChange={handlePhoneChange}
         />

@@ -58,6 +58,7 @@ export const SearchBar = ({
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
+  const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
@@ -70,6 +71,11 @@ export const SearchBar = ({
     inputElement?.focus()
     document.body.style.overflow = 'auto'
     window.scrollTo({ top: 0, behavior: 'smooth' })
+    const storage = localStorage.getItem('lead')
+    if (storage) {
+      const phone = JSON.parse(storage).phone || false
+      setIsPhoneInputVisible(!!phone)
+    }
   }
 
   const router = useRouter()
@@ -239,35 +245,6 @@ export const SearchBar = ({
     )
 
     if (isHomePage) {
-      const {
-        fly_from,
-        fly_to,
-        date_from,
-        return_to,
-        adults,
-        children,
-        infants,
-        phone,
-      } = formik.values
-      const data = {
-        phone,
-        flight_from: fly_from?.code,
-        flight_to: fly_to?.code,
-        date_from: dayjs(date_from).format('DD.MM.YYYY'),
-        return_to: return_to ? dayjs(return_to).format('DD.MM.YYYY') : '',
-        adults,
-        children,
-        infants,
-        expirationAt: dayjs(),
-      }
-      axs
-        .post('/create-lead', { ...data })
-        .then(() => {
-          localStorage.setItem('lead', JSON.stringify(data))
-        })
-        .catch((err) => {
-          console.log({ err })
-        })
       router.push('/flights')
     } else {
       setFlights([])
@@ -301,6 +278,42 @@ export const SearchBar = ({
         })
         .catch((err) => console.log({ err }))
     }
+
+    const storage = localStorage.getItem('lead')
+    if (storage || formik.values.phone) {
+      const phone =
+        formik.values.phone || (storage && JSON.parse(storage).phone) || ''
+
+      const {
+        fly_from,
+        fly_to,
+        date_from,
+        return_to,
+        adults,
+        children,
+        infants,
+      } = formik.values
+      const data = {
+        phone,
+        flight_from: fly_from?.code,
+        flight_to: fly_to?.code,
+        date_from: dayjs(date_from).format('DD.MM.YYYY'),
+        return_to: return_to ? dayjs(return_to).format('DD.MM.YYYY') : '',
+        adults,
+        children,
+        infants,
+        expirationAt: dayjs(),
+      }
+      axs
+        .post('/create-lead', { ...data })
+        .then(() => {
+          localStorage.setItem('lead', JSON.stringify(data))
+        })
+        .catch((err) => {
+          console.log({ err })
+        })
+    }
+
     closeAllFields()
   }
 
@@ -355,8 +368,21 @@ export const SearchBar = ({
 
   const { fly_to, adults, date_from } = formik.values
 
+  useEffect(() => {
+    const storage = localStorage.getItem('lead')
+    if (storage) {
+      const phone = JSON.parse(storage).phone || false
+      setIsPhoneInputVisible(!!phone)
+    }
+  }, [isPhoneInputVisible])
+
   const isPhoneFieldVisible =
-    isHomePage && isTablet && !!fly_to.city && !!date_from && !!adults
+    isHomePage &&
+    isTablet &&
+    !!fly_to.city &&
+    !!date_from &&
+    !!adults &&
+    !isPhoneInputVisible
 
   const handleChangePhoneNumber = useCallback((e: any) => {
     const inputValue = e.target.value
