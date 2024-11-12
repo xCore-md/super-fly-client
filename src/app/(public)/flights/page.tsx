@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import LeadModal from '@/components/lead-modal'
+import { useFlightTypeContext } from '@/context/flight-type-context'
 import { useFlightsContext } from '@/context/flights-context'
 import axs from '@/lib/axios'
 import { convertToSearchQuery } from '@/lib/utils'
@@ -14,6 +15,7 @@ export default function Flights() {
   const [loading, setLoading] = useState(true)
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [country, setCountry] = useState([])
+  const { flightType } = useFlightTypeContext()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -64,9 +66,13 @@ export default function Flights() {
     <div className="lg:mt-0">
       <>
         <Header setLoading={setLoading} />
-        <div className="relative z-0 animate-fade-down px-4 fill-mode-forwards">
-          <FlightsCarousel />
-        </div>
+        {flightType === 0 ? (
+          <div className="relative z-0 animate-fade-down px-4 fill-mode-forwards">
+            <FlightsCarousel />
+          </div>
+        ) : (
+          <div className="mt-5"></div>
+        )}
         <FlightsTabs loading={loading} />
       </>
 

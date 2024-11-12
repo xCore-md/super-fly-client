@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useFlightTypeContext } from '@/context/flight-type-context'
 import { SearchBar } from '@components/search-bar'
 
 export const SearchBarWithTabs = ({
@@ -10,6 +11,7 @@ export const SearchBarWithTabs = ({
   setLoading?: (loading: boolean) => void
 }) => {
   const [isReturnFlight, setIsReturnFlight] = useState(false)
+  const { setFlightType } = useFlightTypeContext()
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -24,6 +26,7 @@ export const SearchBarWithTabs = ({
 
   const handleChangeTab = (tab: boolean) => {
     setIsReturnFlight(tab)
+    setFlightType(tab ? 1 : 0)
   }
 
   return (

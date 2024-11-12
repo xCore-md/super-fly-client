@@ -6,6 +6,7 @@ import React from 'react'
 import dayjs, { Dayjs } from 'dayjs'
 import crossSvg from '@/assets/img/cross.svg'
 import { useFlightContext } from '@/context/flight-context'
+import { useFlightTypeContext } from '@/context/flight-type-context'
 import { cn, setToGreenwichMidnight } from '@/lib/utils'
 import {
   CalendarPrice,
@@ -21,11 +22,11 @@ import {
 import { Skeleton } from '@components/ui/skeleton'
 
 export const FlightsCarousel = () => {
+  const { flightType } = useFlightTypeContext()
   const { flight, searchBarRef } = useFlightContext()
   const [prices, setPrices] = useState<CalendarPrice[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [storageFlight, setStorageFlight] = useState<any>(null)
-  const [selected, setSelected] = useState<boolean>(false)
 
   useEffect(() => {
     const storage = localStorage?.getItem('flight')
@@ -36,20 +37,19 @@ export const FlightsCarousel = () => {
 
   const isDisabled = (price: number | undefined) => price === undefined
 
-  const isSelected = (index: number) =>
-    index ===
-      prices?.findIndex((p) =>
-        dayjs(p.date).isSame(
-          dayjs(flight.date_from) || dayjs(storageFlight?.date_from),
-          'day'
-        )
-      ) || false
+  const isSelected = (index: number) => {
+    return (
+      index ===
+        prices?.findIndex((p) =>
+          dayjs(p.date).isSame(
+            dayjs(flight.date_from) || dayjs(storageFlight?.date_from),
+            'day'
+          )
+        ) || false
+    )
+  }
 
-  const handleCarouselSelect = (
-    selectedFlight: CalendarPrice,
-    selected: boolean
-  ) => {
-    setSelected(selected)
+  const handleCarouselSelect = (selectedFlight: CalendarPrice) => {
     if (isDisabled(selectedFlight.ratedPrice.price.amount)) return
 
     searchBarRef.current?.updateFormDates(
@@ -107,6 +107,8 @@ export const FlightsCarousel = () => {
     handleFetchPrices()
   }, [flight, storageFlight])
 
+  if (flightType === 1) return
+
   return (
     <div className="relative z-10 mx-auto mt-8 w-full max-w-[780px] px-9 md:mt-24 lg:px-0">
       {loading || !prices || !prices.length ? (
@@ -120,7 +122,7 @@ export const FlightsCarousel = () => {
           <Carousel
             opts={{
               align: 'center',
-              active: selected,
+              startIndex: 2,
             }}
             className="mx-auto max-w-[640px]"
           >
@@ -128,9 +130,7 @@ export const FlightsCarousel = () => {
               {prices?.map((flight, index) => (
                 <CarouselItem
                   key={index}
-                  onClick={() =>
-                    handleCarouselSelect(flight, isSelected(index))
-                  }
+                  onClick={() => handleCarouselSelect(flight)}
                   className={cn(
                     `relative flex basis-1/4 cursor-pointer justify-center px-0 py-4 transition-all duration-200 ease-out lg:basis-1/7`,
                     { carouselSelectorItem: !isSelected(index) }

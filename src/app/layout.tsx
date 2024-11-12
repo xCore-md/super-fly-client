@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import '../styles/globals.css'
 import React from 'react'
 import { FlightContextProvider } from '@/context/flight-context'
+import { FlightTypeContextProvider } from '@/context/flight-type-context'
 import { FlightsContextProvider } from '@/context/flights-context'
 import { LoadingContextProvider } from '@/context/loading-context'
 import { ReservationContextProvider } from '@/context/reservation-context'
@@ -33,11 +34,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LoadingContextProvider>
-          <ReservationContextProvider>
-            <FlightsContextProvider>
-              <FlightContextProvider>{children}</FlightContextProvider>
-            </FlightsContextProvider>
-          </ReservationContextProvider>
+          <FlightTypeContextProvider>
+            <ReservationContextProvider>
+              <FlightsContextProvider>
+                <FlightContextProvider>{children}</FlightContextProvider>
+              </FlightsContextProvider>
+            </ReservationContextProvider>
+          </FlightTypeContextProvider>
         </LoadingContextProvider>
       </body>
     </html>

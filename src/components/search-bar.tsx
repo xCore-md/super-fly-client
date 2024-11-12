@@ -315,6 +315,7 @@ export const SearchBar = ({
     }
 
     closeAllFields()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const switchCities = useCallback(() => {
