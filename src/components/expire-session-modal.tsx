@@ -19,7 +19,7 @@ export const ExpireSessionModal = memo(
 
     const useSessionConfig = React.useMemo(
       () => ({
-        duration: 1,
+        duration: 3 * 60,
         onExpire: () => {
           localStorage.removeItem('flight')
           localStorage.removeItem('lead')
