@@ -118,7 +118,7 @@ export default function LeadModal({
       afterOpenChange={afterOpenChange}
       maskClosable={closable}
       closable={closable}
-      height={closable ? 400 : 560}
+      height={closable ? 400 : 520}
       className={`home-drawer rounded-tl-[20px] rounded-tr-[20px] ${closable ? '' : 'blue-bg'}`}
     >
       {contextHolder}
