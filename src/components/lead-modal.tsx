@@ -29,10 +29,13 @@ export default function LeadModal({
   const [api, contextHolder] = notification.useNotification()
   const { flight } = useFlightContext()
 
-  const onClose = () => {
-    setOpenModal(false)
+  const scrollTopFunc = () => {
     document.body.style.overflow = 'auto'
     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const onClose = () => {
+    setOpenModal(false)
+    scrollTopFunc()
   }
   const showDelay = delay || 2000
 
@@ -73,9 +76,9 @@ export default function LeadModal({
     axs
       .post('/create-lead', { ...data })
       .then(() => {
-        document.body.style.overflow = 'auto'
         setOpenModal(false)
         setPhone('')
+
         api.success({
           message: '',
           description:
@@ -86,6 +89,8 @@ export default function LeadModal({
         })
 
         localStorage.setItem('lead', JSON.stringify(data))
+
+        scrollTopFunc()
       })
       .catch((err) => {
         console.log({ err })
