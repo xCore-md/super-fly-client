@@ -37,6 +37,13 @@ export function DatePickerComponent(props: any) {
   const handleChangeFrom = useCallback((value: any) => {
     setFromValue(dayjs(value).format('DD.MM.YYYY'))
     formik.setFieldValue('date_from', value)
+    if (
+      formik.values.return_to &&
+      dayjs(value).isAfter(dayjs(formik.values.return_to))
+    ) {
+      formik.setFieldValue('return_to', '')
+      setToValue('')
+    }
     if (isReturnFlight) {
       openDrawer('return_to')
     }

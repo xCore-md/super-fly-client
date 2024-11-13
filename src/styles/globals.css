@@ -108,6 +108,7 @@
 
 body {
   background: #fafafa;
+  user-select: none;
 }
 
 .block {

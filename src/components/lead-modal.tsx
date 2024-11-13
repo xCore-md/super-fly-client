@@ -94,8 +94,8 @@ export default function LeadModal({
       })
       .catch((err) => {
         console.log({ err })
-        api.error({
-          message: 'Eroare',
+        api.open({
+          message: '',
           description: (
             <div>
               <h4 className="text-base font-medium">Atenție!</h4>

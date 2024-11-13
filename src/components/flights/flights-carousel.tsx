@@ -7,6 +7,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import crossSvg from '@/assets/img/cross.svg'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightTypeContext } from '@/context/flight-type-context'
+import { useIsTablet } from '@/lib/hooks/usIsTablet'
 import { cn, setToGreenwichMidnight } from '@/lib/utils'
 import {
   CalendarPrice,
@@ -27,6 +28,7 @@ export const FlightsCarousel = () => {
   const [prices, setPrices] = useState<CalendarPrice[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [storageFlight, setStorageFlight] = useState<any>(null)
+  const isTablet = useIsTablet()
 
   useEffect(() => {
     const storage = localStorage?.getItem('flight')
@@ -122,7 +124,7 @@ export const FlightsCarousel = () => {
           <Carousel
             opts={{
               align: 'center',
-              startIndex: 2,
+              startIndex: isTablet ? 2 : 0,
             }}
             className="mx-auto max-w-[640px]"
           >

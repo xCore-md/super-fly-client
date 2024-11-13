@@ -263,18 +263,20 @@ export const SearchBar = ({
           },
         })
         .then((res) => {
-          const data = [...res.data.data].sort(
-            (a: any, b: any) => a.duration.total - b.duration.total
-          )
-          setFlights(data)
-          setInitialFlights(data)
-          setLoading?.(false)
-          closeDrawer()
-          if (res.data.data.length === 0) {
-            setIsNoFlights?.(true)
-          } else {
-            setIsNoFlights?.(false)
-          }
+          setFlights([])
+          setInitialFlights([])
+          setTimeout(() => {
+            const data = [...res.data.data]
+            setFlights(data)
+            setInitialFlights(data)
+            setLoading?.(false)
+            closeDrawer()
+            if (res.data.data.length === 0) {
+              setIsNoFlights?.(true)
+            } else {
+              setIsNoFlights?.(false)
+            }
+          }, 300)
         })
         .catch((err) => console.log({ err }))
     }

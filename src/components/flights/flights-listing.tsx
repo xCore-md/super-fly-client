@@ -16,6 +16,7 @@ interface IFlightsListingProps {
   withoutFlightNumber?: boolean
   withoutHeader?: boolean
   withoutFooter?: boolean
+  isSorting?: boolean
   pricePlacement?: 'top' | 'bottom'
   handleAdminPanelReservation?: () => void
 }
@@ -26,7 +27,7 @@ export const FlightsListing = (props: IFlightsListingProps) => {
   const elementsRef = useRef<(HTMLDivElement | null)[]>([])
   const isAdminPanel = useIsAdminPanel()
 
-  const data = pathname === '/reservation' ? flights?.slice(0, 3) : flights
+  const data = pathname === '/reservation' ? flights.slice(0, 3) : flights
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
@@ -56,7 +57,11 @@ export const FlightsListing = (props: IFlightsListingProps) => {
 
   if (!data?.length) return
 
-  return data
+  const sortedData = props.isSorting
+    ? data.sort((a: any, b: any) => a.duration.total - b.duration.total)
+    : data.sort((a: any, b: any) => a.price - b.price)
+
+  return sortedData
     ?.slice(0, props.flightsToShow)
     .map((flight: any, index: number) => (
       <div

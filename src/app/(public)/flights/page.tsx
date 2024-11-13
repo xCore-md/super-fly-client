@@ -16,6 +16,7 @@ export default function Flights() {
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [country, setCountry] = useState([])
   const { flightType } = useFlightTypeContext()
+  const [isSorting, setIsSorting] = useState(true)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -73,15 +74,22 @@ export default function Flights() {
         ) : (
           <div className="mt-5"></div>
         )}
-        <FlightsTabs loading={loading} />
+        <FlightsTabs
+          loading={loading}
+          isSorting={isSorting}
+          setIsSorting={setIsSorting}
+        />
       </>
 
       <LeadModal delay={1000} country={country} />
     </div>
   )
 }
+interface HeaderProps {
+  setLoading: any
+}
 
-const Header = ({ setLoading }: { setLoading: any }) => {
+const Header = ({ setLoading }: HeaderProps) => {
   return (
     <div className="relative p-4 pt-16 lg:px-10 lg:pt-12">
       <div className="absolute left-0 top-0 z-0 h-[380px] w-full rounded-b-[30px] bg-brand-blue lg:h-52"></div>

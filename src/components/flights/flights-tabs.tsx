@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Empty } from 'antd'
 import { useFlightsContext } from '@/context/flights-context'
 import { cn } from '@/lib/utils'
@@ -13,48 +13,34 @@ interface IFlightsTabsProps {
   loading?: boolean
   isNoFlights?: boolean
   handleAdminPanelReservation?: () => void
+  isSorting: boolean
+  // eslint-disable-next-line
+  setIsSorting: (isSorting: boolean) => void
 }
 export const FlightsTabs = ({
   className = '',
   loading,
   isNoFlights = false,
   handleAdminPanelReservation,
+  isSorting,
+  setIsSorting,
 }: IFlightsTabsProps) => {
-  const { flights, initialFlights, setFlights, setInitialFlights } =
-    useFlightsContext()
+  const { flights } = useFlightsContext()
 
-  const [isSorting, setIsSorting] = useState(true)
   const [flightsToShow, setFlightsToShow] = useState(10)
-
-  const toggleSorting = useCallback(() => {
-    if (isSorting) {
-      const data = [...initialFlights].sort(
-        (a: any, b: any) => a.price - b.price
-      )
-      setFlights(data)
-      setIsSorting(false)
-    } else {
-      const data = [...flights].sort(
-        (a: any, b: any) => a.duration.total - b.duration.total
-      )
-      setInitialFlights(flights)
-      setFlights(data)
-      setIsSorting(true)
-    }
-  }, [isSorting, flights, initialFlights, setFlights, setInitialFlights])
 
   return (
     <div className={cn('relative flex w-full justify-center', className)}>
       <div className="mt-6 w-full max-w-[861px] px-5 lg:mt-14 lg:px-0">
         <Tabs className="text-center" defaultValue="rapid">
           <TabsList className="custom-shadow mb-3 animate-fade rounded-full bg-white fill-mode-forwards">
-            <TabsTrigger value="rapid" onClick={toggleSorting}>
+            <TabsTrigger value="rapid" onClick={() => setIsSorting(true)}>
               Cel mai rapid
             </TabsTrigger>
             <TabsTrigger
               className=" text-blue-400"
               value="ieftin"
-              onClick={toggleSorting}
+              onClick={() => setIsSorting(false)}
             >
               Cel mai ieftin
             </TabsTrigger>
@@ -65,6 +51,7 @@ export const FlightsTabs = ({
               flightsToShow={flightsToShow}
               setFlightsToShow={setFlightsToShow}
               loading={loading}
+              isSorting={isSorting}
               isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
@@ -75,6 +62,7 @@ export const FlightsTabs = ({
               flightsToShow={flightsToShow}
               setFlightsToShow={setFlightsToShow}
               loading={loading}
+              isSorting={isSorting}
               isNoFlights={isNoFlights}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
@@ -115,6 +103,7 @@ function FlightListComponent({
   flightsToShow,
   setFlightsToShow,
   loading,
+  isSorting,
   isNoFlights,
   handleAdminPanelReservation,
 }: any) {
@@ -122,6 +111,7 @@ function FlightListComponent({
     <>
       <FlightsListing
         length={5}
+        isSorting={isSorting}
         flightsToShow={flightsToShow}
         handleAdminPanelReservation={handleAdminPanelReservation}
       />

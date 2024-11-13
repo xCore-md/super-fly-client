@@ -26,29 +26,9 @@ export function SearchDatePicker(props: IProps) {
 
   const [activeField, setActiveField] = useState('')
 
-  const [fromValue, setFromValue] = useState(
-    formik.values.date_from
-      ? dayjs(formik.values.date_from).format('DD.MM.YYYY')
-      : ''
-  )
-  const [toValue, setToValue] = useState(
-    formik.values.return_to
-      ? dayjs(formik.values.return_to).format('DD.MM.YYYY')
-      : ''
-  )
-
-  useEffect(() => {
-    if (formik.values.date_from) {
-      setFromValue(dayjs(formik.values.date_from).format('DD.MM.YYYY'))
-    }
-    if (formik.values.return_to) {
-      setToValue(dayjs(formik.values.return_to).format('DD.MM.YYYY'))
-    }
-  }, [formik.values.date_from, formik.values.return_to])
-
   useEffect(() => {
     if (!isReturnFlight) {
-      setToValue('')
+      formik.setFieldValue('return_to', '')
     }
   }, [isReturnFlight])
 
@@ -63,31 +43,33 @@ export function SearchDatePicker(props: IProps) {
 
   const handleCalendarChangeFrom = useCallback(
     (value: any) => {
-      setFromValue(dayjs(value).format('DD.MM.YYYY'))
       if (isReturnFlight) {
         onClickField('return_to')
       } else {
         onClickField('passengers')
       }
       formik.setFieldValue('date_from', value)
+
+      if (dayjs(value).isAfter(dayjs(formik.values.return_to))) {
+        formik.setFieldValue('return_to', '')
+      }
     },
-    [openFields, isReturnFlight]
+    [isReturnFlight, formik, onClickField]
   )
 
   const handleCalendarChangeTo = useCallback((value: any) => {
-    setToValue(dayjs(value).format('DD.MM.YYYY'))
     onClickField('passengers')
     formik.setFieldValue('return_to', value)
   }, [])
 
   const handleChangeFrom = useCallback((e: any) => {
     const { value } = e.target
-    setFromValue(value)
+    formik.setFieldValue('date_from', value)
   }, [])
 
   const handleChangeTo = useCallback((e: any) => {
     const { value } = e.target
-    setToValue(value)
+    formik.setFieldValue('return_to', value)
   }, [])
 
   const handleChangeActiveField = (field: string) => {
@@ -97,10 +79,8 @@ export function SearchDatePicker(props: IProps) {
 
   const handleClearField = () => {
     if (activeField === 'date_from') {
-      setFromValue('')
       formik.setFieldValue('date_from', '')
     } else {
-      setToValue('')
       formik.setFieldValue('return_to', '')
       setIsReturnFlight?.(false)
     }
@@ -122,7 +102,7 @@ export function SearchDatePicker(props: IProps) {
       <PickerField
         title="plecare"
         openFields={openFields}
-        value={fromValue}
+        value={formik.values.date_from}
         onClickField={() => handleChangeActiveField('date_from')}
         field="date_from"
         onChange={handleChangeFrom}
@@ -132,7 +112,7 @@ export function SearchDatePicker(props: IProps) {
       <PickerField
         title="retur"
         openFields={openFields}
-        value={toValue}
+        value={formik.values.return_to}
         onClickField={() => handleChangeActiveField('return_to')}
         field="return_to"
         onChange={handleChangeTo}
@@ -201,7 +181,7 @@ const PickerField = (props: IPickerField) => {
         <Input
           className={`customInput ${isFirstField || isReturnFlight ? 'activeCustomInput' : ''} relative h-5 w-full min-w-full border-none pb-0 pl-0 pr-1 pt-0 text-xs font-bold text-blue-950 outline-none placeholder:text-slate-900 focus:border-0 focus:shadow-none focus:outline-none md:text-xxs`}
           type="text"
-          value={value}
+          value={value ? dayjs(value).format('DD.MM.YYYY') : ''}
           readOnly
           id={field}
           placeholder={title === 'retur' ? placeholder : 'Alege data'}
