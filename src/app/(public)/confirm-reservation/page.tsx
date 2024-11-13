@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useMemo, useState } from 'react'
-import { Divider, Tooltip } from 'antd'
+import { Divider, Spin, Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import mastercardWhite from '@/assets/img/master-white.svg'
 import mastercard from '@/assets/img/mastercard.svg'
@@ -18,12 +18,17 @@ import { CHECK_IN_PRICE } from '@/lib/constants'
 import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  LoadingOutlined,
+} from '@ant-design/icons'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
   const { reservation: res } = useReservationContext()
   const [countries, setCountries] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const router = useRouter()
 
@@ -92,6 +97,9 @@ export default function ConfirmReservationPage() {
       .catch((err) => {
         console.log(err)
       })
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
   }, [])
 
   const getCountryName = () => {
@@ -102,6 +110,22 @@ export default function ConfirmReservationPage() {
   }
 
   if (!Object.keys(res).length) return router.push('/flights')
+
+  if (loading)
+    return (
+      <div className="relative z-[99999] flex w-full flex-col items-center justify-center pt-[50%]">
+        <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
+        <p className="z-[999999] text-center text-white">
+          Datele dumnevoastră sunt <br /> în curs de procesare...
+        </p>
+        <Spin
+          className="pt-10"
+          indicator={
+            <LoadingOutlined style={{ fontSize: 84, color: '#fff' }} spin />
+          }
+        />
+      </div>
+    )
 
   return (
     <section className="flex justify-center px-5 pb-20 pt-5 lg:pt-14">
