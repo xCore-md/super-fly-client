@@ -12,6 +12,7 @@ export default function Search() {
   const [loading, setLoading] = useState(false)
   const [isNoFlights, setIsNoFlights] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [isSorting, setIsSorting] = useState(true)
 
   const handleChangeLoading = (value: boolean) => {
     setLoading(value)
@@ -38,6 +39,8 @@ export default function Search() {
             loading={loading}
             isNoFlights={isNoFlights}
             className="-mt-16"
+            isSorting={isSorting}
+            setIsSorting={setIsSorting}
             handleAdminPanelReservation={handleAdminPanelReservation}
           />
           <AdminPanelReservationModal
