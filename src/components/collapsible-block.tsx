@@ -119,7 +119,7 @@ const CollapsibleBlock = ({
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
-            className={`-mt-10 rounded-b-[20px] bg-white px-5 pb-5 pt-10 ${isOpen(offer.title) ? 'custom-shadow-2 border-x-[1px] border-b-[1px]' : ''}`}
+            className={`animate-opacityBlock -mt-10 rounded-b-[20px] bg-white px-5 pb-5 pt-10 ${isOpen(offer.title) ? 'custom-shadow-2 border-x-[1px] border-b-[1px]' : ''}`}
           >
             <div className="grid-cols-7 items-center gap-4 pt-[18px] lg:grid">
               <div className="col-span-2 flex justify-between">

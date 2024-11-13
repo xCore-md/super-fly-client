@@ -82,10 +82,29 @@ const config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        waveShadow: {
+          '0%, 100%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.3)', scale: '1.04' },  // Small, faint shadow
+          '25%': { boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)' },       // Medium shadow
+          '50%': { boxShadow: '0 0 25px rgba(59, 130, 246, 0.7)' },       // Largest, most intense shadow
+          '75%': { boxShadow: '0 0 15px rgba(59, 130, 246, 0.5)', scale: '1' },       // Back to medium shadow
+        },
+        greenWaveShadow: {
+          '0%, 100%': { boxShadow: '0 0 5px rgba(17, 210, 164, 0.3)', scale: '1.01' },  // Small, faint shadow
+          '25%': { boxShadow: '0 0 15px rgba(17, 210, 164, 0.5)' },       // Medium shadow
+          '50%': { boxShadow: '0 0 25px rgba(17, 210, 164, 0.7)' },       // Largest, most intense shadow
+          '75%': { boxShadow: '0 0 15px rgba(17, 210, 164, 0.5)', scale: '1' },       // Back to medium shadow
+        },
+        opacityBlock: {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'waveShadow': 'waveShadow 1.5s ease-in-out infinite',
+        'greenWaveShadow': 'greenWaveShadow 1.5s ease-in-out infinite',
+        opacityBlock: 'opacityBlock 1s ease-out forwards',
       },
       flexBasis: {
         '1/7': '14.2857143%',

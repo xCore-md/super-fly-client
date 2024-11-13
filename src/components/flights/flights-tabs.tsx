@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Result } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
@@ -33,7 +33,10 @@ export const FlightsTabs = ({
   const [flightsToShow, setFlightsToShow] = useState(10)
 
   return (
-    <div className={cn('relative flex w-full justify-center', className)}>
+    <div
+      className={cn('relative flex w-full justify-center', className)}
+      id="searchResults"
+    >
       <div className="mt-6 w-full max-w-[861px] px-5 lg:mt-14 lg:px-0">
         <Tabs className="text-center" defaultValue="rapid">
           <TabsList className="custom-shadow mb-3 animate-fade rounded-full bg-white fill-mode-forwards">

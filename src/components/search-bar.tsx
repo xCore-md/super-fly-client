@@ -72,7 +72,6 @@ export const SearchBar = ({
     const inputElement = document.getElementById('phoneInputRef')
     inputElement?.focus()
     document.body.style.overflow = 'auto'
-    window.scrollTo({ top: 0, behavior: 'smooth' })
     const storage = localStorage.getItem('lead')
     if (storage) {
       const phone = JSON.parse(storage).phone || false
@@ -112,6 +111,20 @@ export const SearchBar = ({
       ...prevState,
       [field]: value,
     }))
+  }
+
+  const scrollToSearchResults = () => {
+    const resultsList = document.getElementById('searchResults')
+
+    const resultsOffset =
+      // @ts-ignore
+      resultsList?.getBoundingClientRect().top - window.scrollY
+    setTimeout(() => {
+      window.scrollTo({
+        top: resultsOffset - 60,
+        behavior: 'smooth',
+      })
+    }, 500)
   }
 
   useEffect(() => {
@@ -158,6 +171,8 @@ export const SearchBar = ({
         closeAllFields()
       }
     })
+
+    scrollToSearchResults()
   }, [])
 
   const [searchLoading, setSearchLoading] = useState(false)
@@ -319,7 +334,7 @@ export const SearchBar = ({
     }
 
     closeAllFields()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    scrollToSearchResults()
   }
 
   const switchCities = useCallback(() => {
@@ -406,6 +421,7 @@ export const SearchBar = ({
       <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
         {contextHolder}
         <Drawer
+          key={drawerState}
           open={!!drawerState}
           onClose={closeDrawer}
           placement="bottom"

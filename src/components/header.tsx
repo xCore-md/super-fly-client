@@ -57,7 +57,7 @@ export const Header = ({ menu }: IHeaderProps) => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="flex items-center">
+            <div className="animate-waveShadow flex items-center rounded-lg p-2">
               <div>
                 <Link
                   href={`tel:${tel}`}

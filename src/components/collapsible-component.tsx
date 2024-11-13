@@ -64,7 +64,7 @@ const CollapsibleComponent = (props: ICollapsibleComponentProps) => {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent
-        className={`-mt-10 rounded-b-[20px] bg-white px-4 pb-[14px] pt-14 md:px-8 md:pb-8 md:pt-16 ${isOpen(title) ? 'shadow-lg shadow-slate-200' : ''}`}
+        className={`animate-opacityBlock -mt-10 rounded-b-[20px] bg-white px-4 pb-[14px] pt-14 md:px-8 md:pb-8 md:pt-16 ${isOpen(title) ? 'shadow-lg shadow-slate-200' : ''}`}
       >
         <span className="md:text-md block text-sm text-gray-500">{text}</span>
       </CollapsibleContent>

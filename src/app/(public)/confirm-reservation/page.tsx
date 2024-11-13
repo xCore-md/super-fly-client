@@ -520,7 +520,7 @@ export default function ConfirmReservationPage() {
             </div>
           </div>
 
-          <div className="custom-shadow mt-8 rounded-xl bg-white p-3 lg:px-7 lg:py-9">
+          <div className="animate-greenWaveShadow custom-shadow mt-8 rounded-xl bg-white p-3 lg:px-7 lg:py-9 ">
             <h4 className="mb-[18px] text-base lg:mb-6">
               Selectați metoda de plată
             </h4>
