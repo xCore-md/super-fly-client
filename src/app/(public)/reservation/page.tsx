@@ -169,15 +169,6 @@ export default function Reservation() {
       })
   }, [])
 
-  if (
-    Object.keys(reservation).length === 0 ||
-    reservation?.date_from?.length === 0
-  ) {
-    return router.push('/flights')
-  }
-
-  const passengersCount = adults + children + infants
-
   const scrollOnClick = useCallback(() => {
     if (!formik.isValid) {
       const startForm = document.getElementById('startForm')
@@ -201,6 +192,15 @@ export default function Reservation() {
       })
     }
   }, [formik.isValid])
+
+  if (
+    Object.keys(reservation).length === 0 ||
+    reservation?.date_from?.length === 0
+  ) {
+    return router.push('/flights')
+  }
+
+  const passengersCount = adults + children + infants
 
   return (
     <form
