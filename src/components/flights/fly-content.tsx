@@ -11,6 +11,7 @@ import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useReservationContext } from '@/context/reservation-context'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
+import dayjs from 'dayjs'
 
 export const FlyContent = (props: any) => {
   const pathname = usePathname()
@@ -156,10 +157,10 @@ export const FlyContent = (props: any) => {
                   <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
                     {getTimeFromDate(startDirection[0].local_departure)}
                   </div>
-                  <div className="hidden text-xxs text-gray-700 lg:block">
-                    {startDirection[0].flyFrom}
+                  <div className="text-xxs text-gray-700">
+                    {dayjs(startDirection[0].local_departure).format('DD MMM')}
                   </div>
-                  <div className="text-xxs text-gray-700 lg:hidden">
+                  <div className="text-xxs text-gray-700">
                     {startDirection[0].cityFrom}
                   </div>
                 </div>
@@ -233,10 +234,12 @@ export const FlyContent = (props: any) => {
                       startDirection[startDirection.length - 1].local_arrival
                     )}
                   </div>
-                  <div className="hidden text-xxs text-gray-700 lg:block">
-                    {startDirection[startDirection.length - 1].flyTo}
+                  <div className="text-xxs text-gray-700">
+                    {dayjs(
+                      startDirection[startDirection.length - 1].local_arrival
+                    ).format('DD MMM')}
                   </div>
-                  <div className="text-xxs text-gray-700 lg:hidden">
+                  <div className="text-xxs text-gray-700">
                     {startDirection[startDirection.length - 1].cityTo}
                   </div>
                 </div>
@@ -339,7 +342,12 @@ export const FlyContent = (props: any) => {
                         {getTimeFromDate(endDirection?.[0].local_departure)}
                       </div>
                       <div className="text-xxs text-gray-700">
-                        {endDirection?.[0].flyFrom}
+                        {dayjs(endDirection?.[0].local_departure).format(
+                          'DD MMM'
+                        )}
+                      </div>
+                      <div className="text-xxs text-gray-700">
+                        {endDirection?.[0].cityFrom}
                       </div>
                     </div>
                     <div className="relative col-span-3 mt-2 lg:col-span-2">
@@ -413,7 +421,12 @@ export const FlyContent = (props: any) => {
                         )}
                       </div>
                       <div className="text-xxs text-gray-700">
-                        {endDirection[endDirection.length - 1].flyTo}
+                        {dayjs(
+                          endDirection[endDirection.length - 1].local_arrival
+                        ).format('DD MMM')}
+                      </div>
+                      <div className="text-xxs text-gray-700">
+                        {endDirection[endDirection.length - 1].cityTo}
                       </div>
                     </div>
                   </main>

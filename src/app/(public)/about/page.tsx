@@ -172,7 +172,7 @@ export default function About() {
               </ul>
             </div>
             <Link
-              href="#"
+              href="/"
               className="mt-6 flex h-11 items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white shadow-md shadow-slate-400 hover:opacity-90 lg:hidden"
             >
               <span>Rezervă acum</span>

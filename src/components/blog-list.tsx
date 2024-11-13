@@ -56,7 +56,7 @@ export const BlogList = (props: IBlogListProps) => {
       )}
     >
       <h2
-        className={`text-lg font-medium text-[#323232] lg:text-2xl ${subtitle ? 'mb-2' : 'mb-6'}`}
+        className={`text-lg font-medium text-[#323232] lg:text-2xl ${subtitle ? 'mb-2' : 'mb-3 lg:mb-6'}`}
       >
         {title}
       </h2>
@@ -67,7 +67,7 @@ export const BlogList = (props: IBlogListProps) => {
         />
       )}
       <div
-        className={`no-scrollbar -ml-5 mt-6 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 lg:grid ${isBlogPage ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} lg:gap-x-5 lg:gap-y-12 lg:overflow-visible lg:pr-0`}
+        className={`no-scrollbar -ml-5 mt-0 flex gap-x-3 gap-y-5 overflow-x-scroll pb-5 pr-4 pt-3 lg:mt-6 lg:grid ${isBlogPage ? 'lg:grid-cols-4' : 'lg:grid-cols-5'} lg:gap-x-5 lg:gap-y-12 lg:overflow-visible lg:pr-0`}
       >
         {itemsForRender?.map(({ title, shortText, img }, index) => (
           <Link
@@ -75,8 +75,8 @@ export const BlogList = (props: IBlogListProps) => {
             key={index}
             href={`/blog/${index}`}
           >
-            <Card className="custom-shadow h-full overflow-hidden rounded-t-[16px] transition-[.5s] hover:shadow-lg">
-              <CardHeader className="max-h-[302px] overflow-hidden rounded-t-xl p-0">
+            <Card className="custom-shadow h-full overflow-hidden rounded-[14px] transition-[.5s] hover:shadow-lg">
+              <CardHeader className="max-h-[302px] overflow-hidden rounded-t-[14px] p-0">
                 <Image
                   className="h-[177px] min-w-[171px] object-cover duration-300 ease-in-out lg:h-[270px]"
                   src={img}

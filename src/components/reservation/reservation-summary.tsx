@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import React, { ReactNode, useMemo } from 'react'
 import { Divider } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
+import { CHECK_IN_PRICE } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Button } from '@components/ui/button'
 import { ReservationTimer } from './reservation-timer'
-import { CHECK_IN_PRICE } from '@/lib/constants'
 
 export const ReservationSummary = ({
   reservation,

@@ -166,7 +166,7 @@ const CollapsibleBlock = ({
                     href="tel:+37360851555"
                     className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white lg:hidden lg:w-full lg:justify-center  lg:px-0"
                   >
-                    <span>Sunǎ acum</span>
+                    <span>Sună acum</span>
                   </Link>
                   <Button
                     onClick={handleSearch}

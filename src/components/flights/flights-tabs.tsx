@@ -1,8 +1,11 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { Button, Empty } from 'antd'
+import { Button, Result } from 'antd'
+import { useFlightContext } from '@/context/flight-context'
 import { useFlightsContext } from '@/context/flights-context'
+import { searchFields } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
@@ -53,6 +56,7 @@ export const FlightsTabs = ({
               loading={loading}
               isSorting={isSorting}
               isNoFlights={isNoFlights}
+              isFlightsListEmpty={flights.length === 0}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
           </TabsContent>
@@ -64,6 +68,7 @@ export const FlightsTabs = ({
               loading={loading}
               isSorting={isSorting}
               isNoFlights={isNoFlights}
+              isFlightsListEmpty={flights.length === 0}
               handleAdminPanelReservation={handleAdminPanelReservation}
             />
           </TabsContent>
@@ -104,7 +109,7 @@ function FlightListComponent({
   setFlightsToShow,
   loading,
   isSorting,
-  isNoFlights,
+  isFlightsListEmpty,
   handleAdminPanelReservation,
 }: any) {
   return (
@@ -132,9 +137,37 @@ function FlightListComponent({
       ) : (
         <div>
           {loading && <FlightsSkeleton count={5} />}{' '}
-          {!loading && isNoFlights && <Empty />}
+          {!loading && isFlightsListEmpty && <NoResults />}
         </div>
       )}
     </>
+  )
+}
+
+const NoResults = () => {
+  const router = useRouter()
+  const { setFlight } = useFlightContext()
+
+  const redirectOnHomePage = () => {
+    setFlight(searchFields)
+    localStorage.removeItem('flight')
+    setTimeout(() => router.push('/'), 200)
+  }
+
+  return (
+    <Result
+      status="404"
+      title=""
+      subTitle="Pe moment nu avem zboruri disponibile pentru aceasta destinatie sau data selectata."
+      extra={
+        <Button
+          onClick={redirectOnHomePage}
+          type="primary"
+          className="bg-brand-blue"
+        >
+          Inapoi la cautare
+        </Button>
+      }
+    />
   )
 }

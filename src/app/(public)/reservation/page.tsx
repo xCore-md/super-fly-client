@@ -228,6 +228,7 @@ export default function Reservation() {
       <aside className="flex lg:ml-20 lg:w-1/3">
         <ReservationSummary
           reservation={reservation}
+          submitReservation={formik.handleSubmit}
           formik={formik}
           isTermsChecked={isTermsChecked}
         />
