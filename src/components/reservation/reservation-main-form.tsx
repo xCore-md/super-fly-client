@@ -162,7 +162,10 @@ const PassengerForm = ({
     <>
       <ReservationCard>
         {contextHolder}
-        <div className="grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:gap-5">
+        <div
+          className="grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:gap-5"
+          id="startForm"
+        >
           <div className="relative">
             <Label
               htmlFor="first-name"

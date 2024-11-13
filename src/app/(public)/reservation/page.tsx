@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, notification, Checkbox } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
@@ -75,74 +75,85 @@ export default function Reservation() {
       return {}
     },
     onSubmit: () => {
-      setLoading(true)
-      const storage = localStorage.getItem('flight')
-      if (storage) {
-        const storageFlight = storage ? JSON.parse(storage) : null
+      if (!isTermsChecked) {
+        api.open({
+          message: '',
+          description:
+            'Trebuie să fiți de acord cu termenii și condițiile pentru a continua',
+          placement: 'topRight',
+          duration: 3,
+          closable: true,
+        })
+      } else {
+        setLoading(true)
+        const storage = localStorage.getItem('flight')
+        if (storage) {
+          const storageFlight = storage ? JSON.parse(storage) : null
 
-        const {
-          flyFrom,
-          flyTo,
-          cityFrom,
-          cityTo,
-          local_arrival,
-          local_departure,
-        } = reservation
+          const {
+            flyFrom,
+            flyTo,
+            cityFrom,
+            cityTo,
+            local_arrival,
+            local_departure,
+          } = reservation
 
-        const { passengers, ...restData } = formik.values
+          const { passengers, ...restData } = formik.values
 
-        const obj = {
-          type: storageFlight.return_to ? 'tur_retur' : 'tur',
-          airline: reservation?.airlines[0],
-          fly_from: flyFrom,
-          fly_to: flyTo,
-          fly_from_city: cityFrom,
-          fly_to_city: cityTo,
-          date_from: dayjs(local_departure).format('DD.MM.YYYY'),
-          date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
-          extra: JSON.stringify(reservation),
-          passengers: passengers.map((passenger) => {
-            const { baggage, ...rest } = passenger
-            return {
-              baggage: baggage.filter((bag: any) => bag.count !== 0),
-              ...rest,
-            }
-          }),
-          ...restData,
-        }
+          const obj = {
+            type: storageFlight.return_to ? 'tur_retur' : 'tur',
+            airline: reservation?.airlines[0],
+            fly_from: flyFrom,
+            fly_to: flyTo,
+            fly_from_city: cityFrom,
+            fly_to_city: cityTo,
+            date_from: dayjs(local_departure).format('DD.MM.YYYY'),
+            date_to: dayjs(local_arrival).format('DD.MM.YYYY'),
+            extra: JSON.stringify(reservation),
+            passengers: passengers.map((passenger) => {
+              const { baggage, ...rest } = passenger
+              return {
+                baggage: baggage.filter((bag: any) => bag.count !== 0),
+                ...rest,
+              }
+            }),
+            ...restData,
+          }
 
-        axs
-          .post('/sale/create', obj)
-          .then((res) => {
-            setLoading(false)
-            setReservation({
-              ...reservation,
-              ...obj,
-              confirmedReservation: res.data,
-            })
-            localStorage.setItem(
-              'reservation',
-              JSON.stringify({
+          axs
+            .post('/sale/create', obj)
+            .then((res) => {
+              setLoading(false)
+              setReservation({
                 ...reservation,
                 ...obj,
                 confirmedReservation: res.data,
               })
-            )
+              localStorage.setItem(
+                'reservation',
+                JSON.stringify({
+                  ...reservation,
+                  ...obj,
+                  confirmedReservation: res.data,
+                })
+              )
 
-            router.push('/confirm-reservation')
-          })
-          .catch((err) => {
-            setLoading(false)
-            api.error({
-              message: 'Error',
-              description:
-                'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
-              placement: 'topRight',
-              duration: 3,
-              closable: true,
+              router.push('/confirm-reservation')
             })
-            console.log({ err })
-          })
+            .catch((err) => {
+              setLoading(false)
+              api.error({
+                message: 'Error',
+                description:
+                  'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
+                placement: 'topRight',
+                duration: 3,
+                closable: true,
+              })
+              console.log({ err })
+            })
+        }
       }
     },
   })
@@ -166,6 +177,30 @@ export default function Reservation() {
   }
 
   const passengersCount = adults + children + infants
+
+  const scrollOnClick = useCallback(() => {
+    if (!formik.isValid) {
+      const startForm = document.getElementById('startForm')
+
+      const elementPosition =
+        // @ts-ignore
+        startForm?.getBoundingClientRect().top + window.scrollY
+
+      window.scrollTo({
+        top: elementPosition - 200,
+        behavior: 'smooth',
+      })
+
+      api.error({
+        message: 'A apărut o eroare',
+        description:
+          'Verificați datele introduse, unele câmpuri sunt completate incorect',
+        placement: 'topRight',
+        duration: 3,
+        closable: true,
+      })
+    }
+  }, [formik.isValid])
 
   return (
     <form
@@ -217,8 +252,8 @@ export default function Reservation() {
           </div>
           <Button
             htmlType="submit"
-            disabled={!formik.isValid || !isTermsChecked}
             loading={loading}
+            onClick={scrollOnClick}
             className="custom-shadow green-button hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
           >
             Rezervă acum
@@ -228,9 +263,9 @@ export default function Reservation() {
       <aside className="flex lg:ml-20 lg:w-1/3">
         <ReservationSummary
           reservation={reservation}
-          submitReservation={formik.handleSubmit}
           formik={formik}
-          isTermsChecked={isTermsChecked}
+          loading={loading}
+          scrollOnClick={scrollOnClick}
         />
       </aside>
     </form>

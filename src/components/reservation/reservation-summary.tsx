@@ -2,23 +2,22 @@
 
 import { useRouter } from 'next/navigation'
 import React, { ReactNode, useMemo } from 'react'
-import { Divider } from 'antd'
+import { Divider, Button } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
 import { CHECK_IN_PRICE } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { Button } from '@components/ui/button'
 import { ReservationTimer } from './reservation-timer'
 
 export const ReservationSummary = ({
   reservation,
   formik,
-  submitReservation,
-  isTermsChecked,
+  loading,
+  scrollOnClick,
 }: {
   reservation: any
   formik?: any
-  submitReservation?: any
-  isTermsChecked?: boolean
+  loading?: boolean
+  scrollOnClick?: () => void
 }) => {
   const { flight } = useFlightContext()
   const router = useRouter()
@@ -82,7 +81,7 @@ export const ReservationSummary = ({
             </div>
             <Button
               className="flex h-[26px] w-[71px] items-center justify-center rounded-full border-brand-blue bg-transparent p-0 text-xs font-medium text-brand-blue"
-              variant="outline"
+              variant="outlined"
               onClick={() => router.push('/flights')}
             >
               <span>Editează</span>
@@ -186,8 +185,9 @@ export const ReservationSummary = ({
         <ReservationTimer />
 
         <Button
-          onClick={() => submitReservation()}
-          disabled={!formik.isValid || !isTermsChecked}
+          loading={loading}
+          htmlType="submit"
+          onClick={scrollOnClick}
           className="custom-light-shadow mt-8 flex h-11 w-full items-center justify-center rounded-full bg-brand-green px-8 font-light text-white lg:hidden"
         >
           Rezervă acum
