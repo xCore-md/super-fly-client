@@ -205,7 +205,6 @@ export default function LeadModal({
           }}
           country={'md'}
           value={phone}
-          onFocus={() => document.getElementById('leadPhoneInputRef')?.focus()}
           inputProps={{
             id: 'leadPhoneInputRef',
             tabIndex: 0,
