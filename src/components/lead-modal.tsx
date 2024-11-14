@@ -110,7 +110,7 @@ export default function LeadModal({
 
   const afterOpenChange = (open: boolean) => {
     if (open) {
-      const inputElement = document.getElementById('leadPhoneInputRef')
+      const inputElement = document.getElementById('leadPhoneInputId')
       inputElement?.focus()
     }
   }
@@ -206,7 +206,7 @@ export default function LeadModal({
           country={'md'}
           value={phone}
           inputProps={{
-            id: 'leadPhoneInputRef',
+            id: 'leadPhoneInputId',
             tabIndex: 0,
           }}
           onChange={handlePhoneChange}
