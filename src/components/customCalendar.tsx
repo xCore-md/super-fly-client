@@ -87,7 +87,7 @@ export function CustomCalendar({
       headerRender={customHeader}
       value={currentDate}
       className={cn(
-        `customCalendar custom-shadow`,
+        `customCalendar custom-shadow animate-calendarDropdown`,
         className,
         !currentDate.isSame(date, 'month') && 'not-current-month',
         date && !fromDate && 'selected-from-date',

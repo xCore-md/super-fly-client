@@ -98,6 +98,10 @@ const config = {
           from: { opacity: '0' },
           to: { opacity: '1' },
         },
+        calendarDropdown: {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -105,6 +109,7 @@ const config = {
         'waveShadow': 'waveShadow 1.5s ease-in-out infinite',
         'greenWaveShadow': 'greenWaveShadow 1.5s ease-in-out infinite',
         opacityBlock: 'opacityBlock 1s ease-out forwards',
+        calendarDropdown: 'calendarDropdown 0.5s ease-out forwards',
       },
       flexBasis: {
         '1/7': '14.2857143%',

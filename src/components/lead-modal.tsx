@@ -111,7 +111,12 @@ export default function LeadModal({
   const afterOpenChange = (open: boolean) => {
     if (open) {
       const inputElement = document.getElementById('leadPhoneInputId')
+      console.log(inputElement)
+      // @ts-ignore
+      document.activeElement?.blur()
+
       inputElement?.focus()
+      console.log(document.activeElement)
     }
   }
 
