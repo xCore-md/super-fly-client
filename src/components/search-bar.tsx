@@ -65,6 +65,7 @@ export const SearchBar = ({
     const flyToField = document.getElementById(field)
     flyToField?.blur()
     setDrawerState(field)
+    setOptions(mockOptions)
     document.body.style.overflow = 'hidden'
   }, [])
   const closeDrawer = () => {

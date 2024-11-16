@@ -10,6 +10,7 @@ import { convertToSearchQuery } from '@/lib/utils'
 import { FlightsCarousel } from '@components/flights/flights-carousel'
 import { FlightsTabs } from '@components/flights/flights-tabs'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
+import { useRouter } from 'next/navigation'
 
 export default function Flights() {
   const [loading, setLoading] = useState(true)
@@ -17,6 +18,7 @@ export default function Flights() {
   const [country, setCountry] = useState([])
   const { flightType } = useFlightTypeContext()
   const [isSorting, setIsSorting] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -60,6 +62,8 @@ export default function Flights() {
         .catch((err) => {
           console.log(err)
         })
+    } else {
+      router.push('/')
     }
   }, [])
 

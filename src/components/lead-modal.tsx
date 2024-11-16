@@ -1,14 +1,12 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
-import { Drawer, Button, notification, Grid } from 'antd'
+import { Drawer, Button, notification, Grid, Input } from 'antd'
 import dayjs from 'dayjs'
-import PhoneInput from 'react-phone-input-2'
 import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
-import 'react-phone-input-2/lib/style.css'
 
 const { useBreakpoint } = Grid
 
@@ -52,8 +50,13 @@ export default function LeadModal({
     }
   }, [screens, showDelay])
 
-  const handlePhoneChange = useCallback((phone: string) => {
-    return setPhone(phone)
+  const handleChangePhoneNumber = useCallback((e: any) => {
+    const inputValue = e.target.value
+
+    // Allow only numbers and a single "+" at the start
+    if (/^(?:\+)?\d*$/.test(inputValue)) {
+      setPhone(inputValue)
+    }
   }, [])
 
   const handleSubmit = useCallback(() => {
@@ -111,12 +114,7 @@ export default function LeadModal({
   const afterOpenChange = (open: boolean) => {
     if (open) {
       const inputElement = document.getElementById('leadPhoneInputId')
-      console.log(inputElement)
-      // @ts-ignore
-      document.activeElement?.blur()
-
       inputElement?.focus()
-      console.log(document.activeElement)
     }
   }
 
@@ -177,7 +175,7 @@ export default function LeadModal({
                   <span>Check-in gratuit!</span>
                 </div>
                 <img
-                  className="h-[120px] w-[120px] rounded-full"
+                  className="h-[120px] w-[120px] rounded-full object-cover"
                   src={country?.flags?.png}
                   alt="flag"
                 />
@@ -202,19 +200,11 @@ export default function LeadModal({
             </div>
           </div>
         )}
-        <PhoneInput
-          containerClass="mt-2"
-          inputStyle={{
-            width: '100%',
-            border: '1px solid #E7E7E7',
-          }}
-          country={'md'}
+        <Input
+          className="mt-2 rounded-lg border-[1px] border-[#E7E7E7]"
+          onChange={handleChangePhoneNumber}
           value={phone}
-          inputProps={{
-            id: 'leadPhoneInputId',
-            tabIndex: 0,
-          }}
-          onChange={handlePhoneChange}
+          autoFocus
         />
         <Button
           onClick={handleSubmit}

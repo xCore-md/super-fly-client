@@ -136,7 +136,7 @@ export function PassengersComponent({ formik, closeDrawer }: any) {
       <Button
         size="large"
         disabled={!ableToSubmit}
-        className="btn-primary mt-4 flex w-full items-center justify-center gap-1 rounded-full font-light"
+        className="btn-primary mt-4 flex w-full items-center justify-center gap-1 rounded-full font-light disabled:bg-brand-blue disabled:opacity-55"
         onClick={() => closeDrawer()}
       >
         <span className="tracking-wide text-white">Confirmă</span>
