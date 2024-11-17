@@ -205,6 +205,7 @@ export default function LeadModal({
           onChange={handleChangePhoneNumber}
           value={phone}
           autoFocus
+          type="tel"
         />
         <Button
           onClick={handleSubmit}

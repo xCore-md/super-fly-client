@@ -4,8 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import logoBlue from '@/assets/img/logo-blue.png'
-import logoWhite from '@/assets/img/logo-white.png'
+import logoBlue from '@/assets/img/logo.svg'
+import logoWhite from '@/assets/img/logo-w.svg'
 import support from '@/assets/img/support.png'
 import {
   Sheet,
@@ -44,7 +44,7 @@ export const Header = ({ menu }: IHeaderProps) => {
         <div
           className={`relative z-10 flex h-20 w-full items-center justify-between ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
         >
-          <Link className="w-[88px] md:w-[148px]" href="/">
+          <Link className="w-[88px] md:w-[188px]" href="/">
             <Image
               src={isSimpleHeader ? logoBlue : logoWhite}
               alt="logo"

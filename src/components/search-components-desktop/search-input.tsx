@@ -108,7 +108,7 @@ export function SearchInput({
       )}
       {openFields[field] && (
         <div className="dropdown-shadow no-scrollbar absolute left-0 top-[40.5px] z-10 h-auto w-full overflow-hidden rounded-b-xl bg-white">
-          <ul className="searchDropDownShadow flex flex-col overflow-scroll rounded-b-3xl px-2 pb-2 pt-4">
+          <ul className="searchDropDownShadow flex flex-col overflow-hidden rounded-b-3xl px-2 pb-2 pt-4">
             {options.map((option: any) => (
               <li
                 key={option.key}

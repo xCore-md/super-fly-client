@@ -551,7 +551,7 @@ export default function ConfirmReservationPage() {
             <div className="flex w-full gap-2 lg:gap-5">
               <Button
                 variant="ghost"
-                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-2 lg:bg-brand-light-blue"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-2 lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
                   Card bancar
@@ -589,7 +589,7 @@ export default function ConfirmReservationPage() {
               </Button>
               <Button
                 variant="ghost"
-                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-0 lg:bg-brand-light-blue lg:px-2"
+                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-0 lg:bg-brand-light-blue lg:px-2"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
                   Plată electronică

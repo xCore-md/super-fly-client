@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { Button, Dropdown } from 'antd'
-import logoBlue from '@/assets/img/logo-blue.png'
-import logoWhite from '@/assets/img/logo-white.png'
+import logoBlue from '@/assets/img/logo.svg'
+import logoWhite from '@/assets/img/logo-w.svg'
 import {
   Sheet,
   SheetContent,

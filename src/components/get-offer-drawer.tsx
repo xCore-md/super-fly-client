@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import crossFillSvgUrl from '@/assets/img/cross-fill.svg'
 import drawerOfferImgUrl from '@/assets/img/drawer-offer.png'
-import logoBlue from '@/assets/img/logo-blue.png'
+import logoBlue from '@/assets/img/logo.svg'
 import supportV2ImgUrl from '@/assets/img/support-v2.png'
 import { Button } from '@components/ui/button'
 import {

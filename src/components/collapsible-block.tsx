@@ -7,7 +7,7 @@ import { useCallback } from 'react'
 import dayjs from 'dayjs'
 import chevronDown from '@/assets/img/chevronDown.svg'
 import chevronUp from '@/assets/img/chevronUp.svg'
-import logo from '@/assets/img/logo-blue.png'
+import logo from '@/assets/img/logo.svg'
 import minus from '@/assets/img/minus.svg'
 import plus from '@/assets/img/plus.svg'
 import {

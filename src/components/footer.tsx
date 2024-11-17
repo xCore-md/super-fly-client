@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import fbOriginal from '@/assets/img/fb-original.svg'
 import instaOriginal from '@/assets/img/insta-original.svg'
-import logo from '@/assets/img/logo-footer.png'
+import logo from '@/assets/img/logo.svg'
 import mail from '@/assets/img/mail.svg'
 import mastercardS from '@/assets/img/mastercard-s.svg'
 import paynetS from '@/assets/img/paynet-icon-s.svg'
@@ -116,7 +116,7 @@ export const Footer = () => {
               alt="log"
               width={82}
               height={16}
-              className="w-full md:w-auto"
+              className="w-[140px]"
             />
           </Link>
           <p className="text-center text-xxs text-gray-500 md:pr-6 md:text-left lg:col-span-4">
