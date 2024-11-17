@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React, { useCallback, useState } from 'react'
 import { Input, Button, notification, Modal } from 'antd'
 import { FormikValues, useFormik } from 'formik'
-import logoWhite from '@/assets/img/logo-white.png'
+import logoWhite from '@/assets/img/logo-w.svg'
 import axs from '@/lib/axios'
 
 export default function Login() {
