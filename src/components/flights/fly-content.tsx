@@ -86,7 +86,7 @@ export const FlyContent = (props: any) => {
         ''
       ) : (
         <div
-          className={` flex h-full flex-col justify-around gap-6 pb-0 pl-3  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1`}
+          className={` flex h-auto flex-col justify-around gap-6 pb-0 pl-3  ${props.withoutAction && 'col-span-2 lg:col-span-1'} col-span-1`}
         >
           <div className="flex flex-col items-start">
             <div className="flex gap-2">
