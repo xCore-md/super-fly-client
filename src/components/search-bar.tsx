@@ -300,9 +300,8 @@ export const SearchBar = ({
     }
 
     const storage = localStorage.getItem('lead')
-    if (storage || formik.values.phone) {
-      const phone =
-        formik.values.phone || (storage && JSON.parse(storage).phone) || ''
+    if (storage || phoneValue) {
+      const phone = phoneValue || (storage && JSON.parse(storage).phone) || ''
 
       const {
         fly_from,
