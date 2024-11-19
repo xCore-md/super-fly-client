@@ -297,6 +297,7 @@ body {
 
 .customCalendar .ant-picker-cell-inner,
 .customCalendar .ant-picker-cell-inner::before {
+  border: 0 !important;
   border-radius: 40px !important;
   min-width: 24px !important;
   height: 24px !important;
@@ -324,6 +325,33 @@ body {
 
 .customCalendar .ant-picker-content {
   height: 177px;
+}
+
+.fade-out {
+  animation: fade-out 0.5s;
+}
+
+.fade-in {
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+  
 }
 
 .customCalendar .ant-picker-cell {
@@ -359,7 +387,6 @@ body {
   }
 }
 
-.ant-picker-calendar-date-today,
 .ant-picker-cell-selected .ant-picker-calendar-date {
   background: #3f4ed6 !important;
   color: #fff !important;
@@ -647,28 +674,10 @@ body {
   }
 }
 
-.ant-picker-cell-today .ant-picker-calendar-date-today {
-  background: #fff !important;
-  color: #000000e0 !important;
 
-  &::before {
-    border: none !important;
-  }
-}
 
-.ant-picker-calendar-date-today {
-  background: #fff !important;
-  color: #d6d6d6 !important;
-
-  &::before {
-    border: none !important;
-  }
-}
 
 .ant-picker-cell-selected.ant-picker-cell-today .ant-picker-calendar-date {
-  background: #3f4ed6 !important;
-  color: #fff !important;
-
   &::before {
     border: none !important;
   }

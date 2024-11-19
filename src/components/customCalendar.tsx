@@ -30,12 +30,30 @@ export function CustomCalendar({
     }
   }, [])
 
+  const changeKeyOfCalendarContent = (changeMonth: any) => {
+    const contentDiv = document.querySelector('.ant-picker-content')
+    if (contentDiv) {
+      contentDiv.classList.remove('fade-in')
+      contentDiv.classList.add('fade-out')
+
+      setTimeout(() => {
+        contentDiv.classList.remove('fade-out')
+        contentDiv.classList.add('fade-in')
+        changeMonth()
+      }, 300)
+    }
+  }
+
   const onPrevMonth = () => {
-    setCurrentDate(currentDate.subtract(1, 'month'))
+    changeKeyOfCalendarContent(() =>
+      setCurrentDate(currentDate.subtract(1, 'month'))
+    )
   }
 
   const onNextMonth = () => {
-    setCurrentDate(currentDate.add(1, 'month'))
+    changeKeyOfCalendarContent(() =>
+      setCurrentDate(currentDate.add(1, 'month'))
+    )
   }
 
   const monthName = currentDate.format('MMMM YYYY')
@@ -73,11 +91,13 @@ export function CustomCalendar({
     const today = dayjs().startOf('day')
     const from = fromDate ? fromDate.startOf('day') : null
 
-    // Disable dates only before today or before `fromDate`, if it exists, but allow today to be selectable
+    // Disable dates only before today or before `fromDate`, if it exists, but allow today to be selectable and today date if from date is set
+    console.log({ from: from?.format('DD MM YYYY') })
+
     return (
       current &&
       (from
-        ? current.isBefore(from, 'day') && !current.isSame(today, 'day') // Disable dates before `fromDate` but allow today
+        ? current.isBefore(from, 'day') // Disable dates before `fromDate` but allow today
         : current.isBefore(today, 'day')) // Disable dates before today
     )
   }

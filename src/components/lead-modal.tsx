@@ -203,10 +203,11 @@ export default function LeadModal({
         <Input
           className="mt-2 rounded-lg border-[1px] border-[#E7E7E7]"
           onChange={handleChangePhoneNumber}
-          onBlur={handleChangePhoneNumber}
+          onInput={handleChangePhoneNumber}
           value={phone}
           autoFocus
           type="tel"
+          autoComplete="tel"
         />
         <Button
           onClick={handleSubmit}
