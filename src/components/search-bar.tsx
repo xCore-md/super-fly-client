@@ -499,6 +499,7 @@ export const SearchBar = ({
                 placeholder="Introduceți numărul de telefon"
                 className="mt-2 h-[46px] w-full rounded-full border-none pl-4 font-semibold outline-none focus:shadow-none focus:outline-none focus:ring-0"
                 onChange={handleChangePhoneNumber}
+                onInput={handleChangePhoneNumber}
               />
             )}
 

@@ -91,9 +91,6 @@ export function CustomCalendar({
     const today = dayjs().startOf('day')
     const from = fromDate ? fromDate.startOf('day') : null
 
-    // Disable dates only before today or before `fromDate`, if it exists, but allow today to be selectable and today date if from date is set
-    console.log({ from: from?.format('DD MM YYYY') })
-
     return (
       current &&
       (from

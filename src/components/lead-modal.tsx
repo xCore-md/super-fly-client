@@ -1,14 +1,12 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
-import { Drawer, Button, notification, Grid, Input } from 'antd'
+import { Drawer, Button, notification, Input } from 'antd'
 import dayjs from 'dayjs'
 import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
-
-const { useBreakpoint } = Grid
 
 interface IProps {
   closable?: boolean
@@ -21,7 +19,6 @@ export default function LeadModal({
   delay,
   country,
 }: IProps) {
-  const screens = useBreakpoint()
   const [openModal, setOpenModal] = useState(false)
   const [phone, setPhone] = useState('')
   const [api, contextHolder] = notification.useNotification()
@@ -38,17 +35,20 @@ export default function LeadModal({
   const showDelay = delay || 2000
 
   useEffect(() => {
-    const lead = localStorage.getItem('lead')
+    const storage = localStorage.getItem('lead')
+    const lead = storage && JSON.parse(storage)
     const isExpired =
-      lead && dayjs().diff(dayjs(JSON.parse(lead).expirationAt), 'minutes') > 30
+      lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
 
-    if (screens.xs && (!lead || isExpired)) {
-      setTimeout(() => {
-        setOpenModal(true)
-        document.body.style.overflow = 'hidden'
-      }, showDelay)
+    if (window.innerWidth <= 768) {
+      if (!storage || isExpired) {
+        setTimeout(() => {
+          setOpenModal(true)
+          document.body.style.overflow = 'hidden'
+        }, showDelay)
+      }
     }
-  }, [screens, showDelay])
+  }, [])
 
   const handleChangePhoneNumber = useCallback((e: any) => {
     const inputValue = e.target.value
@@ -203,7 +203,6 @@ export default function LeadModal({
         <Input
           className="mt-2 rounded-lg border-[1px] border-[#E7E7E7]"
           onChange={handleChangePhoneNumber}
-          onInput={handleChangePhoneNumber}
           value={phone}
           autoFocus
           type="tel"
