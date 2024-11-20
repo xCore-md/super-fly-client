@@ -10,7 +10,7 @@ import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useReservationContext } from '@/context/reservation-context'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
-import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
+import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
 import dayjs from 'dayjs'
 
 export const FlyContent = (props: any) => {
@@ -155,7 +155,7 @@ export const FlyContent = (props: any) => {
               <main className="grid w-full grid-cols-5 lg:grid-cols-4">
                 <div className="mr-4 pt-2 text-center lg:mr-2 lg:pt-0 lg:text-right">
                   <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
-                    {getTimeFromDate(startDirection[0].local_departure)}
+                    {getFormattedDate(startDirection[0].local_departure)}
                   </div>
                   <div className="text-xxs text-gray-700">
                     {dayjs(startDirection[0].local_departure).format('DD MMM')}
@@ -230,7 +230,7 @@ export const FlyContent = (props: any) => {
                 </div>
                 <div className="ml-4 pt-2 text-center lg:ml-2 lg:pt-0 lg:text-left">
                   <div className="text-base font-normal lg:mb-1 lg:pb-1 lg:text-[22px]">
-                    {getTimeFromDate(
+                    {getFormattedDate(
                       startDirection[startDirection.length - 1].local_arrival
                     )}
                   </div>
@@ -339,7 +339,7 @@ export const FlyContent = (props: any) => {
                   <main className="grid w-full grid-cols-5 lg:grid-cols-4">
                     <div className="mr-4 pt-2 text-center lg:mr-2 lg:pt-0 lg:text-right">
                       <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
-                        {getTimeFromDate(endDirection?.[0].local_departure)}
+                        {getFormattedDate(endDirection?.[0].local_departure)}
                       </div>
                       <div className="text-xxs text-gray-700">
                         {dayjs(endDirection?.[0].local_departure).format(
@@ -416,7 +416,7 @@ export const FlyContent = (props: any) => {
                     </div>
                     <div className="ml-4 pt-2 text-center lg:ml-2 lg:pt-0 lg:text-left">
                       <div className="text-base font-normal lg:mb-2 lg:text-[22px]">
-                        {getTimeFromDate(
+                        {getFormattedDate(
                           endDirection[endDirection.length - 1].local_arrival
                         )}
                       </div>

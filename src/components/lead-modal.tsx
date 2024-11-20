@@ -32,16 +32,16 @@ export default function LeadModal({
     setOpenModal(false)
     scrollTopFunc()
   }
-  const showDelay = delay || 2000
 
   useEffect(() => {
+    const showDelay = delay || 2000
     const storage = localStorage.getItem('lead')
     const lead = storage && JSON.parse(storage)
-    const isExpired =
-      lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
+    // const isExpired =
+    //   lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
 
     if (window.innerWidth <= 768) {
-      if (!storage || isExpired) {
+      if (!lead) {
         setTimeout(() => {
           setOpenModal(true)
           document.body.style.overflow = 'hidden'

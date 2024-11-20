@@ -15,7 +15,7 @@ import { useFlightContext } from '@/context/flight-context'
 import { useReservationContext } from '@/context/reservation-context'
 import axs from '@/lib/axios'
 import { CHECK_IN_PRICE } from '@/lib/constants'
-import { getFlightTime, cn, getTimeFromDate } from '@/lib/utils'
+import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
 import {
@@ -228,7 +228,7 @@ export default function ConfirmReservationPage() {
                       )}
                     </span>
                     <span className="text-[20px] font-normal">
-                      {getTimeFromDate(startDirection[0].local_departure)}
+                      {getFormattedDate(startDirection[0].local_departure)}
                     </span>
                   </div>
                 </div>
@@ -240,7 +240,7 @@ export default function ConfirmReservationPage() {
                       )}
                     </span>
                     <span className="text-base font-normal">
-                      {getTimeFromDate(startDirection[0].local_departure)}
+                      {getFormattedDate(startDirection[0].local_departure)}
                     </span>
                     <span className="text-[#4A4A4A text-xs">
                       {startDirection[0].cityFrom}
@@ -318,7 +318,7 @@ export default function ConfirmReservationPage() {
                   </div>
                   <div className="flex items-center justify-start gap-2">
                     <span className="text-[20px] font-normal">
-                      {getTimeFromDate(
+                      {getFormattedDate(
                         startDirection[startDirection.length - 1].local_arrival
                       )}
                     </span>
@@ -337,7 +337,7 @@ export default function ConfirmReservationPage() {
                       ).format('dd, DD MMM')}
                     </span>
                     <span className="text-base font-normal">
-                      {getTimeFromDate(
+                      {getFormattedDate(
                         startDirection[startDirection.length - 1]
                           .local_departure
                       )}
@@ -378,7 +378,7 @@ export default function ConfirmReservationPage() {
                         )}
                       </span>
                       <span className="text-[20px] font-normal">
-                        {getTimeFromDate(endDirection[0].local_departure)}
+                        {getFormattedDate(endDirection[0].local_departure)}
                       </span>
                     </div>
                   </div>
@@ -390,7 +390,7 @@ export default function ConfirmReservationPage() {
                         )}
                       </span>
                       <span className="text-base font-normal">
-                        {getTimeFromDate(endDirection[0].local_departure)}
+                        {getFormattedDate(endDirection[0].local_departure)}
                       </span>
                       <span className="text-[#4A4A4A text-xs">
                         {endDirection[0].cityFrom}
@@ -468,7 +468,7 @@ export default function ConfirmReservationPage() {
                     </div>
                     <div className="flex items-center justify-start gap-2">
                       <span className="text-[20px] font-normal">
-                        {getTimeFromDate(
+                        {getFormattedDate(
                           endDirection[endDirection.length - 1].local_arrival
                         )}
                       </span>
@@ -487,7 +487,7 @@ export default function ConfirmReservationPage() {
                         ).format('dd, DD MMM')}
                       </span>
                       <span className="text-base font-normal">
-                        {getTimeFromDate(
+                        {getFormattedDate(
                           endDirection[endDirection.length - 1].local_departure
                         )}
                       </span>

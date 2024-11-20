@@ -25,16 +25,12 @@ export function convertToSearchQuery(params: Record<string, string | number>) {
     .join('&')
 }
 
-export function getTimeFromDate(dateStr: string) {
-  const date = new Date(dateStr)
+export function getFormattedDate(dateStr: string) {
+  const date = new Date(dateStr);
+  const hours = String(date.getUTCHours()).padStart(2, "0"); // UTC hours
+  const minutes = String(date.getUTCMinutes()).padStart(2, "0"); // UTC minutes
 
-  const formattedTime = date.toLocaleTimeString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-
-  return formattedTime
+  return `${hours}:${minutes}`;
 }
 
 export function numberToTimeFormat(seconds: number) {

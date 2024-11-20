@@ -61,6 +61,7 @@ export const SearchBar = ({
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
+  const phoneInputRef = useRef<any>(null)
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
@@ -70,7 +71,7 @@ export const SearchBar = ({
   }, [])
   const closeDrawer = () => {
     setDrawerState('')
-    const inputElement = document.getElementById('phoneInputRef')
+    const inputElement = document.getElementById('phoneInputId')
     inputElement?.focus()
     document.body.style.overflow = 'auto'
     const storage = localStorage.getItem('lead')
@@ -299,10 +300,14 @@ export const SearchBar = ({
         .catch((err) => console.log({ err }))
     }
 
-    const storage = localStorage.getItem('lead')
-    if (storage || phoneValue) {
-      const phone = phoneValue || (storage && JSON.parse(storage).phone) || ''
+    const storageLead = localStorage.getItem('lead')
 
+    const phone =
+      phoneValue ||
+      (storageLead && JSON.parse(storageLead).phone) ||
+      phoneInputRef.current?.value
+
+    if (!storageLead) {
       const {
         fly_from,
         fly_to,
@@ -492,14 +497,15 @@ export const SearchBar = ({
 
             {isPhoneFieldVisible && (
               <Input
-                id="phoneInputRef"
+                id="phoneInputId"
+                ref={phoneInputRef}
                 autoFocus={false}
+                onAnimationStart={handleChangePhoneNumber}
                 value={phoneValue}
                 type="tel"
                 placeholder="Introduceți numărul de telefon"
                 className="mt-2 h-[46px] w-full rounded-full border-none pl-4 font-semibold outline-none focus:shadow-none focus:outline-none focus:ring-0"
                 onChange={handleChangePhoneNumber}
-                onInput={handleChangePhoneNumber}
               />
             )}
 
