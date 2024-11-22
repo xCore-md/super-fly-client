@@ -37,11 +37,11 @@ export default function LeadModal({
     const showDelay = delay || 2000
     const storage = localStorage.getItem('lead')
     const lead = storage && JSON.parse(storage)
-    // const isExpired =
-    //   lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
+    const isExpired =
+      lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
 
     if (window.innerWidth <= 768) {
-      if (!lead) {
+      if (!lead || isExpired) {
         setTimeout(() => {
           setOpenModal(true)
           document.body.style.overflow = 'hidden'
@@ -79,9 +79,10 @@ export default function LeadModal({
     axs
       .post('/create-lead', { ...data })
       .then(() => {
+        localStorage.setItem('lead', JSON.stringify(data))
+
         setOpenModal(false)
         setPhone('')
-
         api.success({
           message: '',
           description:
@@ -90,8 +91,6 @@ export default function LeadModal({
           duration: 4,
           closable: true,
         })
-
-        localStorage.setItem('lead', JSON.stringify(data))
 
         scrollTopFunc()
       })
@@ -201,12 +200,13 @@ export default function LeadModal({
           </div>
         )}
         <Input
+          type="tel"
           className="mt-2 rounded-lg border-[1px] border-[#E7E7E7]"
           onChange={handleChangePhoneNumber}
           value={phone}
           autoFocus
-          type="tel"
-          autoComplete="tel"
+          autoComplete="tel-country"
+          placeholder="Introduceți numărul de telefon"
         />
         <Button
           onClick={handleSubmit}

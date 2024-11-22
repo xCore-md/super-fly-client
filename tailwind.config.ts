@@ -94,6 +94,12 @@ const config = {
           '50%': { boxShadow: '0 0 25px rgba(17, 210, 164, 0.7)' },       // Largest, most intense shadow
           '75%': { boxShadow: '0 0 15px rgba(17, 210, 164, 0.5)', scale: '1' },       // Back to medium shadow
         },
+        phoneInputPulsing: {
+          // white shadow pulse
+          '0%': { boxShadow: '0 0 0 0 rgba(255, 255, 255, 0.7)' },
+          '70%': { boxShadow: '0 0 0 10px rgba(255, 255, 255, 0)' },
+          '100%': { boxShadow: '0 0 0 0 rgba(255, 255, 255, 0)' },
+        },
         opacityBlock: {
           from: { opacity: '0' },
           to: { opacity: '1' },
@@ -107,6 +113,7 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'waveShadow': 'waveShadow 1.5s ease-in-out infinite',
+        phoneInputPulsing: 'phoneInputPulsing 1s ease-in-out infinite',
         'greenWaveShadow': 'greenWaveShadow 1.5s ease-in-out infinite',
         opacityBlock: 'opacityBlock 1s ease-out forwards',
         calendarDropdown: 'calendarDropdown 0.5s ease-out forwards',

@@ -139,10 +139,6 @@ body {
 .reservation-button-shadow {
   box-shadow: 0 2px 8px 0 rgba(0 0 0 / 4%);
 }
-.flag-dropdown {
-  border-top-left-radius: 8px !important;
-  border-bottom-left-radius: 8px !important;
-}
 
 .custom-light-shadow {
   box-shadow: 0 0 20px 0 rgba(0 0 0 / 25%);
@@ -603,9 +599,16 @@ body {
   }
 }
 
-.react-tel-input .flag-dropdown {
-  border: 1px solid #e7e7e7 !important;
+.react-tel-input .flag-dropdown, .react-tel-input .flag-dropdown .open {
+  border: 0 !important;
   background: #fff !important;
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;;
+}
+
+.react-tel-input .country-list {
+  margin: 0 0 0 20px !important;
+  box-shadow: 1px 10px 10px rgba(0,0,0,0.35) !important;
 }
 
 .search-input {
@@ -702,7 +705,7 @@ body {
   }
 }
 
-.home-search-phone .flag-dropdown {
+.home-search-phone .flag-dropdown, .react-tel-input .selected-flag {
   border-top-left-radius: 50px !important;
   border-bottom-left-radius: 50px !important;
   border: 0 !important;
@@ -719,7 +722,7 @@ body {
 }
 
 .home-search-phone .country-list {
-  margin: 0 0 0 10px !important;
+  margin: 0 0 0 46px !important;
 }
 
 @media (min-width: 1440px) {

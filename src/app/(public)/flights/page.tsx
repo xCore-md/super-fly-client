@@ -25,10 +25,10 @@ export default function Flights() {
   }, [])
 
   useEffect(() => {
-    const storage = localStorage.getItem('flight')
+    const storageFlight = localStorage.getItem('flight')
 
-    if (storage) {
-      const flight = JSON.parse(storage)
+    if (storageFlight) {
+      const flight = JSON.parse(storageFlight)
 
       const selectedFlight = {
         ...flight,

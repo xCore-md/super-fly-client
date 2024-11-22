@@ -11,7 +11,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { Button, Drawer, Input, notification } from 'antd'
+import { Button, Drawer, notification } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import searchBlack from '@/assets/img/search-black.svg'
@@ -27,6 +27,8 @@ import { SearchComponents } from './search/search-components'
 import { SearchDatePicker } from './search-components-desktop/search-date-picker'
 import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -61,7 +63,6 @@ export const SearchBar = ({
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
-  const phoneInputRef = useRef<any>(null)
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
@@ -72,7 +73,9 @@ export const SearchBar = ({
   const closeDrawer = () => {
     setDrawerState('')
     const inputElement = document.getElementById('phoneInputId')
-    inputElement?.focus()
+    if (inputElement) {
+      inputElement?.focus()
+    }
     document.body.style.overflow = 'auto'
     const storage = localStorage.getItem('lead')
     if (storage) {
@@ -302,12 +305,20 @@ export const SearchBar = ({
 
     const storageLead = localStorage.getItem('lead')
 
-    const phone =
-      phoneValue ||
-      (storageLead && JSON.parse(storageLead).phone) ||
-      phoneInputRef.current?.value
+    const phone = phoneValue || (storageLead && JSON.parse(storageLead).phone)
 
-    if (!storageLead) {
+    if (!storageLead && phone) {
+      axs
+        .post('/create-lead', { phone })
+        .then(() => {
+          localStorage.setItem('lead', JSON.stringify({ phone }))
+        })
+        .catch((err) => {
+          console.log({ err })
+        })
+    }
+
+    if (storageLead) {
       const {
         fly_from,
         fly_to,
@@ -328,6 +339,7 @@ export const SearchBar = ({
         infants,
         expirationAt: dayjs(),
       }
+
       axs
         .post('/create-lead', { ...data })
         .then(() => {
@@ -393,33 +405,26 @@ export const SearchBar = ({
 
   const { fly_to, adults, date_from } = formik.values
 
-  useEffect(() => {
-    const storage = localStorage.getItem('lead')
-    if (storage) {
-      const phone = JSON.parse(storage).phone || false
-      setIsPhoneInputVisible(!!phone)
-    }
-  }, [isPhoneInputVisible])
-
   const isPhoneFieldVisible =
     isHomePage &&
     isTablet &&
     !!fly_to.city &&
     !!date_from &&
     !!adults &&
+    drawerState === '' &&
     !isPhoneInputVisible
 
-  const handleChangePhoneNumber = useCallback((e: any) => {
-    const inputValue = e.target.value
-
+  const handleChangePhoneNumber = useCallback((value: string) => {
     // Allow only numbers and a single "+" at the start
-    if (/^(?:\+)?\d*$/.test(inputValue)) {
-      setPhoneValue(inputValue)
-      formik.setFieldValue('phone', inputValue)
-    }
+    // if (/^(?:\+)?\d*$/.test(value)) {
+    setPhoneValue(value)
+    formik.setFieldValue('phone', value)
+    // }
   }, [])
 
   const resetForm = useRef(() => formik.resetForm())
+
+  console.log({ phoneValue })
 
   return (
     <>
@@ -496,17 +501,40 @@ export const SearchBar = ({
             />
 
             {isPhoneFieldVisible && (
-              <Input
-                id="phoneInputId"
-                ref={phoneInputRef}
-                autoFocus={false}
-                onAnimationStart={handleChangePhoneNumber}
-                value={phoneValue}
-                type="tel"
-                placeholder="Introduceți numărul de telefon"
-                className="mt-2 h-[46px] w-full rounded-full border-none pl-4 font-semibold outline-none focus:shadow-none focus:outline-none focus:ring-0"
-                onChange={handleChangePhoneNumber}
-              />
+              <div className="mt-2 w-full">
+                <PhoneInput
+                  onChange={handleChangePhoneNumber}
+                  value={phoneValue}
+                  preferredCountries={[
+                    'md',
+                    'es',
+                    'pt',
+                    'ru',
+                    'it',
+                    'ie',
+                    'de',
+                    'il',
+                  ]}
+                  preserveOrder={['preferredCountries']}
+                  inputStyle={{
+                    height: '46px',
+                    width: '100%',
+                    borderRadius: '9999px',
+                    fontWeight: '400',
+                    outline: 'none',
+                    border: 'none',
+                  }}
+                  inputClass={`${phoneValue.length < 4 && 'animate-phoneInputPulsing'} home-search-phone`}
+                  inputProps={{
+                    id: 'phoneInputId',
+                    autoFocus: true,
+                    type: 'text',
+                  }}
+                  placeholder="Introduceți numărul de telefon"
+                  country={'md'}
+                  countryCodeEditable={false}
+                />
+              </div>
             )}
 
             <button

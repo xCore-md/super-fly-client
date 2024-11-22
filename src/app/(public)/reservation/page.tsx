@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Button, notification, Checkbox, Spin } from 'antd'
+import { Button, notification, Checkbox } from 'antd'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -13,7 +13,6 @@ import { useReservationContext } from '@/context/reservation-context'
 import axs from '@/lib/axios'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
 import { ReservationSummary } from '@components/reservation/reservation-summary'
-import { LoadingOutlined } from '@ant-design/icons'
 
 const validationSchema = Yup.object().shape({
   passengers: Yup.array().of(
@@ -206,21 +205,21 @@ export default function Reservation() {
 
   const passengersCount = adults + children + infants
 
-  if (loading)
-    return (
-      <div className="relative z-[99999] flex w-full flex-col items-center justify-center pt-[50%]">
-        <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
-        <p className="z-[999999] text-center text-white">
-          Datele dumnevoastră sunt <br /> în curs de procesare...
-        </p>
-        <Spin
-          className="pt-10"
-          indicator={
-            <LoadingOutlined style={{ fontSize: 84, color: '#fff' }} spin />
-          }
-        />
-      </div>
-    )
+  // if (loading)
+  //   return (
+  //     <div className="relative z-[99999] flex w-full flex-col items-center justify-center pt-[50%]">
+  //       <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
+  //       <p className="z-[999999] text-center text-white">
+  //         Datele dumnevoastră sunt <br /> în curs de procesare...
+  //       </p>
+  //       <Spin
+  //         className="pt-10"
+  //         indicator={
+  //           <LoadingOutlined style={{ fontSize: 84, color: '#fff' }} spin />
+  //         }
+  //       />
+  //     </div>
+  //   )
 
   return (
     <form
