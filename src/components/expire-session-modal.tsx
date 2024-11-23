@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   memo,
   useCallback,
+  // useEffect,
   useImperativeHandle,
   useState,
 } from 'react'
@@ -28,8 +29,10 @@ export const ExpireSessionModal = memo(
         },
 
         onThirtyMinExpire: () => {
+          // if (!document.hidden && document.hasFocus()) {
           ref?.current?.showModal()
           clearPhoneNumber()
+          // }
         },
       }),
       [resetForm, router]

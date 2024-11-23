@@ -424,8 +424,6 @@ export const SearchBar = ({
 
   const resetForm = useRef(() => formik.resetForm())
 
-  console.log({ phoneValue })
-
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="w-full md:w-auto ">
@@ -634,7 +632,7 @@ const mockOptions = [
     key: 9,
     country: 'Italia',
     city: 'Milano',
-    code: 'LTN',
+    code: 'BGY',
     cityId: 'milan_it',
   },
 ]

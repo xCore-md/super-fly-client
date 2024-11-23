@@ -2,12 +2,12 @@ import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { Drawer, Button, notification } from 'antd'
 import dayjs from 'dayjs'
+import PhoneInput from 'react-phone-input-2'
 import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 interface IProps {
