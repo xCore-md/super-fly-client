@@ -1,12 +1,14 @@
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
-import { Drawer, Button, notification, Input } from 'antd'
+import { Drawer, Button, notification } from 'antd'
 import dayjs from 'dayjs'
 import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
 
 interface IProps {
   closable?: boolean
@@ -50,9 +52,7 @@ export default function LeadModal({
     }
   }, [])
 
-  const handleChangePhoneNumber = useCallback((e: any) => {
-    const inputValue = e.target.value
-
+  const handleChangePhoneNumber = useCallback((inputValue: string) => {
     // Allow only numbers and a single "+" at the start
     if (/^(?:\+)?\d*$/.test(inputValue)) {
       setPhone(inputValue)
@@ -199,15 +199,41 @@ export default function LeadModal({
             </div>
           </div>
         )}
-        <Input
-          type="tel"
-          className="mt-2 rounded-lg border-[1px] border-[#E7E7E7]"
-          onChange={handleChangePhoneNumber}
-          value={phone}
-          autoFocus
-          autoComplete="tel-country"
-          placeholder="Introduceți numărul de telefon"
-        />
+
+        <div className="mt-2 w-full">
+          <PhoneInput
+            onChange={handleChangePhoneNumber}
+            value={phone}
+            preferredCountries={[
+              'md',
+              'es',
+              'pt',
+              'ru',
+              'it',
+              'ie',
+              'de',
+              'il',
+            ]}
+            preserveOrder={['preferredCountries']}
+            inputStyle={{
+              height: 42,
+              width: '100%',
+              borderRadius: 16,
+              fontWeight: '400',
+              outline: 'none',
+              border: '1px solid #E7E7E7',
+            }}
+            containerClass="modal-phone-input"
+            inputProps={{
+              id: 'leadPhoneInputId',
+              autoFocus: true,
+              type: 'text',
+            }}
+            placeholder="Introduceți numărul de telefon"
+            country={'md'}
+            countryCodeEditable={false}
+          />
+        </div>
         <Button
           onClick={handleSubmit}
           className="green-button  mt-4 h-10 w-full rounded-full  border-0 text-sm "

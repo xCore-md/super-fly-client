@@ -347,7 +347,6 @@ body {
   to {
     opacity: 0;
   }
-  
 }
 
 .customCalendar .ant-picker-cell {
@@ -599,16 +598,9 @@ body {
   }
 }
 
-.react-tel-input .flag-dropdown, .react-tel-input .flag-dropdown .open {
-  border: 0 !important;
-  background: #fff !important;
-  border-top-left-radius: 50% !important;
-  border-bottom-left-radius: 50% !important;;
-}
-
 .react-tel-input .country-list {
   margin: 0 0 0 20px !important;
-  box-shadow: 1px 10px 10px rgba(0,0,0,0.35) !important;
+  box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
 .search-input {
@@ -677,9 +669,6 @@ body {
   }
 }
 
-
-
-
 .ant-picker-cell-selected.ant-picker-cell-today .ant-picker-calendar-date {
   &::before {
     border: none !important;
@@ -695,8 +684,8 @@ body {
   }
 }
 
-.selected-from-date .ant-picker-cell-selected .ant-picker-calendar-date, 
-.selected-to-date .ant-picker-cell-selected .ant-picker-calendar-date  {
+.selected-from-date .ant-picker-cell-selected .ant-picker-calendar-date,
+.selected-to-date .ant-picker-cell-selected .ant-picker-calendar-date {
   background: #3f4ed6;
   color: #fff;
 
@@ -705,23 +694,26 @@ body {
   }
 }
 
-.home-search-phone .flag-dropdown, .react-tel-input .selected-flag {
-  border-top-left-radius: 50px !important;
-  border-bottom-left-radius: 50px !important;
+.home-search-phone .flag-dropdown,
+.home-search-phone .flag-dropdown .open,
+.modal-phone-input .flag-dropdown,
+.modal-phone-input .flag-dropdown .open {
   border: 0 !important;
-  padding-left: 12px !important;
+  background: #fff !important;
+  border-top-left-radius: 16px !important;
+  border-bottom-left-radius: 16px !important;
+  border-top: 1px solid #e7e7e7 !important;
+  border-left: 1px solid #e7e7e7 !important;
+  border-bottom: 1px solid #e7e7e7 !important;
 }
 
+.home-search-phone .flag-dropdown,
 .home-search-phone .flag-dropdown .open {
-  border-top-left-radius: 50px !important;
-  border-bottom-left-radius: 50px !important;
+  border-top-left-radius: 50% !important;
+  border-bottom-left-radius: 50% !important;
 }
 
-.home-search-phone .form-control {
-  padding-left: 58px !important;
-}
-
-.home-search-phone .country-list {
+.react-tel-input .country-list {
   margin: 0 0 0 46px !important;
 }
 
@@ -764,17 +756,16 @@ body {
   }
 }
 
-
 .ant-notification-notice-wrapper {
-  .ant-notification-notice  {
+  .ant-notification-notice {
     padding: 10px !important;
   }
-  
+
   .ant-notification-notice-close {
     top: 10px !important;
     right: 10px !important;
   }
-  
+
   .ant-notification-notice-description {
     padding-right: 36px !important;
   }
