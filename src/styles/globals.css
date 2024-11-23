@@ -598,11 +598,6 @@ body {
   }
 }
 
-.react-tel-input .country-list {
-  margin: 0 0 0 20px !important;
-  box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.35) !important;
-}
-
 .search-input {
   input,
   button {
@@ -694,14 +689,15 @@ body {
   }
 }
 
-.home-search-phone .flag-dropdown,
-.home-search-phone .flag-dropdown .open,
 .modal-phone-input .flag-dropdown,
 .modal-phone-input .flag-dropdown .open {
   border: 0 !important;
   background: #fff !important;
   border-top-left-radius: 16px !important;
   border-bottom-left-radius: 16px !important;
+}
+
+.modal-phone-input .flag-dropdown {
   border-top: 1px solid #e7e7e7 !important;
   border-left: 1px solid #e7e7e7 !important;
   border-bottom: 1px solid #e7e7e7 !important;
@@ -709,12 +705,15 @@ body {
 
 .home-search-phone .flag-dropdown,
 .home-search-phone .flag-dropdown .open {
+  border: 0 !important;
+  background: #fff !important;
   border-top-left-radius: 50% !important;
   border-bottom-left-radius: 50% !important;
 }
 
 .react-tel-input .country-list {
-  margin: 0 0 0 46px !important;
+  margin: 0 0 0 20px !important;
+  box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.35) !important;
 }
 
 @media (min-width: 1440px) {
