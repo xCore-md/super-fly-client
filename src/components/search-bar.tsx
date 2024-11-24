@@ -145,6 +145,14 @@ export const SearchBar = ({
   const passengersTypes = ['adults', 'children', 'infants']
 
   useEffect(() => {
+    const storage = localStorage.getItem('lead')
+    if (storage) {
+      const phone = JSON.parse(storage).phone || false
+      setIsPhoneInputVisible(!!phone)
+    }
+  }, [])
+
+  useEffect(() => {
     const storage = localStorage.getItem('flight')
     if (storage) {
       const storageFlight = JSON.parse(storage)
