@@ -63,6 +63,7 @@ export const SearchBar = ({
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
+
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
@@ -70,6 +71,7 @@ export const SearchBar = ({
     setOptions(mockOptions)
     document.body.style.overflow = 'hidden'
   }, [])
+
   const closeDrawer = () => {
     setDrawerState('')
     const inputElement = document.getElementById('phoneInputId')

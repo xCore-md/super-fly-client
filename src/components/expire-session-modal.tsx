@@ -4,7 +4,7 @@ import React, {
   forwardRef,
   memo,
   useCallback,
-  // useEffect,
+  useEffect,
   useImperativeHandle,
   useState,
 } from 'react'
@@ -29,10 +29,8 @@ export const ExpireSessionModal = memo(
         },
 
         onThirtyMinExpire: () => {
-          // if (!document.hidden && document.hasFocus()) {
           ref?.current?.showModal()
           clearPhoneNumber()
-          // }
         },
       }),
       [resetForm, router]
@@ -50,6 +48,7 @@ export const ExpireSessionModal = memo(
 // eslint-disable-next-line react/display-name
 const SessionModal = forwardRef((_props, ref) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [visibilityState, setVisibilityState] = useState<any>(null)
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -58,6 +57,23 @@ const SessionModal = forwardRef((_props, ref) => {
   const closeModal = useCallback(() => {
     setIsModalOpen(false)
   }, [])
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setVisibilityState(document.visibilityState)
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  })
+
+  useEffect(() => {
+    if (visibilityState === 'hidden') {
+      showModal()
+    }
+  }, [visibilityState, closeModal])
 
   useImperativeHandle(ref, () => ({
     showModal,
@@ -68,6 +84,7 @@ const SessionModal = forwardRef((_props, ref) => {
       onCancel={closeModal}
       onClose={closeModal}
       open={isModalOpen}
+      centered
       footer={null}
     >
       <h2 className="mt-4 text-center text-xl font-semibold text-brand-blue">
