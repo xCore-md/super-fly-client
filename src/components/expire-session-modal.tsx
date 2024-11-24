@@ -49,6 +49,7 @@ export const ExpireSessionModal = memo(
 const SessionModal = forwardRef((_props, ref) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [visibilityState, setVisibilityState] = useState<any>(null)
+  const router = useRouter()
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -72,8 +73,22 @@ const SessionModal = forwardRef((_props, ref) => {
   useEffect(() => {
     if (visibilityState === 'hidden') {
       showModal()
+      localStorage.setItem('modalHiddenTime', new Date().toISOString())
     }
-  }, [visibilityState, closeModal])
+    if (visibilityState === 'visible') {
+      const storage = localStorage.getItem('modalHiddenTime')
+      if (storage) {
+        const hiddenTime = new Date(storage)
+        const currentTime = new Date()
+        const diff = (currentTime.getTime() - hiddenTime.getTime()) / 1000
+        if (diff > 30 * 60) {
+          localStorage.removeItem('flight')
+          localStorage.removeItem('lead')
+          router.push('/')
+        }
+      }
+    }
+  }, [visibilityState, closeModal, router])
 
   useImperativeHandle(ref, () => ({
     showModal,
