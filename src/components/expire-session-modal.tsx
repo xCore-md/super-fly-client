@@ -12,9 +12,13 @@ import { Modal } from 'antd'
 import { useSessionTimer } from '@/lib/hooks/useSessionTimer'
 import { Button } from '@components/ui/button'
 
+interface ExpireSessionModalProps {
+  resetForm: () => void
+  closeAllFields: () => void
+}
 // eslint-disable-next-line react/display-name
 export const ExpireSessionModal = memo(
-  ({ resetForm }: { resetForm: () => void }) => {
+  ({ resetForm, closeAllFields }: ExpireSessionModalProps) => {
     const router = useRouter()
     const ref = React.useRef<{ showModal: () => void }>(null)
 
@@ -39,84 +43,90 @@ export const ExpireSessionModal = memo(
 
     return (
       <div>
-        <SessionModal ref={ref} />
+        {/*  eslint-disable-next-line  */}
+        <SessionModal ref={ref} closeAllFields={closeAllFields} />
       </div>
     )
   }
 )
 
 // eslint-disable-next-line react/display-name
-const SessionModal = forwardRef((_props, ref) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [visibilityState, setVisibilityState] = useState<any>(null)
-  const router = useRouter()
+const SessionModal = forwardRef<any, { closeAllFields: () => void }>(
+  ({ closeAllFields }, ref) => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [visibilityState, setVisibilityState] = useState<any>(null)
+    const router = useRouter()
 
-  const showModal = () => {
-    setIsModalOpen(true)
-  }
-
-  const closeModal = useCallback(() => {
-    setIsModalOpen(false)
-  }, [])
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      setVisibilityState(document.visibilityState)
+    const showModal = () => {
+      setIsModalOpen(true)
     }
-    document.addEventListener('visibilitychange', handleVisibilityChange)
 
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-    }
-  })
+    const closeModal = useCallback(() => {
+      setIsModalOpen(false)
+    }, [])
 
-  useEffect(() => {
-    if (visibilityState === 'hidden') {
-      showModal()
-      localStorage.setItem('modalHiddenTime', new Date().toISOString())
-    }
-    if (visibilityState === 'visible') {
-      const storage = localStorage.getItem('modalHiddenTime')
-      if (storage) {
-        const hiddenTime = new Date(storage)
-        const currentTime = new Date()
-        const diff = (currentTime.getTime() - hiddenTime.getTime()) / 1000
-        if (diff > 30 * 60) {
-          localStorage.removeItem('flight')
-          localStorage.removeItem('lead')
-          router.push('/')
+    useEffect(() => {
+      const handleVisibilityChange = () => {
+        setVisibilityState(document.visibilityState)
+      }
+      document.addEventListener('visibilitychange', handleVisibilityChange)
+
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
+      }
+    })
+
+    useEffect(() => {
+      if (visibilityState === 'hidden') {
+        // eslint-disable-next-line
+        closeAllFields()
+        showModal()
+        localStorage.setItem('modalHiddenTime', new Date().toISOString())
+      }
+      if (visibilityState === 'visible') {
+        const storage = localStorage.getItem('modalHiddenTime')
+        if (storage) {
+          const hiddenTime = new Date(storage)
+          const currentTime = new Date()
+          const diff = (currentTime.getTime() - hiddenTime.getTime()) / 1000
+          if (diff > 30 * 60) {
+            localStorage.removeItem('flight')
+            localStorage.removeItem('lead')
+            router.push('/')
+          }
         }
       }
-    }
-  }, [visibilityState, closeModal, router])
+    }, [visibilityState, closeModal, router, closeAllFields])
 
-  useImperativeHandle(ref, () => ({
-    showModal,
-  }))
-  return (
-    <Modal
-      title=""
-      onCancel={closeModal}
-      onClose={closeModal}
-      open={isModalOpen}
-      centered
-      footer={null}
-    >
-      <h2 className="mt-4 text-center text-xl font-semibold text-brand-blue">
-        Sesiunea dumneavoastră expiră în curând
-      </h2>
-      <div className="rounded-2xl bg-white p-6 px-4  text-center md:px-6">
-        <span className="text-sm font-medium text-gray-600">
-          Doriți să continuați căutarea zborului? Pentru siguranța datelor
-          dumneavoastră, sesiunea va expira în curând.
-        </span>
-      </div>
-      <div className="flex justify-center">
-        <Button onClick={closeModal}>Continua</Button>
-      </div>
-    </Modal>
-  )
-})
+    useImperativeHandle(ref, () => ({
+      showModal,
+    }))
+
+    return (
+      <Modal
+        title=""
+        onCancel={closeModal}
+        onClose={closeModal}
+        open={isModalOpen}
+        centered
+        footer={null}
+      >
+        <h2 className="mt-4 text-center text-xl font-semibold text-brand-blue">
+          Sesiunea dumneavoastră expiră în curând
+        </h2>
+        <div className="rounded-2xl bg-white p-6 px-4  text-center md:px-6">
+          <span className="text-sm font-medium text-gray-600">
+            Doriți să continuați căutarea zborului? Pentru siguranța datelor
+            dumneavoastră, sesiunea va expira în curând.
+          </span>
+        </div>
+        <div className="flex justify-center">
+          <Button onClick={closeModal}>Continua</Button>
+        </div>
+      </Modal>
+    )
+  }
+)
 
 const clearPhoneNumber = () => {
   const flight = JSON.parse(localStorage.getItem('flight') || '{}')
