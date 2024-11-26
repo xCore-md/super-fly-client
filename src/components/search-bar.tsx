@@ -578,7 +578,7 @@ export const SearchBar = ({
 
       <ExpireSessionModal
         resetForm={resetForm.current}
-        closeAllFields={closeAllFields}
+        closeDrawer={closeDrawer}
       />
     </>
   )

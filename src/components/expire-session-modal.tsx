@@ -14,11 +14,11 @@ import { Button } from '@components/ui/button'
 
 interface ExpireSessionModalProps {
   resetForm: () => void
-  closeAllFields: () => void
+  closeDrawer: () => void
 }
 // eslint-disable-next-line react/display-name
 export const ExpireSessionModal = memo(
-  ({ resetForm, closeAllFields }: ExpireSessionModalProps) => {
+  ({ resetForm, closeDrawer }: ExpireSessionModalProps) => {
     const router = useRouter()
     const ref = React.useRef<{ showModal: () => void }>(null)
 
@@ -44,15 +44,15 @@ export const ExpireSessionModal = memo(
     return (
       <div>
         {/*  eslint-disable-next-line  */}
-        <SessionModal ref={ref} closeAllFields={closeAllFields} />
+        <SessionModal ref={ref} closeDrawer={closeDrawer} />
       </div>
     )
   }
 )
 
 // eslint-disable-next-line react/display-name
-const SessionModal = forwardRef<any, { closeAllFields: () => void }>(
-  ({ closeAllFields }, ref) => {
+const SessionModal = forwardRef<any, { closeDrawer: () => void }>(
+  ({ closeDrawer }, ref) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [visibilityState, setVisibilityState] = useState<any>(null)
     const router = useRouter()
@@ -79,7 +79,7 @@ const SessionModal = forwardRef<any, { closeAllFields: () => void }>(
     useEffect(() => {
       if (visibilityState === 'hidden') {
         // eslint-disable-next-line
-        closeAllFields()
+        closeDrawer()
         showModal()
         localStorage.setItem('modalHiddenTime', new Date().toISOString())
       }
@@ -96,7 +96,7 @@ const SessionModal = forwardRef<any, { closeAllFields: () => void }>(
           }
         }
       }
-    }, [visibilityState, closeModal, router, closeAllFields])
+    }, [visibilityState, closeModal, router, closeDrawer])
 
     useImperativeHandle(ref, () => ({
       showModal,
