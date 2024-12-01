@@ -10,16 +10,25 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useFlightContext } from '@/context/flight-context'
 
 import 'swiper/css'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IItems {
-  title: string
-  subtitle: string
+  title: {
+    [key: string]: string
+  }
+  subtitle: {
+    [key: string]: string
+  }
   price: number
   img: any
   cityId: string
   code: string
-  city: string
-  country: string
+  city: {
+    [key: string]: string
+  }
+  country: {
+    [key: string]: string
+  }
 }
 
 interface IProps {
@@ -27,14 +36,23 @@ interface IProps {
   subtitle?: string
   footerSubtitle?: React.ReactNode
   buttonTitle?: string
+  startingLabel?: string
   buttonUrl: string
   items: IItems[]
 }
 export const ItemsCarousel = (props: IProps) => {
-  const { title, subtitle, footerSubtitle, buttonTitle, buttonUrl, items } =
-    props
+  const {
+    title,
+    subtitle,
+    footerSubtitle,
+    buttonTitle,
+    buttonUrl,
+    items,
+    startingLabel,
+  } = props
 
   const { searchBarRef } = useFlightContext()
+  const { lang } = useTranslationsContext()
 
   const handleGoToFlights = (item: {
     code: string
@@ -94,7 +112,14 @@ export const ItemsCarousel = (props: IProps) => {
             <SwiperSlide
               key={index}
               className="relative ml-3 flex max-w-[112px] cursor-pointer select-none justify-center px-0 pb-4 pt-4 transition-all duration-200 ease-out md:ml-4 md:max-w-full"
-              onClick={() => handleGoToFlights({ code, cityId, country, city })}
+              onClick={() =>
+                handleGoToFlights({
+                  code,
+                  cityId,
+                  country: country[lang],
+                  city: city[lang],
+                })
+              }
             >
               <Card className="group w-full overflow-hidden rounded-xl transition-[.5s] hover:shadow-lg">
                 <CardHeader className=" overflow-hidden p-0">
@@ -106,12 +131,13 @@ export const ItemsCarousel = (props: IProps) => {
                 </CardHeader>
                 <CardContent className="p-3">
                   <div className="md:h-[70px]">
-                    <p className="text-xs font-medium md:mt-3">{title}</p>
+                    <p className="text-xs font-medium md:mt-3">{title[lang]}</p>
                     <p className="text-[8px] font-medium text-[#888888] md:text-xs">
-                      {subtitle}
+                      {subtitle[lang]}
                     </p>
                     <p className="mt-2 text-xxs md:text-sm">
-                      De la <span className="font-medium">€{price}</span>
+                      {startingLabel}{' '}
+                      <span className="font-medium">€{price}</span>
                     </p>
                   </div>
                 </CardContent>

@@ -7,12 +7,21 @@ import React from 'react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useAnimationFadeIn } from '@/lib/hooks/useAnimationFadeIn'
 import { cn } from '@/lib/utils'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IBlogListItemProps {
-  header: string
-  title: string
-  shortText: string
-  text?: React.ReactNode
+  header: {
+    [key: string]: string
+  }
+  title: {
+    [key: string]: string
+  }
+  shortText: {
+    [key: string]: string
+  }
+  text?: {
+    [key: string]: React.ReactNode
+  }
   img: StaticImageData
 }
 
@@ -41,6 +50,7 @@ export const BlogList = (props: IBlogListProps) => {
   } = props
 
   useAnimationFadeIn('.gsap-animate')
+  const { lang } = useTranslationsContext()
 
   const pathname = usePathname()
 
@@ -92,10 +102,10 @@ export const BlogList = (props: IBlogListProps) => {
               >
                 <div>
                   <h3 className="mt-[14px] line-clamp-2 text-sm text-[#323232] lg:mt-5 lg:text-xl">
-                    {title}
+                    {title[lang]}
                   </h3>
                   <p className="mt-3 line-clamp-3 text-sm font-light text-[#4A4A4A] max-[768px]:hidden">
-                    {shortText}
+                    {shortText[lang]}
                   </p>
                 </div>
               </CardContent>

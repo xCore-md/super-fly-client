@@ -29,6 +29,7 @@ import { SearchDatePicker } from './search-components-desktop/search-date-picker
 import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
 import 'react-phone-input-2/lib/style.css'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -63,6 +64,7 @@ export const SearchBar = ({
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
+  const { translations: t } = useTranslationsContext()
 
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
@@ -474,7 +476,7 @@ export const SearchBar = ({
                 onSearch={onSearch}
                 onClickField={onClickField}
                 openFields={openFields}
-                placeholder="ZBOR DIN"
+                placeholder={t.searchBar?.departurePlaceholder}
                 setOpenFields={setOpenFields}
                 setOpenField={setOpenField}
                 initialFieldsState={initialFieldsState}
@@ -489,7 +491,7 @@ export const SearchBar = ({
                 onClickField={onClickField}
                 openFields={openFields}
                 setOpenField={setOpenField}
-                placeholder="ATERIZARE ÎN"
+                placeholder={t.searchBar?.arrivalPlaceholder}
               />
             </div>
 
@@ -553,7 +555,7 @@ export const SearchBar = ({
               className={`search-button-shadow ml-4 hidden h-[40px] w-[40px] min-w-[40px] items-center justify-center rounded-full bg-brand-green hover:opacity-90  max-[1024px]:mt-4 max-[1024px]:h-12 max-[1024px]:w-full lg:flex`}
             >
               <span className="mr-3 font-medium text-white lg:hidden">
-                Caută
+                {t.searchBar?.search}
               </span>
               <Image src={search} alt="image" width={10} height={10} />
             </button>
@@ -569,7 +571,9 @@ export const SearchBar = ({
               }}
               className="search-button-shadow mt-3 flex h-[32px] w-full items-center justify-center rounded-full border-0 hover:opacity-90 lg:mt-0 lg:hidden lg:w-auto"
             >
-              <span className="text-xs  font-normal lg:hidden">Caută</span>
+              <span className="text-xs  font-normal lg:hidden">
+                {t.searchBar?.search}
+              </span>
               <Image src={searchBtnIcon} alt="image" width={12} height={12} />
             </Button>
           </div>

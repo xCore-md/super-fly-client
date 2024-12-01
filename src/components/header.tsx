@@ -4,8 +4,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import logoBlue from '@/assets/img/logo.svg'
+import { Select, Segmented } from 'antd'
 import logoWhite from '@/assets/img/logo-w.svg'
+import logoBlue from '@/assets/img/logo.svg'
 import support from '@/assets/img/support.png'
 import {
   Sheet,
@@ -15,18 +16,26 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { useTranslationsContext } from '@/context/translations-context'
+import 'dayjs/locale/ru'
 
 interface IMenu {
   title: string
   href: string
 }
 interface IHeaderProps {
-  menu: IMenu[]
+  menu: {
+    [key: string]: {
+      title: string
+      href: string
+    }[]
+  }
 }
 export const Header = ({ menu }: IHeaderProps) => {
   const [isSimpleHeader, setIsSimpleHeader] = useState(false)
   const tel = '+(373) 60 851 555'
   const pathname = usePathname()
+  const { lang, setLang, translations: t } = useTranslationsContext()
 
   useEffect(() => {
     if (pathname !== '/' && pathname !== '/flights') {
@@ -53,18 +62,18 @@ export const Header = ({ menu }: IHeaderProps) => {
           </Link>
 
           <nav className="hidden pl-32 lg:block">
-            <NavList menu={menu} isSimpleHeader={isSimpleHeader} />
+            <NavList menu={menu[lang]} isSimpleHeader={isSimpleHeader} />
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="animate-waveShadow flex items-center rounded-lg p-2">
+            <div className="flex animate-waveShadow items-center rounded-lg p-2">
               <div>
                 <Link
                   href={`tel:${tel}`}
                   className={`flex flex-col ${isSimpleHeader ? 'text-black' : 'text-white'}`}
                 >
                   <span className="text-right text-[8px] md:text-xxs">
-                    Contacteaza-ne
+                    {t.getInTouch}
                   </span>
                   <span className="text-xs font-medium md:text-base">
                     {tel}
@@ -77,15 +86,18 @@ export const Header = ({ menu }: IHeaderProps) => {
                 </div>
                 <span className=" absolute right-0 top-2 h-[6px] w-[6px] animate-pulse rounded-full bg-green-400"></span>
               </div>
-              {/* <div
-              className={`ml-16 hidden cursor-pointer items-center text-sm uppercase lg:flex ${isSimpleHeader ? 'text-black' : 'text-white'}`}
-            >
-              ro
-            </div> */}
             </div>
+            <Select
+              className={`${isSimpleHeader ? 'lang-selector-dark' : 'lang-selector'} hidden lg:block`}
+              value={lang}
+              onChange={setLang}
+            >
+              <Select.Option value="ru">RU</Select.Option>
+              <Select.Option value="ro">RO</Select.Option>
+            </Select>
 
             <div className="lg:hidden">
-              <MobileMenu menu={menu} isSimpleHeader={isSimpleHeader} />
+              <MobileMenu menu={menu[lang]} isSimpleHeader={isSimpleHeader} />
             </div>
           </div>
         </div>
@@ -136,6 +148,7 @@ const MobileMenu = ({
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
   const tel = '+(373) 60 851 555'
+  const { lang, setLang } = useTranslationsContext()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -159,8 +172,11 @@ const MobileMenu = ({
       <SheetContent className="w-[90%] sm:w-[540px]">
         <SheetHeader>
           <SheetTitle>
-            <Link href="/">
-              <Image width={110} src={logoBlue} alt="logo" />
+            <Link
+              className="flex h-[20px] w-[110px] items-center justify-center overflow-hidden"
+              href="/"
+            >
+              <Image width={110} height={60} src={logoBlue} alt="logo" />
             </Link>
           </SheetTitle>
           <SheetDescription>
@@ -170,7 +186,14 @@ const MobileMenu = ({
                 isSimpleHeader={isSimpleHeader}
                 closeMenu={closeMenu}
               />
-
+              <div className="mt-2 flex justify-center">
+                <Segmented
+                  value={lang.toLocaleUpperCase()}
+                  className="my-2"
+                  onChange={setLang}
+                  options={['RU', 'RO']}
+                />
+              </div>
               <div className="absolute bottom-7 -ml-6 flex w-full items-center justify-center">
                 <div>
                   <Link

@@ -7,6 +7,7 @@ import { FlightTypeContextProvider } from '@/context/flight-type-context'
 import { FlightsContextProvider } from '@/context/flights-context'
 import { LoadingContextProvider } from '@/context/loading-context'
 import { ReservationContextProvider } from '@/context/reservation-context'
+import { TranslationsContextProvider } from '@/context/translations-context'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -33,15 +34,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <LoadingContextProvider>
-          <FlightTypeContextProvider>
-            <ReservationContextProvider>
-              <FlightsContextProvider>
-                <FlightContextProvider>{children}</FlightContextProvider>
-              </FlightsContextProvider>
-            </ReservationContextProvider>
-          </FlightTypeContextProvider>
-        </LoadingContextProvider>
+        <TranslationsContextProvider>
+          <LoadingContextProvider>
+            <FlightTypeContextProvider>
+              <ReservationContextProvider>
+                <FlightsContextProvider>
+                  <FlightContextProvider>{children}</FlightContextProvider>
+                </FlightsContextProvider>
+              </ReservationContextProvider>
+            </FlightTypeContextProvider>
+          </LoadingContextProvider>
+        </TranslationsContextProvider>
       </body>
     </html>
   )

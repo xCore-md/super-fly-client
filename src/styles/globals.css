@@ -769,3 +769,50 @@ body {
     padding-right: 36px !important;
   }
 }
+
+
+.lang-selector {
+  background: transparent;
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+
+  .ant-select-selector {
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 14px !important;
+  }
+
+  .ant-select-selection-search {
+    display: none !important;
+  }
+
+  .ant-select-arrow {
+    color: #fff;
+    font-size: 14px !important;
+  }
+}
+
+.lang-selector-dark {
+  background: transparent;
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+
+  .ant-select-selector {
+    background: transparent !important;
+    border: none !important;
+    color: #3f4ed6 !important;
+    font-size: 14px !important;
+  }
+
+  .ant-select-selection-search {
+    display: none !important;
+  }
+
+  .ant-select-arrow {
+    color: #3f4ed6;
+    font-size: 14px !important;
+  }
+} 

@@ -10,6 +10,7 @@ import infants from '@/assets/img/infants.svg'
 import infantsBlue from '@/assets/img/infants-blue.svg'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   onClickField: any
@@ -20,6 +21,7 @@ interface IProps {
 
 export function SearchPassengers(props: IProps) {
   const { onClickField, formik, applyPassengers, openFields } = props
+  const { translations: t } = useTranslationsContext()
 
   const isMobile = useIsMobile()
 
@@ -78,12 +80,15 @@ export function SearchPassengers(props: IProps) {
         <Label
           className={`pointer-events-none text-[8px] font-semibold uppercase  ${showDropdown ? 'text-brand-blue' : 'text-gray-400'}`}
         >
-          PASAGERI
+          {t.searchBar?.passengers}
         </Label>
 
         <span className="flex w-full cursor-pointer select-none justify-start gap-1 text-xs font-semibold text-slate-500 md:text-xxs">
           <span>{passengersCount || ''}</span>
-          <span> Pasager{passengersCount > 1 ? 'i' : ''}</span>
+          <span>
+            {t.searchBar?.passengers}
+            {passengersCount > 1 ? 'i' : ''}
+          </span>
         </span>
       </div>
 

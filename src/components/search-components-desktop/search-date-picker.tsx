@@ -6,6 +6,7 @@ import calendarBlue from '@/assets/img/calendar-blue.svg'
 import calendar from '@/assets/img/calendar.svg'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { CustomCalendar } from '../customCalendar'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   formik: any
@@ -25,6 +26,7 @@ export function SearchDatePicker(props: IProps) {
   } = props
 
   const [activeField, setActiveField] = useState('')
+  const { translations: t } = useTranslationsContext()
 
   useEffect(() => {
     if (!isReturnFlight) {
@@ -100,7 +102,7 @@ export function SearchDatePicker(props: IProps) {
   return (
     <div className="relative flex w-full flex-row gap-2 max-[1024px]:mt-2 max-[1024px]:rounded-full max-[1024px]:bg-white max-[1024px]:p-2 max-[1024px]:px-5 md:w-auto md:max-w-[387px] lg:gap-3">
       <PickerField
-        title="plecare"
+        title={t.searchBar?.departure}
         openFields={openFields}
         value={formik.values.date_from}
         onClickField={() => handleChangeActiveField('date_from')}
@@ -110,7 +112,7 @@ export function SearchDatePicker(props: IProps) {
         isFirstField
       />
       <PickerField
-        title="retur"
+        title={t.searchBar?.arrival}
         openFields={openFields}
         value={formik.values.return_to}
         onClickField={() => handleChangeActiveField('return_to')}
@@ -164,8 +166,11 @@ const PickerField = (props: IPickerField) => {
 
   const onFieldClick = useCallback(() => onClickField(), [onClickField])
   const isMobile = useIsMobile()
+  const { translations: t } = useTranslationsContext()
 
-  const placeholder = isMobile ? '+ Adauga retur' : 'Alege data'
+  const placeholder = isMobile
+    ? `+ ${t.searchBar?.addReturn}`
+    : t.searchBar?.selectDate
 
   return (
     <div
@@ -184,7 +189,9 @@ const PickerField = (props: IPickerField) => {
           value={value ? dayjs(value).format('DD.MM.YYYY') : ''}
           readOnly
           id={field}
-          placeholder={title === 'retur' ? placeholder : 'Alege data'}
+          placeholder={
+            title === 'retur' ? placeholder : t.searchBar?.selectDate
+          }
           onClick={onFieldClick}
           onChange={onChange}
           onClear={onClear}

@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useState } from 'react'
+import { Button } from 'antd'
+import { ChevronDown } from 'lucide-react'
 import fbOriginal from '@/assets/img/fb-original.svg'
 import instaOriginal from '@/assets/img/insta-original.svg'
 import logo from '@/assets/img/logo.svg'
@@ -18,94 +20,218 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@components/ui/accordion'
-import { Button } from 'antd'
-import { ChevronDown } from 'lucide-react'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export const Footer = () => {
   const pathname = usePathname()
+  const { lang, translations: t } = useTranslationsContext()
 
   const list = [
     {
-      title: 'Țările de Top',
+      title: {
+        ro: 'Țările de Top',
+        ru: 'Топовые страны',
+      },
       expanded: false,
-      items: [
-        'Italia',
-        'Londra',
-        'Germania',
-        'Israel',
-        'Franta',
-        'Belgia',
-        'Irlanda',
-        'Statele Unite ale Americii',
-        'Rusia',
-        'Spania',
-        'China',
-        'Japonia',
-        'Canada',
-      ],
+      items: {
+        ro: [
+          'Italia',
+          'Londra',
+          'Germania',
+          'Israel',
+          'Franta',
+          'Belgia',
+          'Irlanda',
+          'Statele Unite ale Americii',
+          'Rusia',
+          'Spania',
+          'China',
+          'Japonia',
+          'Canada',
+        ],
+        ru: [
+          'Италия',
+          'Лондон',
+          'Германия',
+          'Израиль',
+          'Франция',
+          'Бельгия',
+          'Ирландия',
+          'Соединенные Штаты Америки',
+          'Россия',
+          'Испания',
+          'Китай',
+          'Япония',
+          'Канада',
+        ],
+      },
     },
     {
-      title: 'Orașe de Top',
+      title: {
+        ro: 'Orașe de Top',
+        ru: 'Топовые города',
+      },
       expanded: false,
-      items: [
-        'Milano',
-        'Bove',
-        'Venetia',
-        'Charles de Gaulle',
-        'Bologna',
-        'Tel Aviv',
-        'Barcelona',
-        'Chisinau',
-        'Dublin',
-        'Roma',
-        'Munich',
-        'Brussels',
-        'Frankfurt',
-        'Berlin',
-        'Moscova',
-        'New York',
-        'Tokyo',
-      ],
+      items: {
+        ro: [
+          'Milano',
+          'Bove',
+          'Venetia',
+          'Charles de Gaulle',
+          'Bologna',
+          'Tel Aviv',
+          'Barcelona',
+          'Chisinau',
+          'Dublin',
+          'Roma',
+          'Munich',
+          'Brussels',
+          'Frankfurt',
+          'Berlin',
+          'Moscova',
+          'New York',
+          'Tokyo',
+        ],
+        ru: [
+          'Милан',
+          'Бове',
+          'Венеция',
+          'Шарль де Голль',
+          'Болонья',
+          'Тель-Авив',
+          'Барселона',
+          'Кишинев',
+          'Дублин',
+          'Рим',
+          'Мюнхен',
+          'Брюссель',
+          'Франкфурт',
+          'Берлин',
+          'Москва',
+          'Нью-Йорк',
+          'Токио',
+        ],
+      },
     },
     {
-      title: 'Companii Aeriene',
-      items: [
-        'Hisky',
-        'Wizz air',
-        'Turkish Airlines',
-        'TAROM',
-        'EasyJet',
-        'LOT Polish',
-        'Lufthansa',
-        'Flyone',
-        'Aegian',
-        'Pegasus',
-      ],
+      title: {
+        ro: 'Companii Aeriene',
+        ru: 'Авиакомпании',
+      },
+      items: {
+        ro: [
+          'Hisky',
+          'Wizz air',
+          'Turkish Airlines',
+          'TAROM',
+          'EasyJet',
+          'LOT Polish',
+          'Lufthansa',
+          'Flyone',
+          'Aegian',
+          'Pegasus',
+        ],
+        ru: [
+          'Hisky',
+          'Wizz air',
+          'Turkish Airlines',
+          'TAROM',
+          'EasyJet',
+          'LOT Polish',
+          'Lufthansa',
+          'Flyone',
+          'Aegian',
+          'Pegasus',
+        ],
+      },
     },
   ]
 
   const listWithLinks = [
     {
-      title: 'SUPERFLY.MD',
+      title: {
+        ro: 'SUPERFLY.MD',
+        ru: 'SUPERFLY.MD',
+      },
       items: [
-        { label: 'Rezervările mele', href: '/manage-reservations' },
-        { label: 'Support Clienți', href: '/contacts' },
-        { label: 'Taxe pentru Bagaje', href: '/blog/2' },
-        { label: 'Informații utile', href: '/blog' },
-        { label: 'Întrebări frecvente', href: '/#questions' },
-        { label: 'Contactează-ne', href: '/contacts' },
-        { label: 'Despre Noi', href: '/about' },
-        { label: 'Politica de Confidențialitate', href: '/policy' },
-        { label: 'Termeni și Condiții', href: '/terms' },
+        {
+          label: {
+            ro: 'Rezervările mele',
+            ru: 'Мои бронирования',
+          },
+          href: '/manage-reservations',
+        },
+        {
+          label: {
+            ro: 'Support Clienți',
+            ru: 'Поддержка клиентов',
+          },
+          href: '/contacts',
+        },
+        {
+          label: {
+            ro: 'Taxe pentru Bagaje',
+            ru: 'Сборы за багаж',
+          },
+          href: '/blog/2',
+        },
+        {
+          label: {
+            ro: 'Informații utile',
+            ru: 'Полезная информация',
+          },
+          href: '/blog',
+        },
+        {
+          label: {
+            ro: 'Întrebări frecvente',
+            ru: 'Часто задаваемые вопросы',
+          },
+          href: '/#questions',
+        },
+        {
+          label: {
+            ro: 'Contactează-ne',
+            ru: 'Свяжитесь с нами',
+          },
+          href: '/contacts',
+        },
+        {
+          label: {
+            ro: 'Despre Noi',
+            ru: 'О нас',
+          },
+          href: '/about',
+        },
+        {
+          label: {
+            ro: 'Politica de Confidențialitate',
+            ru: 'Политика конфиденциальности',
+          },
+          href: '/policy',
+        },
+        {
+          label: {
+            ro: 'Termeni și Condiții',
+            ru: 'Условия и положения',
+          },
+          href: '/terms',
+        },
       ],
     },
   ]
+
   if (pathname.includes('admin')) return null
 
   return (
     <div className=" max-w-[1280px] rounded-t-[40px] border-t-[1px] bg-white px-5 pb-14 pt-8 lg:max-w-none lg:px-[90px] lg:pt-[76px]">
       <div className="mx-auto max-w-[1280px] px-0 lg:max-w-none">
-        <FooterColumns list={list} listWithLinks={listWithLinks} />
+        <FooterColumns
+          list={list}
+          listWithLinks={listWithLinks}
+          lang={lang}
+          t={t}
+        />
 
         <hr className="mb-10 mt-6" />
 
@@ -120,12 +246,7 @@ export const Footer = () => {
             />
           </Link>
           <p className="text-center text-xxs text-gray-500 md:pr-6 md:text-left lg:col-span-4">
-            Misiunea noastră este de a oferi clienților noștri o experiență de
-            călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne
-            mândrim cu faptul că suntem o agentie de bilete avia de încredere,
-            care pune clienții pe primul loc. De aceea, vă oferim servicii de
-            calitate superioară, începând cu procesul de rezervare și până la
-            întoarcerea acasă.
+            {t.footer?.ourMission}
           </p>
 
           <div className="flex justify-center gap-4 lg:col-span-2">
@@ -172,7 +293,7 @@ export const Footer = () => {
   )
 }
 
-const FooterColumns = ({ list, listWithLinks }: any) => {
+const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
   const [listItems, setListItems] = useState<any[]>(list)
 
   const updateExpanded = useCallback(
@@ -195,10 +316,12 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
     <>
       <div className="hidden grid-cols-4 lg:grid">
         {listItems.map(({ title, items, expanded }: any, index) => (
-          <div key={title}>
-            <h4 className="mb-3 text-lg font-medium text-blue-700">{title}</h4>
-            <ul key={title}>
-              {items
+          <div key={index}>
+            <h4 className="mb-3 text-lg font-medium text-blue-700">
+              {title[lang]}
+            </h4>
+            <ul key={index}>
+              {items[lang]
                 .slice(0, expanded ? items.length : 9)
                 .map((item: string, index: number) => (
                   <li
@@ -216,22 +339,24 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
                 icon={<ChevronDown size={20} />}
                 onClick={() => updateExpanded(index)}
               >
-                {expanded ? 'mai puțin' : 'mai mult'}
+                {expanded ? t.footer?.lessLabel : t.footer?.moreLabel}
               </Button>
             )}
           </div>
         ))}
 
-        {listWithLinks.map(({ title, items }: any) => (
-          <div key={title} className="col-span-1">
-            <h4 className="mb-3 text-lg font-medium text-blue-700">{title}</h4>
+        {listWithLinks.map(({ title, items }: any, index: number) => (
+          <div key={index} className="col-span-1">
+            <h4 className="mb-3 text-lg font-medium text-blue-700">
+              {title[lang]}
+            </h4>
             <ul>
-              {items.map(({ label, href }: any) => (
+              {items.map(({ label, href }: any, index: number) => (
                 <li
-                  key={label}
+                  key={index}
                   className="mb-3 text-gray-500 hover:cursor-pointer hover:text-blue-700"
                 >
-                  <Link href={href}>{label}</Link>
+                  <Link href={href}>{label[lang]}</Link>
                 </li>
               ))}
             </ul>
@@ -240,19 +365,21 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
       </div>
 
       <Accordion type="single" collapsible className="w-full lg:hidden">
-        {list.map(({ title, items }: any) => (
-          <AccordionItem key={title} value={title} className="border-0">
+        {list.map(({ title, items }: any, index: number) => (
+          <AccordionItem key={index} value={title[lang]} className="border-0">
             <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
-              <h4 className="text-lg font-medium text-blue-700">{title}</h4>
+              <h4 className="text-lg font-medium text-blue-700">
+                {title[lang]}
+              </h4>
             </AccordionTrigger>
             <AccordionContent>
-              <ul key={title}>
-                {items.map((item: any) => (
+              <ul>
+                {items[lang].map((item: string, index: number) => (
                   <li
-                    key={item}
+                    key={index}
                     className="mb-3 text-gray-500 transition-all hover:text-gray-900"
                   >
-                    {item}
+                    {item[lang]}
                   </li>
                 ))}
               </ul>
@@ -260,16 +387,18 @@ const FooterColumns = ({ list, listWithLinks }: any) => {
           </AccordionItem>
         ))}
 
-        {listWithLinks.map(({ title, items }: any) => (
-          <AccordionItem key={title} value={title} className="border-0">
+        {listWithLinks.map(({ title, items }: any, index: number) => (
+          <AccordionItem key={index} value={title[lang]} className="border-0">
             <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
-              <h4 className="text-lg font-medium text-blue-700">{title}</h4>
+              <h4 className="text-lg font-medium text-blue-700">
+                {title[lang]}
+              </h4>
             </AccordionTrigger>
             <AccordionContent>
               <ul>
-                {items.map(({ label, href }: any) => (
-                  <li key={label} className="mb-3 text-gray-500">
-                    <a href={href}>{label}</a>
+                {items.map(({ label, href }: any, index: number) => (
+                  <li key={index} className="mb-3 text-gray-500">
+                    <a href={href}>{label[lang]}</a>
                   </li>
                 ))}
               </ul>

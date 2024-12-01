@@ -9,6 +9,7 @@ import blogFooter from '@/assets/img/blog-footer.png'
 // import blogImage from '@/assets/img/blog-image.jpg'
 import { usefulInfo } from '@/data/data'
 import { getLastSegment } from '@/lib/utils'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   header: string
@@ -20,7 +21,8 @@ interface IProps {
 
 export default function SingleBlog() {
   const pathname = usePathname()
-  const [data, setData] = useState({} as IProps)
+  const [data, setData] = useState<any>({} as IProps)
+  const { lang, translations: t } = useTranslationsContext()
 
   useEffect(() => {
     if (pathname) {
@@ -32,14 +34,14 @@ export default function SingleBlog() {
 
   return (
     <section>
-      <Header img={data.img} title={data.header} />
+      <Header img={data.img} title={data?.header?.[lang]} />
       <div className="custom-container px-0 pb-36 pt-6 lg:pt-[76px]">
         <div>
           <h2 className="mb-8 w-full text-center text-2xl font-semibold">
-            {data.title}
+            {data.title?.[lang]}
           </h2>
           <p className="content-fields mb-6 text-sm leading-6 text-[#323232] lg:text-[18px]">
-            {data.content}
+            {data.content?.[lang]}
           </p>
         </div>
 
@@ -50,16 +52,17 @@ export default function SingleBlog() {
             alt="image"
           />
           <div className="z-10 flex flex-col items-center justify-center text-white">
-            <h4 className="mb-3 text-lg lg:text-2xl">Nu rata ocazia</h4>
+            <h4 className="mb-3 text-lg lg:text-2xl">
+              {t.singleBlogPage?.bottomCardTitle}
+            </h4>
             <span className="mb-11 px-10 text-center text-sm font-light lg:px-0 lg:text-[18px]">
-              Descoperă acum Oferte de Top, și rezervă rapid bilete la cel mai
-              bun preț!
+              {t.singleBlogPage?.bottomCardSubtitle}
             </span>
             <Link
               href="/#best-offers"
               className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-8 text-base font-light text-white lg:w-[460px] "
             >
-              Mergi la Oferte de Top
+              {t.singleBlogPage?.bottomCardButtonLabel}
             </Link>
           </div>
         </div>

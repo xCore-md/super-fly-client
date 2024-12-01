@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useFlightTypeContext } from '@/context/flight-type-context'
 import { SearchBar } from '@components/search-bar'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export const SearchBarWithTabs = ({
   setLoading,
@@ -12,6 +13,7 @@ export const SearchBarWithTabs = ({
 }) => {
   const [isReturnFlight, setIsReturnFlight] = useState(false)
   const { setFlightType } = useFlightTypeContext()
+  const { translations: t } = useTranslationsContext()
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -36,13 +38,13 @@ export const SearchBarWithTabs = ({
           className={`rounded-lg px-4 text-[10px]  font-semibold lg:h-[22px] lg:text-xxs ${isReturnFlight ? 'text-slate-400 lg:text-white' : 'text-white lg:bg-white lg:text-black'}`}
           onClick={() => handleChangeTab(false)}
         >
-          Într-o direcție
+          {t.searchBar?.oneWay}
         </button>
         <button
           className={`rounded-lg px-4 text-[10px] font-semibold lg:text-xxs ${isReturnFlight ? 'text-white lg:bg-white lg:text-black' : 'text-slate-400 lg:text-white'}`}
           onClick={() => handleChangeTab(true)}
         >
-          Tur-Retur
+          {t.searchBar?.roundTrip}
         </button>
       </div>
 

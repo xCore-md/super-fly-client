@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/collapsible'
 import { useFlightContext } from '@/context/flight-context'
 import { Button } from './ui/button'
+import { useTranslationsContext } from '@/context/translations-context'
 
 const CollapsibleBlock = ({
   offer,
@@ -26,13 +27,14 @@ const CollapsibleBlock = ({
 }: {
   offer: any
   // eslint-disable-next-line no-unused-vars
-  isOpen: (title: string) => boolean
+  isOpen: (cityId: string) => boolean
   // eslint-disable-next-line no-unused-vars
-  setIsOpen: (title: string) => void
+  setIsOpen: (cityId: string) => void
   currentCountry: any
 }) => {
   const router = useRouter()
   const { setFlight } = useFlightContext()
+  const { lang, translations: t } = useTranslationsContext()
 
   const searchObj = {
     fly_from: {
@@ -63,34 +65,34 @@ const CollapsibleBlock = ({
     <div className="flex items-start gap-2">
       <div className="w-full">
         <Collapsible
-          open={isOpen(offer.title)}
-          onOpenChange={() => setIsOpen(offer.title)}
+          open={isOpen(offer.cityId)}
+          onOpenChange={() => setIsOpen(offer.cityId)}
           className="rounded-full bg-white"
         >
           <CollapsibleTrigger asChild className="w-full">
             <div
-              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 lg:h-[63px] lg:px-4 lg:pr-4 ${isOpen(offer.title) ? 'bg-brand-blue' : 'border border-gray-200 bg-white'}`}
+              className={`relative z-10 flex items-center justify-between rounded-full p-2 pl-5 pr-3 lg:h-[63px] lg:px-4 lg:pr-4 ${isOpen(offer.cityId) ? 'bg-brand-blue' : 'border border-gray-200 bg-white'}`}
             >
               <div className="flex flex-col">
                 <span
-                  className={`text-sm font-light lg:text-lg ${isOpen(offer.title) ? 'text-white' : 'text-black'}`}
+                  className={`text-sm font-light lg:text-lg ${isOpen(offer.cityId) ? 'text-white' : 'text-black'}`}
                 >
-                  Chișinău - {offer.title}
+                  {t.kishinev} - {offer.title[lang]}
                 </span>
-                {!isOpen(offer.title) && (
+                {!isOpen(offer.cityId) && (
                   <span className=" text-xxs font-light text-red-500 lg:hidden">
-                    Zbor Direct
+                    {t.directFlight}
                   </span>
                 )}
               </div>
-              {!isOpen(offer.title) && (
+              {!isOpen(offer.cityId) && (
                 <div className="flex flex-col gap-0 lg:hidden">
                   <span className=" w-fit rounded-full bg-brand-green px-2 py-0.5 text-center text-xs text-white">
                     -20%
                   </span>
                   <div>
                     <span className="text-xs text-black">
-                      De la{' '}
+                      {t.startingLabel}{' '}
                       <span className="font-semibold">
                         {Math.round(offer.price)} €
                       </span>
@@ -99,17 +101,17 @@ const CollapsibleBlock = ({
                 </div>
               )}
               <Button
-                className={`h-[38px] w-[38px] rounded-full p-0 ${isOpen(offer.title) ? 'bg-white' : 'custom-light-shadow bg-brand-blue'}`}
+                className={`h-[38px] w-[38px] rounded-full p-0 ${isOpen(offer.cityId) ? 'bg-white' : 'custom-light-shadow bg-brand-blue'}`}
               >
                 <Image
-                  src={isOpen(offer.title) ? minus : plus}
+                  src={isOpen(offer.cityId) ? minus : plus}
                   className="hidden lg:block"
                   alt="plus-icon"
                   width={18}
                   height={38}
                 />
                 <Image
-                  src={isOpen(offer.title) ? chevronUp : chevronDown}
+                  src={isOpen(offer.cityId) ? chevronUp : chevronDown}
                   className="block lg:hidden"
                   alt="plus-icon"
                   width={14}
@@ -119,24 +121,24 @@ const CollapsibleBlock = ({
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
-            className={`animate-opacityBlock -mt-10 rounded-b-[20px] bg-white px-5 pb-5 pt-10 ${isOpen(offer.title) ? 'custom-shadow-2 border-x-[1px] border-b-[1px]' : ''}`}
+            className={`-mt-10 animate-opacityBlock rounded-b-[20px] bg-white px-5 pb-5 pt-10 ${isOpen(offer.cityId) ? 'custom-shadow-2 border-x-[1px] border-b-[1px]' : ''}`}
           >
             <div className="grid-cols-7 items-center gap-4 pt-[18px] lg:grid">
               <div className="col-span-2 flex justify-between">
                 <div className="text-left">
                   <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                    {dayjs().format('DD MMM, YYYY')}
+                    {dayjs().locale(lang).format('DD MMM, YYYY')}
                   </div>
                   <div className="text-xs text-[#4A4A4A] lg:text-sm">
-                    Chișinău
+                    {t.kishinev}
                   </div>
                 </div>
                 <div className=" text-right lg:hidden">
                   <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                    {dayjs(offer.date_from).format('DD MMM, YYYY')}
+                    {dayjs(offer.date_from).locale(lang).format('DD MMM, YYYY')}
                   </div>
                   <div className="text-xs text-[#4A4A4A] lg:text-sm">
-                    {offer.title}
+                    {offer.title[lang]}
                   </div>
                 </div>
               </div>
@@ -154,10 +156,10 @@ const CollapsibleBlock = ({
               </div>
               <div className="col-span-2 hidden text-right lg:block">
                 <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                  {dayjs(offer.date_from).format('DD MMM, YYYY')}
+                  {dayjs(offer.date_from).locale(lang).format('DD MMM, YYYY')}
                 </div>
                 <div className="text-xs text-gray-700 lg:text-sm">
-                  {offer.title}
+                  {offer.title[lang]}
                 </div>
               </div>
               {offer.date_from && (
@@ -166,13 +168,13 @@ const CollapsibleBlock = ({
                     href="tel:+37360851555"
                     className=" custom-light-shadow flex h-8 w-full items-center justify-center gap-4 rounded-full bg-brand-green px-4 text-sm font-light text-white lg:hidden lg:w-full lg:justify-center  lg:px-0"
                   >
-                    <span>Sună acum</span>
+                    <span>{t.callNow}</span>
                   </Link>
                   <Button
                     onClick={handleSearch}
                     className="custom-shadow flex h-8 w-full items-center gap-2 rounded-full bg-brand-blue px-4 text-sm font-light lg:h-[46px] lg:w-full lg:justify-center lg:px-0  lg:text-lg"
                   >
-                    <span>Alege</span>
+                    <span>{t.home?.popularDestinations?.buttonLabel}</span>
                     <div className="text-center lg:hidden">
                       <span className="text-sm">
                         {Math.round(offer.price)} €
@@ -187,25 +189,25 @@ const CollapsibleBlock = ({
       </div>
       <div className="hidden lg:block lg:w-1/4">
         <Collapsible
-          open={isOpen(offer.title)}
-          onOpenChange={() => setIsOpen(offer.title)}
+          open={isOpen(offer.cityId)}
+          onOpenChange={() => setIsOpen(offer.cityId)}
           className="rounded-full"
         >
           <CollapsibleTrigger className="w-full">
             <div
-              className={`flex h-[63px] items-center justify-center rounded-full px-4 ${isOpen(offer.title) ? 'bg-brand-blue text-white' : 'border border-gray-200  bg-white'}`}
+              className={`flex h-[63px] items-center justify-center rounded-full px-4 ${isOpen(offer.cityId) ? 'bg-brand-blue text-white' : 'border border-gray-200  bg-white'}`}
             >
               <span className="text-[22px]">{offer.price} €</span>
             </div>
           </CollapsibleTrigger>
           <CollapsibleContent
-            className={`-mt-10 flex items-center justify-center pb-1 ${isOpen(offer.title) ? 'custom-shadow-2 rounded-b-[20px] border-x-[1px] border-b-[1px] pt-16' : ' rounded-full'}`}
+            className={`-mt-10 flex items-center justify-center pb-1 ${isOpen(offer.cityId) ? 'custom-shadow-2 rounded-b-[20px] border-x-[1px] border-b-[1px] pt-16' : ' rounded-full'}`}
           >
             <Button
               onClick={handleSearch}
               className="mb-6 h-[46px] w-[116px] rounded-full bg-brand-blue px-4 text-lg font-light shadow-md shadow-slate-400"
             >
-              <span>Alege</span>
+              <span>{t.home?.popularDestinations?.buttonLabel}</span>
             </Button>
           </CollapsibleContent>
         </Collapsible>

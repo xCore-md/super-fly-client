@@ -12,12 +12,14 @@ import CollapsibleBlock from './collapsible-block'
 import { Card, CardContent, CardHeader } from './ui/card'
 import { bestDestinations as list } from '../data/data'
 import 'swiper/css'
+import { useTranslationsContext } from '@/context/translations-context'
 
 gsap.registerPlugin(useGSAP)
 gsap.registerPlugin(ScrollTrigger)
 
 const Offers = () => {
   const container = useRef(null)
+  const { lang, translations: t } = useTranslationsContext()
 
   useGSAP(
     () => {
@@ -59,8 +61,8 @@ const Offers = () => {
     },
     { scope: container }
   )
-  const [currentOpenedAccordion, setCurrentOpenedAccordion] = useState(
-    list[0].title
+  const [currentOpenedAccordion, setCurrentOpenedAccordion] = useState<any>(
+    list[0].cityId
   )
   const [bestOffers, setBestOffers] = useState<any>([])
 
@@ -112,7 +114,7 @@ const Offers = () => {
     getCurrentCityByIp()
   }, [])
 
-  const isOpen = (title: string) => title === currentOpenedAccordion
+  const isOpen = (cityId: string) => cityId === currentOpenedAccordion
 
   const [activeSliderIndex, setActiveSliderIndex] = useState(0)
 
@@ -124,7 +126,7 @@ const Offers = () => {
   return (
     <section className="animation-trigger mt-24 lg:mt-44" ref={container}>
       <h2 className="mb-6 text-lg font-medium md:text-2xl">
-        Cele mai populare destinatii
+        {t.home?.popularDestinations?.title}
       </h2>
 
       <div className="animate-right-to-left flex gap-6">
@@ -150,12 +152,14 @@ const Offers = () => {
                 <Card className="mb-4 rounded-xl">
                   <CardHeader className="pb-2">
                     <h3 className="text-[22px] font-medium">
-                      Chisinau - {offer.title}
+                      {/* @ts-ignore */}
+                      {t.kishinev} - {offer.title[lang]}
                     </h3>
                   </CardHeader>
                   <CardContent className="min-h-[120px]">
                     <p className="text-base font-light text-[#4A4A4A]">
-                      {offer.description}
+                      {/* @ts-ignore */}
+                      {offer.description[lang]}
                     </p>
                   </CardContent>
                 </Card>
@@ -195,7 +199,9 @@ const Offers = () => {
             <div key={index} className="cursor-pointer md:mb-4">
               <CollapsibleBlock
                 isOpen={isOpen}
-                setIsOpen={(title: string) => setCurrentOpenedAccordion(title)}
+                setIsOpen={(cityId: string) =>
+                  setCurrentOpenedAccordion(cityId)
+                }
                 offer={offer}
                 currentCountry={currentCountry}
               />

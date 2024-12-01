@@ -1,0 +1,62 @@
+{
+  "headerMenu": {
+    "home": "Acasă",
+    "about": "Despre",
+    "services": "Servicii",
+    "contact": "Contact"
+  },
+  "searchBar": {
+    "oneWay": "Într-o direcție",
+    "roundTrip": "Tur-Retur",
+    "departurePlaceholder": "Zbor din",
+    "arrivalPlaceholder": "ATERIZARE ÎN",
+    "departure": "plecare",
+    "arrival": "retur",
+    "passengers": "Pasageri",
+    "passenger": "Pasager",
+    "passengersMultiple": "Pasageri",
+    "selectDate": "Alege data",
+    "search": "Caută",
+    "addReturn": "Adaugă retur"
+  },
+  "home": {
+    "bannerTitle": "Incepe Calatoria Ta",
+    "bestOffers": {
+      "title": "Cele mai bune oferte",
+      "footerSubtitle": "Începeți călătoria bilete de avion low cost de la Superfly. <br>  Alegeți destinația preferată și începeți să explorați lumea astăzi!",
+      "buttonTitle": "Vezi toate ofertele"
+    },
+    "popularDestinations": {
+      "title": "Cele mai populare destinatii",
+      "buttonLabel": "Alege"
+    },
+    "whyUs": {
+      "title": "Rezervați cu noi",
+      "subtitle": "Oferim clinetilor nostri cele mai bune tarife pentru bilete la avion, <br /> suport gratuit 24 de ore si o experienta simpla si convenabila de rezervare."
+    }
+  },
+  "footer": {
+    "moreLabel": "mai mult",
+    "lessLabel": "mai putin",
+    "ourMission": "Misiunea noastră este de a oferi clienților noștri o experiență de călătorie memorabilă, fără a-i împovăra cu cheltuieli mari. Ne mândrim cu faptul că suntem o agentie de bilete avia de încredere, care pune clienții pe primul loc. De aceea, vă oferim servicii de calitate superioară, începând cu procesul de rezervare și până la întoarcerea acasă."
+  },
+  "questions": {
+    "title": "Întrebări frecvente",
+    "subtitle": "Ai nevoie de ajutor?",
+    "call": "Suna"
+  },
+  "usefulInfo": {
+    "title": "Informație utilă",
+    "buttonLabel": "Vezi Toate"
+  },
+  "getInTouch": "Contacteaza-ne",
+  "kishinev": "Chișinău",
+  "startingLabel": "De la",
+  "directFlight": "Zbor direct",
+  "callNow": "Sună acum",
+  "singleBlogPage": {
+    "bottomCardTitle": "Nu rata ocazia",
+    "bottomCardSubtitle": " Descoperă acum Oferte de Top, și rezervă rapid bilete la cel mai bun preț!",
+    "bottomCardButtonLabel": "Vezi toate ofertele"
+  }
+}

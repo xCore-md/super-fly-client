@@ -12,7 +12,7 @@ import plane from '@/assets/img/plane.png'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 import LeadModal from './lead-modal'
 
-export const Banner = () => {
+export const Banner = ({ title }: { title: string }) => {
   gsap.registerPlugin(useGSAP)
 
   useGSAP(() => {
@@ -70,7 +70,7 @@ export const Banner = () => {
         {!companyParams && (
           <div className="mb-2 flex flex-col items-center lg:mb-14">
             <h1 className="banner-title mb-20 text-[22px] font-medium text-white opacity-0 lg:mb-24 lg:text-[44px]">
-              Începe Călătoria Ta
+              {title}
             </h1>
           </div>
         )}
