@@ -312,6 +312,8 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
     [listItems]
   )
 
+  console.log({ lang })
+
   return (
     <>
       <div className="hidden grid-cols-4 lg:grid">
@@ -321,7 +323,7 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
               {title[lang]}
             </h4>
             <ul key={index}>
-              {items[lang]
+              {items?.[lang]
                 .slice(0, expanded ? items.length : 9)
                 .map((item: string, index: number) => (
                   <li
@@ -374,7 +376,7 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
             </AccordionTrigger>
             <AccordionContent>
               <ul>
-                {items[lang].map((item: string, index: number) => (
+                {items?.[lang].map((item: string, index: number) => (
                   <li
                     key={index}
                     className="mb-3 text-gray-500 transition-all hover:text-gray-900"

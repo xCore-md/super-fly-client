@@ -119,7 +119,7 @@ const NavList = ({
     <ul
       className={`flex flex-col items-center gap-4 pt-2 text-sm text-black lg:flex-row lg:gap-9 ${!isSimpleHeader ? 'lg:text-white' : ''}`}
     >
-      {menu.map(({ title, href }) => (
+      {menu?.map(({ title, href }) => (
         <li
           key={title}
           className={`${isSimpleHeader ? 'nav-link-hover-dark' : 'nav-link-hover'} pb-1 text-xs`}
@@ -190,7 +190,7 @@ const MobileMenu = ({
                 <Segmented
                   value={lang.toLocaleUpperCase()}
                   className="my-2"
-                  onChange={setLang}
+                  onChange={(value) => setLang(value.toLowerCase())}
                   options={['RU', 'RO']}
                 />
               </div>
