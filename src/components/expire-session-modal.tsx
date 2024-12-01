@@ -65,16 +65,16 @@ const SessionModal = forwardRef<any, { closeDrawer: () => void }>(
       setIsModalOpen(false)
     }, [])
 
-    // useEffect(() => {
-    //   const handleVisibilityChange = () => {
-    //     setVisibilityState(document.visibilityState)
-    //   }
-    //   document.addEventListener('visibilitychange', handleVisibilityChange)
+    useEffect(() => {
+      const handleVisibilityChange = () => {
+        setVisibilityState(document.visibilityState)
+      }
+      document.addEventListener('visibilitychange', handleVisibilityChange)
 
-    //   return () => {
-    //     document.removeEventListener('visibilitychange', handleVisibilityChange)
-    //   }
-    // })
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
+      }
+    })
 
     useEffect(() => {
       if (visibilityState === 'hidden') {
