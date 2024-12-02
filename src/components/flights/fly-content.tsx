@@ -12,9 +12,11 @@ import { useReservationContext } from '@/context/reservation-context'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
 import dayjs from 'dayjs'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export const FlyContent = (props: any) => {
   const pathname = usePathname()
+  const { lang, translations: t } = useTranslationsContext()
 
   const {
     withoutAction,
@@ -53,7 +55,7 @@ export const FlyContent = (props: any) => {
 
   if (!flight?.route?.length) return null
 
-  const Escalation = ({ data }: { data: any }) => {
+  const Escalation = ({ data, t }: { data: any; t: any }) => {
     const list = [...data]
 
     return list
@@ -65,7 +67,9 @@ export const FlyContent = (props: any) => {
             <span className="h-[6px] w-3 rounded-full bg-[#FFE959]"></span>
           </div>
           <span className="whitespace-nowrap text-[8px] leading-[10px] text-[#4A4A4A] lg:text-xxs">
-            <span className="mr-1"> Escala {r.cityFrom}</span>
+            <span className="mr-1">
+              {t.flightTransfer} {r.cityFrom}
+            </span>
             <span>
               {getFlightTime(
                 list[index === 0 ? 0 : index - 1].local_arrival,
@@ -73,7 +77,7 @@ export const FlyContent = (props: any) => {
               )}
             </span>
             <span className="text-[8px] font-semibold text-[#4A4A4A] lg:text-xxs">
-              Nr. zbor: {r.flight_no}
+              {t.flightNumber}: {r.flight_no}
             </span>
           </span>
         </div>
@@ -108,7 +112,7 @@ export const FlyContent = (props: any) => {
             </div>
             {startDirection.length > 1 && (
               <div className="mt-2">
-                <Escalation data={startDirection} />
+                <Escalation data={startDirection} t={t} />
               </div>
             )}
           </div>
@@ -133,7 +137,7 @@ export const FlyContent = (props: any) => {
               </div>
               {endDirection?.length > 1 && (
                 <div className="mt-2">
-                  <Escalation data={endDirection} />
+                  <Escalation data={endDirection} t={t} />
                 </div>
               )}
             </div>
@@ -158,7 +162,9 @@ export const FlyContent = (props: any) => {
                     {getFormattedDate(startDirection[0].local_departure)}
                   </div>
                   <div className="text-xxs text-gray-700">
-                    {dayjs(startDirection[0].local_departure).format('DD MMM')}
+                    {dayjs(startDirection[0].local_departure)
+                      .locale(lang)
+                      .format('DD MMM')}
                   </div>
                   <div className="text-xxs text-gray-700">
                     {startDirection[0].cityFrom}
@@ -173,7 +179,7 @@ export const FlyContent = (props: any) => {
                   )}
                   <div className="mb-1 flex items-center justify-center gap-2">
                     <span className="hidden text-xxs text-gray-400 lg:inline">
-                      Durata de zbor:
+                      {t.flightDuration}:
                     </span>
                     <p className="text-xxs text-gray-700">
                       {startDirectionTime}
@@ -192,20 +198,23 @@ export const FlyContent = (props: any) => {
                                 title={
                                   <span className=" flex flex-col gap-2 p-2 text-xs">
                                     <span className="flex gap-4">
-                                      <span className="">Escale:</span>{' '}
+                                      <span className="">
+                                        {t.flightTransfer}:
+                                      </span>{' '}
                                       <span className="ml-2 font-semibold">
                                         {route.cityFrom} - {route.cityTo}
                                       </span>
                                     </span>
                                     <span className="flex gap-4">
-                                      <span className=""> Nr. zbor:</span>
+                                      <span className="">
+                                        {' '}
+                                        {t.flightNumber}:
+                                      </span>
                                       <span className="font-bold">
                                         {route.flight_no}
                                       </span>
                                     </span>
-                                    <span>
-                                      Preluarea si înregistrarea bagajului
-                                    </span>
+                                    <span>{t.baggageRegister}</span>
                                   </span>
                                 }
                               >
@@ -219,8 +228,9 @@ export const FlyContent = (props: any) => {
 
                   <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xxs text-brand-blue">
                     {startDirection.length > 1
-                      ? `Escale: ${startDirection.slice(1).length}`
-                      : `Direct`}
+                      ? `${t.flightTransfer}` +
+                        `: ${startDirection.slice(1).length}`
+                      : t.direct}
                   </div>
 
                   {/*<div className="mt-2 flex justify-between">*/}
@@ -237,7 +247,9 @@ export const FlyContent = (props: any) => {
                   <div className="text-xxs text-gray-700">
                     {dayjs(
                       startDirection[startDirection.length - 1].local_arrival
-                    ).format('DD MMM')}
+                    )
+                      .locale(lang)
+                      .format('DD MMM')}
                   </div>
                   <div className="text-xxs text-gray-700">
                     {startDirection[startDirection.length - 1].cityTo}
@@ -260,10 +272,10 @@ export const FlyContent = (props: any) => {
                         src={backpackSvg}
                         alt={'backpack'}
                       />
-                      <p className="ml-2">Bagajul de mînă inclus</p>
+                      <p className="ml-2">{t.handLuggageIncluded}</p>
                     </div>
                     <p className="pt-2 text-left">
-                      Nr. zbor:{' '}
+                      {t.flightNumber}:{' '}
                       <span className="font-bold">
                         {flight.route[0].flight_no}
                       </span>
@@ -282,7 +294,7 @@ export const FlyContent = (props: any) => {
                         <p
                           className={`flex items-center ${flight.availability.seats < 5 ? 'text-[#F82F2F]' : 'text-[#4A4A4A]'}`}
                         >
-                          Locuri disponibile: {flight.availability.seats}
+                          {t.availableSeats}: {flight.availability.seats}
                         </p>
                       </div>
                     </div>
@@ -328,7 +340,7 @@ export const FlyContent = (props: any) => {
                   </div>
                   {endDirection?.length > 1 && (
                     <div className="mt-2">
-                      <Escalation data={endDirection} />
+                      <Escalation data={endDirection} t={t} />
                     </div>
                   )}
                 </div>
@@ -342,9 +354,9 @@ export const FlyContent = (props: any) => {
                         {getFormattedDate(endDirection?.[0].local_departure)}
                       </div>
                       <div className="text-xxs text-gray-700">
-                        {dayjs(endDirection?.[0].local_departure).format(
-                          'DD MMM'
-                        )}
+                        {dayjs(endDirection?.[0].local_departure)
+                          .locale(lang)
+                          .format('DD MMM')}
                       </div>
                       <div className="text-xxs text-gray-700">
                         {endDirection?.[0].cityFrom}
@@ -358,7 +370,7 @@ export const FlyContent = (props: any) => {
                       )}
                       <div className="mb-1 flex items-center justify-center gap-2">
                         <span className="hidden text-xxs text-gray-400 lg:inline">
-                          Durata de zbor:
+                          {t.flightDuration}:
                         </span>
                         <p className="text-xxs text-gray-700">
                           {endDirectionTime}
@@ -378,20 +390,21 @@ export const FlyContent = (props: any) => {
                                     title={
                                       <span className=" flex flex-col gap-2 p-2 text-xxs">
                                         <span className="flex gap-4">
-                                          <span>Escale:</span>{' '}
+                                          <span>{t.flightTransfer}:</span>{' '}
                                           <span className="ml-2 font-semibold">
                                             {route.cityFrom} - {route.cityTo}
                                           </span>
                                         </span>
                                         <span className="flex gap-4">
-                                          <span className=""> Nr. zbor:</span>
+                                          <span className="">
+                                            {' '}
+                                            {t.flightNumber}:
+                                          </span>
                                           <span className="font-bold">
                                             {route.flight_no}
                                           </span>
                                         </span>
-                                        <span>
-                                          Preluarea si înregistrarea bagajului
-                                        </span>
+                                        <span>{t.baggageRegister}</span>
                                       </span>
                                     }
                                   >
@@ -405,8 +418,8 @@ export const FlyContent = (props: any) => {
 
                       <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-xxs text-brand-blue">
                         {endDirection.length > 1
-                          ? `Escale: ${endDirection.slice(1).length}`
-                          : `Direct`}
+                          ? `${t.flightTransfer}: ${endDirection.slice(1).length}`
+                          : t.direct}
                       </div>
 
                       {/*<div className="mt-2 flex justify-between">*/}
@@ -423,7 +436,9 @@ export const FlyContent = (props: any) => {
                       <div className="text-xxs text-gray-700">
                         {dayjs(
                           endDirection[endDirection.length - 1].local_arrival
-                        ).format('DD MMM')}
+                        )
+                          .locale(lang)
+                          .format('DD MMM')}
                       </div>
                       <div className="text-xxs text-gray-700">
                         {endDirection[endDirection.length - 1].cityTo}
@@ -445,7 +460,7 @@ export const FlyContent = (props: any) => {
                             src={backpackSvg}
                             alt={'backpack'}
                           />
-                          <p className="ml-1">Bagajul de mînă inclus</p>
+                          <p className="ml-1">{t.handLuggageIncluded}</p>
                         </div>
                       </div>
 
@@ -462,14 +477,14 @@ export const FlyContent = (props: any) => {
                             <p
                               className={`flex items-center ${flight.availability.seats < 5 ? 'text-[#F82F2F]' : 'text-[#4A4A4A]'}`}
                             >
-                              Locuri disponibile: {flight.availability.seats}
+                              {t.availableSeats}: {flight.availability.seats}
                             </p>
                           </div>
                           {withoutFlightNumber
                             ? ''
                             : flight.route.length === 1 && (
                                 <p className="text-left lg:hidden">
-                                  Nr. zbor:{' '}
+                                  {t.flightNumber}:{' '}
                                   <span className="font-bold">
                                     {flight.route[0].flight_no}
                                   </span>
@@ -493,16 +508,16 @@ export const FlyContent = (props: any) => {
             {isAdminPanel ? (
               <Button
                 onClick={() => handleAdminPanelSetSelectedFlight(flight)}
-                className={`hidden h-[37px] w-[133px] items-center justify-center ${endDirection.length > 0 ? 'mb-8' : ''} custom-light-shadow rounded-full bg-brand-blue px-8 font-light text-white lg:flex`}
+                className={`hidden h-[37px] w-fit items-center justify-center ${endDirection.length > 0 ? 'mb-8' : ''} custom-light-shadow rounded-full bg-brand-blue px-2 font-light text-white lg:flex`}
               >
-                Rezerva
+                {t.reserv}
               </Button>
             ) : (
               <button
                 onClick={handleReservation}
-                className=" custom-light-shadow hidden h-[37px] w-[133px] items-center justify-center rounded-full bg-brand-blue px-8 font-light text-white lg:flex"
+                className=" custom-light-shadow hidden h-[37px] w-fit items-center justify-center rounded-full bg-brand-blue px-4 font-light text-white lg:flex"
               >
-                Rezerva
+                {t.reserv}
               </button>
             )}
             {!isAdminPanel && (
@@ -537,13 +552,13 @@ export const FlyContent = (props: any) => {
               href="tel:+(373) 60 851 555"
               className="custom-light-shadow flex h-9 w-28 flex-1 items-center justify-center rounded-full bg-[#11D2A4] px-8 text-sm font-light text-white lg:flex lg:text-base"
             >
-              Sună acum
+              {t.callNow}
             </Link>
             <button
               onClick={handleReservation}
-              className="custom-light-shadow flex h-9 w-40 flex-1 items-center justify-center rounded-full bg-brand-blue px-8 text-sm font-light text-white lg:flex lg:text-base"
+              className="custom-light-shadow flex h-9 w-fit flex-1 items-center justify-center rounded-full bg-brand-blue px-4 text-sm font-light text-white lg:flex lg:text-base"
             >
-              Rezerva
+              {t.reserv}
             </button>
           </footer>
         </>

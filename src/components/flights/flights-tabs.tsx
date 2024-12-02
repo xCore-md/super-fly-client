@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils'
 import { FlightsListing } from '@components/flights/flights-listing'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@components/ui/tabs'
 import { FlightsSkeleton } from './flights-skeleton'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IFlightsTabsProps {
   className?: string
@@ -29,6 +30,7 @@ export const FlightsTabs = ({
   setIsSorting,
 }: IFlightsTabsProps) => {
   const { flights } = useFlightsContext()
+  const { translations: t } = useTranslationsContext()
 
   const [flightsToShow, setFlightsToShow] = useState(10)
 
@@ -41,14 +43,14 @@ export const FlightsTabs = ({
         <Tabs className="text-center" defaultValue="rapid">
           <TabsList className="custom-shadow mb-3 animate-fade rounded-full bg-white fill-mode-forwards">
             <TabsTrigger value="rapid" onClick={() => setIsSorting(true)}>
-              Cel mai rapid
+              {t.theFastest}
             </TabsTrigger>
             <TabsTrigger
               className=" text-blue-400"
               value="ieftin"
               onClick={() => setIsSorting(false)}
             >
-              Cel mai ieftin
+              {t.mostCheapest}
             </TabsTrigger>
           </TabsList>
           <TabsContent className="relative" value="ieftin">
@@ -115,6 +117,7 @@ function FlightListComponent({
   isFlightsListEmpty,
   handleAdminPanelReservation,
 }: any) {
+  const { translations: t } = useTranslationsContext()
   return (
     <>
       <FlightsListing
@@ -133,7 +136,7 @@ function FlightListComponent({
                 flights.length > 10 && setFlightsToShow(flightsToShow + 90)
               }
             >
-              Vezi mai mult zboruri
+              {t.showMoreFlights}
             </Button>
           )}
         </>
@@ -150,6 +153,7 @@ function FlightListComponent({
 const NoResults = () => {
   const router = useRouter()
   const { setFlight } = useFlightContext()
+  const { translations: t } = useTranslationsContext()
 
   const redirectOnHomePage = () => {
     setFlight(searchFields)
@@ -161,14 +165,14 @@ const NoResults = () => {
     <Result
       status="404"
       title=""
-      subTitle="Pe moment nu avem zboruri disponibile pentru aceasta destinatie sau data selectata."
+      subTitle={t.noFlightsMessage}
       extra={
         <Button
           onClick={redirectOnHomePage}
           type="primary"
           className="bg-brand-blue"
         >
-          Inapoi la cautare
+          {t.backToSearch}
         </Button>
       }
     />

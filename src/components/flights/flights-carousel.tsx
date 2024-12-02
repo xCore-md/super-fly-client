@@ -21,6 +21,7 @@ import {
   CarouselPrevious,
 } from '@components/ui/carousel'
 import { Skeleton } from '@components/ui/skeleton'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export const FlightsCarousel = () => {
   const { flightType } = useFlightTypeContext()
@@ -29,6 +30,7 @@ export const FlightsCarousel = () => {
   const [loading, setLoading] = useState(false)
   const [storageFlight, setStorageFlight] = useState<any>(null)
   const isTablet = useIsTablet()
+  const { lang } = useTranslationsContext()
 
   useEffect(() => {
     const storage = localStorage?.getItem('flight')
@@ -158,7 +160,8 @@ export const FlightsCarousel = () => {
                       })}
                       suppressHydrationWarning
                     >
-                      {formatDate(flight.date)}
+                      {/* {formatDate(flight.date)} */}
+                      {dayjs(flight.date).locale(lang).format('ddd, MMM D')}
                     </span>
 
                     <p className="mt-auto flex justify-center text-sm font-semibold text-[#3F4ED6]">
@@ -192,6 +195,7 @@ export const FlightsCarousel = () => {
 }
 
 const formatDate = (dateStr: string) => {
+  const { lang } = useTranslationsContext()
   const date = new Date(dateStr)
   return new Intl.DateTimeFormat(undefined, {
     weekday: 'short',

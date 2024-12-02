@@ -11,6 +11,7 @@ import React, {
 import { Modal } from 'antd'
 import { useSessionTimer } from '@/lib/hooks/useSessionTimer'
 import { Button } from '@components/ui/button'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface ExpireSessionModalProps {
   resetForm: () => void
@@ -56,6 +57,7 @@ const SessionModal = forwardRef<any, { closeDrawer: () => void }>(
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [visibilityState, setVisibilityState] = useState<any>(null)
     const router = useRouter()
+    const { lang } = useTranslationsContext()
 
     const showModal = () => {
       setIsModalOpen(true)
@@ -65,16 +67,16 @@ const SessionModal = forwardRef<any, { closeDrawer: () => void }>(
       setIsModalOpen(false)
     }, [])
 
-    // useEffect(() => {
-    //   const handleVisibilityChange = () => {
-    //     setVisibilityState(document.visibilityState)
-    //   }
-    //   document.addEventListener('visibilitychange', handleVisibilityChange)
+    useEffect(() => {
+      const handleVisibilityChange = () => {
+        setVisibilityState(document.visibilityState)
+      }
+      document.addEventListener('visibilitychange', handleVisibilityChange)
 
-    //   return () => {
-    //     document.removeEventListener('visibilitychange', handleVisibilityChange)
-    //   }
-    // })
+      return () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange)
+      }
+    })
 
     useEffect(() => {
       if (visibilityState === 'hidden') {
@@ -112,16 +114,15 @@ const SessionModal = forwardRef<any, { closeDrawer: () => void }>(
         footer={null}
       >
         <h2 className="mt-4 text-center text-xl font-semibold text-brand-blue">
-          Sesiunea dumneavoastră expiră în curând
+          {info.title[lang]}
         </h2>
         <div className="rounded-2xl bg-white p-6 px-4  text-center md:px-6">
           <span className="text-sm font-medium text-gray-600">
-            Doriți să continuați căutarea zborului? Pentru siguranța datelor
-            dumneavoastră, sesiunea va expira în curând.
+            {info.subtitle[lang]}
           </span>
         </div>
         <div className="flex justify-center">
-          <Button onClick={closeModal}>Continua</Button>
+          <Button onClick={closeModal}>{info.buttonLabel[lang]}</Button>
         </div>
       </Modal>
     )
@@ -150,4 +151,19 @@ const clearPhoneNumber = () => {
       })
     )
   }
+}
+
+const info: any = {
+  title: {
+    ro: 'Sesiunea dumneavoastră expiră în curând',
+    ru: 'Ваша сессия скоро закончится',
+  },
+  subtitle: {
+    ro: 'Doriți să continuați căutarea zborului? Pentru siguranța datelor dumneavoastră, sesiunea va expira în curând.',
+    ru: 'Хотите продолжить поиск рейса? Для безопасности ваших данных сессия скоро закончится.',
+  },
+  buttonLabel: {
+    ro: 'Continua',
+    ru: 'Продолжить',
+  },
 }

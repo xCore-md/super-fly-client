@@ -6,11 +6,13 @@ import { Formik, Form, ErrorMessage } from 'formik'
 import axs from '@/lib/axios'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export default function ManageReservations() {
   const [isConfirmed, setIsConfirmed] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [api, contextHolder] = notification.useNotification()
+  const { lang } = useTranslationsContext()
 
   const confirmReservation = useCallback(
     ({ email, code: sale_id }: any) => {
@@ -43,15 +45,19 @@ export default function ManageReservations() {
     <section className="mx-auto mb-24 mt-16 w-full max-w-[737px] animate-fade-up rounded-2xl bg-white p-7 shadow-md fill-mode-forwards">
       {contextHolder}
       {!isConfirmed ? (
-        <FormComponent confirm={confirmReservation} loading={loading} />
+        <FormComponent
+          confirm={confirmReservation}
+          loading={loading}
+          lang={lang}
+        />
       ) : (
         <div className="mt-10 flex flex-col items-center">
           <h2 className="text-xl font-semibold text-brand-green lg:text-2xl">
-            Efectuat cu succes!
+            {info.successTitle[lang]}
           </h2>
 
           <p className="mt-4 text-center text-base text-[#828282]">
-            In scurt timp ve-ți fi telefonat de operatorul dumnevoastrǎ!
+            {info.successText[lang]}
           </p>
         </div>
       )}
@@ -59,11 +65,11 @@ export default function ManageReservations() {
   )
 }
 
-const FormComponent = ({ confirm, loading }: any) => {
+const FormComponent = ({ confirm, loading, lang }: any) => {
   return (
     <div className="mx-auto flex max-w-[588px]  flex-col">
       <h2 className="text-center text-xl font-semibold text-brand-blue lg:text-2xl">
-        Gestionarea rezervărilor
+        {info.title[lang]}
       </h2>
 
       <Formik
@@ -96,7 +102,7 @@ const FormComponent = ({ confirm, loading }: any) => {
             className="mt-10 flex flex-col gap-4"
           >
             <div>
-              <Label className="text-sm">Codul de confirmare</Label>
+              <Label className="text-sm">{info.confirmCode[lang]}</Label>
               <Input
                 name="code"
                 type="text"
@@ -111,11 +117,11 @@ const FormComponent = ({ confirm, loading }: any) => {
             </div>
 
             <div>
-              <Label className="text-sm">Email-ul folosit la rezervare</Label>
+              <Label className="text-sm">{info.emailLabel[lang]}</Label>
               <Input
                 name="email"
                 type="text"
-                placeholder="E-mail"
+                placeholder="Email"
                 className="mt-2"
               />
               <ErrorMessage
@@ -130,11 +136,38 @@ const FormComponent = ({ confirm, loading }: any) => {
               loading={loading}
               className="btn-primary mt-4 flex h-11 flex-1 items-center justify-center rounded-lg px-8 text-base font-light text-white shadow-md shadow-slate-400"
             >
-              Verifică
+              {info.checkText[lang]}
             </Button>
           </Form>
         )}
       </Formik>
     </div>
   )
+}
+
+const info: any = {
+  title: {
+    ro: 'Gestionarea rezervărilor',
+    ru: 'Управление бронированием',
+  },
+  confirmCode: {
+    ro: 'Codul de confirmare',
+    ru: 'Код подтверждения',
+  },
+  emailLabel: {
+    ro: 'Email-ul folosit la rezervare',
+    ru: 'Электронная почта, указанная при бронировании',
+  },
+  checkText: {
+    ro: 'Verifică',
+    ru: 'Проверить',
+  },
+  successTitle: {
+    ro: 'Efectuat cu succes!',
+    ru: 'Успешно выполнено!',
+  },
+  successText: {
+    ro: 'In scurt timp ve-ți fi telefonat de operatorul dumnevoastrǎ!',
+    ru: 'В ближайшее время вас позвонит ваш оператор!',
+  },
 }

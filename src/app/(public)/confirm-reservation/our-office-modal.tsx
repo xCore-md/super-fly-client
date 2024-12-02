@@ -8,9 +8,11 @@ import marker from '@/assets/img/marker.svg'
 import phone from '@/assets/img/phone.svg'
 import wazeSvg from '@/assets/img/waze.svg'
 import { Button } from '@components/ui/button'
+import { useTranslationsContext } from '@/context/translations-context'
 
 const OurOfficeModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { translations: t } = useTranslationsContext()
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -28,10 +30,10 @@ const OurOfficeModal = () => {
         onClick={showModal}
       >
         <span className="hidden text-xxs text-brand-blue lg:block">
-          Achitare la oficiul nostru
+          {t.officePayment}
         </span>
         <span className="block text-xxs font-light text-white lg:hidden">
-          Oficiul nostru
+          {t.ourOffice}
         </span>
       </Button>
       <Modal
@@ -42,7 +44,7 @@ const OurOfficeModal = () => {
         footer={null}
       >
         <h2 className="mt-4 text-center text-2xl font-semibold text-brand-blue">
-          Contactează-ne
+          {t.getInTouch}
         </h2>
         <div className="rounded-2xl bg-white p-12 px-4 shadow-md md:px-6">
           <ul className="flex flex-col gap-6">
@@ -51,7 +53,9 @@ const OurOfficeModal = () => {
                 href="tel:+(373) 60 851 555"
                 className="flex items-center gap-4"
               >
-                <span className="text-sm font-semibold">Telefon:</span>
+                <span className="text-sm font-semibold">
+                  {t.passengerForm?.phone}:
+                </span>
                 <span className="text-sm font-medium text-gray-600">
                   +(373) 60 851 555
                 </span>
@@ -72,7 +76,7 @@ const OurOfficeModal = () => {
             </li>
             <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold">Adresa:</span>
+                <span className="text-sm font-semibold">{t.address}:</span>
                 <span className="text-sm font-medium text-gray-600">
                   str. A. Sciusev 62a
                 </span>
@@ -81,11 +85,9 @@ const OurOfficeModal = () => {
             </li>
             <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold">
-                  Graficul de lucru:
-                </span>
+                <span className="text-sm font-semibold">{t.schedule}:</span>
                 <span className="text-sm font-medium text-gray-600">
-                  Luni-Duminică, 9:00-18:00
+                  {t.monSun}, 9:00-18:00
                 </span>
               </div>
               <Image src={clock} alt="icon" />
@@ -98,7 +100,7 @@ const OurOfficeModal = () => {
                   href="https://ul.waze.com/ul?place=ChIJgS247y18yUAROm5LSCzbOec&ll=47.01957610%2C28.82871940&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location"
                   target={'_blank'}
                 >
-                  <div className="">Navighează cu Waze</div>
+                  <div className="">{t.navigateWithWaze}</div>
                   <Image src={wazeSvg} alt={'waze'} width={18} />
                 </Link>
               </div>

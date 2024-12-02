@@ -120,6 +120,7 @@ const PopoverContent = ({
   updatePassengersCount,
   submitPassengers,
 }: IPopoverContent) => {
+  const { lang, translations: t } = useTranslationsContext()
   const handleUpdatePassengersCount = (key: TPassengers, value: number) => {
     const currentCount = Object.values(passengers).reduce((a, b) => a + b)
 
@@ -133,7 +134,7 @@ const PopoverContent = ({
       className={`dropdown-shadow absolute left-0 top-[37px] z-20 h-auto w-full min-w-[172px] rounded-b-3xl bg-white`}
     >
       <div className="searchDropDownShadow flex w-full flex-col gap-y-4 px-2 py-4">
-        {PopoverData.map(({ title, img, img2, description, key }) => (
+        {PopoverData.map(({ title, img, img2, description, key }: any) => (
           <div className="flex items-center justify-between" key={key}>
             <div className="flex items-center gap-1">
               <Image
@@ -144,8 +145,10 @@ const PopoverContent = ({
                 className="h-5 w-4"
               />
               <div className="flex flex-col">
-                <h4 className="text-xxs font-bold text-black">{title}</h4>
-                <span className="text-[6px] text-gray-500">{description}</span>
+                <h4 className="text-xxs font-bold text-black">{title[lang]}</h4>
+                <span className="text-[6px] text-gray-500">
+                  {description[lang]}
+                </span>
               </div>
             </div>
             <div className="flex select-none items-center gap-1">
@@ -193,31 +196,49 @@ const PopoverContent = ({
           className="custom-light-shadow h-6 w-[98px] rounded-full bg-[#596AD9] text-xxs font-semibold"
           onClick={() => submitPassengers()}
         >
-          Confirmați
+          {t.searchBar?.confirm}
         </Button>
       </div>
     </div>
   )
 }
 
-const PopoverData = [
+const PopoverData: any = [
   {
-    title: 'Adulți',
-    description: 'Mai mult de 12 ani',
+    title: {
+      ro: 'Adulți',
+      ru: 'Взрослые',
+    },
+    description: {
+      ro: 'Mai mult de 12 ani',
+      ru: 'Старше 12 лет',
+    },
     img: human,
     img2: humanBlue,
     key: 'adults',
   },
   {
-    title: 'Copii',
-    description: '2-12 ani',
+    title: {
+      ro: 'Copii',
+      ru: 'Дети',
+    },
+    description: {
+      ro: '2-12 ani',
+      ru: 'От 2 до 12 лет',
+    },
     img: kids,
     img2: kidsBlue,
     key: 'children',
   },
   {
-    title: 'Infanți',
-    description: 'Pînă la 2 ani, fără loc',
+    title: {
+      ro: 'Infanți',
+      ru: 'Младенцы',
+    },
+    description: {
+      ro: 'Pînă la 2 ani, fără loc',
+      ru: 'До 2 лет, без места',
+    },
     img: infants,
     img2: infantsBlue,
     key: 'infants',

@@ -32,6 +32,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
 import plus from '@/assets/img/plus.svg'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IMainFormProps {
   showBaggage?: boolean
@@ -50,6 +51,7 @@ export const ReservationMainForm = ({
   reservation,
 }: IMainFormProps) => {
   const [loading, setLoading] = useState(false)
+  const { translations: t } = useTranslationsContext()
 
   const countriesOptions = countries?.map((country: any) => ({
     label: (
@@ -69,7 +71,7 @@ export const ReservationMainForm = ({
 
   const items = Array.from({ length: passengersCount }).map((_, index) => ({
     key: `index-${index}`,
-    label: `Pasager ${index + 1}`,
+    label: `${t.searchBar?.passenger} ${index + 1}`,
     children: (
       <PassengerForm
         key={index}
@@ -80,6 +82,7 @@ export const ReservationMainForm = ({
         setLoading={setLoading}
         loading={loading}
         bagsPrice={bagsPrice}
+        t={t}
       />
     ),
   }))
@@ -116,6 +119,7 @@ const PassengerForm = ({
   const [api, contextHolder] = notification.useNotification()
   const [files, setFiles] = useState<any>([])
   const [visibleAdditionalInfo, setVisibleAdditionalInfo] = useState(false)
+  const { lang, translations: t } = useTranslationsContext()
 
   useEffect(() => {
     formik.setFieldValue(`passengers[${index}].isOnlineCheckIn`, true)
@@ -171,7 +175,7 @@ const PassengerForm = ({
               htmlFor="first-name"
               className="mb-1 ml-1 text-[10px] lg:hidden"
             >
-              Prenume
+              {t.passengerForm?.firstName}
             </Label>
             <Input
               autoFocus
@@ -179,7 +183,7 @@ const PassengerForm = ({
               name={formik.values.passengers?.[index]?.first_name}
               type="text"
               disabled={loading}
-              placeholder="Prenume*"
+              placeholder={t.passengerForm?.firstName + '*'}
               onChange={(e) =>
                 formik.setFieldValue(
                   `passengers[${index}].first_name`,
@@ -200,7 +204,7 @@ const PassengerForm = ({
               htmlFor="reservation-form-last-name"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
             >
-              Nume
+              {t.passengerForm?.lastName}
             </Label>
             <Input
               onChange={(e) =>
@@ -213,7 +217,7 @@ const PassengerForm = ({
               name={formik.values.passengers?.[index]?.last_name}
               className="h-10 rounded-lg"
               type="text"
-              placeholder="Nume*"
+              placeholder={t.passengerForm?.lastName + '*'}
             />
             {formik.errors?.passengers?.[index]?.last_name &&
               formik.touched?.passengers?.[index]?.last_name && (
@@ -227,18 +231,18 @@ const PassengerForm = ({
               htmlFor="reservation-form-gen"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
             >
-              Gen
+              {t.passengerForm?.gen}
             </Label>
             <Select
-              placeholder="Gen"
+              placeholder={t.passengerForm?.gen}
               className="h-10 w-full rounded-lg"
               disabled={loading}
               onChange={(value) =>
                 formik.setFieldValue(`passengers[${index}].gender`, value)
               }
             >
-              <Option value="M">Masculin</Option>
-              <Option value="F">Feminin</Option>
+              <Option value="M">{t.passengerForm?.male}</Option>
+              <Option value="F">{t.passengerForm?.female}</Option>
             </Select>
             {formik.errors?.passengers?.[index]?.gender &&
               formik.touched?.passengers?.[index]?.gender && (
@@ -255,10 +259,10 @@ const PassengerForm = ({
               htmlFor="reservation-form-country-code"
               className="mb-1 ml-1 text-[10px] lg:hidden"
             >
-              Nationalitate
+              {t.passengerForm?.nationality}
             </Label>
             <Select
-              placeholder="Nationalitate"
+              placeholder={t.passengerForm?.nationality}
               className="h-10 w-full rounded-lg"
               options={countriesOptions}
               disabled={loading}
@@ -282,7 +286,7 @@ const PassengerForm = ({
               htmlFor="reservation-form-phone-number"
               className="mb-1 ml-1 mt-3 text-[10px] lg:hidden"
             >
-              Numar de telefon
+              {t.passengerForm?.phoneNumber}
             </Label>
             <PhoneInput
               onChange={(p) =>
@@ -309,13 +313,13 @@ const PassengerForm = ({
               htmlFor="reservation-form-email"
               className="mb-1 ml-1 text-[10px] lg:hidden"
             >
-              Adresa de email
+              {t.passengerForm?.emailAddress}
             </Label>
             <Input
               className="h-10 rounded-lg"
               type="text"
               name={formik.values.passengers?.[index]?.email}
-              placeholder="Adresa de email*"
+              placeholder={t.passengerForm?.emailAddress + '*'}
               disabled={loading}
               onChange={(e) =>
                 formik.setFieldValue(
@@ -341,10 +345,10 @@ const PassengerForm = ({
             <div className="mt-3 flex cursor-pointer items-center justify-between rounded-xl border border-[#E7E7E7] bg-[#F0F2FF] p-3 lg:mt-7">
               <div>
                 <span className="text-xxs lg:text-sm">
-                  Adaugă datele pașaportului
+                  {t.passengerForm?.addPassportData}
                 </span>
                 <span className="ml-4 rounded-lg bg-brand-blue px-2 py-1 text-xxs text-white">
-                  Optional
+                  {t.passengerForm?.optional}
                 </span>
               </div>
               <Button
@@ -363,14 +367,14 @@ const PassengerForm = ({
             <div className="mt-3 grid grid-cols-1 gap-[10px] md:grid-cols-3 lg:mt-5 lg:flex-row lg:gap-5">
               <div>
                 <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
-                  Data nașterii
+                  {t.passengerForm?.birthDate}
                 </Label>
                 <DatePicker
                   onKeyDown={handleCalendarKeyDown}
                   format={'DD.MM.YYYY'}
                   name={`passengers[${index}].date_of_birth`}
                   className="h-10 w-full rounded-lg"
-                  placeholder="Data nașterii"
+                  placeholder={t.passengerForm?.birthDate}
                   disabled={loading}
                   onChange={(d) => {
                     formik.setFieldValue(
@@ -383,14 +387,14 @@ const PassengerForm = ({
               </div>
               <div>
                 <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
-                  Data eliberării pașaportului
+                  {t.passengerForm?.passportDate}
                 </Label>
                 <DatePicker
                   onKeyDown={handleCalendarKeyDown}
                   name={`passengers[${index}].passport_issued_at`}
                   format={'DD.MM.YYYY'}
                   className="h-10 w-full rounded-lg"
-                  placeholder="Data eliberării pașaportului"
+                  placeholder={t.passengerForm?.passportDate}
                   disabled={loading}
                   onChange={(d) => {
                     formik.setFieldValue(
@@ -403,14 +407,14 @@ const PassengerForm = ({
               </div>
               <div>
                 <Label className="mb-1 ml-1 mt-3 text-[10px] lg:hidden">
-                  Data expirării pașaportului
+                  {t.passengerForm?.passportExpire}
                 </Label>
                 <DatePicker
                   onKeyDown={handleCalendarKeyDown}
                   format={'DD.MM.YYYY'}
                   name={`passengers[${index}].passport_expires_at`}
                   className="h-10 w-full rounded-lg"
-                  placeholder="Data expirării pașaportului"
+                  placeholder={t.passengerForm?.passportExpire}
                   disabled={loading}
                   onChange={(d) => {
                     formik.setFieldValue(
@@ -426,14 +430,14 @@ const PassengerForm = ({
                   htmlFor="reservation-form-email"
                   className="mb-1 ml-1 text-[10px] lg:hidden"
                 >
-                  Numărul pașaportului
+                  {t.passengerForm?.passportNumber}
                 </Label>
                 <Input
                   className="h-10 rounded-lg"
                   type="text"
                   name={`passengers[${index}].passport_number`}
                   disabled={loading}
-                  placeholder="Numărul pașaportului*"
+                  placeholder={t.passengerForm?.passportNumber}
                   onChange={formik.handleChange}
                 />
               </div>
@@ -444,7 +448,9 @@ const PassengerForm = ({
                     disabled={loading}
                     className="custom-light-shadow flex h-10 min-w-full items-center justify-between rounded-lg bg-brand-blue px-4 font-light text-white hover:bg-brand-blue lg:justify-center lg:px-8"
                   >
-                    <span className="mr-2">Poza pașaport</span>
+                    <span className="mr-2">
+                      {t.passengerForm?.passportImage}
+                    </span>
                     <Image src={passportSvg} alt={'passport image'} />
                   </Button>
                 </Upload>
@@ -453,7 +459,7 @@ const PassengerForm = ({
                 <div className="relative flex flex-col items-start gap-2 lg:flex-row">
                   <p className="flex flex-col text-xs">
                     <span className="mb-2 text-gray-500">
-                      Document încărcat:
+                      {t.passengerForm?.imageLoaded}:
                     </span>{' '}
                     <span className="w-44 overflow-hidden text-ellipsis whitespace-nowrap">
                       {files[index].split('/').pop()}
@@ -470,7 +476,7 @@ const PassengerForm = ({
                     }}
                     className="h-4 p-0 text-xs text-red-500 lg:text-xxs"
                   >
-                    Șterge poza
+                    {t.passengerForm?.eraseImage}
                   </Button>
                 </div>
               )}
@@ -481,11 +487,17 @@ const PassengerForm = ({
         <Separator className="mb-[10px] mt-6 bg-[#E7E7E7] lg:my-8" />
 
         {showBaggage && (
-          <BaggageSection formik={formik} index={index} bagsPrice={bagsPrice} />
+          <BaggageSection
+            formik={formik}
+            index={index}
+            bagsPrice={bagsPrice}
+            t={t}
+            lang={lang}
+          />
         )}
       </ReservationCard>
 
-      <OnlineCheckinSection formik={formik} index={index} />
+      <OnlineCheckinSection formik={formik} index={index} t={t} lang={lang} />
     </>
   )
 }
@@ -493,23 +505,33 @@ const BaggageSection = ({
   formik,
   index,
   bagsPrice,
+  t,
+  lang,
 }: {
   formik: any
   index: number
   bagsPrice: any
+  t: any
+  lang: string
 }) => {
   const bags: IBags[] = [
     {
       id: 'bagaj_de_mana',
       size: '20 x 40 x 50 cm',
-      name: 'Bagaj de mana',
+      name: {
+        ro: 'Bagaj de mână',
+        ru: 'Ручная кладь',
+      },
       imageUrl: tenKgSvg,
       type: '10kg',
     },
     {
       id: 'bagaj_de_cala',
       size: '28 x 52 x 78 cm',
-      name: 'Bagaj de cala',
+      name: {
+        ro: 'Bagaj de cală',
+        ru: 'Багаж',
+      },
       imageUrl: twentyKgSvg,
       type: '20kg',
     },
@@ -531,20 +553,22 @@ const BaggageSection = ({
               <span className="text-xs text-[#757575]">20 x 30 x 40 cm</span>
               <div className="w-full lg:hidden">
                 <h6 className="text-xs font-medium lg:text-sm">
-                  Obiect personal
+                  {t.passengerForm?.personalBaggage}
                 </h6>
               </div>
             </div>
             <div className="block whitespace-nowrap text-xxs font-medium text-[#288E3E] lg:hidden">
-              Inclus Gratuit
+              {t.passengerForm?.freeIncluded}
             </div>
           </CardHeader>
 
           {/*desktop*/}
           <CardContent className="mt-auto hidden min-h-14 rounded-xl bg-brand-light-blue p-2 lg:block">
-            <h6 className="text-sm font-medium">Obiect personal</h6>
+            <h6 className="text-sm font-medium">
+              {t.passengerForm?.personalBaggage}
+            </h6>
             <div className="text-sm font-light text-green-600">
-              Inclus Gratuit
+              {t.passengerForm?.freeIncluded}
             </div>
           </CardContent>
         </Card>
@@ -567,6 +591,7 @@ const BaggageSection = ({
                     bag={bag}
                     bagsPrice={bagsPrice}
                     index={bagIndex}
+                    lang={lang}
                   />
                 </div>
               </div>
@@ -594,6 +619,7 @@ const BaggageSection = ({
                 bag={bag}
                 bagsPrice={bagsPrice}
                 index={bagIndex}
+                lang={lang}
               />
             </CardContent>
           </Card>
@@ -617,7 +643,9 @@ const BaggageSection = ({
 interface IBags {
   id: string
   size: string
-  name: string
+  name: {
+    [key: string]: string
+  }
   imageUrl: string
   hideInput?: boolean
   type: string
@@ -627,14 +655,16 @@ const BagTypeAndPrice = ({
   bag,
   bagsPrice,
   index,
+  lang,
 }: {
   bag: IBags
   bagsPrice: any
   index: number
+  lang: string
 }) => {
   return (
     <>
-      <h6 className="text-xs font-medium lg:text-sm">{bag.name}</h6>
+      <h6 className="text-xs font-medium lg:text-sm">{bag.name[lang]}</h6>
       <p
         className={cn('mt-0.5 text-[10px] text-green-600 lg:block lg:text-xs', {
           hidden: bag.hideInput,
@@ -646,7 +676,7 @@ const BagTypeAndPrice = ({
   )
 }
 
-const OnlineCheckinSection = ({ formik, index }: any) => {
+const OnlineCheckinSection = ({ formik, index, t, lang }: any) => {
   return (
     <ReservationCard
       className="relative cursor-pointer"
@@ -661,10 +691,10 @@ const OnlineCheckinSection = ({ formik, index }: any) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-2">
             <h6 className="flex items-center text-base font-medium">
-              Adaugă check-in-ul online!
+              {t.passengerForm?.onlineCheckIn}
             </h6>
             <span className="rounded-full bg-brand-yellow px-3 py-1 text-xxs">
-              Popular
+              {t.passengerForm?.popular}
             </span>
           </div>
           <Checkbox
@@ -678,23 +708,21 @@ const OnlineCheckinSection = ({ formik, index }: any) => {
         <ul className="select-none text-sm font-normal text-[#7E7E7E]">
           <li className="mt-3 flex items-center">
             <CheckMark className="mt-1 w-3 lg:mt-0.5" />
-            Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi
-            check-in-ul independent
+            {servicesComments.a[lang]}
           </li>
           <li className="mt-2 flex items-center">
             <CheckMark className="mt-1 w-3 lg:mt-0.5" />
-            Economisești timp și bani: check-in-ul direct la aeroport poate
-            genera cheltuieli suplimentare sau întârzieri
+            {servicesComments.b[lang]}
           </li>
           <li className="mt-2 flex items-center">
             <CheckMark className="mt-1 w-3 lg:mt-0.5" />
-            Emitem cărțile de îmbarcare la timp
+            {servicesComments.c[lang]}
           </li>
         </ul>
         <Divider className="my-3" />
         <div className="flex items-center space-x-2">
           <div className="ml-1 h-auto text-sm font-normal">
-            Adaugă €8.99 per pasager
+            {servicesComments.add[lang]}
           </div>
         </div>
       </main>
@@ -716,4 +744,23 @@ const CheckMark = (props: ICheckMarkProps) => {
       className={cn('mr-2 min-w-3 self-start', props.className)}
     />
   )
+}
+
+const servicesComments: any = {
+  a: {
+    ro: ' Dacă nu achiziționezi acest serviciu, va fi necesar să efectuezi check-in-ul independent',
+    ru: 'Если вы не приобретаете эту услугу, вам придется самостоятельно проходить регистрацию на рейс',
+  },
+  b: {
+    ro: ' Economisești timp și bani: check-in-ul direct la aeroport poate genera cheltuieli suplimentare sau întârzieri',
+    ru: 'Экономьте время и деньги: регистрация на рейс в аэропорту может вызвать дополнительные расходы или задержки',
+  },
+  c: {
+    ro: ' Emitem cărțile de îmbarcare la timp',
+    ru: 'Мы выдаем посадочные талоны вовремя',
+  },
+  add: {
+    ro: 'Adaugă €8.99 per pasager',
+    ru: 'Добавить €8.99 за пассажира',
+  },
 }

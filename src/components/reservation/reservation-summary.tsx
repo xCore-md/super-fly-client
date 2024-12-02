@@ -7,6 +7,7 @@ import { useFlightContext } from '@/context/flight-context'
 import { CHECK_IN_PRICE } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { ReservationTimer } from './reservation-timer'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export const ReservationSummary = ({
   reservation,
@@ -23,6 +24,7 @@ export const ReservationSummary = ({
   const router = useRouter()
   const { adults, children, infants } = flight
   const { cityFrom, cityTo, route } = reservation
+  const { translations: t } = useTranslationsContext()
 
   const isRoundTrip = route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
@@ -80,16 +82,16 @@ export const ReservationSummary = ({
               </span>
             </div>
             <Button
-              className="flex h-[26px] w-[71px] items-center justify-center rounded-full border-brand-blue bg-transparent p-0 text-xs font-medium text-brand-blue"
+              className="flex h-[26px] w-fit items-center justify-center rounded-full border-brand-blue bg-transparent px-2 py-0 text-xs font-medium text-brand-blue"
               variant="outlined"
               onClick={() => router.push('/flights')}
             >
-              <span>Editează</span>
+              <span>{t.edit}</span>
             </Button>
           </SectionLightBlue>
 
           <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
-            <h6>Bagaje</h6>
+            <h6>{t.passengerForm?.baggages}</h6>
           </SectionLightBlue>
           {formik.values?.passengers?.[0]?.first_name && (
             <div className="flex flex-col">
@@ -139,7 +141,7 @@ export const ReservationSummary = ({
 
           <div>
             <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
-              <h6>Servicii</h6>
+              <h6>{t.passengerForm?.services}</h6>
               {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
             </SectionLightBlue>
 
@@ -176,7 +178,7 @@ export const ReservationSummary = ({
         </div>
 
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
-          <span className="font-light">Total:</span>
+          <span className="font-light">{t.total}:</span>
           <span className="ml-2 font-semibold">
             {reservation.price + baggagePrice + checkInPrice} €
           </span>
@@ -190,7 +192,7 @@ export const ReservationSummary = ({
           onClick={scrollOnClick}
           className="custom-light-shadow mt-8 flex h-11 w-full items-center justify-center rounded-full bg-brand-green px-8 font-light text-white lg:hidden"
         >
-          Rezervă acum
+          {t.reservNow}
         </Button>
       </div>
     </section>

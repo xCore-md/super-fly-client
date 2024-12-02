@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import clock from '@/assets/img/clock.svg'
@@ -7,8 +9,11 @@ import mail from '@/assets/img/mail.svg'
 import marker from '@/assets/img/marker.svg'
 import phone from '@/assets/img/phone.svg'
 import { ButtonVeziLocatia } from '@components/button-vezi-locatia'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export default function Contacts() {
+  const { lang, translations: t } = useTranslationsContext()
+
   return (
     <section className="mt-4 animate-fade-up pb-20 fill-mode-forwards">
       <Header />
@@ -16,14 +21,11 @@ export default function Contacts() {
         <div className="mt-16 rounded-2xl bg-white p-7 shadow-md">
           <div className="mx-auto flex max-w-[588px]  flex-col">
             <h2 className="text-center text-2xl font-semibold text-brand-blue">
-              Contactează-ne
+              {info.title[lang]}
             </h2>
 
             <p className="mt-3 text-center text-base font-light  text-[#828282]">
-              Dacă ai întrebări despre rezervări, tarife, destinații sau orice
-              altceva legat de călătorii, nu ezita să ne contactezi! Suntem
-              disponibili pentru a oferi asistență personalizată și răspunsuri
-              la orice nelămurire ai.
+              {info.subtitle[lang]}
             </p>
 
             <div className="col-span-2 mt-6 flex justify-center gap-4">
@@ -43,7 +45,9 @@ export default function Contacts() {
                 href="tel:+(373) 60 851 555"
                 className="flex items-center gap-4"
               >
-                <span className="text-sm font-semibold">Telefon:</span>
+                <span className="text-sm font-semibold">
+                  {info.phone[lang]}:
+                </span>
                 <span className="text-sm font-medium text-gray-600">
                   +(373) 60 851 555
                 </span>
@@ -64,7 +68,9 @@ export default function Contacts() {
             </li>
             <li className="flex w-full justify-between border-b-[1px] border-b-gray-200 pb-4 ">
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold">Adresa:</span>
+                <span className="text-sm font-semibold">
+                  {info.address[lang]}:
+                </span>
                 <span className="text-sm font-medium text-gray-600">
                   str. A. Sciusev 62a
                 </span>
@@ -73,11 +79,9 @@ export default function Contacts() {
             </li>
             <li className="flex w-full justify-between ">
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold">
-                  Graficul de lucru:
-                </span>
+                <span className="text-sm font-semibold">{t.schedule}:</span>
                 <span className="text-sm font-medium text-gray-600">
-                  Luni-Duminică, 9:00-18:00
+                  {t.monSun}, 9:00-18:00
                 </span>
               </div>
               <Image src={clock} alt="icon" />
@@ -89,7 +93,7 @@ export default function Contacts() {
           <ul className="flex flex-col justify-between gap-6 lg:flex-row lg:gap-0">
             <li className="flex flex-col">
               <span className="mb-3 text-sm font-medium text-brand-blue">
-                Denumire societate
+                {info.societyName[lang]}
               </span>
               <span className="text-sm text-gray-600">
                 Superfly Invest S.R.L.
@@ -97,9 +101,11 @@ export default function Contacts() {
             </li>
             <li className="flex flex-col">
               <span className="mb-3 text-sm font-medium text-brand-blue">
-                Profil
+                {info.profile[lang]}
               </span>
-              <span className="text-sm text-gray-600">Agenție de turism</span>
+              <span className="text-sm text-gray-600">
+                {info.tourismAgency[lang]}
+              </span>
             </li>
             <li className="flex flex-col">
               <span className="mb-3 text-sm font-medium text-brand-blue">
@@ -109,7 +115,7 @@ export default function Contacts() {
             </li>
             <li className="flex flex-col">
               <span className="mb-3 text-sm font-medium text-brand-blue">
-                Sediu social
+                {info.sedio[lang]}
               </span>
               <span className="text-sm text-gray-600">
                 Str Alexei Sciusev 62a, <br /> mun. Chișinău
@@ -129,4 +135,39 @@ const Header = () => {
       <div className="absolute left-0 top-0 z-0 h-64 w-full"></div>
     </>
   )
+}
+
+const info: any = {
+  title: {
+    ro: 'Contactează-ne',
+    ru: 'Свяжитесь с нами',
+  },
+  subtitle: {
+    ro: 'Dacă ai întrebări despre rezervări, tarife, destinații sau orice altceva legat de călătorii, nu ezita să ne contactezi! Suntem disponibili pentru a oferi asistență personalizată și răspunsuri la orice nelămurire ai.',
+    ru: 'Если у вас есть вопросы о бронировании, тарифах, направлениях или чем-то еще, свяжитесь с нами! Мы готовы предоставить персонализированную помощь и ответы на все ваши вопросы.',
+  },
+  societyName: {
+    ro: 'Denumire societate',
+    ru: 'Название компании',
+  },
+  profile: {
+    ro: 'Profil',
+    ru: 'Профиль',
+  },
+  tourismAgency: {
+    ro: 'Agenție de turism',
+    ru: 'Туристическое агентство',
+  },
+  sedio: {
+    ro: 'Sediu social',
+    ru: 'Юридический адрес',
+  },
+  phone: {
+    ro: 'Telefon',
+    ru: 'Телефон',
+  },
+  address: {
+    ro: 'Adresa',
+    ru: 'Адрес',
+  },
 }

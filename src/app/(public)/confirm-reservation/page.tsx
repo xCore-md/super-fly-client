@@ -23,12 +23,14 @@ import {
   ArrowRightOutlined,
   LoadingOutlined,
 } from '@ant-design/icons'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
   const { reservation: res } = useReservationContext()
   const [countries, setCountries] = useState([])
   const [loading, setLoading] = useState(true)
+  const { lang, translations: t } = useTranslationsContext()
 
   const router = useRouter()
 
@@ -45,7 +47,7 @@ export default function ConfirmReservationPage() {
     endDirection?.[endDirection.length - 1]?.local_arrival
   )
 
-  const { confirmedReservation: t } = res
+  const { confirmedReservation: ct } = res
 
   const isRoundTrip = res.route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
@@ -113,17 +115,19 @@ export default function ConfirmReservationPage() {
 
   if (loading)
     return (
-      <div className="relative z-[99999] flex w-full flex-col items-center justify-center pt-[50%]">
+      <div className="relative z-[99999] flex h-svh w-full flex-col items-center justify-center overflow-hidden">
         <div className="fixed left-0 top-0 h-full w-full bg-brand-blue"></div>
-        <p className="z-[999999] text-center text-white">
-          Datele dumnevoastră sunt <br /> în curs de procesare...
-        </p>
-        <Spin
-          className="pt-10"
-          indicator={
-            <LoadingOutlined style={{ fontSize: 84, color: '#fff' }} spin />
-          }
-        />
+        <div className="z-[999999] flex h-[40%] flex-col items-center">
+          <p className="text-center text-white">
+            {t.yourDataIs} <br /> {t.inProcess}
+          </p>
+          <Spin
+            className="pt-10"
+            indicator={
+              <LoadingOutlined style={{ fontSize: 84, color: '#fff' }} spin />
+            }
+          />
+        </div>
       </div>
     )
 
@@ -134,16 +138,18 @@ export default function ConfirmReservationPage() {
           <div className="mr-14 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-blue px-5 py-2 text-white lg:h-[63px] lg:flex-row lg:items-center lg:gap-0">
             <div>
               <span className="mr-2 text-xs lg:font-medium">
-                Confirmarea rezervării:
+                {t.reservationConfirmation}:
               </span>
               <span className="text-xs font-medium lg:text-sm lg:font-light">
                 MPGP75
               </span>
             </div>
             <div className="hidden text-xs lg:block">
-              <span className="mr-2 lg:font-medium">Statusul rezervării:</span>
+              <span className="mr-2 lg:font-medium">
+                {t.reservationStatus}:
+              </span>
               <span className="font-medium lg:font-light">
-                Se așteaptă plata
+                {t.waitingPayment}
               </span>
             </div>
             <div className="text-xs">
@@ -156,8 +162,8 @@ export default function ConfirmReservationPage() {
 
           <div className="mr-14 mt-3 flex w-full flex-col justify-between gap-1 rounded-2xl bg-brand-green px-5 py-2 text-white lg:hidden lg:h-[63px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-lg">
             <div className="text-xs">
-              <span className="mr-2">Statusul rezervării:</span>
-              <span className="font-medium">Se așteaptă plata</span>
+              <span className="mr-2">{t.reservationStatus}:</span>
+              <span className="font-medium">{t.waitingPayment}</span>
             </div>
           </div>
 
@@ -165,7 +171,7 @@ export default function ConfirmReservationPage() {
             <div className="mb-[18px] flex flex-wrap justify-between lg:mb-[30px]">
               <div className="mb-4 flex flex-col max-[768px]:w-1/2">
                 <span className="mb-1 text-xs text-gray-400">
-                  Numele/Prenumele
+                  {t.firstNameLastName}
                 </span>
                 <span className="text-xs font-medium text-gray-700">
                   {t?.passengers?.[0]?.first_name}{' '}
@@ -175,7 +181,7 @@ export default function ConfirmReservationPage() {
 
               <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
                 <span className="mb-1 text-xs text-gray-400">
-                  Naționalitate
+                  {t.nationality}
                 </span>
                 <span className="text-xs font-medium text-gray-700">
                   {getCountryName()}
@@ -184,7 +190,7 @@ export default function ConfirmReservationPage() {
               {t?.passengers?.[0]?.passport_number && (
                 <div className="mb-4 flex flex-col max-[768px]:w-1/2">
                   <span className="mb-1  text-xs text-gray-400">
-                    Numărul (carte de identitate/pașaport)
+                    {t.passportNumber}
                   </span>
                   <span className="text-xs font-medium text-gray-700">
                     {t?.passengers?.[0]?.passport_number}
@@ -193,7 +199,9 @@ export default function ConfirmReservationPage() {
               )}
               {t?.passengers?.[0]?.passport_expires_at && (
                 <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
-                  <span className="mb-1 text-xs text-gray-400">Expiră</span>
+                  <span className="mb-1 text-xs text-gray-400">
+                    {t.expiring}
+                  </span>
                   <span className="text-xs font-medium text-gray-700">
                     {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
                       'DD/MM/YYYY'
@@ -209,7 +217,7 @@ export default function ConfirmReservationPage() {
                 <div className="mr-2 hidden text-right lg:block">
                   <div className="relative">
                     <span className="absolute -top-4 right-8 hidden text-xs text-[#4A4A4A] lg:block">
-                      Nr.zbor:{' '}
+                      {t.flightNumber}:{' '}
                       <span className="font-bold">
                         {startDirection[0].flight_no}
                       </span>
@@ -272,21 +280,22 @@ export default function ConfirmReservationPage() {
                                   <span className=" flex flex-col gap-2 p-2 text-xs">
                                     <span className="flex gap-4">
                                       <span className="text-[10px]">
-                                        Escale:
+                                        {t.flightTransfer}:
                                       </span>{' '}
                                       <span className="ml-2 font-semibold">
                                         {route.cityFrom} - {route.cityTo}
                                       </span>
                                     </span>
                                     <span className="flex gap-4">
-                                      <span className=""> Nr. zbor:</span>
+                                      <span className="">
+                                        {' '}
+                                        {t.flightNumber}:
+                                      </span>
                                       <span className="font-bold">
                                         {route.flight_no}
                                       </span>
                                     </span>
-                                    <span>
-                                      Preluarea si înregistrarea bagajului
-                                    </span>
+                                    <span>{t.baggageRegister}</span>
                                   </span>
                                 }
                               >
@@ -359,7 +368,7 @@ export default function ConfirmReservationPage() {
                   <div className="mr-2 hidden text-right lg:block">
                     <div className="relative">
                       <span className="absolute -top-4 right-8 hidden text-xs text-[#4A4A4A] lg:block">
-                        Nr.zbor:{' '}
+                        {t.flightNumber}:{' '}
                         <span className="font-bold">
                           {endDirection[0].flight_no}
                         </span>
@@ -429,14 +438,15 @@ export default function ConfirmReservationPage() {
                                         </span>
                                       </span>
                                       <span className="flex gap-4">
-                                        <span className=""> Nr. zbor:</span>
+                                        <span className="">
+                                          {' '}
+                                          {t.flightNumber}:
+                                        </span>
                                         <span className="font-bold">
                                           {route.flight_no}
                                         </span>
                                       </span>
-                                      <span>
-                                        Preluarea si înregistrarea bagajului
-                                      </span>
+                                      <span>{t.baggageRegister}</span>
                                     </span>
                                   }
                                 >
@@ -520,19 +530,11 @@ export default function ConfirmReservationPage() {
                 />
               </svg>
               <span className="ml-2 font-semibold ">
-                Rezervarea efectuată cu succes
+                {successResultsMessage.msgFirst[lang]}
               </span>
             </div>
-            <p className="my-4 ">
-              Atenție prețul pentru această rezervare se poate modifica în orice
-              moment, agenția nu poate garanta păstrarea prețului. Pentru a
-              evita majorări de tarif, vă rugăm sa faceți plata cît mai repede
-              posibil.
-            </p>
-            <p className="">
-              Vă rugăm să verificați cu atenție datele de contact, informațiile
-              despre pasageri, detaliile de zbor și serviciile selectate.
-            </p>
+            <p className="my-4 ">{successResultsMessage.msgSecond[lang]}</p>
+            <p className="">{successResultsMessage.msgThird[lang]}</p>
           </div>
 
           <div className="mt-4 flex h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:hidden">
@@ -544,9 +546,9 @@ export default function ConfirmReservationPage() {
             </div>
           </div>
 
-          <div className="animate-greenWaveShadow custom-shadow mt-8 rounded-xl bg-white p-3 lg:px-7 lg:py-9 ">
+          <div className="custom-shadow mt-8 animate-greenWaveShadow rounded-xl bg-white p-3 lg:px-7 lg:py-9 ">
             <h4 className="mb-[18px] text-base lg:mb-6">
-              Selectați metoda de plată
+              {t.selectPaymentMethod}
             </h4>
             <div className="flex w-full gap-2 lg:gap-5">
               <Button
@@ -554,7 +556,7 @@ export default function ConfirmReservationPage() {
                 className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-2 lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
-                  Card bancar
+                  {t.bankCard}
                 </span>
                 <span className="flex gap-1">
                   <Image
@@ -592,7 +594,7 @@ export default function ConfirmReservationPage() {
                 className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-0 lg:bg-brand-light-blue lg:px-2"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
-                  Plată electronică
+                  {t.onlinePayment}
                 </span>
                 <span>
                   <Image
@@ -634,15 +636,15 @@ export default function ConfirmReservationPage() {
                 variant="outline"
                 onClick={() => router.push('/flights')}
               >
-                Editează
+                {t.edit}
               </Button>
             </SectionLightBlue>
 
             <SectionLightBlue className="text-xs font-bold text-[#121C5E]">
-              <h6>Bagaje</h6>
+              <h6>{t.baggage}</h6>
             </SectionLightBlue>
             <div className="flex flex-col">
-              {t.passengers?.map((passenger: any, index: number) => {
+              {ct.passengers?.map((passenger: any, index: number) => {
                 return passenger?.baggage?.some((e: any) => e?.count > 0) ? (
                   <div key={index}>
                     <div className="grid grid-cols-5 gap-2">
@@ -669,8 +671,8 @@ export default function ConfirmReservationPage() {
                         )}
                       </div>
                     </div>
-                    {t.passengers.length > 0 &&
-                    index !== t.passengers.length - 1 ? (
+                    {ct.passengers.length > 0 &&
+                    index !== ct.passengers.length - 1 ? (
                       <Divider />
                     ) : (
                       ''
@@ -684,7 +686,7 @@ export default function ConfirmReservationPage() {
 
             <div>
               <SectionLightBlue className="flex justify-between text-sm font-bold text-[#121C5E]">
-                <h6>Servicii</h6>
+                <h6>{t.passengerForm?.services}</h6>
               </SectionLightBlue>
 
               <div className="flex flex-col py-4">
@@ -700,7 +702,7 @@ export default function ConfirmReservationPage() {
                         </p>
                         <div className="col-span-2">
                           <p className="text-xs text-gray-500">
-                            Online Check In
+                            {t.onlineCheckIn}
                           </p>
                         </div>
                         <div className="col-span-1">
@@ -710,7 +712,7 @@ export default function ConfirmReservationPage() {
                         </div>
                       </div>
                       {res.passengers.length > 0 &&
-                      index !== t.passengers.length - 1 ? (
+                      index !== ct.passengers.length - 1 ? (
                         <Divider />
                       ) : (
                         ''
@@ -724,7 +726,7 @@ export default function ConfirmReservationPage() {
 
           <div className="mt-4 hidden h-[38px] items-center rounded-full bg-brand-blue px-4 text-sm text-white lg:mt-11 lg:flex">
             <div>
-              <span className="font-light">Total:</span>
+              <span className="font-light">{t.total}:</span>
               <span className="ml-2 font-semibold">
                 {Math.round(res.price + baggagePrice + checkInPrice)} €
               </span>
@@ -752,4 +754,19 @@ const SectionLightBlue = ({ children, className }: ISectionLightBlueProps) => {
       {children}
     </div>
   )
+}
+
+const successResultsMessage: any = {
+  msgFirst: {
+    ro: 'Rezervarea efectuată cu succes',
+    ru: 'Бронирование успешно выполнено',
+  },
+  msgSecond: {
+    ro: 'Atenție prețul pentru această rezervare se poate modifica în orice moment, agenția nu poate garanta păstrarea prețului. Pentru a evita majorări de tarif, vă rugăm sa faceți plata cît mai repede posibil.',
+    ru: 'Обратите внимание, что цена за эту бронь может измениться в любое время, агентство не может гарантировать сохранение цены. Чтобы избежать увеличения тарифа, пожалуйста, произведите оплату как можно скорее.',
+  },
+  msgThird: {
+    ro: 'Vă rugăm să verificați cu atenție datele de contact, informațiile despre pasageri, detaliile de zbor și serviciile selectate.',
+    ru: 'Пожалуйста, внимательно проверьте контактные данные, информацию о пассажирах, детали полета и выбранные услуги.',
+  },
 }

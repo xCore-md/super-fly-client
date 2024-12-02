@@ -3,6 +3,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
 import dayjs from 'dayjs'
 import { cn } from '@/lib/utils'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   onChange: any
@@ -19,6 +20,7 @@ export function CustomCalendar({
   desktop,
 }: IProps) {
   const [currentDate, setCurrentDate] = useState(dayjs())
+  const { lang } = useTranslationsContext()
 
   useEffect(() => {
     setCurrentDate(date || dayjs())
@@ -56,7 +58,7 @@ export function CustomCalendar({
     )
   }
 
-  const monthName = currentDate.format('MMMM YYYY')
+  const monthName = currentDate.locale(lang).format('MMMM YYYY')
 
   const handleChange = (value: any) => {
     onChange(value)

@@ -13,6 +13,7 @@ import { useReservationContext } from '@/context/reservation-context'
 import axs from '@/lib/axios'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
 import { ReservationSummary } from '@components/reservation/reservation-summary'
+import { useTranslationsContext } from '@/context/translations-context'
 
 const validationSchema = Yup.object().shape({
   passengers: Yup.array().of(
@@ -44,6 +45,7 @@ export default function Reservation() {
   const [loading, setLoading] = useState(true)
   const [api, contextHolder] = notification.useNotification()
   const [isTermsChecked, setIsTermsChecked] = useState(false)
+  const { translations: t } = useTranslationsContext()
 
   const formik = useFormik({
     initialValues: {
@@ -228,7 +230,7 @@ export default function Reservation() {
     >
       {contextHolder}
       <section className="flex flex-col lg:w-2/3">
-        <h2 className="mb-4 text-xs font-medium">Informații zbor:</h2>
+        <h2 className="mb-4 text-xs font-medium">{t.flightInfo}:</h2>
 
         <div
           className={
@@ -259,13 +261,13 @@ export default function Reservation() {
                 checked={isTermsChecked}
               />
 
-              <span className="mr-1">Sunt de acord cu</span>
+              <span className="mr-1">{t.agreeWith}</span>
               <Link className="mr-1 text-brand-blue" href="/policy">
-                Politica de confidentialitate
+                {t.privacyPolicy}
               </Link>
-              <span className="mr-1">și cu</span>
+              <span className="mr-1">{t.andWith}</span>
               <Link className="text-brand-blue" href="/terms">
-                Termenii si conditiile
+                {t.termsAndConditions}
               </Link>
             </label>
           </div>
@@ -275,7 +277,7 @@ export default function Reservation() {
             onClick={scrollOnClick}
             className="custom-shadow green-button hidden h-11 items-center justify-center rounded-full border-none bg-brand-green px-16 text-base font-light text-white  transition-all hover:opacity-90 lg:flex"
           >
-            Rezervă acum
+            {t.reservNow}
           </Button>
         </div>
       </section>
