@@ -134,60 +134,64 @@ const PopoverContent = ({
       className={`dropdown-shadow absolute left-0 top-[37px] z-20 h-auto w-full min-w-[172px] rounded-b-3xl bg-white`}
     >
       <div className="searchDropDownShadow flex w-full flex-col gap-y-4 px-2 py-4">
-        {PopoverData.map(({ title, img, img2, description, key }: any) => (
-          <div className="flex items-center justify-between" key={key}>
-            <div className="flex items-center gap-1">
-              <Image
-                src={
-                  passengers[key as keyof typeof passengers] > 0 ? img2 : img
-                }
-                alt="image"
-                className="h-5 w-4"
-              />
-              <div className="flex flex-col">
-                <h4 className="text-xxs font-bold text-black">{title[lang]}</h4>
-                <span className="text-[6px] text-gray-500">
-                  {description[lang]}
+        {passengersInfoData.map(
+          ({ title, img, img2, description, key }: any) => (
+            <div className="flex items-center justify-between" key={key}>
+              <div className="flex items-center gap-1">
+                <Image
+                  src={
+                    passengers[key as keyof typeof passengers] > 0 ? img2 : img
+                  }
+                  alt="image"
+                  className="h-5 w-4"
+                />
+                <div className="flex flex-col">
+                  <h4 className="text-xxs font-bold text-black">
+                    {title[lang]}
+                  </h4>
+                  <span className="text-[6px] text-gray-500">
+                    {description[lang]}
+                  </span>
+                </div>
+              </div>
+              <div className="flex select-none items-center gap-1">
+                <Button
+                  type="primary"
+                  shape="circle"
+                  size="small"
+                  style={{ width: 16, height: 16, minWidth: 16 }}
+                  icon={<LeftOutlined style={{ width: 8 }} />}
+                  className={` text-black ${passengers[key as TPassengers] === 0 ? 'text-black' : 'text-white'}`}
+                  disabled={passengers[key as TPassengers] === 0}
+                  onClick={() =>
+                    handleUpdatePassengersCount(
+                      key as TPassengers,
+                      passengers[key as TPassengers] - 1
+                    )
+                  }
+                />
+
+                <span className="w-3 pt-0.5 text-center text-sm font-bold text-black">
+                  {passengers[key as TPassengers]}
                 </span>
+                <Button
+                  type="primary"
+                  size="small"
+                  style={{ width: 16, height: 16, minWidth: 16 }}
+                  shape="circle"
+                  icon={<RightOutlined style={{ width: 8 }} />}
+                  className=""
+                  onClick={() =>
+                    handleUpdatePassengersCount(
+                      key as TPassengers,
+                      passengers[key as TPassengers] + 1
+                    )
+                  }
+                />
               </div>
             </div>
-            <div className="flex select-none items-center gap-1">
-              <Button
-                type="primary"
-                shape="circle"
-                size="small"
-                style={{ width: 16, height: 16, minWidth: 16 }}
-                icon={<LeftOutlined style={{ width: 8 }} />}
-                className={` text-black ${passengers[key as TPassengers] === 0 ? 'text-black' : 'text-white'}`}
-                disabled={passengers[key as TPassengers] === 0}
-                onClick={() =>
-                  handleUpdatePassengersCount(
-                    key as TPassengers,
-                    passengers[key as TPassengers] - 1
-                  )
-                }
-              />
-
-              <span className="w-3 pt-0.5 text-center text-sm font-bold text-black">
-                {passengers[key as TPassengers]}
-              </span>
-              <Button
-                type="primary"
-                size="small"
-                style={{ width: 16, height: 16, minWidth: 16 }}
-                shape="circle"
-                icon={<RightOutlined style={{ width: 8 }} />}
-                className=""
-                onClick={() =>
-                  handleUpdatePassengersCount(
-                    key as TPassengers,
-                    passengers[key as TPassengers] + 1
-                  )
-                }
-              />
-            </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
 
       <div className="mb-5 mt-1 flex justify-center">
@@ -203,7 +207,7 @@ const PopoverContent = ({
   )
 }
 
-const PopoverData: any = [
+export const passengersInfoData: any = [
   {
     title: {
       ro: 'Adulți',

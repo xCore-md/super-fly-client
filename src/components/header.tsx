@@ -148,7 +148,7 @@ const MobileMenu = ({
   const [isOpen, setIsOpen] = useState(false)
   const closeMenu = () => setIsOpen(false)
   const tel = '+(373) 60 851 555'
-  const { lang, setLang } = useTranslationsContext()
+  const { lang, setLang, translations: t } = useTranslationsContext()
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -201,7 +201,7 @@ const MobileMenu = ({
                     className={`flex flex-col text-black`}
                   >
                     <span className="text-right text-xxs lg:text-sm">
-                      Contacteaza-ne
+                      {t.getInTouch}
                     </span>
                     <span className="text-xs font-medium lg:text-base">
                       {tel}

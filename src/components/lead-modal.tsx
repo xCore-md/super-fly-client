@@ -9,6 +9,7 @@ import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
 import axs from '@/lib/axios'
 import 'react-phone-input-2/lib/style.css'
+import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   closable?: boolean
@@ -25,6 +26,7 @@ export default function LeadModal({
   const [phone, setPhone] = useState('')
   const [api, contextHolder] = notification.useNotification()
   const { flight } = useFlightContext()
+  const { lang } = useTranslationsContext()
 
   const scrollTopFunc = () => {
     document.body.style.overflow = 'auto'
@@ -85,8 +87,7 @@ export default function LeadModal({
         setPhone('')
         api.success({
           message: '',
-          description:
-            'Vă mulțumim pentru interesul acordat! Operatorii noștri vă vor contacta în scurt timp!',
+          description: info.notificationSuccessMessage[lang],
           placement: 'topRight',
           duration: 4,
           closable: true,
@@ -100,8 +101,8 @@ export default function LeadModal({
           message: '',
           description: (
             <div>
-              <h4 className="text-base font-medium">Atenție!</h4>
-              <p>Introduceți numărul de telefon corect ✅</p>
+              <h4 className="text-base font-medium">{info.attention[lang]}</h4>
+              <p>{info.introducePhoneNumber[lang]}</p>
             </div>
           ),
           placement: 'topRight',
@@ -148,30 +149,28 @@ export default function LeadModal({
               </div>
             </div>
             <p className="mt-2 text-lg font-semibold text-brand-blue">
-              Fii Informat!
+              {info.firstModalTitle[lang]}
             </p>
             <p className="mt-1 max-w-72 text-sm font-light">
-              Introduce datele de contact, și operatorii noștri revin cu oferte
-              personalizate.
+              {info.firstModalSubtitle[lang]}
             </p>
           </div>
         ) : (
           <div className="flex flex-col items-center text-center">
             <p className="font-medium text-white">
               {flight?.fly_from?.city || 'Milano'},{' '}
-              {flight?.fly_to?.city || 'Italia'} obține reducere la primul zbor
-              de -30%, și chek-in gratuit!
+              {flight?.fly_to?.city || 'Italia'} {info.receiveDiscount[lang]}
             </p>
             <div className="mb-6 mt-8 flex w-full items-center justify-center">
               <div className="relative">
                 <div className=" absolute right-[100px] top-0 flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-br-none bg-[#11D2A4] text-xxs text-white shadow-lg">
-                  <span>-30% reducere</span>
+                  <span>-30% {info.discount[lang]}</span>
                 </div>
                 <div className="absolute left-[105px] top-6 flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-bl-none bg-[#11D2A4] text-xxs text-white shadow-lg">
-                  <span>Zbor direct!</span>
+                  <span>{info.directFlight[lang]}</span>
                 </div>
-                <div className=" absolute right-[70px] top-[110px] flex h-[31px] w-[95px] items-center justify-center rounded-full rounded-tr-none bg-[#11D2A4] text-xxs text-white shadow-lg">
-                  <span>Check-in gratuit!</span>
+                <div className=" absolute right-[70px] top-[110px] flex h-[31px] w-fit items-center justify-center text-nowrap rounded-full rounded-tr-none bg-[#11D2A4] px-2 text-xxs text-white shadow-lg">
+                  <span>{info.freeCheckIn[lang]}</span>
                 </div>
                 <img
                   className="h-[120px] w-[120px] rounded-full object-cover"
@@ -193,8 +192,7 @@ export default function LeadModal({
                 alt="check-icon"
               />
               <span className="text-left text-xxs text-white">
-                Beneficiază de oferte exclusive care <br /> nu sunt plasate
-                online!
+                {info.benefits[lang]}
               </span>
             </div>
           </div>
@@ -229,7 +227,7 @@ export default function LeadModal({
               autoFocus: true,
               type: 'text',
             }}
-            placeholder="Introduceți numărul de telefon"
+            placeholder={info.fillPhoneNumber[lang]}
             country={'md'}
             countryCodeEditable={false}
           />
@@ -238,9 +236,60 @@ export default function LeadModal({
           onClick={handleSubmit}
           className="green-button  mt-4 h-10 w-full rounded-full  border-0 text-sm "
         >
-          Obține ofertele
+          {info.firstModalButtonLabel[lang]}
         </Button>
       </div>
     </Drawer>
   )
+}
+
+const info: any = {
+  firstModalTitle: {
+    ro: 'Fii Informat!',
+    ru: 'Будьте в курсе!',
+  },
+  firstModalSubtitle: {
+    ro: 'Introduce datele de contact, și operatorii noștri revin cu oferte personalizate.',
+    ru: 'Введите контактные данные, и наши операторы предложат вам персонализированные предложения.',
+  },
+  firstModalButtonLabel: {
+    ro: 'Obține ofertele',
+    ru: 'Получить предложения',
+  },
+  fillPhoneNumber: {
+    ro: 'Introduceți numărul de telefon',
+    ru: 'Введите номер телефона',
+  },
+  receiveDiscount: {
+    ro: 'obține reducere la primul zbor de -30%, și chek-in gratuit!',
+    ru: 'получите скидку на первый рейс -30%, и бесплатный чек-ин!',
+  },
+  discount: {
+    ro: 'reducere',
+    ru: 'скидка',
+  },
+  directFlight: {
+    ro: 'Zbor direct!',
+    ru: 'Прямой рейс!',
+  },
+  freeCheckIn: {
+    ro: 'Check-in gratuit!',
+    ru: 'Бесплатный чек-ин!',
+  },
+  benefits: {
+    ro: 'Beneficiază de oferte exclusive care nu sunt plasate online!',
+    ru: 'Получите эксклюзивные предложения, которые не размещаются онлайн!',
+  },
+  attention: {
+    ro: 'Atenție!',
+    ru: 'Внимание!',
+  },
+  introducePhoneNumber: {
+    ro: 'Introduceți numărul de telefon corect ✅',
+    ru: 'Введите правильный номер телефона ✅',
+  },
+  notificationSuccessMessage: {
+    ro: 'Vă mulțumim pentru interesul acordat! Operatorii noștri vă vor contacta în scurt timp!',
+    ru: 'Спасибо за ваш интерес! Наши операторы свяжутся с вами в ближайшее время!',
+  },
 }

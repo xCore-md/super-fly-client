@@ -4,6 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import { Input, Spin } from 'antd'
 import arrive from '@/assets/img/arrive.svg'
 import departure from '@/assets/img/departure.svg'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export function InputComponent({
   field,
@@ -13,7 +14,11 @@ export function InputComponent({
   openDrawer,
   loading,
 }: any) {
-  const fieldTitle = field === 'fly_from' ? 'ZBOR DIN' : 'ATERIZARE ÎN'
+  const { lang, translations: t } = useTranslationsContext()
+  const fieldTitle =
+    field === 'fly_from'
+      ? t.searchBar?.departurePlaceholder
+      : t.searchBar?.arrivalPlaceholder
   const imageSrc = field === 'fly_from' ? departure : arrive
 
   const [inputValue, setInputValue] = useState('')
@@ -52,7 +57,7 @@ export function InputComponent({
             <Input
               className="w-full border-none pl-0 font-semibold outline-none focus:shadow-none focus:outline-none focus:ring-0"
               type="text"
-              placeholder="ex. Chisinau (RMO)"
+              placeholder={placeholder[lang]}
               onChange={handleChange}
               value={inputValue}
             />
@@ -95,4 +100,9 @@ const List = ({ options, handleSelect, loading }: any) => {
         : null}
     </ul>
   )
+}
+
+const placeholder: any = {
+  ro: 'Ex. Chisinau (KIV)',
+  ru: 'Доп. Кишинев (KIV)',
 }

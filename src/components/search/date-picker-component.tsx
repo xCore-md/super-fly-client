@@ -6,9 +6,11 @@ import dayjs from 'dayjs'
 import calendarBlue from '@/assets/img/calendar-blue.svg'
 import calendar from '@/assets/img/calendar.svg'
 import { CustomCalendar } from '../customCalendar'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export function DatePickerComponent(props: any) {
   const { formik, openDrawer, isReturnFlight, setIsReturnFlight, field } = props
+  const { translations: t } = useTranslationsContext()
 
   const [fromValue, setFromValue] = useState(
     formik.values.date_from
@@ -87,7 +89,7 @@ export function DatePickerComponent(props: any) {
 
           <div className="flex flex-col pt-1">
             <span className="pt-1 text-xs font-semibold uppercase text-brand-blue">
-              PLECARE
+              {t.searchBar?.departure}
             </span>
             <Input
               className="border-none pl-0 font-semibold text-blue-950 outline-none focus:shadow-none focus:outline-none focus:ring-0"
@@ -134,7 +136,7 @@ export function DatePickerComponent(props: any) {
               <span
                 className={`text-xs font-semibold uppercase ${showReturn && 'text-brand-blue'}`}
               >
-                RETUR
+                {t.searchBar?.arrival}
               </span>
               <Input
                 className={`border-none pl-0 outline-none focus:shadow-none focus:outline-none focus:ring-0 ${showReturn && 'font-semibold text-blue-950'}`}
@@ -171,7 +173,7 @@ export function DatePickerComponent(props: any) {
           type="primary"
           onClick={handleConfirm}
         >
-          Într-o direcție
+          {t.searchBar?.oneWay}
         </Button>
       </div>
     </div>

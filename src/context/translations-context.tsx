@@ -31,11 +31,29 @@ export function TranslationsContextProvider({
 }: TranslationsContextProviderProps) {
   const [lang, setLang] = useState<string>('ro')
   const [translations, setTranslations] = useState<any>({})
+  const [firstLoad, setFirstLoad] = useState<boolean>(true)
+
+  const setLanguageInLocalStorage = (lang: string) => {
+    localStorage.setItem('lang', lang)
+  }
 
   useEffect(() => {
-    if (lang === 'ro') setTranslations(ro)
-    if (lang === 'ru') setTranslations(ru)
+    setTranslations(lang === 'ru' ? ru : ro)
+    if (!firstLoad) {
+      setLanguageInLocalStorage(lang)
+    }
+    setFirstLoad(false)
   }, [lang])
+
+  useEffect(() => {
+    const storageLang = localStorage.getItem('lang')
+
+    if (storageLang) {
+      setLang(storageLang)
+    } else {
+      setLang('ro')
+    }
+  }, [])
 
   return (
     <TranslationsContext.Provider value={{ lang, setLang, translations }}>

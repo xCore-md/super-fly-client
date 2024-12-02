@@ -8,7 +8,7 @@
   "searchBar": {
     "oneWay": "Într-o direcție",
     "roundTrip": "Tur-Retur",
-    "departurePlaceholder": "Zbor din",
+    "departurePlaceholder": "ZBOR DIN",
     "arrivalPlaceholder": "ATERIZARE ÎN",
     "departure": "plecare",
     "arrival": "retur",
