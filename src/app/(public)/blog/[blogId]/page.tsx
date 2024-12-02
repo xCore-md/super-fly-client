@@ -60,7 +60,7 @@ export default function SingleBlog() {
             </span>
             <Link
               href="/#best-offers"
-              className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-8 text-base font-light text-white lg:w-[460px] "
+              className="flex h-11 w-full items-center justify-center rounded-full bg-brand-blue px-4 text-base font-light text-white lg:w-[460px] "
             >
               {t.singleBlogPage?.bottomCardButtonLabel}
             </Link>
