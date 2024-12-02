@@ -194,16 +194,6 @@ export const FlightsCarousel = () => {
   )
 }
 
-const formatDate = (dateStr: string) => {
-  const { lang } = useTranslationsContext()
-  const date = new Date(dateStr)
-  return new Intl.DateTimeFormat(undefined, {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  }).format(date)
-}
-
 type FlightDates = {
   startDate: string
   endDate?: string

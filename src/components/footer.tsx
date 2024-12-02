@@ -312,8 +312,6 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
     [listItems]
   )
 
-  console.log({ lang })
-
   return (
     <>
       <div className="hidden grid-cols-4 lg:grid">
