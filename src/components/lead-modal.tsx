@@ -27,6 +27,7 @@ export default function LeadModal({
   const [api, contextHolder] = notification.useNotification()
   const { flight } = useFlightContext()
   const { lang } = useTranslationsContext()
+  const [storageFlight, setStorageFlight] = useState<any>(null)
 
   const scrollTopFunc = () => {
     document.body.style.overflow = 'auto'
@@ -39,11 +40,15 @@ export default function LeadModal({
 
   useEffect(() => {
     const showDelay = delay || 2000
-    const storage = localStorage.getItem('lead')
-    const lead = storage && JSON.parse(storage)
+    const storageLead = localStorage.getItem('lead')
+    const storageFlight = localStorage.getItem('flight')
+    const lead = storageLead && JSON.parse(storageLead)
     const isExpired =
       lead && dayjs().diff(dayjs(lead?.expirationAt), 'minute') > 30
 
+    if (storageFlight) {
+      setStorageFlight(JSON.parse(storageFlight))
+    }
     if (window.innerWidth <= 768) {
       if (!lead || isExpired) {
         setTimeout(() => {
@@ -62,19 +67,20 @@ export default function LeadModal({
   }, [])
 
   const handleSubmit = useCallback(() => {
+    const flightData = storageFlight || flight
     const data = closable
       ? { phone }
       : {
           phone,
-          flight_from: flight?.fly_from?.code,
-          flight_to: flight?.fly_to?.code,
-          date_from: dayjs(flight?.date_from).format('DD.MM.YYYY'),
-          return_to: flight?.return_to
-            ? dayjs(flight?.return_to).format('DD.MM.YYYY')
+          flight_from: flightData?.fly_from?.code,
+          flight_to: flightData?.fly_to?.code,
+          date_from: dayjs(flightData?.date_from).format('DD.MM.YYYY'),
+          return_to: flightData?.return_to
+            ? dayjs(flightData?.return_to).format('DD.MM.YYYY')
             : '',
-          adults: flight?.adults,
-          children: flight?.children,
-          infants: flight?.infants,
+          adults: flightData?.adults,
+          children: flightData?.children,
+          infants: flightData?.infants,
           expirationAt: dayjs(),
         }
 

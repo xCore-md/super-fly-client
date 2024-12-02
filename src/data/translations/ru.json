@@ -8,7 +8,7 @@
   "searchBar": {
     "oneWay": "В одну сторону",
     "roundTrip": "Туда и обратно",
-    "departurePlaceholder": "Вылет из",
+    "departurePlaceholder": "ВЫЛЕТ ИЗ",
     "arrivalPlaceholder": "ПРИБЫТИЕ В",
     "departure": "вылет",
     "arrival": "возврат",

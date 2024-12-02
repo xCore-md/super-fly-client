@@ -106,7 +106,7 @@ export default function ConfirmReservationPage() {
 
   const getCountryName = () => {
     const country = countries.find(
-      (country: any) => country.cca2 === t?.passengers?.[0]?.passport_country
+      (country: any) => country.cca2 === ct?.passengers?.[0]?.passport_country
     ) as any
     return country?.name?.common
   }
@@ -155,7 +155,7 @@ export default function ConfirmReservationPage() {
             <div className="text-xs">
               <span className="mr-2 lg:font-medium">Email:</span>
               <span className="font-medium lg:font-light">
-                {t?.passengers?.[0]?.email}
+                {ct?.passengers?.[0]?.email}
               </span>
             </div>
           </div>
@@ -174,8 +174,8 @@ export default function ConfirmReservationPage() {
                   {t.firstNameLastName}
                 </span>
                 <span className="text-xs font-medium text-gray-700">
-                  {t?.passengers?.[0]?.first_name}{' '}
-                  {t?.passengers?.[0]?.last_name}
+                  {ct?.passengers?.[0]?.first_name}{' '}
+                  {ct?.passengers?.[0]?.last_name}
                 </span>
               </div>
 
@@ -187,23 +187,23 @@ export default function ConfirmReservationPage() {
                   {getCountryName()}
                 </span>
               </div>
-              {t?.passengers?.[0]?.passport_number && (
+              {ct?.passengers?.[0]?.passport_number && (
                 <div className="mb-4 flex flex-col max-[768px]:w-1/2">
                   <span className="mb-1  text-xs text-gray-400">
                     {t.passportNumber}
                   </span>
                   <span className="text-xs font-medium text-gray-700">
-                    {t?.passengers?.[0]?.passport_number}
+                    {ct?.passengers?.[0]?.passport_number}
                   </span>
                 </div>
               )}
-              {t?.passengers?.[0]?.passport_expires_at && (
+              {ct?.passengers?.[0]?.passport_expires_at && (
                 <div className="mb-4 flex flex-col max-[768px]:w-1/2 max-[768px]:items-start max-[768px]:pl-14">
                   <span className="mb-1 text-xs text-gray-400">
                     {t.expiring}
                   </span>
                   <span className="text-xs font-medium text-gray-700">
-                    {dayjs(t?.passengers?.[0]?.passport_expires_at).format(
+                    {dayjs(ct?.passengers?.[0]?.passport_expires_at).format(
                       'DD/MM/YYYY'
                     )}
                   </span>
@@ -309,8 +309,8 @@ export default function ConfirmReservationPage() {
 
                   <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue">
                     {startDirection.length > 1
-                      ? `Escale: ${startDirection.slice(1).length}`
-                      : `Direct`}
+                      ? `${t.transfer}: ${startDirection.slice(1).length}`
+                      : t.direct}
                   </div>
 
                   {/*<div className="mt-2 flex justify-between">*/}
@@ -431,7 +431,7 @@ export default function ConfirmReservationPage() {
                                     <span className=" flex flex-col gap-2 p-2 text-xs">
                                       <span className="flex gap-4">
                                         <span className="text-[10px]">
-                                          Escale:
+                                          {t.transfer}:
                                         </span>{' '}
                                         <span className="ml-2 font-semibold">
                                           {route.cityFrom} - {route.cityTo}
@@ -460,8 +460,8 @@ export default function ConfirmReservationPage() {
 
                     <div className="mb-1 mt-1 flex items-center justify-center gap-2 text-[10px] text-brand-blue">
                       {endDirection.length > 1
-                        ? `Escale: ${endDirection.slice(1).length}`
-                        : `Direct`}
+                        ? `${t.transfer}: ${endDirection.slice(1).length}`
+                        : t.direct}
                     </div>
 
                     {/*<div className="mt-2 flex justify-between">*/}

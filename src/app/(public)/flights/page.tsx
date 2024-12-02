@@ -11,6 +11,7 @@ import { FlightsCarousel } from '@components/flights/flights-carousel'
 import { FlightsTabs } from '@components/flights/flights-tabs'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 import { useRouter } from 'next/navigation'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export default function Flights() {
   const [loading, setLoading] = useState(true)
@@ -19,6 +20,7 @@ export default function Flights() {
   const { flightType } = useFlightTypeContext()
   const [isSorting, setIsSorting] = useState(true)
   const router = useRouter()
+  const { lang } = useTranslationsContext()
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -32,16 +34,18 @@ export default function Flights() {
 
       const selectedFlight = {
         ...flight,
-        date_from: dayjs(new Date(flight?.date_from)).format('DD/MM/YYYY'),
+        date_from: dayjs(flight?.date_from).format('DD/MM/YYYY'),
         return_to: flight?.return_to
-          ? dayjs(new Date(flight?.return_to)).format('DD/MM/YYYY')
+          ? dayjs(flight?.return_to).format('DD/MM/YYYY')
           : '',
         fly_from: flight?.fly_from.code,
         fly_to: flight?.fly_to.code,
       }
 
       axs
-        .get(`/search?locale=ro-RO&${convertToSearchQuery(selectedFlight)}`)
+        .get(
+          `/search?locale=${lang}-${lang.toLocaleUpperCase()}&${convertToSearchQuery(selectedFlight)}`
+        )
         .then((res) => {
           const data = [...res.data.data].sort(
             (a: any, b: any) => a.duration.total - b.duration.total

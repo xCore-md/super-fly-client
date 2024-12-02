@@ -64,13 +64,13 @@ export const SearchBar = ({
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
-  const { translations: t } = useTranslationsContext()
+  const { lang, translations: t } = useTranslationsContext()
 
   const openDrawer = useCallback((field: string) => {
     const flyToField = document.getElementById(field)
     flyToField?.blur()
     setDrawerState(field)
-    setOptions(mockOptions)
+    setOptions(mockOptions[lang])
     document.body.style.overflow = 'hidden'
   }, [])
 
@@ -181,7 +181,7 @@ export const SearchBar = ({
       getCurrentCityByIp()
     }
 
-    setOptions(mockOptions)
+    setOptions(mockOptions[lang])
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -196,7 +196,7 @@ export const SearchBar = ({
 
   const onSearch = (value: string) => {
     if (value === '') {
-      setOptions(mockOptions)
+      setOptions(mockOptions[lang])
       setSearchLoading(false)
       return
     }
@@ -205,11 +205,14 @@ export const SearchBar = ({
     setOptions([])
     if (value && value.length > 2) {
       axs
-        .get(`/locations?locale=ro-RO&query=${value}`, {
-          headers: {
-            Accept: 'application/json',
-          },
-        })
+        .get(
+          `/locations?locale=${lang}-${lang.toLocaleUpperCase()}&query=${value}`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        )
         .then((res) => {
           setOptions(
             res.data?.locations?.map((loc: any) => ({
@@ -290,12 +293,15 @@ export const SearchBar = ({
       const url = pathname.includes('admin') ? '/crm/search' : '/search'
 
       axs
-        .get(`${url}?locale=ro-RO&${convertToSearchQuery(selectedFlight)}`, {
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${userData?.token}`,
-          },
-        })
+        .get(
+          `${url}?locale=${lang}-${lang.toLocaleUpperCase()}&${convertToSearchQuery(selectedFlight)}`,
+          {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${userData?.token}`,
+            },
+          }
+        )
         .then((res) => {
           setFlights([])
           setInitialFlights([])
@@ -588,71 +594,138 @@ export const SearchBar = ({
   )
 }
 
-const mockOptions = [
-  {
-    key: 1,
-    country: 'Israel',
-    city: 'Tel Aviv',
-    code: 'TLV',
-    cityId: 'tel-aviv_il',
-  },
-  {
-    key: 2,
-    country: 'Irlanda',
-    city: 'Dublin',
-    code: 'DUB',
-    cityId: 'dublin_ie',
-  },
-  {
-    key: 3,
-    country: 'Franța',
-    city: 'Paris',
-    code: 'CDG',
-    cityId: 'paris_fr',
-  },
-  {
-    key: 4,
-    country: 'Regatul Unit',
-    city: 'Londra',
-    code: 'LTN',
-    cityId: 'london_gb',
-  },
-  {
-    key: 5,
-    country: 'Germania',
-    city: 'Frankfurt pe Main',
-    code: 'FRA',
-    cityId: 'frankfurt_de',
-  },
-  {
-    key: 6,
-    country: 'Spania',
-    city: 'Barcelona',
-    code: 'BCN',
-    cityId: 'barcelona_es',
-  },
-  {
-    key: 7,
-    country: 'Portugalia',
-    city: 'Lisabona',
-    code: 'LIS',
-    cityId: 'lisbon_pt',
-  },
-  {
-    key: 8,
-    country: 'Russia',
-    city: 'Moscova',
-    code: 'DME',
-    cityId: 'moscow_cf_ru',
-  },
-  {
-    key: 9,
-    country: 'Italia',
-    city: 'Milano',
-    code: 'BGY',
-    cityId: 'milan_it',
-  },
-]
+const mockOptions: any = {
+  ro: [
+    {
+      key: 1,
+      country: 'Israel',
+      city: 'Tel Aviv',
+      code: 'TLV',
+      cityId: 'tel-aviv_il',
+    },
+    {
+      key: 2,
+      country: 'Irlanda',
+      city: 'Dublin',
+      code: 'DUB',
+      cityId: 'dublin_ie',
+    },
+    {
+      key: 3,
+      country: 'Franța',
+      city: 'Paris',
+      code: 'CDG',
+      cityId: 'paris_fr',
+    },
+    {
+      key: 4,
+      country: 'Regatul Unit',
+      city: 'Londra',
+      code: 'LTN',
+      cityId: 'london_gb',
+    },
+    {
+      key: 5,
+      country: 'Germania',
+      city: 'Frankfurt pe Main',
+      code: 'FRA',
+      cityId: 'frankfurt_de',
+    },
+    {
+      key: 6,
+      country: 'Spania',
+      city: 'Barcelona',
+      code: 'BCN',
+      cityId: 'barcelona_es',
+    },
+    {
+      key: 7,
+      country: 'Portugalia',
+      city: 'Lisabona',
+      code: 'LIS',
+      cityId: 'lisbon_pt',
+    },
+    {
+      key: 8,
+      country: 'Russia',
+      city: 'Moscova',
+      code: 'DME',
+      cityId: 'moscow_cf_ru',
+    },
+    {
+      key: 9,
+      country: 'Italia',
+      city: 'Milano',
+      code: 'BGY',
+      cityId: 'milan_it',
+    },
+  ],
+  ru: [
+    {
+      key: 1,
+      country: 'Израиль',
+      city: 'Тель-Авив',
+      code: 'TLV',
+      cityId: 'tel-aviv_il',
+    },
+    {
+      key: 2,
+      country: 'Ирландия',
+      city: 'Дублин',
+      code: 'DUB',
+      cityId: 'dublin_ie',
+    },
+    {
+      key: 3,
+      country: 'Франция',
+      city: 'Париж',
+      code: 'CDG',
+      cityId: 'paris_fr',
+    },
+    {
+      key: 4,
+      country: 'Соединенное Королевство',
+      city: 'Лондон',
+      code: 'LTN',
+      cityId: 'london_gb',
+    },
+    {
+      key: 5,
+      country: 'Германия',
+      city: 'Франкфурт-на-Майне',
+      code: 'FRA',
+      cityId: 'frankfurt_de',
+    },
+    {
+      key: 6,
+      country: 'Испания',
+      city: 'Барселона',
+      code: 'BCN',
+      cityId: 'barcelona_es',
+    },
+    {
+      key: 7,
+      country: 'Португалия',
+      city: 'Лиссабон',
+      code: 'LIS',
+      cityId: 'lisbon_pt',
+    },
+    {
+      key: 8,
+      country: 'Россия',
+      city: 'Москва',
+      code: 'DME',
+      cityId: 'moscow_cf_ru',
+    },
+    {
+      key: 9,
+      country: 'Италия',
+      city: 'Милан',
+      code: 'BGY',
+      cityId: 'milan_it',
+    },
+  ],
+}
 
 const colorsByCompany: any = {
   flyOne: {

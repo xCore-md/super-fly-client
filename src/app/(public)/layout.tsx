@@ -12,6 +12,20 @@ export default function PublicLayout({
     <div className="relative">
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-527RZQ0K6E"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-527RZQ0K6E');
+            `,
+          }}
+        ></script>
       </Head>
       <Header menu={menu} />
       <Suspense fallback={<div className="h-svh w-full bg-brand-blue"></div>}>

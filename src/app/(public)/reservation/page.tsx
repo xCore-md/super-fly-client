@@ -15,27 +15,6 @@ import { ReservationMainForm } from '@components/reservation/reservation-main-fo
 import { ReservationSummary } from '@components/reservation/reservation-summary'
 import { useTranslationsContext } from '@/context/translations-context'
 
-const validationSchema = Yup.object().shape({
-  passengers: Yup.array().of(
-    Yup.object().shape({
-      first_name: Yup.string()
-        .min(3, 'Prenume trebuie sa are minimum 3 litere')
-        .required('Prenumele este necesar'),
-      last_name: Yup.string()
-        .min(3, 'Numer trebuie sa are minimum 3 litere')
-        .required('Numele de familie este'),
-      gender: Yup.string().oneOf(['M', 'F']).required('Genul este necesar'),
-      passport_country: Yup.string().required(
-        'Țara pașaportului este necesară'
-      ),
-      phone: Yup.string().required('Numărul de telefon este necesar'),
-      email: Yup.string()
-        .email('Email-ul este invalid')
-        .required('Email-ul este necesar'),
-    })
-  ),
-})
-
 export default function Reservation() {
   const { reservation, setReservation } = useReservationContext()
   const { flight } = useFlightContext()
@@ -45,7 +24,30 @@ export default function Reservation() {
   const [loading, setLoading] = useState(true)
   const [api, contextHolder] = notification.useNotification()
   const [isTermsChecked, setIsTermsChecked] = useState(false)
-  const { translations: t } = useTranslationsContext()
+  const { lang, translations: t } = useTranslationsContext()
+
+  const validationSchema = Yup.object().shape({
+    passengers: Yup.array().of(
+      Yup.object().shape({
+        first_name: Yup.string()
+          .min(3, info.validation.firstNameMinLetters[lang])
+          .required(info.validation.firstNameRequired[lang]),
+        last_name: Yup.string()
+          .min(3, info.validation.lastNameMinLetters[lang])
+          .required(info.validation.lastNameRequired[lang]),
+        gender: Yup.string()
+          .oneOf(['M', 'F'])
+          .required(info.validation.gender[lang]),
+        passport_country: Yup.string().required(
+          info.validation.passportCountry[lang]
+        ),
+        phone: Yup.string().required(info.validation.phone[lang]),
+        email: Yup.string()
+          .email(info.validation.email[lang])
+          .required(info.validation.emailRequired[lang]),
+      })
+    ),
+  })
 
   const formik = useFormik({
     initialValues: {
@@ -80,8 +82,7 @@ export default function Reservation() {
       if (!isTermsChecked) {
         api.open({
           message: '',
-          description:
-            'Trebuie să fiți de acord cu termenii și condițiile pentru a continua',
+          description: info.needToCheckMessage[lang],
           placement: 'topRight',
           duration: 3,
           closable: true,
@@ -146,9 +147,8 @@ export default function Reservation() {
             .catch((err) => {
               setLoading(false)
               api.error({
-                message: 'Error',
-                description:
-                  'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
+                message: info.error[lang],
+                description: info.errorModalMessage[lang],
                 placement: 'topRight',
                 duration: 3,
                 closable: true,
@@ -188,9 +188,8 @@ export default function Reservation() {
       })
 
       api.error({
-        message: 'A apărut o eroare',
-        description:
-          'Verificați datele introduse, unele câmpuri sunt completate incorect',
+        message: info.errorModalTitle[lang],
+        description: info.errorCheckMessage[lang],
         placement: 'topRight',
         duration: 3,
         closable: true,
@@ -291,4 +290,65 @@ export default function Reservation() {
       </aside>
     </form>
   )
+}
+
+const info: any = {
+  errorModalMessage: {
+    ro: 'A apărut o eroare la rezervare, va rugam sa verificati datele introduse',
+    ru: 'Ошибка при бронировании, пожалуйста, проверьте введенные данные',
+  },
+  errorModalTitle: {
+    ro: 'A apărut o eroare',
+    ru: 'Произошла ошибка',
+  },
+  errorCheckMessage: {
+    ro: 'Verificați datele introduse, unele câmpuri sunt completate incorect',
+    ru: 'Проверьте введенные данные, некоторые поля заполнены неверно',
+  },
+  needToCheckMessage: {
+    ro: 'Trebuie să fiți de acord cu termenii și condițiile pentru a continua',
+    ru: 'Вы должны согласиться с условиями и положениями, чтобы продолжить',
+  },
+  error: {
+    ro: 'Error',
+    ru: 'Ошибка',
+  },
+  validation: {
+    firstNameMinLetters: {
+      ro: 'Prenume trebuie sa are minimum 3 litere',
+      ru: 'Имя должно содержать не менее 3 букв',
+    },
+    firstNameRequired: {
+      ro: 'Prenumele este necesar',
+      ru: 'Имя обязательно',
+    },
+    lastNameMinLetters: {
+      ro: 'Numer trebuie sa are minimum 3 litere',
+      ru: 'Фамилия должна содержать не менее 3 букв',
+    },
+    lastNameRequired: {
+      ro: 'Numele de familie este',
+      ru: 'Фамилия обязательна',
+    },
+    gender: {
+      ro: 'Genul este necesar',
+      ru: 'Пол обязателен',
+    },
+    passportCountry: {
+      ro: 'Țara pașaportului este necesară',
+      ru: 'Страна паспорта обязательна',
+    },
+    phone: {
+      ro: 'Numărul de telefon este necesar',
+      ru: 'Телефон обязателен',
+    },
+    email: {
+      ro: 'Email-ul este invalid',
+      ru: 'Неверный адрес электронной почты',
+    },
+    emailRequired: {
+      ro: 'Email-ul este necesar',
+      ru: 'Электронная почта обязательна',
+    },
+  },
 }

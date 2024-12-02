@@ -42,7 +42,7 @@ export default function Home() {
       <div className="custom-container">
         <Offers />
         <section className="mb-14 mt-20 lg:mb-36">
-          <WhyUs title={t.whyUs?.title} />
+          <WhyUs title={t.home?.whyUs?.title} />
         </section>
       </div>
       <div className="custom-container padding-right-none">
