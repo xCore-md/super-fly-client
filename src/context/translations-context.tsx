@@ -34,7 +34,7 @@ export function TranslationsContextProvider({
   const [firstLoad, setFirstLoad] = useState<boolean>(true)
 
   const setLanguageInLocalStorage = (lang: string) => {
-    localStorage.setItem('lang', lang)
+    localStorage.setItem('sf_lang', lang)
   }
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function TranslationsContextProvider({
   }, [lang])
 
   useEffect(() => {
-    const storageLang = localStorage.getItem('lang')
+    const storageLang = localStorage.getItem('sf_lang')
 
     if (storageLang) {
       setLang(storageLang)

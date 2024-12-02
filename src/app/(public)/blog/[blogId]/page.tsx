@@ -27,7 +27,7 @@ export default function SingleBlog() {
   useEffect(() => {
     if (pathname) {
       setData(usefulInfo[getLastSegment(pathname)])
-      document.title = data.title
+      document.title = data.title?.[lang]
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }, [pathname, data.title])
