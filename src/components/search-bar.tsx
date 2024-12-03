@@ -66,13 +66,17 @@ export const SearchBar = ({
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
   const { lang, translations: t } = useTranslationsContext()
 
-  const openDrawer = useCallback((field: string) => {
-    const flyToField = document.getElementById(field)
-    flyToField?.blur()
-    setDrawerState(field)
-    setOptions(mockOptions[lang])
-    document.body.style.overflow = 'hidden'
-  }, [])
+  const openDrawer = useCallback(
+    (field: string) => {
+      const flyToField = document.getElementById(field)
+      flyToField?.blur()
+      setDrawerState(field)
+      setOptions(mockOptions[lang])
+      document.body.style.overflow = 'hidden'
+      setOptions(mockOptions[lang])
+    },
+    [lang]
+  )
 
   const closeDrawer = () => {
     setDrawerState('')
@@ -209,14 +213,11 @@ export const SearchBar = ({
     setOptions([])
     if (value && value.length > 2) {
       axs
-        .get(
-          `/locations?locale=${lang}-${lang.toLocaleUpperCase()}&query=${value}`,
-          {
-            headers: {
-              Accept: 'application/json',
-            },
-          }
-        )
+        .get(`/locations?locale=${lang}&query=${value}`, {
+          headers: {
+            Accept: 'application/json',
+          },
+        })
         .then((res) => {
           setOptions(
             res.data?.locations?.map((loc: any) => ({
@@ -270,8 +271,8 @@ export const SearchBar = ({
       !formik.values.date_from
     ) {
       api.error({
-        message: 'Message',
-        description: 'Toate campurile sunt obligatorii',
+        message: info.error[lang],
+        description: info.allFieldsRequired[lang],
         placement: 'topRight',
         duration: 3,
         closable: true,
@@ -297,15 +298,12 @@ export const SearchBar = ({
       const url = pathname.includes('admin') ? '/crm/search' : '/search'
 
       axs
-        .get(
-          `${url}?locale=${lang}-${lang.toLocaleUpperCase()}&${convertToSearchQuery(selectedFlight)}`,
-          {
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${userData?.token}`,
-            },
-          }
-        )
+        .get(`${url}?locale=${lang}&${convertToSearchQuery(selectedFlight)}`, {
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${userData?.token}`,
+          },
+        })
         .then((res) => {
           setFlights([])
           setInitialFlights([])
@@ -553,7 +551,7 @@ export const SearchBar = ({
                     autoFocus: true,
                     type: 'text',
                   }}
-                  placeholder="Introduceți numărul de telefon"
+                  placeholder={info.fillPhoneNumber[lang]}
                   country={'md'}
                   countryCodeEditable={false}
                 />
@@ -729,6 +727,21 @@ const mockOptions: any = {
       cityId: 'milan_it',
     },
   ],
+}
+
+const info: any = {
+  allFieldsRequired: {
+    ro: 'Toate campurile sunt obligatorii',
+    ru: 'Все поля обязательны к заполнению',
+  },
+  error: {
+    ro: 'Eroare',
+    ru: 'Ошибка',
+  },
+  fillPhoneNumber: {
+    ro: 'Introduceți numărul de telefon',
+    ru: 'Введите номер телефона',
+  },
 }
 
 const colorsByCompany: any = {

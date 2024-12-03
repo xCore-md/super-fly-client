@@ -1,17 +1,17 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import LeadModal from '@/components/lead-modal'
 import { useFlightTypeContext } from '@/context/flight-type-context'
 import { useFlightsContext } from '@/context/flights-context'
+import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import { convertToSearchQuery } from '@/lib/utils'
 import { FlightsCarousel } from '@components/flights/flights-carousel'
 import { FlightsTabs } from '@components/flights/flights-tabs'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
-import { useRouter } from 'next/navigation'
-import { useTranslationsContext } from '@/context/translations-context'
 
 export default function Flights() {
   const [loading, setLoading] = useState(true)
@@ -43,9 +43,7 @@ export default function Flights() {
       }
 
       axs
-        .get(
-          `/search?locale=${lang}-${lang.toLocaleUpperCase()}&${convertToSearchQuery(selectedFlight)}`
-        )
+        .get(`/search?locale=${lang}&${convertToSearchQuery(selectedFlight)}`)
         .then((res) => {
           const data = [...res.data.data].sort(
             (a: any, b: any) => a.duration.total - b.duration.total

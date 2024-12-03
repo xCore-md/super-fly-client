@@ -38,13 +38,15 @@ export default function ConfirmReservationPage() {
 
   const startDirectionTime = getFlightTime(
     startDirection?.[0].local_departure,
-    startDirection?.[startDirection?.length - 1].local_arrival
+    startDirection?.[startDirection?.length - 1].local_arrival,
+    lang
   )
   const endDirection = res?.route?.filter((route: any) => route.return === 1)
 
   const endDirectionTime = getFlightTime(
     endDirection?.[0]?.local_departure,
-    endDirection?.[endDirection.length - 1]?.local_arrival
+    endDirection?.[endDirection.length - 1]?.local_arrival,
+    lang
   )
 
   const { confirmedReservation: ct } = res
