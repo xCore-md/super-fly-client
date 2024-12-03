@@ -10,10 +10,10 @@ import * as Yup from 'yup'
 import { FlyContent } from '@/components/flights/fly-content'
 import { useFlightContext } from '@/context/flight-context'
 import { useReservationContext } from '@/context/reservation-context'
+import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import { ReservationMainForm } from '@components/reservation/reservation-main-form'
 import { ReservationSummary } from '@components/reservation/reservation-summary'
-import { useTranslationsContext } from '@/context/translations-context'
 
 export default function Reservation() {
   const { reservation, setReservation } = useReservationContext()
@@ -162,7 +162,7 @@ export default function Reservation() {
 
   useEffect(() => {
     axs
-      .get('https://restcountries.com/v3.1/all?fields=name,cca2,flags')
+      .get(`https://restcountries.com/v3.1/all?fields=name,cca2,flags`)
       .then((res) => {
         setCountries(res.data)
       })

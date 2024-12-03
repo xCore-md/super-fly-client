@@ -192,6 +192,10 @@ export const SearchBar = ({
     scrollToSearchResults()
   }, [])
 
+  useEffect(() => {
+    setOptions(mockOptions[lang])
+  }, [lang])
+
   const [searchLoading, setSearchLoading] = useState(false)
 
   const onSearch = (value: string) => {

@@ -36,14 +36,16 @@ export const FlyContent = (props: any) => {
 
   const startDirectionTime = getFlightTime(
     startDirection?.[0].local_departure,
-    startDirection?.[startDirection?.length - 1].local_arrival
+    startDirection?.[startDirection?.length - 1].local_arrival,
+    lang
   )
 
   const endDirection = flight?.route?.filter((route: any) => route.return === 1)
 
   const endDirectionTime = getFlightTime(
     endDirection?.[0]?.local_departure,
-    endDirection?.[endDirection.length - 1]?.local_arrival
+    endDirection?.[endDirection.length - 1]?.local_arrival,
+    lang
   )
 
   const handleReservation = useCallback(() => {
@@ -73,7 +75,8 @@ export const FlyContent = (props: any) => {
             <span>
               {getFlightTime(
                 list[index === 0 ? 0 : index - 1].local_arrival,
-                r.local_departure
+                r.local_departure,
+                lang
               )}
             </span>
             <span className="text-[8px] font-semibold text-[#4A4A4A] lg:text-xxs">

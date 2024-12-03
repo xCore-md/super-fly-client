@@ -26,11 +26,11 @@ export function convertToSearchQuery(params: Record<string, string | number>) {
 }
 
 export function getFormattedDate(dateStr: string) {
-  const date = new Date(dateStr);
-  const hours = String(date.getUTCHours()).padStart(2, "0"); // UTC hours
-  const minutes = String(date.getUTCMinutes()).padStart(2, "0"); // UTC minutes
+  const date = new Date(dateStr)
+  const hours = String(date.getUTCHours()).padStart(2, '0') // UTC hours
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0') // UTC minutes
 
-  return `${hours}:${minutes}`;
+  return `${hours}:${minutes}`
 }
 
 export function numberToTimeFormat(seconds: number) {
@@ -41,16 +41,21 @@ export function numberToTimeFormat(seconds: number) {
   return `${hours} h ${minutes} min`
 }
 
-export function getFlightTime(startDate: string, endDate: string) {
+export function getFlightTime(
+  startDate: string,
+  endDate: string,
+  lang: string
+) {
   const start = new Date(startDate)
   const end = new Date(endDate)
-
+  const hLetter = lang === 'ro' ? 'h' : 'ч'
+  const minLetter = lang === 'ro' ? 'min' : 'мин'
   const diff = end.getTime() - start.getTime()
 
   const hours = Math.floor(diff / 1000 / 60 / 60)
   const minutes = Math.floor((diff / 1000 / 60) % 60)
 
-  return `${hours ? hours + ' h' : ''} ${minutes ? minutes + ' min' : ''} `
+  return `${hours ? hours + ` ${hLetter}` : ''} ${minutes ? minutes + ` ${minLetter}` : ''} `
 }
 
 export function getPassengerAge(dateOfBirth: string) {

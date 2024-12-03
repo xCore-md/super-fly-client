@@ -103,6 +103,6 @@ const List = ({ options, handleSelect, loading }: any) => {
 }
 
 const placeholder: any = {
-  ro: 'Ex. Chisinau (KIV)',
-  ru: 'Доп. Кишинев (KIV)',
+  ro: 'Ex. Chisinau',
+  ru: 'Доп. Кишинев',
 }

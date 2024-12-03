@@ -300,6 +300,13 @@ const PassengerForm = ({
                 borderRadius: 8,
               }}
               country={'md'}
+              localization={{
+                us: 'United States',
+                fr: 'France',
+                de: 'Germany',
+                ua: 'Україна',
+                ru: 'Россия',
+              }}
             />
             {formik.errors?.passengers?.[index]?.phone &&
               formik.touched?.passengers?.[index]?.phone && (

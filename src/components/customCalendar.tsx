@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
 import dayjs from 'dayjs'
-import { cn } from '@/lib/utils'
 import { useTranslationsContext } from '@/context/translations-context'
+import { cn } from '@/lib/utils'
+import 'dayjs/locale/ru'
+import 'dayjs/locale/ro'
 
 interface IProps {
   onChange: any
@@ -113,6 +115,7 @@ export function CustomCalendar({
         fromDate && date && 'selected-to-date',
         fromDate && 'disabled-from-date'
       )}
+      locale={lang}
       onChange={handleChange}
       fullscreen={false}
       disabledDate={disabledDates}

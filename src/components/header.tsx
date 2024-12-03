@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/sheet'
 import { useTranslationsContext } from '@/context/translations-context'
 import 'dayjs/locale/ru'
+import 'dayjs/locale/ro'
 
 interface IMenu {
   title: string
