@@ -7,9 +7,9 @@ import checkIconLeadModal from '@/assets/img/check-icon-lead-modal.png'
 import leadModalCompanies from '@/assets/img/lead-modal-companies.png'
 import operator from '@/assets/img/operator.png'
 import { useFlightContext } from '@/context/flight-context'
+import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import 'react-phone-input-2/lib/style.css'
-import { useTranslationsContext } from '@/context/translations-context'
 
 interface IProps {
   closable?: boolean
