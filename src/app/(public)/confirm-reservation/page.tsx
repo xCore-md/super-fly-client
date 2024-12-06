@@ -1,29 +1,29 @@
 'use client'
 
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ReactNode, useEffect, useMemo, useState } from 'react'
-import { Divider, Spin, Tooltip } from 'antd'
-import dayjs from 'dayjs'
-import mastercardWhite from '@/assets/img/master.svg'
-import mastercard from '@/assets/img/mastercard.svg'
-import paynetWhite from '@/assets/img/paynet-w.svg'
-import paynet from '@/assets/img/paynet.svg'
-import visaWhite from '@/assets/img/visa-w.svg'
-import visa from '@/assets/img/visa.svg'
-import { useFlightContext } from '@/context/flight-context'
-import { useReservationContext } from '@/context/reservation-context'
-import axs from '@/lib/axios'
-import { CHECK_IN_PRICE } from '@/lib/constants'
-import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
-import OurOfficeModal from './our-office-modal'
-import { Button } from '../../../components/ui/button'
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
   LoadingOutlined,
 } from '@ant-design/icons'
+import { Divider, Spin, Tooltip } from 'antd'
+import dayjs from 'dayjs'
+// import mastercardWhite from '@/assets/img/master.svg'
+// import mastercard from '@/assets/img/mastercard.svg'
+// import paynetWhite from '@/assets/img/paynet-w.svg'
+// import paynet from '@/assets/img/paynet.svg'
+// import visaWhite from '@/assets/img/visa-w.svg'
+// import visa from '@/assets/img/visa.svg'
+import { useFlightContext } from '@/context/flight-context'
+import { useReservationContext } from '@/context/reservation-context'
 import { useTranslationsContext } from '@/context/translations-context'
+import axs from '@/lib/axios'
+import { CHECK_IN_PRICE } from '@/lib/constants'
+import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
+import OurOfficeModal from './our-office-modal'
+import { Button } from '../../../components/ui/button'
 
 export default function ConfirmReservationPage() {
   const { flight } = useFlightContext()
@@ -553,7 +553,7 @@ export default function ConfirmReservationPage() {
               {t.selectPaymentMethod}
             </h4>
             <div className="flex w-full gap-2 lg:gap-5">
-              <Button
+              {/* <Button
                 variant="ghost"
                 className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-2 lg:bg-brand-light-blue"
               >
@@ -590,8 +590,8 @@ export default function ConfirmReservationPage() {
                     className="block lg:hidden"
                   />
                 </span>
-              </Button>
-              <Button
+              </Button> */}
+              {/* <Button
                 variant="ghost"
                 className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-0 lg:bg-brand-light-blue lg:px-2"
               >
@@ -614,7 +614,7 @@ export default function ConfirmReservationPage() {
                     className="block lg:hidden"
                   />
                 </span>
-              </Button>
+              </Button> */}
 
               <OurOfficeModal />
             </div>

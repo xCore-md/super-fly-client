@@ -213,11 +213,14 @@ export const SearchBar = ({
     setOptions([])
     if (value && value.length > 2) {
       axs
-        .get(`/locations?locale=${lang}&query=${value}`, {
-          headers: {
-            Accept: 'application/json',
-          },
-        })
+        .get(
+          `/locations/?locale=${lang}-${lang.toLocaleUpperCase()}&query=${value}`,
+          {
+            headers: {
+              Accept: 'application/json',
+            },
+          }
+        )
         .then((res) => {
           setOptions(
             res.data?.locations?.map((loc: any) => ({
@@ -249,7 +252,7 @@ export const SearchBar = ({
 
   const getCurrentCityByIp = () => {
     axs
-      .get('/current-city')
+      .get(`/current-city/?locale=${lang}-${lang.toLocaleUpperCase()}`)
       .then((res) => {
         const { locations } = res.data
         const { city, code, airport_int_id } = locations[0]

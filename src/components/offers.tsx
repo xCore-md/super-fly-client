@@ -95,7 +95,7 @@ const Offers = () => {
 
   const getCurrentCityByIp = () => {
     axs
-      .get('/current-city')
+      .get(`/current-city/?locale=${lang}-${lang.toLocaleUpperCase()}`)
       .then((res) => {
         const { locations } = res.data
         const { city, code, airport_int_id } = locations[0]
