@@ -7,8 +7,8 @@ import mail from '@/assets/img/mail.svg'
 import marker from '@/assets/img/marker.svg'
 import phone from '@/assets/img/phone.svg'
 import wazeSvg from '@/assets/img/waze.svg'
-import { Button } from '@components/ui/button'
 import { useTranslationsContext } from '@/context/translations-context'
+import { Button } from '@components/ui/button'
 
 const OurOfficeModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)

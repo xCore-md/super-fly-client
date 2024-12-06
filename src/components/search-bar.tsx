@@ -289,6 +289,17 @@ export const SearchBar = ({
       JSON.stringify({ ...formik.values, expirationAt: dayjs() })
     )
 
+    const storageLead = localStorage.getItem('lead')
+
+    const phone = phoneValue || (storageLead && JSON.parse(storageLead).phone)
+
+    if (!storageLead && phone) {
+      localStorage.setItem('lead', JSON.stringify({ phone }))
+      axs.post('/create-lead', { phone }).catch((err) => {
+        console.log({ err })
+      })
+    }
+
     if (isHomePage) {
       router.push('/flights')
     } else {
@@ -326,21 +337,6 @@ export const SearchBar = ({
         .catch((err) => console.log({ err }))
     }
 
-    const storageLead = localStorage.getItem('lead')
-
-    const phone = phoneValue || (storageLead && JSON.parse(storageLead).phone)
-
-    if (!storageLead && phone) {
-      axs
-        .post('/create-lead', { phone })
-        .then(() => {
-          localStorage.setItem('lead', JSON.stringify({ phone }))
-        })
-        .catch((err) => {
-          console.log({ err })
-        })
-    }
-
     if (storageLead) {
       const {
         fly_from,
@@ -363,14 +359,12 @@ export const SearchBar = ({
         expirationAt: dayjs(),
       }
 
-      axs
-        .post('/create-lead', { ...data })
-        .then(() => {
-          localStorage.setItem('lead', JSON.stringify(data))
-        })
-        .catch((err) => {
+      if (Object.keys(data).length > 0) {
+        localStorage.setItem('lead', JSON.stringify(data))
+        axs.post('/create-lead', { ...data }).catch((err) => {
           console.log({ err })
         })
+      }
     }
 
     closeAllFields()

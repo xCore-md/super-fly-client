@@ -15,6 +15,7 @@ interface IProps {
   closable?: boolean
   delay?: number
   country?: any
+  dataLoaded?: boolean
 }
 
 export default function LeadModal({
@@ -49,8 +50,9 @@ export default function LeadModal({
     if (storageFlight) {
       setStorageFlight(JSON.parse(storageFlight))
     }
+
     if (window.innerWidth <= 768) {
-      if (!lead || isExpired) {
+      if (!storageLead || isExpired) {
         setTimeout(() => {
           setOpenModal(true)
           document.body.style.overflow = 'hidden'
