@@ -108,6 +108,8 @@ interface ITicketProps {
 }
 
 const Ticket = ({ passenger, routes, ticketIndex, lang }: ITicketProps) => {
+  console.log({ DB: passenger?.date_of_birth })
+
   return (
     <div className="mb-6 overflow-hidden rounded-lg bg-white">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
@@ -122,24 +124,30 @@ const Ticket = ({ passenger, routes, ticketIndex, lang }: ITicketProps) => {
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">{info.dateOfBirth[lang]}</p>
           <p className="text-xl font-medium">
-            {dayjs(passenger?.date_of_birth).format('DD.MM.YYYY')}
+            {passenger?.date_of_birth
+              ? dayjs(passenger?.date_of_birth).format('DD.MM.YYYY')
+              : '---'}
           </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">
-            {getPassengerAge(passenger?.date_of_birth)}
+            {getPassengerAge(passenger?.date_of_birth, lang)}
           </p>
           <p className="text-xl font-medium">1</p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">{info.citizenship[lang]}</p>
-          <p className="text-xl font-medium">{passenger?.passport_country}</p>
+          <p className="text-xl font-medium">
+            {passenger?.passport_country ? passenger?.passport_country : '---'}
+          </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">
             {info.passportNumber[lang]}
           </p>
-          <p className="text-xl font-medium">{passenger?.passport_number}</p>
+          <p className="text-xl font-medium">
+            {passenger?.passport_number ? passenger?.passport_number : '---'}
+          </p>
         </div>
         <div className="text-white">
           <p className="mb-3 text-xs font-normal">

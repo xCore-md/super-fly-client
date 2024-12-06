@@ -21,6 +21,7 @@ import {
   handleDownloadImage,
 } from '@/lib/utils'
 import 'react-phone-input-2/lib/style.css'
+import { useTranslationsContext } from '@/context/translations-context'
 
 export interface IPassenger {
   id: number
@@ -242,6 +243,7 @@ const PassengerFields = ({
   const [editable, setEditable] = useState(false)
   const [passengerData, setPassengerData] = useState({} as IPassenger)
   const { Option } = Select
+  const { lang } = useTranslationsContext()
 
   const formik = useFormik({
     initialValues: passengerObj as any,
@@ -316,7 +318,7 @@ const PassengerFields = ({
     <div key={passengerData.id} className="mb-4 text-white">
       <h2 className="rounded-lg bg-brand-blue p-4 text-lg font-bold">
         {index + 1}. {passengerData.first_name} {passengerData.last_name} (
-        {getPassengerAge(passengerData.date_of_birth)})
+        {getPassengerAge(passengerData.date_of_birth, lang)})
       </h2>
       <form
         onSubmit={formik.handleSubmit}
