@@ -108,8 +108,6 @@ interface ITicketProps {
 }
 
 const Ticket = ({ passenger, routes, ticketIndex, lang }: ITicketProps) => {
-  console.log({ DB: passenger?.date_of_birth })
-
   return (
     <div className="mb-6 overflow-hidden rounded-lg bg-white">
       <div className={`flex justify-between  bg-brand-blue px-5 py-6`}>
