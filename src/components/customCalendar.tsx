@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { LeftOutlined, RightOutlined } from '@ant-design/icons'
 import { Button, Calendar } from 'antd'
+import roRO from 'antd/es/calendar/locale/ro_RO'
+import ruRU from 'antd/es/calendar/locale/ru_RU'
 import dayjs from 'dayjs'
 import { useTranslationsContext } from '@/context/translations-context'
 import { cn } from '@/lib/utils'
@@ -106,7 +108,7 @@ export function CustomCalendar({
   return (
     <Calendar
       headerRender={customHeader}
-      value={currentDate}
+      value={currentDate.locale(lang)}
       className={cn(
         `customCalendar custom-shadow animate-calendarDropdown`,
         className,
@@ -115,7 +117,7 @@ export function CustomCalendar({
         fromDate && date && 'selected-to-date',
         fromDate && 'disabled-from-date'
       )}
-      locale={lang}
+      locale={lang === 'ro' ? roRO : ruRU}
       onChange={handleChange}
       fullscreen={false}
       disabledDate={disabledDates}
