@@ -593,7 +593,7 @@ export default function ConfirmReservationPage() {
                 </span>
               </Button> */}
               <Link
-                href={`/api/pay/ro/paynet/${ct.id}`}
+                href={`https://api-superfly.xcore.md/api/pay/ro/paynet/${ct.id}`}
                 className="reservation-button-shadow flex h-9 w-fit items-center justify-center gap-4 rounded-full bg-brand-gray px-4 lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
