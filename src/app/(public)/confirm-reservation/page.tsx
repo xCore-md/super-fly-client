@@ -554,7 +554,7 @@ export default function ConfirmReservationPage() {
               {t.selectPaymentMethod}
             </h4>
             <div className="flex w-full gap-2 lg:gap-5">
-              <Button
+              {/* <Button
                 variant="ghost"
                 className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-2 lg:bg-brand-light-blue"
               >
@@ -591,10 +591,10 @@ export default function ConfirmReservationPage() {
                     className="block lg:hidden"
                   />
                 </span>
-              </Button>
+              </Button> */}
               <Link
                 href={`/api/pay/ro/paynet/${ct.id}`}
-                className="reservation-button-shadow flex h-9 w-full items-center justify-center gap-4 rounded-full bg-brand-gray px-0 lg:bg-brand-light-blue lg:px-2"
+                className="reservation-button-shadow flex h-9 w-fit items-center justify-center gap-4 rounded-full bg-brand-gray px-4 lg:bg-brand-light-blue"
               >
                 <span className="hidden text-xs text-brand-blue lg:inline">
                   {t.onlinePayment}
