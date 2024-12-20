@@ -122,7 +122,7 @@ const PassengerForm = ({
   const { lang, translations: t } = useTranslationsContext()
 
   useEffect(() => {
-    formik.setFieldValue(`passengers[${index}].isOnlineCheckIn`, true)
+    formik.setFieldValue(`check_in`, true)
   }, [])
 
   const uploadProps: UploadProps = {
@@ -683,16 +683,11 @@ const BagTypeAndPrice = ({
   )
 }
 
-const OnlineCheckinSection = ({ formik, index, t, lang }: any) => {
+const OnlineCheckinSection = ({ formik, t, lang }: any) => {
   return (
     <ReservationCard
       className="relative cursor-pointer"
-      onClick={() =>
-        formik.setFieldValue(
-          `passengers[${index}].isOnlineCheckIn`,
-          !formik.values?.passengers?.[index]?.isOnlineCheckIn
-        )
-      }
+      onClick={() => formik.setFieldValue(`check_in`, !formik.values?.check_in)}
     >
       <main className="flex flex-col justify-between">
         <div className="flex items-center justify-between">
@@ -706,9 +701,9 @@ const OnlineCheckinSection = ({ formik, index, t, lang }: any) => {
           </div>
           <Checkbox
             className="ml-auto"
-            name={`passengers[${index}].isOnlineCheckIn`}
+            name="check_in"
             onChange={formik.handleChange}
-            checked={formik.values?.passengers?.[index]?.isOnlineCheckIn}
+            checked={formik.values?.check_in}
           />
         </div>
 

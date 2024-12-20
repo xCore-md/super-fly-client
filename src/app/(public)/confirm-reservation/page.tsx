@@ -64,16 +64,6 @@ export default function ConfirmReservationPage() {
     return Math.round(bagsPrice)
   }
 
-  const checkInPrice = useMemo(
-    () =>
-      res.passengers
-        ?.map((passenger: any) => {
-          return passenger?.isOnlineCheckIn ? CHECK_IN_PRICE : 0
-        })
-        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
-    [res.passengers]
-  )
-
   const baggagePrice = useMemo(
     () =>
       res.passengers
@@ -544,7 +534,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">Total:</span>
               <span className="ml-2 font-semibold">
-                {Math.round(res.price + baggagePrice + checkInPrice)} €
+                {Math.round(res.price + baggagePrice + 8.99)} €
               </span>
             </div>
           </div>
@@ -694,7 +684,7 @@ export default function ConfirmReservationPage() {
 
               <div className="flex flex-col py-4">
                 {res.passengers?.map((passenger: any, index: number) => {
-                  if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
+                  if (!passenger?.first_name) {
                     return ''
                   }
                   return (
@@ -731,7 +721,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">{t.total}:</span>
               <span className="ml-2 font-semibold">
-                {Math.round(res.price + baggagePrice + checkInPrice)} €
+                {Math.round(res.price + baggagePrice + CHECK_IN_PRICE)} €
               </span>
             </div>
           </div>

@@ -4,10 +4,10 @@ import { useRouter } from 'next/navigation'
 import React, { ReactNode, useMemo } from 'react'
 import { Divider, Button } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
+import { useTranslationsContext } from '@/context/translations-context'
 import { CHECK_IN_PRICE } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { ReservationTimer } from './reservation-timer'
-import { useTranslationsContext } from '@/context/translations-context'
 
 export const ReservationSummary = ({
   reservation,
@@ -54,16 +54,6 @@ export const ReservationSummary = ({
         })
         .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
     [formik?.values?.passengers, reservation.bags_price]
-  )
-
-  const checkInPrice = useMemo(
-    () =>
-      formik?.values?.passengers
-        ?.map((passenger: any) => {
-          return passenger?.isOnlineCheckIn ? CHECK_IN_PRICE : 0
-        })
-        .reduce((acc: number, curr: number) => acc + curr, 0) || 0,
-    [formik?.values?.passengers]
   )
 
   return (
@@ -142,13 +132,13 @@ export const ReservationSummary = ({
           <div>
             <SectionLightBlue className="flex justify-between text-xs font-bold text-[#121C5E]">
               <h6>{t.passengerForm?.services}</h6>
-              {checkInPrice ? <h6>€{checkInPrice}</h6> : ''}
+              {formik.values.check_in ? <h6>€{CHECK_IN_PRICE}</h6> : ''}
             </SectionLightBlue>
 
             <div className="flex flex-col py-4">
               {formik?.values?.passengers?.map(
                 (passenger: any, index: number) => {
-                  if (!passenger?.isOnlineCheckIn || !passenger?.first_name) {
+                  if (!passenger?.first_name) {
                     return ''
                   }
                   return (
@@ -180,7 +170,7 @@ export const ReservationSummary = ({
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
           <span className="font-light">{t.total}:</span>
           <span className="ml-2 font-semibold">
-            {reservation.price + baggagePrice + checkInPrice} €
+            {reservation.price + baggagePrice + CHECK_IN_PRICE} €
           </span>
         </div>
 
