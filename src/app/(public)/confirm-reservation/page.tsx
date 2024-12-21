@@ -57,10 +57,11 @@ export default function ConfirmReservationPage() {
 
   const { adults, children, infants } = flight
 
-  const baggageCountPrice = (bagCount: number, index: number) => {
-    const price = res.bags_price?.[index]
+  const baggageCountPrice = (bagCount: number, type: string) => {
+    const price = res.bags_price['1']
+    const bagPrice = type === '10kg' ? price : price * 2
 
-    const bagsPrice = bagCount * (price || res.bags_price?.[index - 1] * 2)
+    const bagsPrice = bagCount * bagPrice
     return Math.round(bagsPrice)
   }
 
@@ -68,11 +69,9 @@ export default function ConfirmReservationPage() {
     () =>
       res.passengers
         ?.map((passenger: any) => {
-          const baggagePrice = passenger?.baggage?.map(
-            (bag: any, bagIndex: number) => {
-              return baggageCountPrice(bag.count, bagIndex + 1)
-            }
-          )
+          const baggagePrice = passenger?.baggage?.map((bag: any) => {
+            return baggageCountPrice(bag.count, bag.type)
+          })
 
           return baggagePrice?.reduce(
             (acc: number, curr: number) => acc + curr,
@@ -654,7 +653,7 @@ export default function ConfirmReservationPage() {
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {bag.count} x{' '}
-                                  {baggageCountPrice(bag.count, bagIndex + 1)} €
+                                  {baggageCountPrice(bag.count, bag.type)} €
                                 </p>
                               </div>
                             ) : (

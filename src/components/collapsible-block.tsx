@@ -127,7 +127,7 @@ const CollapsibleBlock = ({
               <div className="col-span-2 flex justify-between">
                 <div className="text-left">
                   <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                    {dayjs().locale(lang).format('DD MMM, YYYY')}
+                    {dayjs().locale(lang).format('DD MMM YYYY')}
                   </div>
                   <div className="text-xs text-[#4A4A4A] lg:text-sm">
                     {t.kishinev}
@@ -135,7 +135,7 @@ const CollapsibleBlock = ({
                 </div>
                 <div className=" text-right lg:hidden">
                   <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                    {dayjs(offer.date_from).locale(lang).format('DD MMM, YYYY')}
+                    {dayjs(offer.date_from).locale(lang).format('DD MMM YYYY')}
                   </div>
                   <div className="text-xs text-[#4A4A4A] lg:text-sm">
                     {offer.title[lang]}
@@ -143,7 +143,7 @@ const CollapsibleBlock = ({
                 </div>
               </div>
               <div className="col-span-3">
-                <div className="mb-3 flex items-center justify-center ">
+                <div className="mb-3 flex h-4 items-center justify-center ">
                   <Image src={logo} alt="fly-company" width={85} />
                 </div>
                 <div>
@@ -156,7 +156,7 @@ const CollapsibleBlock = ({
               </div>
               <div className="col-span-2 hidden text-right lg:block">
                 <div className="mb-2 text-base font-normal lg:mb-4 lg:text-[22px]">
-                  {dayjs(offer.date_from).locale(lang).format('DD MMM, YYYY')}
+                  {dayjs(offer.date_from).locale(lang).format('DD MMM YYYY')}
                 </div>
                 <div className="text-xs text-gray-700 lg:text-sm">
                   {offer.title[lang]}
