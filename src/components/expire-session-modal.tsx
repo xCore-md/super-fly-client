@@ -9,9 +9,9 @@ import React, {
   useState,
 } from 'react'
 import { Modal } from 'antd'
+import { useTranslationsContext } from '@/context/translations-context'
 import { useSessionTimer } from '@/lib/hooks/useSessionTimer'
 import { Button } from '@components/ui/button'
-import { useTranslationsContext } from '@/context/translations-context'
 
 interface ExpireSessionModalProps {
   resetForm: () => void

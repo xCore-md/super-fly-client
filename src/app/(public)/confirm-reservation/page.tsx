@@ -97,8 +97,8 @@ export default function ConfirmReservationPage() {
   }, [])
 
   const servicePrice = useMemo(
-    () => (ct.check_in ? CHECK_IN_PRICE : 0),
-    [ct.check_in]
+    () => (ct?.check_in ? CHECK_IN_PRICE : 0),
+    [ct?.check_in]
   )
 
   const getCountryName = () => {
@@ -687,36 +687,14 @@ export default function ConfirmReservationPage() {
               </SectionLightBlue>
 
               <div className="flex flex-col py-4">
-                {res.passengers?.map((passenger: any, index: number) => {
-                  if (!passenger?.first_name) {
-                    return ''
-                  }
-                  return (
-                    <div key={index}>
-                      <div className="grid grid-cols-5 items-center gap-4">
-                        <p className="col-span-2 text-sm uppercase">
-                          {passenger.first_name} {passenger.last_name}
-                        </p>
-                        <div className="col-span-2">
-                          <p className="text-xs text-gray-500">
-                            {t.onlineCheckIn}
-                          </p>
-                        </div>
-                        <div className="col-span-1">
-                          <p className="text-xs font-semibold">
-                            {CHECK_IN_PRICE} €
-                          </p>
-                        </div>
-                      </div>
-                      {res.passengers.length > 0 &&
-                      index !== ct.passengers.length - 1 ? (
-                        <Divider />
-                      ) : (
-                        ''
-                      )}
-                    </div>
-                  )
-                })}
+                {ct?.check_in ? (
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-xs text-gray-500">{t.onlineCheckIn}</p>
+                    <p className="text-xs font-semibold">{CHECK_IN_PRICE} €</p>
+                  </div>
+                ) : (
+                  <p className="m-0 p-0">----</p>
+                )}
               </div>
             </div>
           </div>
