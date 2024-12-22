@@ -538,7 +538,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">Total:</span>
               <span className="ml-2 font-semibold">
-                {Math.round(res.price + baggagePrice + 8.99)} €
+                {Math.round(res.price + baggagePrice + servicePrice)} €
               </span>
             </div>
           </div>
