@@ -96,6 +96,11 @@ export default function ConfirmReservationPage() {
     }, 3000)
   }, [])
 
+  const servicePrice = useMemo(
+    () => (ct.check_in ? CHECK_IN_PRICE : 0),
+    [ct.check_in]
+  )
+
   const getCountryName = () => {
     const country = countries.find(
       (country: any) => country.cca2 === ct?.passengers?.[0]?.passport_country
@@ -720,7 +725,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">{t.total}:</span>
               <span className="ml-2 font-semibold">
-                {Math.round(res.price + baggagePrice + CHECK_IN_PRICE)} €
+                {Math.round(res.price + baggagePrice + servicePrice)} €
               </span>
             </div>
           </div>

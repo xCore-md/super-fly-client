@@ -56,6 +56,11 @@ export const ReservationSummary = ({
     [formik?.values?.passengers, reservation.bags_price]
   )
 
+  const servicePrice = useMemo(
+    () => (formik.values.check_in ? CHECK_IN_PRICE : 0),
+    [formik.values.check_in]
+  )
+
   return (
     <section className="flex flex-1 flex-col">
       <div className="lg:sticky lg:top-32">
@@ -170,7 +175,7 @@ export const ReservationSummary = ({
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
           <span className="font-light">{t.total}:</span>
           <span className="ml-2 font-semibold">
-            {reservation.price + baggagePrice + CHECK_IN_PRICE} €
+            {reservation.price + baggagePrice + servicePrice} €
           </span>
         </div>
 
