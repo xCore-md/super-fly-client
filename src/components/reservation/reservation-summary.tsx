@@ -55,8 +55,11 @@ export const ReservationSummary = ({
   )
 
   const servicePrice = useMemo(
-    () => (formik.values.check_in ? CHECK_IN_PRICE : 0),
-    [formik.values.check_in]
+    () =>
+      formik.values.check_in
+        ? formik.values.passengers?.length * CHECK_IN_PRICE
+        : 0,
+    [formik.values.check_in, formik.values.passengers?.length]
   )
 
   return (

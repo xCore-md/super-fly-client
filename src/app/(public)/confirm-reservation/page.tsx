@@ -96,8 +96,8 @@ export default function ConfirmReservationPage() {
   }, [])
 
   const servicePrice = useMemo(
-    () => (ct?.check_in ? CHECK_IN_PRICE : 0),
-    [ct?.check_in]
+    () => (ct?.check_in ? ct.passengers?.length * CHECK_IN_PRICE : 0),
+    [ct?.check_in, ct.passengers?.length]
   )
 
   const getCountryName = () => {
