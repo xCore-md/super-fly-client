@@ -114,3 +114,7 @@ export const handleDownloadImage = async ({
     console.error('Failed to download image', error)
   }
 }
+
+export function truncNumber(number: number) {
+  return Math.trunc(number * 100) / 100
+}

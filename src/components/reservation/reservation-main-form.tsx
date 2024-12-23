@@ -19,7 +19,7 @@ import eightKgSvg from '@/assets/img/bags/8Kg.svg'
 import checkMarkSvg from '@/assets/img/check-mark.svg'
 import minus from '@/assets/img/minus.svg'
 import passportSvg from '@/assets/img/passport.svg'
-import { cn, handleCalendarKeyDown } from '@/lib/utils'
+import { cn, handleCalendarKeyDown, truncNumber } from '@/lib/utils'
 import { BagNumberInput } from '@components/form/bag-number-input'
 import { ReservationCard } from '@components/reservation/reservation-card'
 import { Card, CardContent, CardHeader } from '@components/ui/card'
@@ -67,7 +67,10 @@ export const ReservationMainForm = ({
   const bagsPrice =
     Object.keys(reservation?.bags_price).length > 1
       ? reservation?.bags_price
-      : { ...reservation?.bags_price, 2: reservation?.bags_price['1'] * 2 }
+      : {
+          1: reservation?.bags_price['1'],
+          2: reservation?.bags_price['1'] * 2,
+        }
 
   const items = Array.from({ length: passengersCount }).map((_, index) => ({
     key: `index-${index}`,
@@ -677,7 +680,7 @@ const BagTypeAndPrice = ({
           hidden: bag.hideInput,
         })}
       >
-        {Math.round(bagsPrice[index + 1])} €
+        {truncNumber(bagsPrice[index + 1]).toFixed(2)} €
       </p>
     </>
   )

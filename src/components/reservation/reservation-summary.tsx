@@ -6,7 +6,7 @@ import { Divider, Button } from 'antd'
 import { useFlightContext } from '@/context/flight-context'
 import { useTranslationsContext } from '@/context/translations-context'
 import { CHECK_IN_PRICE } from '@/lib/constants'
-import { cn } from '@/lib/utils'
+import { cn, truncNumber } from '@/lib/utils'
 import { ReservationTimer } from './reservation-timer'
 
 export const ReservationSummary = ({
@@ -29,23 +29,21 @@ export const ReservationSummary = ({
   const isRoundTrip = route?.some((r: any) => r.return)
   const flightType = isRoundTrip ? 'Dus - Întors' : 'Dus'
 
-  const baggageCountPrice = (bagCount: number, index: number) => {
-    const price = reservation.bags_price?.[index]
+  const baggageCountPrice = (bagCount: number, type: string) => {
+    const price = Number(reservation.bags_price['1'])
 
-    const bagsPrice =
-      bagCount * (price || reservation.bags_price?.[index - 1] * 2)
-    return Math.round(bagsPrice)
+    const bagPrice = type === '10kg' ? price : price * 2
+
+    return bagCount * bagPrice
   }
 
   const baggagePrice = useMemo(
     () =>
       formik?.values?.passengers
-        ?.map((passenger: any) => {
-          const baggagePrice = passenger?.baggage?.map(
-            (bag: any, bagIndex: number) => {
-              return baggageCountPrice(bag.count, bagIndex + 1)
-            }
-          )
+        ?.map((p: any) => {
+          const baggagePrice = p?.baggage?.map((bag: any) => {
+            return baggageCountPrice(bag.count, bag.type)
+          })
 
           return baggagePrice?.reduce(
             (acc: number, curr: number) => acc + curr,
@@ -108,7 +106,9 @@ export const ReservationSummary = ({
                                   </p>
                                   <p className="text-xs text-gray-500">
                                     {bag.count} x{' '}
-                                    {baggageCountPrice(bag.count, bagIndex + 1)}{' '}
+                                    {truncNumber(
+                                      baggageCountPrice(bag.count, bag.type)
+                                    )}{' '}
                                     €
                                   </p>
                                 </div>
@@ -175,7 +175,7 @@ export const ReservationSummary = ({
         <div className="mt-4 rounded-full bg-brand-blue px-4 py-3 text-xs text-white lg:mt-11">
           <span className="font-light">{t.total}:</span>
           <span className="ml-2 font-semibold">
-            {reservation.price + baggagePrice + servicePrice} €
+            {truncNumber(reservation.price + baggagePrice + servicePrice)} €
           </span>
         </div>
 

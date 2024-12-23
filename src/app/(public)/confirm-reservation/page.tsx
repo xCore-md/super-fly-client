@@ -22,7 +22,7 @@ import { useReservationContext } from '@/context/reservation-context'
 import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import { CHECK_IN_PRICE } from '@/lib/constants'
-import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
+import { getFlightTime, cn, getFormattedDate, truncNumber } from '@/lib/utils'
 import OurOfficeModal from './our-office-modal'
 import { Button } from '../../../components/ui/button'
 
@@ -58,13 +58,12 @@ export default function ConfirmReservationPage() {
   const { adults, children, infants } = flight
 
   const baggageCountPrice = (bagCount: number, type: string) => {
-    const price = res.bags_price['1']
+    const price = Number(res.bags_price['1'])
+
     const bagPrice = type === '10kg' ? price : price * 2
 
-    const bagsPrice = bagCount * bagPrice
-    return Math.round(bagsPrice)
+    return bagCount * bagPrice
   }
-
   const baggagePrice = useMemo(
     () =>
       res.passengers
@@ -538,7 +537,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">Total:</span>
               <span className="ml-2 font-semibold">
-                {res.price + baggagePrice + servicePrice} €
+                {truncNumber(res.price + baggagePrice + servicePrice)} €
               </span>
             </div>
           </div>
@@ -658,7 +657,10 @@ export default function ConfirmReservationPage() {
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {bag.count} x{' '}
-                                  {baggageCountPrice(bag.count, bag.type)} €
+                                  {truncNumber(
+                                    baggageCountPrice(bag.count, bag.type)
+                                  )}{' '}
+                                  €
                                 </p>
                               </div>
                             ) : (
@@ -703,7 +705,7 @@ export default function ConfirmReservationPage() {
             <div>
               <span className="font-light">{t.total}:</span>
               <span className="ml-2 font-semibold">
-                {res.price + baggagePrice + servicePrice} €
+                {truncNumber(res.price + baggagePrice + servicePrice)} €
               </span>
             </div>
           </div>
