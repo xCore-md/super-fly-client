@@ -8,6 +8,7 @@ import { FlightsContextProvider } from '@/context/flights-context'
 import { LoadingContextProvider } from '@/context/loading-context'
 import { ReservationContextProvider } from '@/context/reservation-context'
 import { TranslationsContextProvider } from '@/context/translations-context'
+import keywordsData from '@/data/keywords.json'
 
 const inter = Poppins({
   subsets: ['latin'],
@@ -31,8 +32,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const { keywords } = keywordsData
   return (
     <html lang="en">
+      <head>
+        <meta name="keywords" content={keywords.join(', ')} />
+      </head>
       <body className={inter.className}>
         <TranslationsContextProvider>
           <LoadingContextProvider>

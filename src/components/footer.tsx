@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import { Button } from 'antd'
+import { Button, Collapse } from 'antd'
 import { ChevronDown } from 'lucide-react'
 import fbOriginal from '@/assets/img/fb-original.svg'
 import instaOriginal from '@/assets/img/insta-original.svg'
@@ -14,12 +14,6 @@ import mastercardS from '@/assets/img/mastercard-s.svg'
 import paynetS from '@/assets/img/paynet-icon-s.svg'
 import phone from '@/assets/img/phone.svg'
 import visaS from '@/assets/img/visa-s.svg'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@components/ui/accordion'
 import { useTranslationsContext } from '@/context/translations-context'
 
 export const Footer = () => {
@@ -118,6 +112,7 @@ export const Footer = () => {
         ro: 'Companii Aeriene',
         ru: 'Авиакомпании',
       },
+      expanded: false,
       items: {
         ro: [
           'Hisky',
@@ -364,48 +359,57 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
         ))}
       </div>
 
-      <Accordion type="single" collapsible className="w-full lg:hidden">
-        {list.map(({ title, items }: any, index: number) => (
-          <AccordionItem key={index} value={title[lang]} className="border-0">
-            <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
-              <h4 className="text-lg font-medium text-blue-700">
-                {title[lang]}
-              </h4>
-            </AccordionTrigger>
-            <AccordionContent>
+      <div className="w-full lg:hidden">
+        <Collapse
+          ghost
+          accordion
+          expandIconPosition="end"
+          destroyInactivePanel
+          className="footer-collapse"
+          expandIcon={({ isActive }) => (
+            <ChevronDown
+              size={30}
+              className={`transform transition-transform ${
+                isActive ? 'rotate-180' : ''
+              }`}
+            />
+          )}
+        >
+          {list.map(({ title, items }: any, index: number) => (
+            <Collapse.Panel
+              header={title[lang]}
+              key={index + 1}
+              className="text-lg font-medium text-blue-700"
+            >
               <ul>
                 {items?.[lang].map((item: string, index: number) => (
                   <li
                     key={index}
                     className="mb-3 text-gray-500 transition-all hover:text-gray-900"
                   >
-                    {item[lang]}
+                    {item}
                   </li>
                 ))}
               </ul>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-
-        {listWithLinks.map(({ title, items }: any, index: number) => (
-          <AccordionItem key={index} value={title[lang]} className="border-0">
-            <AccordionTrigger className=" py-2 hover:no-underline active:no-underline">
-              <h4 className="text-lg font-medium text-blue-700">
-                {title[lang]}
-              </h4>
-            </AccordionTrigger>
-            <AccordionContent>
+            </Collapse.Panel>
+          ))}
+          {listWithLinks.map(({ title, items }: any, index: number) => (
+            <Collapse.Panel
+              header={title[lang]}
+              key={index}
+              className="text-lg font-medium text-blue-700"
+            >
               <ul>
                 {items.map(({ label, href }: any, index: number) => (
                   <li key={index} className="mb-3 text-gray-500">
-                    <a href={href}>{label[lang]}</a>
+                    <Link href={href}>{label[lang]}</Link>
                   </li>
                 ))}
               </ul>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+            </Collapse.Panel>
+          ))}
+        </Collapse>
+      </div>
     </>
   )
 }

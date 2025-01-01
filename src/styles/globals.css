@@ -815,4 +815,12 @@ body {
     color: #3f4ed6;
     font-size: 14px !important;
   }
-} 
+}
+
+
+.footer-collapse {
+  .ant-collapse-header {
+    padding: 8px 0 !important;
+    color: #3F4ED6 !important;
+  }
+}
