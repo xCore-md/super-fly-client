@@ -295,6 +295,14 @@ const PassengerForm = ({
               onChange={(p) =>
                 formik.setFieldValue(`passengers[${index}].phone`, p)
               }
+              onKeyDown={(e) => {
+                if (
+                  formik.values.passengers?.[index].phone.length === 0 &&
+                  e.key === '0'
+                ) {
+                  e.preventDefault()
+                }
+              }}
               disabled={loading}
               inputStyle={{
                 width: '100%',

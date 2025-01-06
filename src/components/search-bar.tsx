@@ -30,6 +30,7 @@ import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
 import 'react-phone-input-2/lib/style.css'
 import { useTranslationsContext } from '@/context/translations-context'
+import GoogleTagManager from '@/lib/hooks/googleTagManager'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -157,6 +158,8 @@ export const SearchBar = ({
       setIsPhoneInputVisible(!!phone)
     }
   }, [])
+
+  GoogleTagManager()
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -519,6 +522,11 @@ export const SearchBar = ({
               <div className="mt-2 w-full">
                 <PhoneInput
                   onChange={handleChangePhoneNumber}
+                  onKeyDown={(e) => {
+                    if (phoneValue.length === 0 && e.key === '0') {
+                      e.preventDefault()
+                    }
+                  }}
                   value={phoneValue}
                   preferredCountries={[
                     'md',

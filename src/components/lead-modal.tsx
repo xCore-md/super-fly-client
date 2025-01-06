@@ -10,6 +10,7 @@ import { useFlightContext } from '@/context/flight-context'
 import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import 'react-phone-input-2/lib/style.css'
+import GoogleTagManager from '@/lib/hooks/googleTagManager'
 
 interface IProps {
   closable?: boolean
@@ -29,6 +30,8 @@ export default function LeadModal({
   const { flight } = useFlightContext()
   const { lang } = useTranslationsContext()
   const [storageFlight, setStorageFlight] = useState<any>(null)
+
+  console.log({ phone })
 
   const scrollTopFunc = () => {
     document.body.style.overflow = 'auto'
@@ -61,8 +64,11 @@ export default function LeadModal({
     }
   }, [])
 
+  GoogleTagManager()
+
   const handleChangePhoneNumber = useCallback((inputValue: string) => {
     // Allow only numbers and a single "+" at the start
+
     if (/^(?:\+)?\d*$/.test(inputValue)) {
       setPhone(inputValue)
     }
@@ -209,6 +215,11 @@ export default function LeadModal({
         <div className="mt-2 w-full">
           <PhoneInput
             onChange={handleChangePhoneNumber}
+            onKeyDown={(e) => {
+              if (phone.length === 0 && e.key === '0') {
+                e.preventDefault()
+              }
+            }}
             value={phone}
             preferredCountries={[
               'md',
