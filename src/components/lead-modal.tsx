@@ -34,8 +34,6 @@ export default function LeadModal({
   const { lang } = useTranslationsContext()
   const [storageFlight, setStorageFlight] = useState<any>(null)
 
-  console.log({ phone })
-
   const scrollTopFunc = () => {
     document.body.style.overflow = 'auto'
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -78,7 +76,7 @@ export default function LeadModal({
   }, [])
 
   const handleSubmit = useCallback(() => {
-    gtagReportConversion(window.location.href)
+    gtagReportConversion()
     const flightData = storageFlight || flight
     const data = closable
       ? { phone }

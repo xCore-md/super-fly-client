@@ -274,7 +274,7 @@ export const SearchBar = ({
   }
 
   const submitSearch = () => {
-    gtagReportConversion(window.location.href)
+    gtagReportConversion()
     if (
       !formik.values.fly_from ||
       !formik.values.fly_to ||

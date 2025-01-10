@@ -40,18 +40,9 @@ export function GoogleTagManager() {
   return null // This component doesn't render any visible elements
 }
 
-export function gtagReportConversion(url: any) {
-  const gtag = (...args: any) => window.dataLayer?.push(args)
-
-  const callback = () => {
-    if (typeof url != 'undefined') {
-      window.location = url
-    }
-  }
-
-  gtag('event', 'conversion', {
+export function gtagReportConversion() {
+  window.gtag('event', 'conversion', {
     send_to: 'AW-11153182127/UVpNCMLEu_8ZEK-boMYp',
-    event_callback: callback,
   })
 
   return false
