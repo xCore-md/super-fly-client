@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import dayjs from 'dayjs'
 
-const GoogleTagManager = () => {
+export function GoogleTagManager() {
   useEffect(() => {
     const GTAG_URL = 'https://www.googletagmanager.com/gtag/js'
     const TAG_ID = 'AW-11153182127'
@@ -40,4 +40,19 @@ const GoogleTagManager = () => {
   return null // This component doesn't render any visible elements
 }
 
-export default GoogleTagManager
+export function gtagReportConversion(url: any) {
+  const gtag = (...args: any) => window.dataLayer?.push(args)
+
+  const callback = () => {
+    if (typeof url != 'undefined') {
+      window.location = url
+    }
+  }
+
+  gtag('event', 'conversion', {
+    send_to: 'AW-11153182127/UVpNCMLEu_8ZEK-boMYp',
+    event_callback: callback,
+  })
+
+  return false
+}

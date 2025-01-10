@@ -30,7 +30,10 @@ import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
 import 'react-phone-input-2/lib/style.css'
 import { useTranslationsContext } from '@/context/translations-context'
-import GoogleTagManager from '@/lib/hooks/googleTagManager'
+import {
+  GoogleTagManager,
+  gtagReportConversion,
+} from '@/lib/hooks/googleTagManager'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -271,6 +274,7 @@ export const SearchBar = ({
   }
 
   const submitSearch = () => {
+    gtagReportConversion(window.location.href)
     if (
       !formik.values.fly_from ||
       !formik.values.fly_to ||

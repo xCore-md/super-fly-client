@@ -10,7 +10,10 @@ import { useFlightContext } from '@/context/flight-context'
 import { useTranslationsContext } from '@/context/translations-context'
 import axs from '@/lib/axios'
 import 'react-phone-input-2/lib/style.css'
-import GoogleTagManager from '@/lib/hooks/googleTagManager'
+import {
+  GoogleTagManager,
+  gtagReportConversion,
+} from '@/lib/hooks/googleTagManager'
 
 interface IProps {
   closable?: boolean
@@ -75,6 +78,7 @@ export default function LeadModal({
   }, [])
 
   const handleSubmit = useCallback(() => {
+    gtagReportConversion(window.location.href)
     const flightData = storageFlight || flight
     const data = closable
       ? { phone }
