@@ -9,11 +9,13 @@ import fo from '@/assets/img/banner-assets/fo.png'
 import hs from '@/assets/img/banner-assets/hs.png'
 import wz from '@/assets/img/banner-assets/wz.png'
 import plane from '@/assets/img/plane.png'
+import { useTranslationsContext } from '@/context/translations-context'
 import { SearchBarWithTabs } from '@components/search-bar-with-tabs'
 import LeadModal from './lead-modal'
 
 export const Banner = ({ title }: { title: string }) => {
   gsap.registerPlugin(useGSAP)
+  const { lang } = useTranslationsContext()
 
   useGSAP(() => {
     gsap.fromTo('.banner-title', { y: -20, opacity: 0 }, { y: 0, opacity: 1 })
@@ -57,14 +59,19 @@ export const Banner = ({ title }: { title: string }) => {
 
       <div className="relative z-20 h-auto">
         {companyParams && (
-          <div className="relative mb-4 h-40 lg:hidden">
-            <Image
-              fill
-              className="banner-image h-full object-contain"
-              src={companies[companyParams]?.imageSrc || plane}
-              alt="image"
-              priority
-            />
+          <div>
+            <div className="relative mb-4 h-40 lg:hidden">
+              <Image
+                fill
+                className="banner-image h-full object-contain"
+                src={companies[companyParams]?.imageSrc || plane}
+                alt="image"
+                priority
+              />
+            </div>
+            <h1 className="my-4 w-full text-center text-lg font-medium tracking-wide text-white">
+              {companies[companyParams]?.text[lang]}
+            </h1>
           </div>
         )}
         {!companyParams && (
@@ -87,14 +94,30 @@ export const Banner = ({ title }: { title: string }) => {
 const companies: any = {
   flyOne: {
     imageSrc: fo,
+    text: {
+      ro: 'Bilete de avion cu FlyOne',
+      ru: 'Авиабилеты с FlyOne',
+    },
   },
   hiSky: {
     imageSrc: hs,
+    text: {
+      ro: 'Bilete de avion cu HiSky',
+      ru: 'Авиабилеты с HiSky',
+    },
   },
   wizzAir: {
     imageSrc: wz,
+    text: {
+      ro: 'Bilete de avion cu Wizz Air',
+      ru: 'Авиабилеты с Wizz Air',
+    },
   },
   airMoldova: {
     imageSrc: am,
+    text: {
+      ro: 'Bilete de avion cu Air Moldova',
+      ru: 'Авиабилеты с Air Moldova',
+    },
   },
 }

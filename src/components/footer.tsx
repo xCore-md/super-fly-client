@@ -115,28 +115,28 @@ export const Footer = () => {
       expanded: false,
       items: {
         ro: [
-          'Hisky',
-          'Wizz air',
-          'Turkish Airlines',
-          'TAROM',
-          'EasyJet',
-          'LOT Polish',
-          'Lufthansa',
-          'Flyone',
-          'Aegian',
-          'Pegasus',
+          { title: 'Hisky', url: `${pathname}?company=hiSky` },
+          { title: 'Wizz air ', url: `${pathname}?company=wizzAir` },
+          { title: 'Turkish Airlines ', url: '/' },
+          { title: 'TAROM', url: '/' },
+          { title: 'EasyJet', url: '/' },
+          { title: 'LOT Polish ', url: '/' },
+          { title: 'Lufthansa', url: '/' },
+          { title: 'Flyone', url: `${pathname}?company=flyOne` },
+          { title: 'Aegian', url: '' },
+          { title: 'Pegasus', url: '/' },
         ],
         ru: [
-          'Hisky',
-          'Wizz air',
-          'Turkish Airlines',
-          'TAROM',
-          'EasyJet',
-          'LOT Polish',
-          'Lufthansa',
-          'Flyone',
-          'Aegian',
-          'Pegasus',
+          { title: 'Hisky', url: `${pathname}?company=hiSky` },
+          { title: 'Wizz air', url: `${pathname}?company=wizzAir` },
+          { title: 'Turkish Airlines', url: '/' },
+          { title: 'TAROM', url: '/' },
+          { title: 'EasyJet', url: '/' },
+          { title: 'LOT Polish', url: '/' },
+          { title: 'Lufthansa', url: '/' },
+          { title: 'Flyone', url: `${pathname}?company=flyOne` },
+          { title: 'Aegian', url: '/' },
+          { title: 'Pegasus', url: '/' },
         ],
       },
     },
@@ -318,12 +318,14 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
             <ul key={index}>
               {items?.[lang]
                 .slice(0, expanded ? items.length : 9)
-                .map((item: string, index: number) => (
+                .map((item: any, index: number) => (
                   <li
                     key={index}
                     className="mb-2 text-gray-500 transition-all hover:cursor-default hover:text-gray-900"
                   >
-                    {item}
+                    <Link href={item.url ? item.url : '/'}>
+                      {item.title || item}
+                    </Link>
                   </li>
                 ))}
             </ul>
@@ -382,12 +384,14 @@ const FooterColumns = ({ list, listWithLinks, lang, t }: any) => {
               className="text-lg font-medium text-blue-700"
             >
               <ul>
-                {items?.[lang].map((item: string, index: number) => (
+                {items?.[lang].map((item: any, index: number) => (
                   <li
                     key={index}
                     className="mb-3 text-gray-500 transition-all hover:text-gray-900"
                   >
-                    {item}
+                    <Link href={item.url ? item.url : '/'}>
+                      {item.title || item}
+                    </Link>
                   </li>
                 ))}
               </ul>

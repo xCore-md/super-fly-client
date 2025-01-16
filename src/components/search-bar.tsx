@@ -580,10 +580,10 @@ export const SearchBar = ({
               onClick={() => submitSearch()}
               style={{
                 backgroundColor: companyParams
-                  ? colorsByCompany[companyParams].bg
+                  ? optionsByCompany[companyParams]?.bg
                   : '#11D2A4',
                 color: companyParams
-                  ? colorsByCompany[companyParams].color
+                  ? optionsByCompany[companyParams]?.color
                   : '#fff',
               }}
               className="search-button-shadow mt-3 flex h-[32px] w-full items-center justify-center rounded-full border-0 hover:opacity-90 lg:mt-0 lg:hidden lg:w-auto"
@@ -753,7 +753,7 @@ const info: any = {
   },
 }
 
-const colorsByCompany: any = {
+const optionsByCompany: any = {
   flyOne: {
     bg: '#10D2A4',
     color: '#fff',
