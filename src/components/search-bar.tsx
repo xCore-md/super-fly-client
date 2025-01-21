@@ -162,7 +162,9 @@ export const SearchBar = ({
     }
   }, [])
 
-  GoogleTagManager()
+  if (pathname === '/') {
+    GoogleTagManager()
+  }
 
   useEffect(() => {
     const storage = localStorage.getItem('flight')
@@ -274,7 +276,9 @@ export const SearchBar = ({
   }
 
   const submitSearch = () => {
-    gtagReportConversion()
+    if (pathname === '/') {
+      gtagReportConversion()
+    }
     if (
       !formik.values.fly_from ||
       !formik.values.fly_to ||

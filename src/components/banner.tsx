@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import am from '@/assets/img/banner-assets/am.png'
 import fo from '@/assets/img/banner-assets/fo.png'
-import hs from '@/assets/img/banner-assets/hs.png'
+import hs from '@/assets/img/banner-assets/hsk.png'
 import wz from '@/assets/img/banner-assets/wz.png'
 import plane from '@/assets/img/plane.png'
 import { useTranslationsContext } from '@/context/translations-context'
@@ -63,7 +63,7 @@ export const Banner = ({ title }: { title: string }) => {
             <div className="relative mb-4 h-40 lg:hidden">
               <Image
                 fill
-                className="banner-image h-full object-contain"
+                className="banner-image object-contain"
                 src={companies[companyParams]?.imageSrc || plane}
                 alt="image"
                 priority
