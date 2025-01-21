@@ -29,6 +29,7 @@ export default function LeadModal({
 }: IProps) {
   const [openModal, setOpenModal] = useState(false)
   const [phone, setPhone] = useState('')
+  const [countryCode, setCountryCode] = useState('')
   const [api, contextHolder] = notification.useNotification()
   const { flight } = useFlightContext()
   const { lang } = useTranslationsContext()
@@ -67,16 +68,38 @@ export default function LeadModal({
 
   GoogleTagManager()
 
-  const handleChangePhoneNumber = useCallback((inputValue: string) => {
-    // Allow only numbers and a single "+" at the start
+  const handleChangePhoneNumber = useCallback(
+    (inputValue: string, countryData: any) => {
+      // Allow only numbers and a single "+" at the start
 
-    if (/^(?:\+)?\d*$/.test(inputValue)) {
-      setPhone(inputValue)
-    }
-  }, [])
+      setCountryCode(countryData.dialCode)
+      if (/^(?:\+)?\d*$/.test(inputValue)) {
+        setPhone(inputValue)
+      }
+    },
+    []
+  )
 
   const handleSubmit = useCallback(() => {
     gtagReportConversion()
+    const minPhoneLength = countryCode?.length + 8
+    const maxPhoneLength = countryCode?.length + 15
+    const invalidPhoneNumber =
+      phone.length < minPhoneLength || phone.length > maxPhoneLength
+    if (invalidPhoneNumber) {
+      api.open({
+        message: '',
+        description: (
+          <div>
+            <h4 className="text-base font-medium">{info.attention[lang]}</h4>
+            <p>{info.introducePhoneNumber[lang]}</p>
+          </div>
+        ),
+        placement: 'topRight',
+        closable: true,
+      })
+      return
+    }
     const flightData = storageFlight || flight
     const data = closable
       ? { phone }

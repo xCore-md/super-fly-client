@@ -67,6 +67,7 @@ export const SearchBar = ({
   const { setFlights, setInitialFlights } = useFlightsContext()
   const [drawerState, setDrawerState] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
+  const [countryCode, setCountryCode] = useState('')
   const [isPhoneInputVisible, setIsPhoneInputVisible] = useState(false)
   const { lang, translations: t } = useTranslationsContext()
 
@@ -279,6 +280,24 @@ export const SearchBar = ({
     if (pathname === '/') {
       gtagReportConversion()
     }
+    const minPhoneLength = countryCode?.length + 8
+    const maxPhoneLength = countryCode?.length + 15
+    const invalidPhoneNumber =
+      phoneValue.length < minPhoneLength || phoneValue.length > maxPhoneLength
+    if (invalidPhoneNumber) {
+      api.open({
+        message: '',
+        description: (
+          <div>
+            <h4 className="text-base font-medium">{info.attention[lang]}</h4>
+            <p>{info.introducePhoneNumber[lang]}</p>
+          </div>
+        ),
+        placement: 'topRight',
+        closable: true,
+      })
+      return
+    }
     if (
       !formik.values.fly_from ||
       !formik.values.fly_to ||
@@ -442,13 +461,17 @@ export const SearchBar = ({
     drawerState === '' &&
     !isPhoneInputVisible
 
-  const handleChangePhoneNumber = useCallback((value: string) => {
-    // Allow only numbers and a single "+" at the start
-    // if (/^(?:\+)?\d*$/.test(value)) {
-    setPhoneValue(value)
-    formik.setFieldValue('phone', value)
-    // }
-  }, [])
+  const handleChangePhoneNumber = useCallback(
+    (value: string, countryData: any) => {
+      // Allow only numbers and a single "+" at the start
+      // if (/^(?:\+)?\d*$/.test(value)) {
+      setCountryCode(countryData.dialCode)
+      setPhoneValue(value)
+      formik.setFieldValue('phone', value)
+      // }
+    },
+    []
+  )
 
   const resetForm = useRef(() => formik.resetForm())
 
@@ -746,6 +769,14 @@ const info: any = {
   allFieldsRequired: {
     ro: 'Toate campurile sunt obligatorii',
     ru: 'Все поля обязательны к заполнению',
+  },
+  attention: {
+    ro: 'Atenție!',
+    ru: 'Внимание!',
+  },
+  introducePhoneNumber: {
+    ro: 'Introduceți numărul de telefon corect ✅',
+    ru: 'Введите правильный номер телефона ✅',
   },
   error: {
     ro: 'Eroare',
