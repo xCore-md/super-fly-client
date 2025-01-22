@@ -30,10 +30,7 @@ import { SearchInput } from './search-components-desktop/search-input'
 import { SearchPassengers } from './search-components-desktop/search-passengers'
 import 'react-phone-input-2/lib/style.css'
 import { useTranslationsContext } from '@/context/translations-context'
-import {
-  GoogleTagManager,
-  gtagReportConversion,
-} from '@/lib/hooks/googleTagManager'
+import { GoogleTagManager } from '@/lib/hooks/googleTagManager'
 
 interface ISearchBarProps {
   setLoading?: any
@@ -277,14 +274,11 @@ export const SearchBar = ({
   }
 
   const submitSearch = () => {
-    if (pathname === '/') {
-      gtagReportConversion()
-    }
     const minPhoneLength = countryCode?.length + 8
     const maxPhoneLength = countryCode?.length + 15
     const invalidPhoneNumber =
       phoneValue.length < minPhoneLength || phoneValue.length > maxPhoneLength
-    if (invalidPhoneNumber) {
+    if (phoneValue.length > 5 && invalidPhoneNumber) {
       api.open({
         message: '',
         description: (
