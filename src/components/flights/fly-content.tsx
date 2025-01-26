@@ -4,15 +4,15 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { Tooltip, Divider, Button } from 'antd'
+import dayjs from 'dayjs'
 import backpackSvg from '@/assets/img/backpack.svg'
 import seatSvg from '@/assets/img/seat.svg'
 import viberSvg from '@/assets/img/viber.png'
 import whatsappSvg from '@/assets/img/whatsapp.png'
 import { useReservationContext } from '@/context/reservation-context'
+import { useTranslationsContext } from '@/context/translations-context'
 import { useIsMobile } from '@/lib/hooks/usIsMobile'
 import { getFlightTime, cn, getFormattedDate } from '@/lib/utils'
-import dayjs from 'dayjs'
-import { useTranslationsContext } from '@/context/translations-context'
 
 export const FlyContent = (props: any) => {
   const pathname = usePathname()
@@ -35,8 +35,8 @@ export const FlyContent = (props: any) => {
   const isMobile = useIsMobile()
 
   const startDirectionTime = getFlightTime(
-    startDirection?.[0].local_departure,
-    startDirection?.[startDirection?.length - 1].local_arrival,
+    startDirection?.[0].utc_departure,
+    startDirection?.[startDirection?.length - 1].utc_arrival,
     lang
   )
 

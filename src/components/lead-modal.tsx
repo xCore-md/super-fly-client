@@ -76,7 +76,6 @@ export default function LeadModal({
   )
 
   const handleSubmit = useCallback(() => {
-    gtagReportConversion()
     const minPhoneLength = countryCode?.length + 8
     const maxPhoneLength = countryCode?.length + 15
     const invalidPhoneNumber =
@@ -112,6 +111,10 @@ export default function LeadModal({
           expirationAt: dayjs(),
         }
 
+    const storageLead = localStorage.getItem('lead')
+    if (storageLead) {
+      gtagReportConversion()
+    }
     axs
       .post('/create-lead', { ...data })
       .then(() => {
@@ -265,6 +268,7 @@ export default function LeadModal({
               id: 'leadPhoneInputId',
               autoFocus: true,
               type: 'text',
+              autoComplete: 'off',
             }}
             placeholder={info.fillPhoneNumber[lang]}
             country={'md'}
