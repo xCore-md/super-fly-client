@@ -47,30 +47,19 @@ export const Header = ({ menu }: IHeaderProps) => {
   }, [pathname])
 
   useEffect(() => {
-    if (
-      !document.querySelector(
-        'script[src="https://static.elfsight.com/platform/platform.js"]'
-      )
-    ) {
-      const script = document.createElement('script')
-      script.src = 'https://static.elfsight.com/platform/platform.js'
-      script.async = true
-      document.body.appendChild(script)
+    const script = document.createElement('script')
+    script.src = 'https://cdn.chaty.app/pixel.js?id=RAzRLGrl'
+    script.async = true
+    document.body.appendChild(script)
 
-      return () => {
-        document.body.removeChild(script)
-      }
+    return () => {
+      document.body.removeChild(script)
     }
   }, [])
-
   return (
     <div
       className={`sticky left-0 top-0 z-40 flex justify-center ${isSimpleHeader ? 'bg-white text-black shadow-lg' : 'bg-brand-blue text-white'}`}
     >
-      <div
-        className="elfsight-app-12e1ecef-374e-48d6-b254-db6faad50d22"
-        data-elfsight-app-lazy
-      ></div>
       <div className="custom-container w-full">
         <div
           className={`relative z-10 flex h-20 w-full items-center justify-between ${isSimpleHeader ? '' : 'border-b-[0.1px] border-b-blue-500'}`}
