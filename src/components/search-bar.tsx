@@ -317,7 +317,7 @@ export const SearchBar = ({
 
     const phone = phoneValue || (storageLead && JSON.parse(storageLead).phone)
 
-    if (!storageLead && phone) {
+    if (!storageLead && phone && !invalidPhoneNumber) {
       localStorage.setItem('lead', JSON.stringify({ phone }))
       axs.post('/create-lead', { phone }).catch((err) => {
         console.log({ err })
