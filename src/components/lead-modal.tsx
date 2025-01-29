@@ -111,10 +111,6 @@ export default function LeadModal({
           expirationAt: dayjs(),
         }
 
-    const storageLead = localStorage.getItem('lead')
-    if (storageLead) {
-      gtagReportConversion()
-    }
     axs
       .post('/create-lead', { ...data })
       .then(() => {
@@ -130,6 +126,7 @@ export default function LeadModal({
           closable: true,
         })
 
+        gtagReportConversion()
         scrollTopFunc()
       })
       .catch((err) => {
