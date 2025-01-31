@@ -105,8 +105,6 @@ export function CustomCalendar({
     )
   }
 
-  console.log({ d: currentDate.locale(lang) })
-
   return (
     <Calendar
       headerRender={customHeader}
