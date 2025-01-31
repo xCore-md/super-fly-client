@@ -56,6 +56,7 @@ export const Header = ({ menu }: IHeaderProps) => {
       document.body.removeChild(script)
     }
   }, [])
+
   return (
     <div
       className={`sticky left-0 top-0 z-40 flex justify-center ${isSimpleHeader ? 'bg-white text-black shadow-lg' : 'bg-brand-blue text-white'}`}

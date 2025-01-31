@@ -52,13 +52,13 @@ export function CustomCalendar({
 
   const onPrevMonth = () => {
     changeKeyOfCalendarContent(() =>
-      setCurrentDate(currentDate.subtract(1, 'month'))
+      setCurrentDate(currentDate.subtract(1, 'month').set('date', 1))
     )
   }
 
   const onNextMonth = () => {
     changeKeyOfCalendarContent(() =>
-      setCurrentDate(currentDate.add(1, 'month'))
+      setCurrentDate(currentDate.add(1, 'month').set('date', 1))
     )
   }
 
@@ -105,6 +105,8 @@ export function CustomCalendar({
     )
   }
 
+  console.log({ d: currentDate.locale(lang) })
+
   return (
     <Calendar
       headerRender={customHeader}
@@ -119,6 +121,7 @@ export function CustomCalendar({
       )}
       locale={lang === 'ro' ? roRO : ruRU}
       onChange={handleChange}
+      onPanelChange={(e) => console.log(e)}
       fullscreen={false}
       disabledDate={disabledDates}
     />
